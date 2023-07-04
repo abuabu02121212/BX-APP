@@ -14,3 +14,9 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+1. 使用Android studio创建好项目 
+2. 安装https://pub.dev/packages/get_cli
+3. 使用命令后创建模块
+     get create page:splash
+     get create page:home
