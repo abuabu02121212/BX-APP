@@ -19,7 +19,7 @@ class SplashView extends GetView<SplashController> {
         child: Stack(
           children: [
             Image.asset(
-              "images/splash.webp",
+              "assets/images/splash.png",
               fit: BoxFit.cover,
               width: 1.sw,
               height: 1.sh,
