@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 
@@ -10,13 +11,18 @@ class SplashController extends GetxController {
   void onInit() {
     Log.d("========onInit========");
     super.onInit();
-    FlutterNativeSplash.remove();
+
+    /// 第一帧绘制完成后的回调
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Future.delayed(const Duration(milliseconds: 500), () {
+        FlutterNativeSplash.remove();
+      });
+    });
   }
 
   @override
   void onReady() {
     super.onReady();
-    Log.d("========onReady========");
   }
 
   @override
