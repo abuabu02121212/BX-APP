@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_comm/skin/skin_manager.dart';
 import 'package:flutter_comm/util/Log.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import '../env.dart';
 
@@ -10,13 +11,13 @@ RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 /// ============== Theme 配置 ===============
 ThemeData appThemeData = ThemeData(
   /// primarySwatch 用于导航栏和floatActionButton的背景色等
-  primarySwatch: Colors.blue,
+  primarySwatch: Colors.purple,
 
   /// brightness 应用程序亮色或者暗色, 会调整导航栏和页面的背景色(如果不显示设置)
   brightness: Brightness.light,
 
   /// 配置主背景色
-  primaryColor: Colors.blue,
+  primaryColor: Colors.pink,
 
   /// 设置 appBarTheme， 颜色如果没有指定取 primarySwatch
   appBarTheme: appBarTheme,
