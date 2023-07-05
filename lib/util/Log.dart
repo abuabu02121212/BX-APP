@@ -1,6 +1,5 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:logger/logger.dart';
-
 
 class Log {
   static const String tag = "LLpp:";
@@ -40,7 +39,12 @@ class Log {
 
   static void _print(Level level, dynamic msg, {int traceDepth = 1}) {
     String traceInfo = getTraceInfo(level, traceDepth: traceDepth);
-    logger.log(level, "${DateTime.now()} $traceInfo $tag$msg");
+    String log = "${DateTime.now()} $traceInfo $tag$msg";
+    if (isDebugMode()) {
+      debugPrint(log);
+    } else {
+      logger.log(level, log);
+    }
   }
 
   static String getTraceInfo(Level level, {int traceDepth = 1}) {
@@ -69,7 +73,7 @@ class Log {
       for (int i = 0; i < tarSize; i++) {
         String item = tarTraceList[i];
         int start = item.indexOf('(package:');
-        if(start > -1){
+        if (start > -1) {
           item = item.substring(start);
         }
         String delimiter = i == tarSize - 1 ? "" : '\r\n';

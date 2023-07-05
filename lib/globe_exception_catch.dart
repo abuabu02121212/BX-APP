@@ -35,7 +35,9 @@ class GlobeExceptionHandler {
       errInfoList = errInfoList.sublist(0, 101);
     }
     errorMsg = errInfoList.join(splitMark);
-    appendLogToLocal(errorMsg);
+    if(Log.isDebugMode()){
+      appendLogToLocal(errorMsg);
+    }
     Log.e("Not catch Exception type: $type: lineNum:${errInfoList.length}  $errorMsg");
   }
 
