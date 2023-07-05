@@ -17,7 +17,7 @@ class CountdownWidget extends StatefulWidget {
   CountdownWidgetState createState() => CountdownWidgetState();
 }
 
-typedef WidgetBuild = Widget Function(String text);
+typedef WidgetBuild = Widget Function(String text, String text2);
 
 class CountdownWidgetState extends State<CountdownWidget> {
   late Timer _timer;
@@ -49,6 +49,12 @@ class CountdownWidgetState extends State<CountdownWidget> {
     super.dispose();
   }
 
+  String get timerSecondsText {
+    int seconds = _currentSeconds % 60;
+    String secondsStr = (seconds < 10) ? '0$seconds' : seconds.toString();
+    return secondsStr;
+  }
+
   String get timerText {
     int minutes = (_currentSeconds ~/ 60);
     int seconds = _currentSeconds % 60;
@@ -62,7 +68,7 @@ class CountdownWidgetState extends State<CountdownWidget> {
     return StreamBuilder<int>(
       stream: Stream.periodic(const Duration(seconds: 1), (i) => _currentSeconds - i - 1),
       builder: (context, snapshot) {
-        return widget.childBuild(timerText);
+        return widget.childBuild(timerSecondsText, timerText);
       },
     );
   }

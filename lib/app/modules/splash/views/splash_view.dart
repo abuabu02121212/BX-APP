@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../widget/count_down.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/splash_controller.dart';
 
 class SplashView extends GetView<SplashController> {
@@ -28,11 +29,21 @@ class SplashView extends GetView<SplashController> {
                 top: 60.w,
                 child: CountdownWidget(
                   seconds: 10,
-                  finish: () {},
-                  childBuild: (String text) {
-                    return Text(
-                      text,
-                      style: TextStyle(color: Colors.white, fontSize: 13.w),
+                  finish: () {
+                    Get.toNamed(Routes.HOME);
+                  },
+                  childBuild: (String text, String text2) {
+                    return ClipOval(
+                      child: Container(
+                        width: 45.w,
+                        height: 45.w,
+                        color: const Color(0xff3f3f3f),
+                        alignment: Alignment.center,
+                        child: Text(
+                          text,
+                          style: TextStyle(color: Colors.white, fontSize: 15.w),
+                        ),
+                      ),
                     );
                   },
                 )),
