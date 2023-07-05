@@ -30,7 +30,7 @@ class SplashView extends GetView<SplashController> {
                 child: CountdownWidget(
                   seconds: 10,
                   finish: () {
-                    Get.toNamed(Routes.HOME);
+                    Get.offNamed(Routes.HOME);
                   },
                   childBuild: (String text, String text2) {
                     return ClipOval(
