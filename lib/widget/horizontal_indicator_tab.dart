@@ -33,17 +33,23 @@ class HorizontalIndicatorTab extends StatefulWidget {
 
   @override
   State<HorizontalIndicatorTab> createState() {
-    return _MyState();
+    return MyState();
   }
 }
 
-class _MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixin {
+class MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixin {
   final GlobalKey rootKey = GlobalKey();
   final ScrollController scrollController = ScrollController();
   late CommonTweenAnim<double> anim = CommonTweenAnim<double>()
     ..init(200, this, 0.0, 0.0)
     ..addListener(onUpdate);
   final ValueNotifier<double> leftNotifier = ValueNotifier<double>(0.0);
+
+  @override
+  void initState() {
+    widget.controller.attach(this);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -173,13 +179,19 @@ class IndicatorAttr {
 }
 
 class IndicatorTabController {
+  MyState? myState;
+
   IndicatorTabController({int defSelectPos = 0}) {
     selectedIndexNotifier.value = defSelectPos;
+  }
+
+  void attach(MyState myState) {
+    this.myState = myState;
   }
 
   final ValueNotifier<int> selectedIndexNotifier = ValueNotifier<int>(0);
 
   void onItemSelectChanged(int pos) {
-    selectedIndexNotifier.value = pos;
+    myState?.onItemSelectChanged(pos);
   }
 }

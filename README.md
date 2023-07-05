@@ -20,3 +20,12 @@ samples, guidance on mobile development, and a full API reference.
 3. 使用命令后创建模块
      get create page:splash
      get create page:home
+
+项目结构：
+lib下面的app模块是本app业务相关的模块
+lib 下面除了app之外的其他模块，是所有项目的通用框架模块
+     http http网络请求
+     skin 换肤相关
+     util 工具类模块
+     widget 自定义UI组建模块
+     navigator 导航相关模块
