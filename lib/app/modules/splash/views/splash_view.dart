@@ -28,7 +28,7 @@ class SplashView extends GetView<SplashController> {
                 right: 30.w,
                 top: 60.w,
                 child: CountdownWidget(
-                  seconds: 10,
+                  seconds: 4,
                   finish: () {
                     Get.offNamed(Routes.HOME);
                   },
