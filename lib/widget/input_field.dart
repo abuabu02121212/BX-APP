@@ -35,7 +35,7 @@ class EditNode {
   final hasFocus = false.obs;
   final TextEditingController editController = TextEditingController();
   final text = "".obs;
-  final enable = true.obs;
+  final enable = false.obs;
   final obscureTextEnable = true.obs;
   final isDisplayErrHint = false.obs;
 
@@ -66,39 +66,37 @@ class MyInputFiled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(15.w),
-        child: Container(
-          width: width,
-          height: height,
-          color: const Color(0xff1c1c28),
-          alignment: Alignment.center,
-          padding: EdgeInsets.only(left: 8.w),
-          child: CupertinoTextField(
-            controller: editNode.editController,
-            focusNode: editNode.focusNode,
-            enabled: true,
-            style: TextStyle(fontSize: 13.w, color: const Color(0xffffffff)),
-            keyboardType: keyboardType,
-            onChanged: (text) {
-              editNode.text.value = text;
-            },
-            decoration: const BoxDecoration(color: Colors.transparent),
-            placeholder: hint,
-            textAlignVertical: TextAlignVertical.center,
-            textAlign: TextAlign.start,
-            placeholderStyle: TextStyle(fontSize: 13.w, color: const Color(0xff6d6d7a)),
-            cursorColor: Colors.white,
-            cursorHeight: 20.w,
-            maxLines: 1,
-            maxLength: 32,
-            prefix: Image.asset(icon, width: 14.w),
-            // suffix: delView(),
-            inputFormatters: inputFormatters,
-          ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(15.w),
+      child: Container(
+        width: width,
+        height: height,
+        color: const Color(0xff1c1c28),
+        alignment: Alignment.center,
+        padding: EdgeInsets.only(left: 8.w),
+        child: CupertinoTextField(
+          controller: editNode.editController,
+          focusNode: editNode.focusNode,
+          style: TextStyle(fontSize: 14.w, color: const Color(0xffffffff)),
+          keyboardType: keyboardType,
+          onChanged: (text) {
+            editNode.text.value = text;
+          },
+          decoration:  const BoxDecoration(color: Colors.transparent),
+          placeholder: hint,
+          textAlignVertical: TextAlignVertical.center,
+          textAlign: TextAlign.start,
+          placeholderStyle: TextStyle(fontSize: 14.w, color: const Color(0xff6d6d7a)),
+          cursorColor: Colors.white,
+          cursorHeight: 20.w,
+          maxLines: 1,
+          maxLength: 32,
+          prefix: Image.asset(icon, width: 14.w),
+          padding: EdgeInsets.only(left: 10.w),
+          // suffix: delView(),
+          inputFormatters: inputFormatters,
         ),
-      );
-    });
+      ),
+    );
   }
 }
