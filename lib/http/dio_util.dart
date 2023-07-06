@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 
 import '../util/Log.dart';
 
+DioUtil httpUtil = DioUtil();
+
 class DioUtil {
   final dio = Dio();
 
