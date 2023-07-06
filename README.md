@@ -22,10 +22,12 @@ samples, guidance on mobile development, and a full API reference.
      get create page:home
 
 项目结构：
-lib下面的app模块是本app业务相关的模块
-lib 下面除了app之外的其他模块，是所有项目的通用框架模块
-     http http网络请求
-     skin 换肤相关
-     util 工具类模块
-     widget 自定义UI组建模块
-     navigator 导航相关模块
+   lib下面的app模块是本app业务相关的模块
+   lib 下面除了app之外的其他模块，是所有项目的通用框架模块
+        http http网络请求
+        skin 换肤相关
+        util 工具类模块
+        widget 自定义UI组建模块
+        navigator 导航相关模块
+   依赖关系，lib下的app模块依赖依赖其他模块，但是其他模块不能依赖app模块
+   以后其他模块会作为通用项目框架，以后搭建项目只需要删除app模块，其他模块稍微配置修改下就行了。
