@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
+import 'home_child_page.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -55,15 +56,21 @@ class HomeView extends GetView<HomeController> {
           width: double.infinity,
           height: double.infinity,
           alignment: Alignment.topLeft,
+          padding: EdgeInsets.only(left: 10.w, right: 10.w),
           child: Column(
-            children: const [
-              HomeHorizontalTabComponent(),
+            children: [
+              const HomeHorizontalTabComponent(),
+              Expanded(
+                child: PageView.builder(
+                    itemCount: HomeHorizontalTabComponent.tabNames.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return HomeChildTabPage(key: ValueKey(index));
+                    }),
+              ),
             ],
           ),
         ),
       ),
     );
   }
-
-
 }
