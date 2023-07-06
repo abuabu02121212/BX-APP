@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_header.dart';
+import 'package:flutter_comm/app/component/app_vip_tab.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -44,6 +45,14 @@ class ComponentTestView extends GetView<ComponentTestController> {
                 height: 30.w,
                 radius: 10.w,
                 progress: 50,
+              ),
+            ),
+          ),
+          Container(
+            color: Colors.grey,
+            padding: const EdgeInsets.all(5),
+            child: Center(
+              child: AppVipTab(
               ),
             ),
           ),
