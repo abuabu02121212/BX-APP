@@ -31,7 +31,7 @@ class AppHeader extends StatelessWidget {
                 onPressed: () {
                   Get.back();
                 },
-                icon: const Icon(Icons.arrow_back_ios)),
+                icon: Icon(Icons.arrow_back_ios, size: 45.w)),
           ),
           Text(
             title,
