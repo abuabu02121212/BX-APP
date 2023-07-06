@@ -6,7 +6,7 @@ import '../../../../widget/horizontal_indicator_tab.dart';
 class HomeHorizontalTabComponent extends StatelessWidget {
   const HomeHorizontalTabComponent({super.key});
 
-  static const List<String> tabNames = ["推荐", "乱伦强奸", "国产精选", "原创传媒", "网黄模特", "异国骚情", "福利姬", "制服诱惑", "H次元"];
+  static const List<String> tabNames = ["国产精选", "国产精选", "国产精选", "国产精选", "国产精选", "国产精选", "国产精选", "国产精选", "国产精选"];
 
   @override
   Widget build(BuildContext context) {
