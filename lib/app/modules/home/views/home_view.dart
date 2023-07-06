@@ -17,36 +17,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset("assets/images/search_icon.webp", width: 36.w),
-            SizedBox(width: 8.w),
-            Expanded(
-                child: Stack(
-              children: [
-                MyInputFiled(
-                  width: double.infinity,
-                  height: 36.w,
-                  hint: '请输入你想搜索的关键字',
-                  icon: 'assets/images/search_g.webp',
-                  editNode: EditNode(),
-                ),
-                CupertinoButton(
-                  onPressed: () {
-                    Toast.show("msg");
-                  },
-                  minSize: 0,
-                  padding: const EdgeInsets.all(0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 36.w,
-                  ),
-                ),
-              ],
-            ))
-          ],
-        ),
+        title: Text("巴西足球"),
         backgroundColor: Colors.black,
         centerTitle: false,
       ),
