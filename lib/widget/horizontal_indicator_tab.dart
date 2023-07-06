@@ -4,7 +4,7 @@ import 'comm_anim2.dart';
 
 typedef ItemBuilder = Widget Function(BuildContext context, int index, int selectedPos);
 typedef Callback<T> = void Function(T t);
-
+/// 基于 SingleChildScrollView 的水平tab ,适用于Tab比较少的情况.
 class HorizontalIndicatorTab extends StatefulWidget {
   const HorizontalIndicatorTab({
     super.key,
