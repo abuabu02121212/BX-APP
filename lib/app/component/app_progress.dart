@@ -21,32 +21,29 @@ class AppProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topLeft,
-      child: Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          color: const Color.fromRGBO(0, 0, 0, 0.25),
-          borderRadius: BorderRadius.circular(radius),
-        ),
-        child: Align(
-          alignment: Alignment.topLeft,
-          child: Container(
-            width: width * progress / 100,
-            height: double.infinity,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(colors: colorList1),
-              borderRadius: BorderRadius.circular(radius),
-            ),
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(left: 20.w),
-            child: Text(
-              "$progress%",
-              style: TextStyle(
-                fontSize: 24.w,
-                color: const Color(0xffffffff),
-              ),
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: const Color.fromRGBO(0, 0, 0, 0.25),
+        borderRadius: BorderRadius.circular(radius),
+      ),
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Container(
+          width: width * progress / 100,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(colors: colorList1),
+            borderRadius: BorderRadius.circular(radius),
+          ),
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.only(left: 20.w),
+          child: Text(
+            "$progress%",
+            style: TextStyle(
+              fontSize: 24.w,
+              color: const Color(0xffffffff),
             ),
           ),
         ),

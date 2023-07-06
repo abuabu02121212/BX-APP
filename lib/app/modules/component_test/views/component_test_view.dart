@@ -18,7 +18,7 @@ class ComponentTestView extends GetView<ComponentTestController> {
       appBar: AppBar(
         titleSpacing: 0,
         leadingWidth: 0,
-        title: const AppHeader(title: "页面标题"),
+        title: const AppHeader(title: "页面标题示例"),
       ),
       body: SafeArea(
         child: ListView(children: [
@@ -35,15 +35,16 @@ class ComponentTestView extends GetView<ComponentTestController> {
               },
             ),
           ),
-
           Container(
             color: Colors.blue,
             padding: const EdgeInsets.all(5),
-            child: AppProgress(
-              width: 348.w,
-              height: 30.w,
-              radius: 10.w,
-              progress: 50,
+            child: Center(
+              child: AppProgress(
+                width: 348.w,
+                height: 30.w,
+                radius: 10.w,
+                progress: 50,
+              ),
             ),
           ),
         ]),
