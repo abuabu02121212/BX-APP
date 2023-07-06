@@ -11,15 +11,17 @@ class DioUtil {
     Log.d(response.data.toString());
   }
 
-  void get(String url, Map<String, Object> param) async {
+  dynamic get(String url, Map<String, Object> param) async {
     Response response;
     response = await dio.get(url, queryParameters: param);
     Log.d(response.data.toString());
+    return response.data;
+
   }
 
-  void post(String url, Map<String, Object> param) async {
+  dynamic post(String url, Map<String, Object> param) async {
     Response response;
     response = await dio.post(url, queryParameters: param);
-    Log.d(response.data.toString());
+    return response.data;
   }
 }
