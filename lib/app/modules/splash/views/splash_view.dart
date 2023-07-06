@@ -26,22 +26,22 @@ class SplashView extends GetView<SplashController> {
             ),
             Positioned(
                 right: 30.w,
-                top: 60.w,
+                top: 120.w,
                 child: CountdownWidget(
                   seconds: 4,
                   finish: () {
-                    Get.offNamed(Routes.HOME);
+                    Get.offNamed(Routes.MAIN);
                   },
                   childBuild: (String text, String text2) {
                     return ClipOval(
                       child: Container(
-                        width: 45.w,
-                        height: 45.w,
+                        width: 90.w,
+                        height: 90.w,
                         color: const Color(0xff3f3f3f),
                         alignment: Alignment.center,
                         child: Text(
                           text,
-                          style: TextStyle(color: Colors.white, fontSize: 15.w),
+                          style: TextStyle(color: Colors.white, fontSize: 30.w),
                         ),
                       ),
                     );
