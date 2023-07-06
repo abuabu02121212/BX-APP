@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../../../../util/toast_util.dart';
 import '../../../component/app_button.dart';
+import '../../../component/app_progress.dart';
 import '../controllers/component_test_controller.dart';
 
 class ComponentTestView extends GetView<ComponentTestController> {
@@ -32,6 +33,17 @@ class ComponentTestView extends GetView<ComponentTestController> {
               onClick: () {
                 Toast.show("按钮被点击");
               },
+            ),
+          ),
+
+          Container(
+            color: Colors.blue,
+            padding: const EdgeInsets.all(5),
+            child: AppProgress(
+              width: 348.w,
+              height: 30.w,
+              radius: 10.w,
+              progress: 50,
             ),
           ),
         ]),
