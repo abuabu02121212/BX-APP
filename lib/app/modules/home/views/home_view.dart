@@ -17,7 +17,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("巴西足球"),
+        title: const Text("巴西足球"),
         backgroundColor: Colors.black,
         centerTitle: false,
       ),
@@ -27,7 +27,7 @@ class HomeView extends GetView<HomeController> {
           width: double.infinity,
           height: double.infinity,
           alignment: Alignment.topLeft,
-          padding: EdgeInsets.only(left: 10.w, right: 10.w),
+          padding: EdgeInsets.only(left: 20.w, right: 20.w),
           child: Column(
             children: [
               const HomeHorizontalTabComponent(),
