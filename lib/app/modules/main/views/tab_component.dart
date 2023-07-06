@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
+import '../../../../util/Log.dart';
+import '../../../../util/toast_util.dart';
 import '../../../../widget/horizontal_indicator_tab.dart';
+import '../../../routes/app_pages.dart';
 
 class MainHorizontalTabComponent extends StatelessWidget {
   const MainHorizontalTabComponent({super.key});
 
-  static const List<String> tabNames = ["Casa", "Promoção", "Depósito", "VIP", "Minha"];
+  static const List<String> tabNames = ["Casa", "Promoção", "Depósito", "VIP", "Minha", "组件页面"];
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +21,13 @@ class MainHorizontalTabComponent extends StatelessWidget {
       width: 1.sw,
       height: 125.w,
       itemWidthList: List.generate(tabNames.length, (index) => getTabItemWidth(index)),
-      onSelectChanged: (pos) {},
+      onSelectChanged: (pos) {
+        Toast.show("$pos");
+        if (pos == 5) {
+          Log.d("去组件测试页面");
+          Get.toNamed(Routes.COMPONENT_TEST);
+        }
+      },
       bgColor: const Color(0xff000000),
       alignment: Alignment.center,
       indicatorAttr: IndicatorAttr(color: const Color(0xffd54f7d), height: 0.w, width: 44.w),
@@ -37,7 +48,7 @@ class MainHorizontalTabComponent extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-       //   Image.asset("name"),
+          //   Image.asset("name"),
           Text(
             tabNames[index],
             style: TextStyle(color: color, fontSize: 22.w),

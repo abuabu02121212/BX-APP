@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/component_test/bindings/component_test_binding.dart';
+import '../modules/component_test/views/component_test_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/main/bindings/main_binding.dart';
@@ -36,6 +38,11 @@ class AppPages {
       name: _Paths.MAIN,
       page: () => const MainView(),
       binding: MainBinding(),
+    ),
+    GetPage(
+      name: _Paths.COMPONENT_TEST,
+      page: () => const ComponentTestView(),
+      binding: ComponentTestBinding(),
     ),
   ];
 }

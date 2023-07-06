@@ -7,6 +7,7 @@ abstract class Routes {
   static const HOME = _Paths.HOME;
   static const MINE = _Paths.MINE;
   static const MAIN = _Paths.MAIN;
+  static const COMPONENT_TEST = _Paths.COMPONENT_TEST;
 }
 
 abstract class _Paths {
@@ -15,4 +16,5 @@ abstract class _Paths {
   static const HOME = '/home';
   static const MINE = '/mine';
   static const MAIN = '/main';
+  static const COMPONENT_TEST = '/component-test';
 }
