@@ -4,6 +4,7 @@ import 'comm_anim2.dart';
 
 typedef ItemBuilder = Widget Function(BuildContext context, int index, int selectedPos);
 typedef Callback<T> = void Function(T t);
+
 /// 基于 SingleChildScrollView 的水平tab ,适用于Tab比较少的情况.
 class HorizontalIndicatorTab extends StatefulWidget {
   const HorizontalIndicatorTab({
@@ -18,6 +19,7 @@ class HorizontalIndicatorTab extends StatefulWidget {
     required this.onSelectChanged,
     this.indicatorAttr,
     required this.controller,
+    this.bgImgPath,
   });
 
   final int size;
@@ -30,6 +32,7 @@ class HorizontalIndicatorTab extends StatefulWidget {
   final Alignment alignment;
   final IndicatorAttr? indicatorAttr;
   final IndicatorTabController controller;
+  final String? bgImgPath;
 
   @override
   State<HorizontalIndicatorTab> createState() {
@@ -59,7 +62,10 @@ class MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixi
         key: rootKey,
         width: widget.width,
         height: widget.height,
-        color: widget.bgColor,
+        decoration: BoxDecoration(
+          image: widget.bgImgPath == null ? null : DecorationImage(image: AssetImage(widget.bgImgPath!)),
+          color: widget.bgColor,
+        ),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           controller: scrollController,

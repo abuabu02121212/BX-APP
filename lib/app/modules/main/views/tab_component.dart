@@ -12,8 +12,8 @@ class MainHorizontalTabComponent extends StatelessWidget {
   const MainHorizontalTabComponent({super.key});
 
   static const List<String> tabNames = ["Casa", "Promoção", "Depósito", "VIP", "Minha", "组件页面"];
-  static const selectedIconList = ["i-index.webp", "", "", "", ""];
-  static const unselectedIconList = ["", "", "", "", ""];
+  static const selectedIconList = ["i-index", "i-promotion", "", "i-vip", "i-personal", ""];
+  static const unselectedIconList = ["i-index-gray", "i-promotion-gray", "", "i-vip-gray", "i-personal-gray", ""];
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,8 @@ class MainHorizontalTabComponent extends StatelessWidget {
           Get.toNamed(Routes.COMPONENT_TEST);
         }
       },
-      bgColor: const Color(0xff000000),
+      bgColor: Colors.transparent,
+      bgImgPath: "assets/images/app-footer-bg.webp",
       alignment: Alignment.center,
       indicatorAttr: IndicatorAttr(color: const Color(0xffd54f7d), height: 0.w, width: 44.w),
       controller: IndicatorTabController(),
