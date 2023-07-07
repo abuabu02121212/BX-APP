@@ -12,6 +12,8 @@ class MainHorizontalTabComponent extends StatelessWidget {
   const MainHorizontalTabComponent({super.key});
 
   static const List<String> tabNames = ["Casa", "Promoção", "Depósito", "VIP", "Minha", "组件页面"];
+  static const selectedIconList = ["i-index.webp", "", "", "", ""];
+  static const unselectedIconList = ["", "", "", "", ""];
 
   @override
   Widget build(BuildContext context) {
