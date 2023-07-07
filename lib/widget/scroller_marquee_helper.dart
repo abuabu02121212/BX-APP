@@ -46,7 +46,7 @@ class MarqueeHelper {
   }
 
   void startScrollStrategy1() {
-    animController.addListener(() {
+    animController.addListener(() async {
       /// 如果maxScrollExtent 滚动过程连续动态变化 可能会闪烁，需要进行值的转化
       /// 能滚动的最大长度发生了变化
       if (lastMaxScrollExtent != sc.position.maxScrollExtent) {
@@ -65,7 +65,9 @@ class MarqueeHelper {
           return;
         }
       }
-      var tarScrollingPos = animController.value * sc.position.maxScrollExtent;
+      var animValue = animController.value;
+      var tarScrollingPos = animValue * sc.position.maxScrollExtent;
+    //  Log.d("========animController = 000 =======animValue:$animValue======");
       sc.jumpTo(tarScrollingPos);
       lastScrollPos = tarScrollingPos;
       lastScrolledAnimDistanceValue = animController.value - lastScrolledAnimValue;
@@ -81,6 +83,9 @@ class MarqueeHelper {
   }
 
   Future<void> reScroll() async {
+    await Future.delayed(const Duration(milliseconds: 1000));
+    animController.forward(from: 0);
+    animController.stop();
     await Future.delayed(const Duration(milliseconds: 1000));
     animController.forward(from: 0);
     int costTime = (DateTime.now().millisecondsSinceEpoch - startTimeStampOnStart) ~/ 1000;
