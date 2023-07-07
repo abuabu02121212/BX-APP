@@ -9,7 +9,7 @@ class SwiperComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(5.w),
+      borderRadius: BorderRadius.circular(10.w),
       child: Swiper(
         itemWidth: double.infinity,
         itemBuilder: (BuildContext context, int index) {
@@ -21,8 +21,8 @@ class SwiperComponent extends StatelessWidget {
         itemCount: 3,
         autoplay: true,
         pagination: SwiperPagination(
-          margin: EdgeInsets.all(10.w),
-          builder: DotSwiperPaginationBuilder(size: 5.w, activeSize: 5.w, space: 4.w),
+          margin: EdgeInsets.all(20.w),
+          builder: DotSwiperPaginationBuilder(size: 10.w, activeSize: 10.w, space: 8.w),
         ),
         control: const SwiperControl(size: 0),
       ),
