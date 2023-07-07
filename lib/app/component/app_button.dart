@@ -19,7 +19,7 @@ class AppButton extends StatelessWidget {
   final List<Color> colorList;
   final double radius;
 
-  static const colorList1 = [Color(0xff1373EF), Color(0xff0ED1F4)];
+  static const colorList1 = [Color(0xff0ED1F4), Color(0xff1373EF)];
 
   @override
   Widget build(BuildContext context) {

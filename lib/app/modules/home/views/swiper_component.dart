@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SwiperComponent extends StatelessWidget {
-  const SwiperComponent({super.key});
+  const SwiperComponent({super.key, this.radius = 20});
+
+  final double radius;
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(10.w),
+      borderRadius: BorderRadius.circular(radius),
       child: Swiper(
         itemWidth: double.infinity,
         itemBuilder: (BuildContext context, int index) {
@@ -22,7 +24,24 @@ class SwiperComponent extends StatelessWidget {
         autoplay: true,
         pagination: SwiperPagination(
           margin: EdgeInsets.all(20.w),
-          builder: DotSwiperPaginationBuilder(size: 10.w, activeSize: 10.w, space: 8.w),
+          builder: SwiperCustomPagination(builder: (BuildContext context, SwiperPluginConfig config) {
+            return Align(
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: List.generate(config.itemCount, (index) {
+                  bool isSelected = index == config.activeIndex;
+                  Color color = isSelected ? const Color.fromRGBO(204, 204, 204, 1) : const Color.fromRGBO(204, 204, 204, 0.5);
+                  return Container(
+                    width: isSelected ? 56.w : 16.w,
+                    height: 16.w,
+                    decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(8.w)),
+                    margin: EdgeInsets.only(left: 4.w, right: 4.w),
+                  );
+                }),
+              ),
+            );
+          }),
         ),
         control: const SwiperControl(size: 0),
       ),

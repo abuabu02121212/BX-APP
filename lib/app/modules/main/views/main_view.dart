@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_comm/app/modules/deposit/views/deposit_view.dart';
 import 'package:flutter_comm/app/modules/home/views/home_view.dart';
 import 'package:flutter_comm/app/modules/main/views/tab_component.dart';
@@ -11,6 +12,7 @@ import 'package:get/get.dart';
 
 import '../../../../util/Log.dart';
 import '../../../../util/toast_util.dart';
+import '../../../app_style.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/main_controller.dart';
 
@@ -20,6 +22,7 @@ class MainView extends GetView<MainController> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: statusBarColor));
     return Scaffold(
       appBar: AppBar(toolbarHeight: 0.w),
       body: SafeArea(
