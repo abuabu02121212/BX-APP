@@ -53,6 +53,10 @@ class ComponentTestView extends GetView<ComponentTestController> {
             padding: const EdgeInsets.all(5),
             child: Center(
               child: AppVipTab(
+                maxActiveIndex: 2,
+                onItemClick: (int index) {
+                  Toast.show("$index");
+                },
               ),
             ),
           ),
