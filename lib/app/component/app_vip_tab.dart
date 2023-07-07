@@ -6,14 +6,14 @@ import '../../widget/horizontal_list_view_tab.dart';
 class AppVipTab extends StatelessWidget {
   AppVipTab({
     super.key,
-    required this.maxActiveIndex,
+    required this.maxUnlockIndex,
     required this.onItemClick,
   });
 
   final List<String> list = List.generate(30, (index) => index.toString());
   final double itemWidth = 150.w;
   final double height = 60.w;
-  final int maxActiveIndex;
+  final int maxUnlockIndex;
   final Callback<int> onItemClick;
 
   @override
@@ -22,7 +22,7 @@ class AppVipTab extends StatelessWidget {
         size: list.length,
         itemWidth: itemWidth,
         itemBuilder: (BuildContext context, int index, int selectedPos) {
-          bool isActive = index <= maxActiveIndex;
+          bool isActive = index <= maxUnlockIndex;
           return Center(
             child: Container(
               width: itemWidth,
