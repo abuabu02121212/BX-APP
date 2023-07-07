@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
-import '../../../../util/Log.dart';
-import '../../../../util/toast_util.dart';
 import '../../../../widget/horizontal_indicator_tab.dart';
-import '../../../routes/app_pages.dart';
 
 class MainHorizontalTabComponent extends StatelessWidget {
-  MainHorizontalTabComponent({super.key}) {
+  MainHorizontalTabComponent({super.key, required this.onSelectChanged}) {
     Future.delayed(const Duration(milliseconds: 250), () {
-      Log.d("=========开始中间tab的缩放动画============");
-      animScale.value = 1.5;
+      animScale.value = maxScale;
     });
   }
+
+  final Callback<int> onSelectChanged;
 
   static const List<String> tabNames = ["Casa", "Promoção", "Depósito", "VIP", "Minha", "组件测试页"];
   static const selectedIconList = ["i-index", "i-promotion", "blue-circle", "i-vip", "i-personal", "i-personal"];
   static const unselectedIconList = ["i-index-gray", "i-promotion-gray", "blue-circle", "i-vip-gray", "i-personal-gray", "i-personal-gray"];
-  final animScale = 1.0.obs;
+  static const miniScale = 1.3;
+  static const maxScale = 1.6;
+  final animScale = miniScale.obs;
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +28,7 @@ class MainHorizontalTabComponent extends StatelessWidget {
       width: 1.sw,
       height: 125.w,
       itemWidthList: List.generate(tabNames.length, (index) => getTabItemWidth(index)),
-      onSelectChanged: (pos) {
-        Toast.show("$pos");
-        if (pos == 5) {
-          Log.d("去组件测试页面");
-          Get.toNamed(Routes.COMPONENT_TEST);
-        }
-      },
+      onSelectChanged: onSelectChanged,
       bgColor: Colors.transparent,
       bgImgPath: "assets/images/app-footer-bg.webp",
       alignment: Alignment.center,
@@ -74,7 +68,7 @@ class MainHorizontalTabComponent extends StatelessWidget {
                     scale: animScale.value,
                     duration: const Duration(milliseconds: 800),
                     onEnd: () {
-                      animScale.value = animScale.value == 1 ? 1.5 : 1;
+                      animScale.value = animScale.value == miniScale ? maxScale : miniScale;
                     },
                     child: Transform.translate(
                         offset: Offset(0, -10.w),

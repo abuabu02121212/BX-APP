@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/modules/home/views/tab_component.dart';
-import 'package:flutter_comm/util/toast_util.dart';
-import 'package:flutter_comm/widget/input_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
+import '../../../app_style.dart';
 import '../controllers/home_controller.dart';
 import 'home_child_page.dart';
 
@@ -17,9 +16,15 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("巴西足球"),
-        backgroundColor: Colors.black,
-        centerTitle: false,
+        leadingWidth: 0,
+        titleSpacing: 0,
+        toolbarHeight: 110.w,
+        title: Container(
+          width: double.infinity,
+          height: 110.w,
+          decoration: BoxDecoration(gradient: headerLinearGradient),
+        ),
+        centerTitle: true,
       ),
       body: SafeArea(
         child: Container(
@@ -30,7 +35,7 @@ class HomeView extends GetView<HomeController> {
           padding: EdgeInsets.only(left: 20.w, right: 20.w),
           child: Column(
             children: [
-              const HomeHorizontalTabComponent(),
+           //   const HomeHorizontalTabComponent(),
               Expanded(
                 child: PageView.builder(
                     itemCount: HomeHorizontalTabComponent.tabNames.length,

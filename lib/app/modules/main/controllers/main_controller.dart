@@ -1,9 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class MainController extends GetxController {
   //TODO: Implement MainController
+  PageController pageController = PageController();
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +20,4 @@ class MainController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
 }

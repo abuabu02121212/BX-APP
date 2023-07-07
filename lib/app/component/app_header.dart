@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../app_style.dart';
+
 class AppHeader extends StatelessWidget {
   const AppHeader({
     super.key,
@@ -15,13 +17,7 @@ class AppHeader extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 110.w,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xff044B9A), Color(0xff011A51)],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-      ),
+      decoration: BoxDecoration(gradient: headerLinearGradient),
       child: Stack(
         alignment: Alignment.center,
         children: [
