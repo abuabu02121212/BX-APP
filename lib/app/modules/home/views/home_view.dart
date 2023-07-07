@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../util/toast_util.dart';
-import '../../../../widget/list_view_marquee.dart';
+import '../../../../widget/single_scroll_view_marquee.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../controllers/home_controller.dart';
@@ -46,15 +46,15 @@ class HomeView extends GetView<HomeController> {
                 decoration: BoxDecoration(color: const Color(0xff011A51), borderRadius: BorderRadius.circular(30.w)),
                 child: Row(
                   children: [
+                    SizedBox(width: 20.w),
                     Image.asset("assets/images/i-notice.webp", width: 36.w),
                     Expanded(
                         child: Container(
                       padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                      child: ListViewMarquee(
-                        child: Text(
-                          "Bem-vindo ao paraíso dos jogos, preparamos uma variedade de jogos populares para você ter uma experiência de jogo diferente.",
-                          style: TextStyle(color: const Color(0xffffffff), fontSize: 22.w),
-                        ),
+                      child: SingleScrollViewMarquee(
+                        text:
+                            "Bem-vindo ao paraíso dos jogos, preparamos uma variedade de jogos populares para você ter uma experiência de jogo diferente.",
+                        style: TextStyle(color: const Color(0xffffffff), fontSize: 22.w),
                       ),
                     )),
                   ],

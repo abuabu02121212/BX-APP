@@ -3,16 +3,15 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../util/Log.dart';
-
 typedef OnScrollToEndListener = void Function();
 
 class MarqueeHelper {
   late AnimationController animController;
   OnScrollToEndListener? onScrollToEndListener;
+  final int seconds;
 
-  MarqueeHelper({required TickerProvider vsync}) {
-    animController = AnimationController(vsync: vsync, duration: const Duration(seconds: 8))..forward();
+  MarqueeHelper(this.seconds, {required TickerProvider vsync}) {
+    animController = AnimationController(vsync: vsync, duration: Duration(seconds: seconds))..forward();
   }
 
   void setOnScrollToEndListener(OnScrollToEndListener listener) {
@@ -37,7 +36,7 @@ class MarqueeHelper {
             startTimeStampOnStart = DateTime.now().millisecondsSinceEpoch; // 时间戳
             lastMaxScrollExtent = sc.position.maxScrollExtent;
             startScrollStrategy1();
-           // startScrollStrategy2();
+            // startScrollStrategy2();
             timer.cancel();
           }
         }
@@ -67,7 +66,7 @@ class MarqueeHelper {
       }
       var animValue = animController.value;
       var tarScrollingPos = animValue * sc.position.maxScrollExtent;
-    //  Log.d("========animController = 000 =======animValue:$animValue======");
+      //  Log.d("========animController = 000 =======animValue:$animValue======");
       sc.jumpTo(tarScrollingPos);
       lastScrollPos = tarScrollingPos;
       lastScrolledAnimDistanceValue = animController.value - lastScrolledAnimValue;
@@ -88,8 +87,8 @@ class MarqueeHelper {
     animController.stop();
     await Future.delayed(const Duration(milliseconds: 1000));
     animController.forward(from: 0);
-    int costTime = (DateTime.now().millisecondsSinceEpoch - startTimeStampOnStart) ~/ 1000;
-    Log.d("跑马灯执行完一个流程的动画： 花费时间：$costTime 秒");
+    // int costTime = (DateTime.now().millisecondsSinceEpoch - startTimeStampOnStart) ~/ 1000;
+    // Log.d("跑马灯执行完一个流程的动画： 花费时间：$costTime 秒");
     startTimeStampOnStart = DateTime.now().millisecondsSinceEpoch; // 时间戳
   }
 
