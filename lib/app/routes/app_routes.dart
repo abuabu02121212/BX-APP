@@ -8,6 +8,9 @@ abstract class Routes {
   static const MINE = _Paths.MINE;
   static const MAIN = _Paths.MAIN;
   static const COMPONENT_TEST = _Paths.COMPONENT_TEST;
+  static const PROMOTION = _Paths.PROMOTION;
+  static const DEPOSIT = _Paths.DEPOSIT;
+  static const VIP = _Paths.VIP;
 }
 
 abstract class _Paths {
@@ -17,4 +20,7 @@ abstract class _Paths {
   static const MINE = '/mine';
   static const MAIN = '/main';
   static const COMPONENT_TEST = '/component-test';
+  static const PROMOTION = '/promotion';
+  static const DEPOSIT = '/deposit';
+  static const VIP = '/vip';
 }
