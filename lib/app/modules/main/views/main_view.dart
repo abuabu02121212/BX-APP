@@ -29,7 +29,7 @@ class MainView extends GetView<MainController> {
                 style: TextStyle(fontSize: 20),
               ),
             )),
-            const MainHorizontalTabComponent(),
+            MainHorizontalTabComponent(),
           ],
         ),
       ),

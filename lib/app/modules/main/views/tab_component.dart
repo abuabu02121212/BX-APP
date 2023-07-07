@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../util/Log.dart';
 import '../../../../util/toast_util.dart';
@@ -9,11 +8,17 @@ import '../../../../widget/horizontal_indicator_tab.dart';
 import '../../../routes/app_pages.dart';
 
 class MainHorizontalTabComponent extends StatelessWidget {
-  const MainHorizontalTabComponent({super.key});
+  MainHorizontalTabComponent({super.key}) {
+    Future.delayed(const Duration(milliseconds: 250), () {
+      Log.d("=========开始中间tab的缩放动画============");
+      animScale.value = 1.5;
+    });
+  }
 
-  static const List<String> tabNames = ["Casa", "Promoção", "Depósito", "VIP", "Minha", "组件页面"];
-  static const selectedIconList = ["i-index", "i-promotion", "", "i-vip", "i-personal", ""];
-  static const unselectedIconList = ["i-index-gray", "i-promotion-gray", "", "i-vip-gray", "i-personal-gray", ""];
+  static const List<String> tabNames = ["Casa", "Promoção", "Depósito", "VIP", "Minha", "组件测试页"];
+  static const selectedIconList = ["i-index", "i-promotion", "blue-circle", "i-vip", "i-personal", "i-personal"];
+  static const unselectedIconList = ["i-index-gray", "i-promotion-gray", "blue-circle", "i-vip-gray", "i-personal-gray", "i-personal-gray"];
+  final animScale = 1.0.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -44,14 +49,44 @@ class MainHorizontalTabComponent extends StatelessWidget {
 
   Widget _buildIndicatorTabItemBuilder(BuildContext context, int index, int selectedPos) {
     bool selected = index == selectedPos;
-    Color color = selected ? const Color(0xff0ED1F4) : const Color.fromRGBO(255, 255, 266, 0.6);
+    Color color = selected ? const Color(0xff0ED1F4) : const Color.fromRGBO(255, 255, 255, 0.6);
+    String imgPath = selected ? selectedIconList[index] : unselectedIconList[index];
+    imgPath = "assets/images/$imgPath.webp";
+    double offsetY = index == 2 ? -12.w : 0;
+    double scale = index == 2 ? 1.5 : 1;
     return Container(
       width: getTabItemWidth(index),
       alignment: Alignment.center,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          //   Image.asset("name"),
+          Stack(
+            children: [
+              Transform.translate(
+                  offset: Offset(0, offsetY),
+                  child: Transform.scale(
+                    scale: scale,
+                    child: Image.asset(imgPath, width: 45.w, gaplessPlayback: true),
+                  )),
+              if (index == 2)
+                Obx(() {
+                  return AnimatedScale(
+                    scale: animScale.value,
+                    duration: const Duration(milliseconds: 800),
+                    onEnd: () {
+                      animScale.value = animScale.value == 1 ? 1.5 : 1;
+                    },
+                    child: Transform.translate(
+                        offset: Offset(0, -10.w),
+                        child: Image.asset(
+                          "assets/images/pig.webp",
+                          width: 45.w,
+                        )),
+                  );
+                }),
+            ],
+          ),
+          SizedBox(height: 5.w),
           Text(
             tabNames[index],
             style: TextStyle(color: color, fontSize: 22.w),
