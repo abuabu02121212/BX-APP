@@ -1,10 +1,9 @@
 import 'package:get/get.dart';
 
-class DepositController extends GetxController {
-  //TODO: Implement DepositController
+class WithdrawController extends GetxController {
+  //TODO: Implement WithdrawController
 
   final count = 0.obs;
-  final amountIndex = 0.obs;
   @override
   void onInit() {
     super.onInit();
