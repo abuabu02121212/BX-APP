@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_header.dart';
+import 'package:flutter_comm/app/component/app_tab.dart';
 import 'package:flutter_comm/app/component/app_vip_tab.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -22,45 +23,64 @@ class ComponentTestView extends GetView<ComponentTestController> {
         title: const AppHeader(title: "页面标题示例"),
       ),
       body: SafeArea(
-        child: ListView(children: [
-          Container(
-            color: Colors.purple,
-            padding: const EdgeInsets.all(5),
-            child: AppButton(
-              width: 240.w,
-              height: 80.w,
-              radius: 40.w,
-              text: 'Button示例',
-              onClick: () {
-                Toast.show("按钮被点击");
-              },
-            ),
-          ),
-          Container(
-            color: Colors.blue,
-            padding: const EdgeInsets.all(5),
-            child: Center(
-              child: AppProgress(
-                width: 348.w,
-                height: 30.w,
-                radius: 10.w,
-                progress: 50,
-              ),
-            ),
-          ),
-          Container(
-            color: Colors.grey,
-            padding: const EdgeInsets.all(5),
-            child: Center(
-              child: AppVipTab(
-                maxUnlockIndex: 2,
-                onItemClick: (int index) {
-                  Toast.show("$index");
+        child: Container(
+          color: Colors.black,
+          child: ListView(children: [
+            Container(
+              color: Colors.purple,
+              padding: const EdgeInsets.all(5),
+              child: AppButton(
+                width: 240.w,
+                height: 80.w,
+                radius: 40.w,
+                text: 'Button示例',
+                onClick: () {
+                  Toast.show("按钮被点击");
                 },
               ),
             ),
-          ),
-        ]),
+            Container(
+              color: Colors.blue,
+              padding: const EdgeInsets.all(5),
+              child: Center(
+                child: AppProgress(
+                  width: 348.w,
+                  height: 30.w,
+                  radius: 10.w,
+                  progress: 50,
+                ),
+              ),
+            ),
+            Container(
+              color: Colors.grey,
+              padding: const EdgeInsets.all(5),
+              child: Center(
+                child: AppVipTab(
+                  maxUnlockIndex: 2,
+                  onItemClick: (int index) {
+                    Toast.show("$index");
+                  },
+                ),
+              ),
+            ),
+            Container(
+              child: AppTab(
+                onTap: (int index, String value) {
+                  Toast.show("$index" + value);
+                },
+                tabs: [
+                  {
+                    'label': 'A',
+                    'value': 'A'
+                  }, {
+                    'label': 'B',
+                    'value': 'B'
+                  }
+                ],
+              ),
+            )
+          ]),
+        ),
       ),
     );
   }
