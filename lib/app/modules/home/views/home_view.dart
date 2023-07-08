@@ -40,7 +40,7 @@ class HomeView extends GetView<HomeController> {
                 ),
               ),
               const HomeMarquee(),
-              const HomeGameTypesWidget(),
+              HomeGameTypesWidget(),
               SizedBox(height: 35.w),
               Image.asset("assets/images/index-title1.webp", height: 83.w),
             ],
@@ -54,45 +54,53 @@ class HomeView extends GetView<HomeController> {
 class HomeGameTypesWidget extends StatelessWidget {
   static const List<String> gameTypes = ["Quente", "Dentro \nDe Casa", "Slot", "Pesca", "Pôquer", "Esporte", "Ao Vivo", "Esports"];
 
-  const HomeGameTypesWidget({
-    super.key,
-  });
+  HomeGameTypesWidget({super.key});
+
+  final selectedIndex = 0.obs;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      height: 148.w,
       margin: EdgeInsets.only(top: 24.w, left: 20.w, right: 20.w),
-      decoration: BoxDecoration(
-        gradient: headerLinearGradient,
+      child: ClipRRect(
         borderRadius: BorderRadius.circular(20.w),
+        child: Container(
+            width: double.infinity,
+            height: 148.w,
+            decoration: BoxDecoration(
+              gradient: headerLinearGradient,
+            ),
+            child: GridView.builder(
+                itemCount: 8,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 2.4),
+                itemBuilder: (BuildContext context, int index) {
+                  return Obx(() {
+                    bool isSelected = selectedIndex.value == index;
+                    return CupertinoButton(
+                      onPressed: () {
+                        selectedIndex.value = index;
+                        Toast.show("$index");
+                      },
+                      minSize: 0,
+                      padding: EdgeInsets.zero,
+                      child: Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(gradient: isSelected ? activeBtnLinearGradient : null),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image.asset("assets/images/game-tab$index.webp", width: 50.w),
+                            Text(
+                              gameTypes[index],
+                              style: TextStyle(color: Colors.white, fontSize: 26.w),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  });
+                })),
       ),
-      child: GridView.builder(
-          itemCount: 8,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 2.4),
-          itemBuilder: (BuildContext context, int index) {
-            return CupertinoButton(
-              onPressed: () {
-                Toast.show("$index");
-              },
-              minSize: 0,
-              padding: EdgeInsets.zero,
-              child: Container(
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset("assets/images/game-tab$index.webp", width: 50.w),
-                    Text(
-                      gameTypes[index],
-                      style: TextStyle(color: Colors.white, fontSize: 26.w),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }),
     );
   }
 }
