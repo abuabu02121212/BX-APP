@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/app/component/app_empty.dart';
 import 'package:flutter_comm/app/component/app_header.dart';
 import 'package:flutter_comm/app/component/app_radio.dart';
 import 'package:flutter_comm/app/component/app_select.dart';
@@ -105,6 +106,15 @@ class ComponentTestView extends GetView<ComponentTestController> {
                       }, {
                         'label': 'B2',
                         'value': 'B222222'
+                      }, {
+                        'label': 'C3',
+                        'value': 'C333333'
+                      }, {
+                        'label': 'D4',
+                        'value': 'D444444'
+                      }, {
+                        'label': 'E5',
+                        'value': 'E555555'
                       }
                     ],
                     label: 'B2',
@@ -114,6 +124,11 @@ class ComponentTestView extends GetView<ComponentTestController> {
                   ),
                 ],
               ),
+            ),
+            Column(
+              children: [
+                AppEmpty()
+              ],
             )
           ]),
         ),
