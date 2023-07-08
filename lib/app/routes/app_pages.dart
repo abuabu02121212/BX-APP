@@ -16,6 +16,8 @@ import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/vip/bindings/vip_binding.dart';
 import '../modules/vip/views/vip_view.dart';
+import '../modules/withdraw/bindings/withdraw_binding.dart';
+import '../modules/withdraw/views/withdraw_view.dart';
 
 part 'app_routes.dart';
 
@@ -42,7 +44,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MAIN,
-      page: () =>  MainView(),
+      page: () => MainView(),
       binding: MainBinding(),
     ),
     GetPage(
@@ -64,6 +66,11 @@ class AppPages {
       name: _Paths.VIP,
       page: () => const VipView(),
       binding: VipBinding(),
+    ),
+    GetPage(
+      name: _Paths.WITHDRAW,
+      page: () => const WithdrawView(),
+      binding: WithdrawBinding(),
     ),
   ];
 }
