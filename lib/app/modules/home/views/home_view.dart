@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/modules/home/views/swiper_component.dart';
+import 'package:flutter_comm/app/modules/home/views/tab_component.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -41,8 +42,13 @@ class HomeView extends GetView<HomeController> {
               ),
               const HomeMarquee(),
               HomeGameTypesWidget(),
-              SizedBox(height: 35.w),
-              Image.asset("assets/images/index-title1.webp", height: 83.w),
+              GameTitleBar(),
+              Container(
+                margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
+                alignment: Alignment.topLeft,
+                child: HomeGameChildTypeTabComponent(),
+              ),
+              // Image.asset("assets/images/index-title1.webp", height: 83.w),
             ],
           ),
         ),
@@ -51,12 +57,104 @@ class HomeView extends GetView<HomeController> {
   }
 }
 
-class HomeGameTypesWidget extends StatelessWidget {
-  static const List<String> gameTypes = ["Quente", "Dentro \nDe Casa", "Slot", "Pesca", "Pôquer", "Esporte", "Ao Vivo", "Esports"];
+class GameTitleBar extends StatelessWidget {
+  GameTitleBar({super.key});
 
+  final HomeController controller = Get.put(HomeController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 28.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Obx(() {
+            return Text(
+              controller.gameTypes[controller.selectedGameTypeIndex.value].replaceAll(RegExp(r'\n+'), ''),
+              style: TextStyle(
+                fontSize: 32.w,
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+            );
+          }),
+          SizedBox(
+            width: 280.w,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CupertinoButton(
+                  onPressed: () {},
+                  minSize: 0,
+                  padding: EdgeInsets.zero,
+                  child: Container(
+                      width: 60.w,
+                      height: 60.w,
+                      decoration: BoxDecoration(
+                        gradient: headerLinearGradient,
+                        borderRadius: BorderRadius.circular(16.w),
+                      ),
+                      alignment: Alignment.center,
+                      child: Image.asset("assets/images/i-filter1.webp", width: 32.w)),
+                ),
+                CupertinoButton(
+                  onPressed: () {},
+                  minSize: 0,
+                  padding: EdgeInsets.zero,
+                  child: Container(
+                      width: 60.w,
+                      height: 60.w,
+                      decoration: BoxDecoration(
+                        gradient: headerLinearGradient,
+                        borderRadius: BorderRadius.circular(16.w),
+                      ),
+                      alignment: Alignment.center,
+                      child: Image.asset("assets/images/i-filter2.webp", width: 32.w)),
+                ),
+                CupertinoButton(
+                  onPressed: () {},
+                  minSize: 0,
+                  padding: EdgeInsets.zero,
+                  child: Container(
+                      width: 60.w,
+                      height: 60.w,
+                      decoration: BoxDecoration(
+                        gradient: headerLinearGradient,
+                        borderRadius: BorderRadius.circular(16.w),
+                      ),
+                      alignment: Alignment.center,
+                      child: Image.asset("assets/images/i-filter3.webp", width: 32.w)),
+                ),
+                CupertinoButton(
+                  onPressed: () {},
+                  minSize: 0,
+                  padding: EdgeInsets.zero,
+                  child: Container(
+                      width: 60.w,
+                      height: 60.w,
+                      decoration: BoxDecoration(
+                        gradient: headerLinearGradient,
+                        borderRadius: BorderRadius.circular(16.w),
+                      ),
+                      alignment: Alignment.center,
+                      child: Image.asset("assets/images/i-filter4.webp", width: 32.w)),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class HomeGameTypesWidget extends StatelessWidget {
   HomeGameTypesWidget({super.key});
 
-  final selectedIndex = 0.obs;
+  final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -67,18 +165,16 @@ class HomeGameTypesWidget extends StatelessWidget {
         child: Container(
             width: double.infinity,
             height: 148.w,
-            decoration: BoxDecoration(
-              gradient: headerLinearGradient,
-            ),
+            decoration: BoxDecoration(gradient: headerLinearGradient),
             child: GridView.builder(
                 itemCount: 8,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 2.4),
                 itemBuilder: (BuildContext context, int index) {
                   return Obx(() {
-                    bool isSelected = selectedIndex.value == index;
+                    bool isSelected = controller.selectedGameTypeIndex.value == index;
                     return CupertinoButton(
                       onPressed: () {
-                        selectedIndex.value = index;
+                        controller.selectedGameTypeIndex.value = index;
                         Toast.show("$index");
                       },
                       minSize: 0,
@@ -91,7 +187,7 @@ class HomeGameTypesWidget extends StatelessWidget {
                           children: [
                             Image.asset("assets/images/game-tab$index.webp", width: 50.w),
                             Text(
-                              gameTypes[index],
+                              controller.gameTypes[index],
                               style: TextStyle(color: Colors.white, fontSize: 26.w),
                             ),
                           ],

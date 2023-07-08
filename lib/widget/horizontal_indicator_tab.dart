@@ -12,8 +12,6 @@ class HorizontalIndicatorTab extends StatefulWidget {
     required this.size,
     required this.itemBuilder,
     this.bgColor,
-    this.alignment = Alignment.topLeft,
-    required this.width,
     required this.height,
     required this.itemWidthList,
     required this.onSelectChanged,
@@ -24,12 +22,10 @@ class HorizontalIndicatorTab extends StatefulWidget {
 
   final int size;
   final ItemBuilder itemBuilder;
-  final double width;
   final double height;
   final List<double> itemWidthList;
   final Callback<int> onSelectChanged;
   final Color? bgColor;
-  final Alignment alignment;
   final IndicatorAttr? indicatorAttr;
   final IndicatorTabController controller;
   final String? bgImgPath;
@@ -56,63 +52,59 @@ class MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixi
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: widget.alignment,
-      child: Container(
-        key: rootKey,
-        width: widget.width,
-        height: widget.height,
-        decoration: BoxDecoration(
-          image: widget.bgImgPath == null ? null : DecorationImage(image: AssetImage(widget.bgImgPath!)),
-          color: widget.bgColor,
-        ),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          controller: scrollController,
-          physics: const BouncingScrollPhysics(),
-          child: Stack(
-            alignment: Alignment.bottomLeft,
-            children: [
-              ValueListenableBuilder(
-                valueListenable: widget.controller.selectedIndexNotifier,
-                builder: (BuildContext context, int value, Widget? child) {
-                  return Row(
-                    children: List.generate(widget.size, (pos) {
-                      return CupertinoButton(
-                        minSize: 0,
-                        padding: const EdgeInsets.all(0),
-                        pressedOpacity: 0.9,
-                        onPressed: () => onItemSelectChanged(pos),
-                        child: _buildItem(context, pos),
-                      );
-                    }),
-                  );
-                },
-              ),
-              ValueListenableBuilder(
-                valueListenable: leftNotifier,
-                builder: (BuildContext context, double value, Widget? child) {
-                  double itemWidth = widget.itemWidthList[widget.controller.selectedIndexNotifier.value];
-                  double indicatorWidth = widget.indicatorAttr?.width ?? itemWidth;
-                  return Positioned(
-                    left: value,
-                    child: Container(
-                      width: itemWidth,
-                      height: widget.indicatorAttr?.height,
-                      alignment: Alignment.center,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(widget.indicatorAttr?.height ?? 2 / 2.0),
-                        child: Container(
-                          width: indicatorWidth,
-                          color: widget.indicatorAttr?.color,
-                        ),
+    return Container(
+      key: rootKey,
+      height: widget.height,
+      decoration: BoxDecoration(
+        image: widget.bgImgPath == null ? null : DecorationImage(image: AssetImage(widget.bgImgPath!)),
+        color: widget.bgColor,
+      ),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        controller: scrollController,
+        physics: const BouncingScrollPhysics(),
+        child: Stack(
+          alignment: Alignment.bottomLeft,
+          children: [
+            ValueListenableBuilder(
+              valueListenable: widget.controller.selectedIndexNotifier,
+              builder: (BuildContext context, int value, Widget? child) {
+                return Row(
+                  children: List.generate(widget.size, (pos) {
+                    return CupertinoButton(
+                      minSize: 0,
+                      padding: const EdgeInsets.all(0),
+                      pressedOpacity: 0.9,
+                      onPressed: () => onItemSelectChanged(pos),
+                      child: _buildItem(context, pos),
+                    );
+                  }),
+                );
+              },
+            ),
+            ValueListenableBuilder(
+              valueListenable: leftNotifier,
+              builder: (BuildContext context, double value, Widget? child) {
+                double itemWidth = widget.itemWidthList[widget.controller.selectedIndexNotifier.value];
+                double indicatorWidth = widget.indicatorAttr?.width ?? itemWidth;
+                return Positioned(
+                  left: value,
+                  child: Container(
+                    width: itemWidth,
+                    height: widget.indicatorAttr?.height,
+                    alignment: Alignment.center,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(widget.indicatorAttr?.height ?? 2 / 2.0),
+                      child: Container(
+                        width: indicatorWidth,
+                        color: widget.indicatorAttr?.color,
                       ),
                     ),
-                  );
-                },
-              ),
-            ],
-          ),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
@@ -151,7 +143,7 @@ class MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixi
   }
 
   void autoScroll(int selectedPos) {
-    double parentWidth = rootKey.currentContext?.size?.width ?? widget.width;
+    double parentWidth = rootKey.currentContext?.size?.width ?? 320;
     double contentWidth = getItemWidthSum(widget.itemWidthList.length - 1);
     double width = contentWidth < parentWidth ? contentWidth : parentWidth;
     double selectedItemOriLeft = getItemWidthSum(selectedPos - 1);

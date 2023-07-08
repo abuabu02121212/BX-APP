@@ -25,13 +25,11 @@ class MainHorizontalTabComponent extends StatelessWidget {
     return HorizontalIndicatorTab(
       size: tabNames.length,
       itemBuilder: _buildIndicatorTabItemBuilder,
-      width: 1.sw,
       height: 125.w,
       itemWidthList: List.generate(tabNames.length, (index) => getTabItemWidth(index)),
       onSelectChanged: onSelectChanged,
       bgColor: Colors.transparent,
       bgImgPath: "assets/images/app-footer-bg.webp",
-      alignment: Alignment.center,
       indicatorAttr: IndicatorAttr(color: const Color(0xffd54f7d), height: 0.w, width: 44.w),
       controller: IndicatorTabController(),
     );

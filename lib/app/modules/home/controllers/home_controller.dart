@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  List<String> gameTypes = ["Quente", "Dentro \nDe Casa", "Slot", "Pesca", "Pôquer", "Esporte", "Ao Vivo", "Esports"];
+
+  final selectedGameTypeIndex = 0.obs;
 
   final count = 0.obs;
-
 
   @override
   void onInit() {
