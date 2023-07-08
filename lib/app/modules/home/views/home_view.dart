@@ -26,30 +26,73 @@ class HomeView extends GetView<HomeController> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Container(
-          color: Colors.black,
-          width: double.infinity,
-          height: double.infinity,
-          alignment: Alignment.topLeft,
-          child: Column(
-            children: [
-              SizedBox(
-                width: double.infinity,
-                height: 280.w,
-                child: const SwiperComponent(
-                  radius: 0,
+        child: Center(
+          child: Container(
+            color: Colors.black,
+            width: double.infinity,
+            height: double.infinity,
+            alignment: Alignment.topLeft,
+            child: ListView(
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  height: 280.w,
+                  child: const SwiperComponent(
+                    radius: 0,
+                  ),
                 ),
-              ),
-              const HomeMarquee(),
-              HomeGameTypesWidget(),
-              GameTitleBar(),
-              Container(
-                margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
-                alignment: Alignment.topLeft,
-                child: HomeGameChildTypeTabComponent(),
-              ),
-              // Image.asset("assets/images/index-title1.webp", height: 83.w),
-            ],
+                const HomeMarquee(),
+                HomeGameTypesWidget(),
+                GameTitleBar(),
+                Container(
+                  margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
+                  alignment: Alignment.topLeft,
+                  child: HomeGameChildTypeTabComponent(),
+                ),
+
+                Container(
+                  margin: EdgeInsets.only(top: 26.w, left: 20.w, right: 20.w),
+                  padding: EdgeInsets.only(bottom: 100.w),
+                  decoration: BoxDecoration(
+                      gradient: headerLinearGradient,
+                      borderRadius: BorderRadius.horizontal(
+                        right: Radius.circular(30.w),
+                      )),
+                  child: GridView.builder(
+                    itemCount: 10,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1),
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        //    color: index % 2 == 0 ?  const Color(0xffffcc00) :  Colors.blue,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "assets/images/avatar/avatar0.webp",
+                              width: 180.w,
+                              height: 180.w,
+                            ),
+                            SizedBox(height: 6.w),
+                            Text(
+                              "text",
+                              style: TextStyle(
+                                fontSize: 24.w,
+                                color: const Color(0xffcccccc),
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                )
+                // Image.asset("assets/images/index-title1.webp", height: 83.w),
+              ],
+            ),
           ),
         ),
       ),

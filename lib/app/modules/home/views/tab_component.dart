@@ -33,7 +33,7 @@ class HomeGameChildTypeTabComponent extends StatelessWidget {
   double getTabItemWidth(int pos) {
     var tabName = tabNames[pos];
     var textSize = TextMeasureUtil.getTextSize(text: tabName, maxWidth: 1000000, style: textStyle);
-    return textSize.width + 50.w;
+    return textSize.width + 60.w;
   }
 
   Widget _buildIndicatorTabItemBuilder(BuildContext context, int index, int selectedPos) {
