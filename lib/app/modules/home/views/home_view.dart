@@ -72,16 +72,18 @@ class GameListWidget extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: 26.w, left: 20.w, right: 20.w),
       padding: EdgeInsets.only(bottom: 100.w),
+      width: double.infinity,
+      height: 600.w,
       decoration: BoxDecoration(
           gradient: headerLinearGradient,
           borderRadius: BorderRadius.horizontal(
             right: Radius.circular(30.w),
           )),
       child: GridView.builder(
-        itemCount: 10,
+        itemCount: 20,
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1),
+        scrollDirection: Axis.horizontal,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1),
         itemBuilder: (BuildContext context, int index) {
           return Column(
             mainAxisSize: MainAxisSize.min,
