@@ -46,7 +46,7 @@ class HomeView extends GetView<HomeController> {
   }
 }
 
-List<Widget> itemWidgetList = [
+final List<Widget> itemWidgetList = [
   SizedBox(
     width: double.infinity,
     height: 280.w,
@@ -63,7 +63,133 @@ List<Widget> itemWidgetList = [
     child: HomeGameChildTypeTabComponent(),
   ),
   ...List.generate(7, (index) => GameListWidget(titleImgPath: "assets/images/index-title${index + 1}.webp")),
+  WinListWidget(),
 ];
+
+class WinListWidget extends StatelessWidget {
+  WinListWidget({
+    super.key,
+  });
+
+  final HomeController controller = Get.put(HomeController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 890.w,
+      margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 80),
+      padding: EdgeInsets.only(bottom: 20.w, left: 20.w, right: 20.w),
+      decoration: BoxDecoration(gradient: headerLinearGradient, borderRadius: BorderRadius.circular(30.w)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Transform.translate(offset: Offset(0, -40.w), child: Image.asset("assets/images/win.webp", width: 234.w)),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("LATEST", style: TextStyle(fontSize: 64.w, color: const Color(0xffA926FF), fontWeight: FontWeight.w400)),
+                  Transform.translate(
+                      offset: Offset(0, -15.w),
+                      child: Text("WINNER", style: TextStyle(fontSize: 64.w, color: Colors.white, fontWeight: FontWeight.w400))),
+                ],
+              )
+            ],
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  width: double.infinity,
+                  height: 110.w,
+                  padding: EdgeInsets.only(left: 25.w),
+                  margin: EdgeInsets.only(bottom: 16.w),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.w), color: const Color.fromRGBO(0, 10, 29, 0.25)),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/images/i-win.webp",
+                        width: 55.w,
+                      ),
+                      SizedBox(width: 12.w),
+                      SizedBox(
+                        width: 195.w,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 195.w,
+                              child: Text(
+                                "**********612",
+                                maxLines: 1,
+                                style: TextStyle(fontSize: 24.w, color: Colors.white, fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                            Text(
+                              "Noite de Carna..ggfgfghfhg.",
+                              maxLines: 1,
+                              style: TextStyle(fontSize: 26.w, color: const Color(0xffFDD82A), fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.bottomCenter,
+                        padding: EdgeInsets.only(bottom: 16.w),
+                        margin: EdgeInsets.only(left: 10.w),
+                        child: Image.asset(
+                          "assets/images/i-win-play.webp",
+                          width: 44.w,
+                        ),
+                      ),
+                      Container(
+                        width: 270.w,
+                        height: 48.w,
+                        margin: EdgeInsets.only(left: 27.w),
+                        padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 4.w),
+                        decoration: BoxDecoration(
+                          color: const Color(0xff17181B),
+                          borderRadius: BorderRadius.circular(24.w),
+                        ),
+                        child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/images/i-win-m.webp",
+                                width: 36.w,
+                              ),
+                              Text("R\$765", style: TextStyle(fontSize: 24.w, color: Colors.white, fontWeight: FontWeight.w400),),
+
+                            ],
+                          ),
+                      )
+                    ],
+                  ),
+                );
+              },
+            ),
+          )
+          // Text(""),
+        ],
+      ),
+      // child: ,
+    );
+  }
+}
 
 class GameListWidget extends StatelessWidget {
   GameListWidget({
