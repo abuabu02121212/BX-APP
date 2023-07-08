@@ -1,16 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/modules/home/views/swiper_component.dart';
-import 'package:flutter_comm/app/modules/home/views/tab_component.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
 import '../../../../util/toast_util.dart';
+import '../../../../widget/single_scroll_view_marquee.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../controllers/home_controller.dart';
-import 'home_child_page.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -33,14 +32,34 @@ class HomeView extends GetView<HomeController> {
           alignment: Alignment.topLeft,
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 width: double.infinity,
                 height: 280.w,
-                child: const SwiperComponent(radius: 0,),
+                child: const SwiperComponent(
+                  radius: 0,
+                ),
               ),
-              Expanded(
-                child: SizedBox(),
-              ),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.only(top: 40.w),
+                height: 60.w,
+                decoration: BoxDecoration(color: const Color(0xff011A51), borderRadius: BorderRadius.circular(30.w)),
+                child: Row(
+                  children: [
+                    SizedBox(width: 20.w),
+                    Image.asset("assets/images/i-notice.webp", width: 36.w),
+                    Expanded(
+                        child: Container(
+                      padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                      child: SingleScrollViewMarquee(
+                        text:
+                            "Bem-vindo ao paraíso dos jogos, preparamos uma variedade de jogos populares para você ter uma experiência de jogo diferente.",
+                        style: TextStyle(color: const Color(0xffffffff), fontSize: 22.w),
+                      ),
+                    )),
+                  ],
+                ),
+              )
             ],
           ),
         ),
