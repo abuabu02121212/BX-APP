@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_header.dart';
+import 'package:flutter_comm/app/component/app_radio.dart';
 import 'package:flutter_comm/app/component/app_tab.dart';
 import 'package:flutter_comm/app/component/app_vip_tab.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -76,6 +77,19 @@ class ComponentTestView extends GetView<ComponentTestController> {
                     'label': 'B',
                     'value': 'B'
                   }
+                ],
+              ),
+            ),
+            Container(
+              child: Row(
+                children: [
+                  Obx(() => AppRadio(
+                    isCheck: controller.check.value,
+                    onClick: () {
+                      Toast.show("点击了");
+                      controller.check.value = !controller.check.value;
+                    },
+                  ))
                 ],
               ),
             )
