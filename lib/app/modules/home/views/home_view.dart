@@ -32,26 +32,12 @@ class HomeView extends GetView<HomeController> {
             width: double.infinity,
             height: double.infinity,
             alignment: Alignment.topLeft,
-            child: ListView(
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  height: 280.w,
-                  child: const SwiperComponent(
-                    radius: 0,
-                  ),
-                ),
-                const HomeMarquee(),
-                HomeGameTypesWidget(),
-                GameTitleBar(),
-                Container(
-                  margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
-                  alignment: Alignment.topLeft,
-                  child: HomeGameChildTypeTabComponent(),
-                ),
-                GameListWidget()
-                // Image.asset("assets/images/index-title1.webp", height: 83.w),
-              ],
+            child: ListView.builder(
+              itemCount: itemWidgetList.length,
+              cacheExtent: 1334.w * 3,
+              itemBuilder: (BuildContext context, int index) {
+                return itemWidgetList[index];
+              },
             ),
           ),
         ),
@@ -60,70 +46,98 @@ class HomeView extends GetView<HomeController> {
   }
 }
 
+List<Widget> itemWidgetList = [
+  SizedBox(
+    width: double.infinity,
+    height: 280.w,
+    child: const SwiperComponent(
+      radius: 0,
+    ),
+  ),
+  const HomeMarquee(),
+  HomeGameTypesWidget(),
+  GameTitleBar(),
+  Container(
+    margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
+    alignment: Alignment.topLeft,
+    child: HomeGameChildTypeTabComponent(),
+  ),
+  ...List.generate(7, (index) => GameListWidget(titleImgPath: "assets/images/index-title${index + 1}.webp")),
+];
+
 class GameListWidget extends StatelessWidget {
   GameListWidget({
     super.key,
+    required this.titleImgPath,
   });
 
   final HomeController controller = Get.put(HomeController());
+  final String titleImgPath;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 26.w, left: 20.w, right: 20.w),
-      padding: EdgeInsets.only(bottom: 100.w),
-      width: double.infinity,
-      height: 600.w,
-      decoration: BoxDecoration(
-          gradient: headerLinearGradient,
-          borderRadius: BorderRadius.horizontal(
-            right: Radius.circular(30.w),
-          )),
-      child: GridView.builder(
-        itemCount: 20,
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1),
-        itemBuilder: (BuildContext context, int index) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Stack(
+    return Column(
+      children: [
+        SizedBox(height: 40.w),
+        Image.asset(titleImgPath, height: 83.w),
+        Container(
+          margin: EdgeInsets.only(top: 0.w, left: 20.w, right: 20.w),
+          width: double.infinity,
+          height: 520.w,
+          decoration: BoxDecoration(
+              gradient: headerLinearGradient,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30.w),
+                topRight: Radius.circular(30.w),
+                bottomRight: Radius.circular(30.w),
+              )),
+          child: GridView.builder(
+            itemCount: 20,
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.2),
+            itemBuilder: (BuildContext context, int index) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(16.w),
-                    child: Image.asset(
-                      "assets/images/dialog-close.webp",
-                      width: 180.w,
-                      height: 180.w,
-                      color: Colors.grey,
-                      colorBlendMode: BlendMode.src,
-                    ),
+                  Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(16.w),
+                        child: Image.asset(
+                          "assets/images/dialog-close.webp",
+                          width: 180.w,
+                          height: 180.w,
+                          color: Colors.grey,
+                          colorBlendMode: BlendMode.src,
+                        ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: Image.asset(
+                          "assets/images/game_heart.webp",
+                          width: 35.w,
+                        ),
+                      ),
+                    ],
                   ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: Image.asset(
-                      "assets/images/game_heart.webp",
-                      width: 35.w,
+                  SizedBox(height: 6.w),
+                  Text(
+                    "text",
+                    style: TextStyle(
+                      fontSize: 24.w,
+                      color: const Color(0xffcccccc),
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
-              ),
-              SizedBox(height: 6.w),
-              Text(
-                "text",
-                style: TextStyle(
-                  fontSize: 24.w,
-                  color: const Color(0xffcccccc),
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ],
-          );
-        },
-      ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }
