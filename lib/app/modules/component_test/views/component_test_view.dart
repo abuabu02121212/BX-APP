@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_header.dart';
 import 'package:flutter_comm/app/component/app_radio.dart';
+import 'package:flutter_comm/app/component/app_select.dart';
 import 'package:flutter_comm/app/component/app_tab.dart';
 import 'package:flutter_comm/app/component/app_vip_tab.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -90,6 +91,23 @@ class ComponentTestView extends GetView<ComponentTestController> {
                       controller.check.value = !controller.check.value;
                     },
                   ))
+                ],
+              ),
+            ),
+            Container(
+              child: Row(
+                children: [
+                  AppSelect(
+                    selectDataList: [
+                      {
+                        'label': 'A',
+                        'value': 'A'
+                      }, {
+                        'label': 'B',
+                        'value': 'B'
+                      }
+                    ],
+                  ),
                 ],
               ),
             )
