@@ -1,19 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_comm/util/bottom_sheet_util.dart';
-import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppSelect extends StatefulWidget {
   const AppSelect({
     super.key,
+    this.width,
     this.height,
-    this.value,
-    required this.selectDataList
+    this.label,
+    required this.selectDataList,
+    this.onChange
   });
 
-  final List<Map<String, dynamic>> selectDataList;
+  final double? width;
   final double? height;
-  final String? value;
+  final String? label;
+  final List<Map<String, String>> selectDataList;
+  final void Function(String value)? onChange;
 
   @override
   State<AppSelect> createState() => _AppSelectState();
@@ -21,7 +24,19 @@ class AppSelect extends StatefulWidget {
 
 class _AppSelectState extends State<AppSelect> {
 
-  get _value => widget.value ?? widget.selectDataList[0]['value'];
+  late String _label;
+
+  _setValue(String label) {
+    setState(() {
+      _label = label;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _label = widget.label ?? widget.selectDataList[0]['value']!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +45,21 @@ class _AppSelectState extends State<AppSelect> {
       minSize: 0,
       onPressed: () {
         BottomSheetUtil.showBottomSheet(
-            context, data: ['Aa', 'Bb'],
-            selectData: 'Bb',
-            ok: (String value) {
-              Toast.show(value.toString() + '1');
+            context,
+            data: widget.selectDataList,
+            selectData: _label,
+            ok: (String value, String label) {
+              _setValue(label);
+              if (widget.onChange != null) {
+                widget.onChange!(value);
+              }
             }
         );
       },
       child: Container(
+        width: widget.width ?? 200.w,
         height: widget.height ?? 80.w,
         padding: EdgeInsets.symmetric(horizontal: 24.w),
-        constraints: BoxConstraints(minWidth: 200.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.w),
           border: Border.all(color: const Color.fromRGBO(14, 209, 244, 1), width: 1.w),
@@ -48,7 +67,7 @@ class _AppSelectState extends State<AppSelect> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(_value, style: TextStyle(color: const Color.fromRGBO(14, 209, 244, 1), fontSize: 24.w)),
+            Text(_label, style: TextStyle(color: const Color.fromRGBO(14, 209, 244, 1), fontSize: 24.w)),
             SizedBox(width: 10.w),
             Image.asset('assets/images/down.webp', width: 25.w)
           ],

@@ -11,7 +11,6 @@ class AppTab extends StatefulWidget {
     this.onTap
   });
 
-  // 接受对象数组{label: '', value: ''}
   final List<Map<String, dynamic>> tabs;
 
   // 是否可以滚动

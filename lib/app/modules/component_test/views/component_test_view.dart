@@ -98,15 +98,19 @@ class ComponentTestView extends GetView<ComponentTestController> {
               child: Row(
                 children: [
                   AppSelect(
-                    selectDataList: [
+                    selectDataList: const [
                       {
-                        'label': 'A',
-                        'value': 'A'
+                        'label': 'A1',
+                        'value': 'A111111'
                       }, {
-                        'label': 'B',
-                        'value': 'B'
+                        'label': 'B2',
+                        'value': 'B222222'
                       }
                     ],
+                    label: 'B2',
+                    onChange: (String value) {
+                      Toast.show(value);
+                    },
                   ),
                 ],
               ),

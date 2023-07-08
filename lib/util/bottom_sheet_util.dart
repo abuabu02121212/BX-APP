@@ -1,25 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_pickers/pickers.dart';
 import 'package:flutter_pickers/style/picker_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../app/component/app_cupertino_button.dart';
-
 class BottomSheetUtil {
+
+  static List<String> _getPickerData(List<Map<String, String>> data) {
+    List<String> list = [];
+    data.forEach((element) {
+      list.add(element['label']!);
+    });
+    return list;
+  }
+
+  static String _getValue(int index, List<Map<String, String>> data) {
+    return data[index]['value']!;
+  }
+
   static void showBottomSheet(
       BuildContext context,
       {
-        required List<String> data,
-        required Function(String) ok,
+        required List<Map<String, String>> data,
+        required Function(String value, String label) ok,
         String? selectData,
       }
   ) {
-    Pickers.showSinglePicker(context, data: data,
-        onConfirm: (dynamic value, int index) {
-          ok(value.toString());
+    Pickers.showSinglePicker(context, data: _getPickerData(data),
+        onConfirm: (dynamic label, int index) {
+          ok(_getValue(index, data), label);
         },
-        selectData: selectData ?? data[0],
+        selectData: selectData ?? _getPickerData(data)[0],
         pickerStyle: PickerStyle(
           backgroundColor: const Color.fromRGBO(0, 10, 29, 1),
           pickerHeight: 700.w,
