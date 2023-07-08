@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/observers/route_observer.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 import 'app/routes/app_pages.dart';
 import 'app_config.dart';
@@ -39,7 +39,7 @@ class RefreshConfigurationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RefreshConfiguration(
-        headerBuilder: () => const ClassicHeader(refreshingIcon: CupertinoActivityIndicator()),
+        headerBuilder: () => const WaterDropHeader(),
         footerBuilder: () => const ClassicFooter(loadingIcon: CupertinoActivityIndicator()),
         hideFooterWhenNotFull: false,
         // Viewport不满一屏时,禁用上拉加载更多功能

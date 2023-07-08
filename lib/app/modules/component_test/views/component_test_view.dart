@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_empty.dart';
 import 'package:flutter_comm/app/component/app_header.dart';
+import 'package:flutter_comm/app/component/app_list.dart';
 import 'package:flutter_comm/app/component/app_radio.dart';
 import 'package:flutter_comm/app/component/app_select.dart';
 import 'package:flutter_comm/app/component/app_tab.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_comm/app/component/app_vip_tab.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 import '../../../../util/toast_util.dart';
 import '../../../component/app_button.dart';
@@ -127,7 +129,21 @@ class ComponentTestView extends GetView<ComponentTestController> {
             ),
             Column(
               children: [
-                AppEmpty()
+                AppEmpty(),
+                Container(
+                  height: 500.w,
+                  color: Colors.red,
+                  child: AppList(
+                    apiUrl: '',
+                    builder: (dynamic item) {
+                      return Container(
+                        height: 130.w,
+                        color: Colors.green,
+                        child: Center(child: Text(item['name'])),
+                      );
+                    },
+                  )
+                )
               ],
             )
           ]),
