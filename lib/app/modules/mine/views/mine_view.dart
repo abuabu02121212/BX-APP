@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../../../component/app_button.dart';
 import '../../../component/app_progress.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/mine_controller.dart';
 
 class MineView extends GetView<MineController> {
@@ -224,7 +225,9 @@ class MineView extends GetView<MineController> {
                           ],
                         ),
                         onPressed: (){
-                    }),
+                          Get.toNamed(Routes.TRANSACTION);
+                        }
+                    ),
                   ),
                   Divider(color: const Color.fromRGBO(255, 255, 255, 0.25),height: 1.w),
                   CupertinoButton(
