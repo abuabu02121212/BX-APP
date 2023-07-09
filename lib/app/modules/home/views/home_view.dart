@@ -64,7 +64,66 @@ final List<Widget> itemWidgetList = [
   ),
   ...List.generate(7, (index) => GameListWidget(titleImgPath: "assets/images/index-title${index + 1}.webp")),
   WinListWidget(),
+  const BrandListWidget()
 ];
+
+class BrandListWidget extends StatelessWidget {
+  const BrandListWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 68.w, left: 20.w, right: 20.w),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Provedores de jogos", style: TextStyle(fontSize: 32.w, color: Colors.white, fontWeight: FontWeight.w700)),
+          SizedBox(height: 10.w),
+          Image.asset("assets/images/jobs.webp", width: 704.w),
+          SizedBox(height: 24.w),
+          Image.asset("assets/images/dot_line.webp", width: double.infinity),
+          SizedBox(height: 30.w),
+          Text("Entre em contato conosco", style: TextStyle(fontSize: 32.w, color: Colors.white, fontWeight: FontWeight.w700)),
+          SizedBox(height: 10.w),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset("assets/images/index-b-f.webp", width: 76.w),
+              SizedBox(width: 30.w),
+              Image.asset("assets/images/index-b-t.webp", width: 76.w),
+            ],
+          ),
+          SizedBox(height: 24.w),
+          Image.asset("assets/images/dot_line.webp", width: double.infinity),
+          SizedBox(height: 30.w),
+          Text("Método de pagamento", style: TextStyle(fontSize: 32.w, color: Colors.white, fontWeight: FontWeight.w700)),
+          SizedBox(height: 10.w),
+          Image.asset("assets/images/index-b-p.webp", width: 139.w),
+          SizedBox(height: 30.w),
+          Image.asset("assets/images/dot_line.webp", width: double.infinity),
+          SizedBox(height: 30.w),
+          Text("Responsabilidade", style: TextStyle(fontSize: 32.w, color: Colors.white, fontWeight: FontWeight.w700)),
+          SizedBox(height: 30.w),
+          Image.asset("assets/images/index-b-r.webp", width: 92.w),
+          SizedBox(height: 30.w),
+          Text(
+            "A LUCKYKING.com opera através de Elektra Entertainment B.V., com número de registro 157256 e domicílio social em Julianaplein 36 Willemstad, Curaçao, certificada pelo governo de Curaçao através da Licença 8048/JAZ2021-105 emitida para prestação de serviço de Cassino e apostas esportivas.",
+            style: TextStyle(
+              fontSize: 26.w,
+              color: const Color.fromRGBO(255, 255, 255, 0.60),
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          SizedBox(height: 30.w),
+        ],
+      ),
+    );
+  }
+}
 
 class WinListWidget extends StatelessWidget {
   WinListWidget({
@@ -164,18 +223,20 @@ class WinListWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(24.w),
                         ),
                         child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                "assets/images/i-win-m.webp",
-                                width: 36.w,
-                              ),
-                              Text("R\$765", style: TextStyle(fontSize: 24.w, color: Colors.white, fontWeight: FontWeight.w400),),
-
-                            ],
-                          ),
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "assets/images/i-win-m.webp",
+                              width: 36.w,
+                            ),
+                            Text(
+                              "R\$765",
+                              style: TextStyle(fontSize: 24.w, color: Colors.white, fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        ),
                       )
                     ],
                   ),
