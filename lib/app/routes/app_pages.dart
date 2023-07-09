@@ -6,12 +6,16 @@ import '../modules/deposit/bindings/deposit_binding.dart';
 import '../modules/deposit/views/deposit_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/login/bindings/login_binding.dart';
+import '../modules/login/views/login_view.dart';
 import '../modules/main/bindings/main_binding.dart';
 import '../modules/main/views/main_view.dart';
 import '../modules/mine/bindings/mine_binding.dart';
 import '../modules/mine/views/mine_view.dart';
 import '../modules/promotion/bindings/promotion_binding.dart';
 import '../modules/promotion/views/promotion_view.dart';
+import '../modules/register/bindings/register_binding.dart';
+import '../modules/register/views/register_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/vip/bindings/vip_binding.dart';
@@ -71,6 +75,16 @@ class AppPages {
       name: _Paths.WITHDRAW,
       page: () => const WithdrawView(),
       binding: WithdrawBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOGIN,
+      page: () => const LoginView(),
+      binding: LoginBinding(),
+    ),
+    GetPage(
+      name: _Paths.REGISTER,
+      page: () => const RegisterView(),
+      binding: RegisterBinding(),
     ),
   ];
 }

@@ -12,6 +12,8 @@ abstract class Routes {
   static const DEPOSIT = _Paths.DEPOSIT;
   static const VIP = _Paths.VIP;
   static const WITHDRAW = _Paths.WITHDRAW;
+  static const LOGIN = _Paths.LOGIN;
+  static const REGISTER = _Paths.REGISTER;
 }
 
 abstract class _Paths {
@@ -25,4 +27,6 @@ abstract class _Paths {
   static const DEPOSIT = '/deposit';
   static const VIP = '/vip';
   static const WITHDRAW = '/withdraw';
+  static const LOGIN = '/login';
+  static const REGISTER = '/register';
 }
