@@ -8,6 +8,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/login_register/bindings/login_register_binding.dart';
+import '../modules/login_register/views/login_register_view.dart';
 import '../modules/main/bindings/main_binding.dart';
 import '../modules/main/views/main_view.dart';
 import '../modules/mine/bindings/mine_binding.dart';
@@ -85,6 +87,11 @@ class AppPages {
       name: _Paths.REGISTER,
       page: () => const RegisterView(),
       binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.LOGIN_REGISTER,
+      page: () => const LoginRegisterView(),
+      binding: LoginRegisterBinding(),
     ),
   ];
 }
