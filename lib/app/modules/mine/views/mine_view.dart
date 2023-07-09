@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../component/app_button.dart';
 import '../../../component/app_progress.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/mine_controller.dart';
 
 class MineView extends GetView<MineController> {
