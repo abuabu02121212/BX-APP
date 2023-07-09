@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../util/toast_util.dart';
+import '../../../component/app_button.dart';
 import '../../../component/app_user_info_input_field.dart';
 import '../controllers/login_controller.dart';
 
@@ -35,7 +38,7 @@ class LoginWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: 40.w),
+        SizedBox(height: 50.w),
         Image.asset(
           "assets/images/login-logo.webp",
           width: 100.w,
@@ -64,6 +67,42 @@ class LoginWidget extends StatelessWidget {
             errText: 'Senha (4-12 letras e números)',
             isPassword: true,
           ),
+        ),
+        Align(
+          alignment: Alignment.topLeft,
+          child: CupertinoButton(
+            onPressed: () {},
+            minSize: 0,
+            padding: EdgeInsets.zero,
+            child: Container(
+              width: 240.w,
+              height: 46.w,
+              margin: EdgeInsets.only(left: 30.w),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.w),
+                border: Border.all(color: const Color(0xff0ED1F4), width: 1.w),
+              ),
+              alignment: Alignment.center,
+              child: Text(
+                "Esqueça a senha",
+                style: TextStyle(
+                  fontSize: 26.w,
+                  color: const Color(0xff0ED1F4),
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 50.w),
+        AppButton(
+          width: 580.w,
+          height: 90.w,
+          radius: 100.w,
+          text: 'Entrar',
+          onClick: () {
+            Toast.show("Entrar");
+          },
         ),
       ],
     );

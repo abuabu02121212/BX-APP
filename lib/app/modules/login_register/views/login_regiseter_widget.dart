@@ -18,13 +18,14 @@ class LoginRegisterWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(20.w),
       child: Container(
         width: 634.w,
-        height: 752.w,
+        height: 742.w,
         decoration: const BoxDecoration(color: Color(0xff011A51)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: 20.w),
             LoginRegisterTabComponent(
               onSelectChanged: (int index) {
                 Toast.show("index:$index");
