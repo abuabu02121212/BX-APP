@@ -58,7 +58,7 @@ class TransactionView extends GetView<TransactionController> {
                   'label': 'Retirar',
                   'value': '2'
                 }
-              ], height: 100.w),
+              ], height: 100.w, indicatorWidth: 88.w),
             ),
             Flexible(child: Container(
               width: 710.w,

@@ -49,14 +49,8 @@ class RecompensasView extends GetView<RecompensasController> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    child: Text('Pesquisar', style: TextStyle(
-                      color: const Color.fromRGBO(255, 255, 255, 0.70),
-                      fontSize: 24.w,
-                    )),
-                  ),
                   AppSelect(
-                    width: 282.w,
+                    width: 336.w,
                     value: '2',
                     onChange: (v) {
                       Toast.show(v.toString());
@@ -73,7 +67,7 @@ class RecompensasView extends GetView<RecompensasController> {
                     ],
                   ),
                   AppSelect(
-                    width: 282.w,
+                    width: 336.w,
                     onChange: (v) {
                       Toast.show(v.toString());
                     },

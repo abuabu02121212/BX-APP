@@ -59,7 +59,7 @@ class ApostasView extends GetView<ApostasController> {
                   'label': 'ganho',
                   'value': '2'
                 }
-              ], height: 100.w),
+              ], height: 100.w, indicatorWidth: 88.w),
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 8.w),

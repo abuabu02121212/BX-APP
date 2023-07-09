@@ -8,7 +8,8 @@ class AppTab extends StatefulWidget {
     required this.tabs,
     this.isScrollable = false,
     this.height,
-    this.onTap
+    this.onTap,
+    this.indicatorWidth,
   });
 
   final List<Map<String, dynamic>> tabs;
@@ -18,6 +19,9 @@ class AppTab extends StatefulWidget {
 
   // 高度
   final double? height;
+
+  // 指示器宽度
+  final double? indicatorWidth;
 
   // 点击回调
   final void Function(int index, String value)? onTap;
@@ -59,7 +63,7 @@ class _AppTabState extends State<AppTab> with SingleTickerProviderStateMixin {
       },
       indicator: CustomTabIndicator(
         color: const Color.fromRGBO(14, 209, 244, 1),
-        width: 80.w,
+        width: widget.indicatorWidth,
         height: 6.w,
         borderRadius: 10.w,
         boxShadow: BoxShadow(

@@ -162,7 +162,7 @@ class MineView extends GetView<MineController> {
                           radius: 100.w,
                           text: 'Retirar',
                           onClick: () {
-
+                            Get.toNamed(Routes.NOTICE_LIST);
                           },
                         ),
                       ],
