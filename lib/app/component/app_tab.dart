@@ -73,7 +73,7 @@ class _AppTabState extends State<AppTab> with SingleTickerProviderStateMixin {
         height: widget.height ?? 100.w,
         alignment: Alignment.center,
         child: Text(
-          "Tab ${e['label']}",
+          "${e['label']}",
         ),
       )).toList(),
     );
