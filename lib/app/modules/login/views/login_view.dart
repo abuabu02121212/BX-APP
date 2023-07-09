@@ -44,14 +44,27 @@ class LoginWidget extends StatelessWidget {
           "LB88",
           style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w400),
         ),
+        Container(
+          width: 580.w,
+          margin: EdgeInsets.only(top: 10.w),
+          child: UserInfoInputField(
+            prefixIcon: 'assets/images/user-gray.webp',
+            editNode: controller.userNameEditNode,
+            hint: 'Por favor, insira o nome de usuário',
+            errText: 'Número de celular de 10 ou 11 dígitos',
+            isUserName: true,
+          ),
+        ),
         SizedBox(
           width: 580.w,
           child: UserInfoInputField(
             prefixIcon: 'assets/images/user-gray.webp',
             editNode: controller.userNameEditNode,
-            errText: 'Número de celular de 10 ou 11 dígitos',
+            hint: 'Senha (4-12 letras e números)',
+            errText: 'Senha (4-12 letras e números)',
+            isPassword: true,
           ),
-        )
+        ),
       ],
     );
   }
