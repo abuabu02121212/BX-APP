@@ -119,7 +119,7 @@ class ComponentTestView extends GetView<ComponentTestController> {
                         'value': 'E555555'
                       }
                     ],
-                    label: 'B2',
+                    value: 'B2',
                     onChange: (String value) {
                       Toast.show(value);
                     },
