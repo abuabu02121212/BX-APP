@@ -16,6 +16,8 @@ import '../modules/main/bindings/main_binding.dart';
 import '../modules/main/views/main_view.dart';
 import '../modules/mine/bindings/mine_binding.dart';
 import '../modules/mine/views/mine_view.dart';
+import '../modules/notice_list/bindings/notice_list_binding.dart';
+import '../modules/notice_list/views/notice_list_view.dart';
 import '../modules/promotion/bindings/promotion_binding.dart';
 import '../modules/promotion/views/promotion_view.dart';
 import '../modules/recompensas/bindings/recompensas_binding.dart';
@@ -113,6 +115,11 @@ class AppPages {
       name: _Paths.LOGIN_REGISTER,
       page: () => const LoginRegisterView(),
       binding: LoginRegisterBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTICE_LIST,
+      page: () => const NoticeListView(),
+      binding: NoticeListBinding(),
     ),
   ];
 }
