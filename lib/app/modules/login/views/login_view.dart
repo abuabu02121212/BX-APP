@@ -61,7 +61,7 @@ class LoginWidget extends StatelessWidget {
         SizedBox(
           width: 580.w,
           child: UserInfoInputField(
-            prefixIcon: 'assets/images/user-gray.webp',
+            prefixIcon: 'assets/images/key-gray.webp',
             editNode: controller.userNameEditNode,
             hint: 'Senha (4-12 letras e números)',
             errText: 'Senha (4-12 letras e números)',

@@ -11,6 +11,7 @@ import '../../../../widget/single_scroll_view_marquee.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../../../routes/app_pages.dart';
+import '../../login_register/views/login_regiseter_widget.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -584,7 +585,8 @@ class HomeHeader extends StatelessWidget {
             radius: 30.w,
             text: 'Registar Conta',
             onClick: () {
-              Get.toNamed(Routes.LOGIN_REGISTER);
+             // Get.toNamed(Routes.LOGIN_REGISTER);
+              showLoginRegisterDialog();
               Toast.show("按钮被点击");
             },
           ),

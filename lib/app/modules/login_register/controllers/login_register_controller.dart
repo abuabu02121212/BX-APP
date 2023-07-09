@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class LoginRegisterController extends GetxController {
-  //TODO: Implement LoginRegisterController
+
+  PageController pageController = PageController();
 
   final count = 0.obs;
   @override
