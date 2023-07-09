@@ -7,14 +7,14 @@ class AppSelect extends StatefulWidget {
     super.key,
     this.width,
     this.height,
-    this.label,
+    this.value,
     required this.selectDataList,
     this.onChange
   });
 
   final double? width;
   final double? height;
-  final String? label;
+  final String? value;
   final List<Map<String, String>> selectDataList;
   final void Function(String value)? onChange;
 
@@ -32,10 +32,15 @@ class _AppSelectState extends State<AppSelect> {
     });
   }
 
+  _initLabel() {
+    String v = widget.value ?? widget.selectDataList[0]['value']!;
+    _label = widget.selectDataList.firstWhere((element) => element['value'] == v)['label']!;
+  }
+
   @override
   void initState() {
     super.initState();
-    _label = widget.label ?? widget.selectDataList[0]['value']!;
+    _initLabel();
   }
 
   @override

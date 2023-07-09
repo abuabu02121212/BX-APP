@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_select.dart';
+import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -60,21 +61,41 @@ class ApostasView extends GetView<ApostasController> {
                 }
               ], height: 100.w),
             ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 148.w,
-                  child: Center(
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 8.w),
+              decoration: const BoxDecoration(
+                color: Color.fromRGBO(1, 26, 81, 0.30),
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, -1),
+                    blurRadius: 0,
+                    spreadRadius: 0,
+                    color: Color.fromRGBO(255, 255, 255, 0.10),
+                  ),
+                  BoxShadow(
+                    offset: Offset(0, 4),
+                    blurRadius: 5,
+                    spreadRadius: 0,
+                    color: Color.fromRGBO(0, 0, 0, 0.30),
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
                     child: Text('Pesquisar', style: TextStyle(
                       color: const Color.fromRGBO(255, 255, 255, 0.70),
                       fontSize: 24.w,
                     )),
                   ),
-                ),
-                const Flexible(
-                  flex: 1,
-                  child: AppSelect(
-                    selectDataList: [
+                  AppSelect(
+                    width: 282.w,
+                    value: '2',
+                    onChange: (v) {
+                      Toast.show(v.toString());
+                    },
+                    selectDataList: const [
                       {
                         'label': 'Todas',
                         'value': '1'
@@ -84,24 +105,25 @@ class ApostasView extends GetView<ApostasController> {
                         'value': '2'
                       }
                     ],
+                  ),
+                  AppSelect(
+                    width: 282.w,
+                    onChange: (v) {
+                      Toast.show(v.toString());
+                    },
+                    selectDataList: const [
+                      {
+                        'label': 'AA',
+                        'value': '1'
+                      },
+                      {
+                        'label': 'BB',
+                        'value': '2'
+                      }
+                    ],
                   )
-                ),
-                const Flexible(
-                    flex: 1,
-                    child: AppSelect(
-                      selectDataList: [
-                        {
-                          'label': 'AA',
-                          'value': '1'
-                        },
-                        {
-                          'label': 'BB',
-                          'value': '2'
-                        }
-                      ],
-                    )
-                )
-              ],
+                ],
+              ),
             ),
             Flexible(child: Container(
               child: AppList(
