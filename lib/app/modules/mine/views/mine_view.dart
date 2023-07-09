@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -224,7 +225,9 @@ class MineView extends GetView<MineController> {
                           ],
                         ),
                         onPressed: (){
-                    }),
+                          Get.toNamed(Routes.TRANSACTION);
+                        }
+                    ),
                   ),
                   Divider(color: const Color.fromRGBO(255, 255, 255, 0.25),height: 1.w),
                   CupertinoButton(
@@ -242,6 +245,7 @@ class MineView extends GetView<MineController> {
                         ),
                       ),
                       onPressed: (){
+                        Get.toNamed(Routes.APOSTAS);
                       }),
                   Divider(color: const Color.fromRGBO(255, 255, 255, 0.25),height: 1.w),
                   CupertinoButton(
@@ -259,6 +263,7 @@ class MineView extends GetView<MineController> {
                         ),
                       ),
                       onPressed: (){
+                        Get.toNamed(Routes.RECOMPENSAS);
                       }),
                 ]
               ),

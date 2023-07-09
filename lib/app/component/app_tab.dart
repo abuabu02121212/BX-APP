@@ -59,6 +59,7 @@ class _AppTabState extends State<AppTab> with SingleTickerProviderStateMixin {
       },
       indicator: CustomTabIndicator(
         color: const Color.fromRGBO(14, 209, 244, 1),
+        width: 80.w,
         height: 6.w,
         borderRadius: 10.w,
         boxShadow: BoxShadow(

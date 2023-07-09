@@ -146,8 +146,13 @@ class _AppListState extends State<AppList> {
             }
             return Container(
               height: 55.0,
-              color: Colors.blue,
-              child: Center(child: body),
+              child: DefaultTextStyle(
+                style: TextStyle(
+                  fontSize: 25.w,
+                  color: Colors.white,
+                ),
+                child: Center(child: body)
+              ),
             );
           },
         ),
@@ -167,8 +172,13 @@ class _AppListState extends State<AppList> {
             }
             return Container(
               height: 55.0,
-              color: Colors.blue,
-              child: Center(child: body),
+              child: DefaultTextStyle(
+                style: TextStyle(
+                  fontSize: 25.w,
+                  color: Colors.white,
+                ),
+                child: Center(child: body)
+              ),
             );
           },
         ),
