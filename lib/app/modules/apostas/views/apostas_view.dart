@@ -91,34 +91,48 @@ class ApostasView extends GetView<ApostasController> {
                   ),
                   AppSelect(
                     width: 282.w,
-                    value: '2',
+                    height: 60.w,
+                    value: '1',
                     onChange: (v) {
                       Toast.show(v.toString());
                     },
                     selectDataList: const [
                       {
-                        'label': 'Todas',
+                        'label': 'Hoje',
                         'value': '1'
                       },
                       {
-                        'label': 'ganho',
+                        'label': 'Últimos 7 dias',
                         'value': '2'
+                      },
+                      {
+                        'label': 'Últimos 60 dias',
+                        'value': '3'
                       }
                     ],
                   ),
                   AppSelect(
                     width: 282.w,
+                    height: 60.w,
                     onChange: (v) {
                       Toast.show(v.toString());
                     },
                     selectDataList: const [
                       {
-                        'label': 'AA',
+                        'label': 'Todos',
                         'value': '1'
                       },
                       {
-                        'label': 'BB',
+                        'label': 'Depositar',
                         'value': '2'
+                      },
+                      {
+                        'label': 'Entrar',
+                        'value': '3'
+                      },
+                      {
+                        'label': 'Sokoban',
+                        'value': '4'
                       }
                     ],
                   )

@@ -51,34 +51,48 @@ class RecompensasView extends GetView<RecompensasController> {
                 children: [
                   AppSelect(
                     width: 336.w,
-                    value: '2',
+                    height: 60.w,
+                    value: '1',
                     onChange: (v) {
                       Toast.show(v.toString());
                     },
                     selectDataList: const [
                       {
-                        'label': 'Todas',
+                        'label': 'Hoje',
                         'value': '1'
                       },
                       {
-                        'label': 'ganho',
+                        'label': 'Últimos 7 dias',
                         'value': '2'
+                      },
+                      {
+                        'label': 'Últimos 60 dias',
+                        'value': '3'
                       }
                     ],
                   ),
                   AppSelect(
                     width: 336.w,
+                    height: 60.w,
                     onChange: (v) {
                       Toast.show(v.toString());
                     },
                     selectDataList: const [
                       {
-                        'label': 'AA',
+                        'label': 'Todos',
                         'value': '1'
                       },
                       {
-                        'label': 'BB',
+                        'label': 'Depositar',
                         'value': '2'
+                      },
+                      {
+                        'label': 'Entrar',
+                        'value': '3'
+                      },
+                      {
+                        'label': 'Sokoban',
+                        'value': '4'
                       }
                     ],
                   )
@@ -86,22 +100,52 @@ class RecompensasView extends GetView<RecompensasController> {
               ),
             ),
             Flexible(child: Container(
+              width: 710.w,
+              margin: EdgeInsets.only(left: 20.w, right: 20.w,bottom: 30.w),
               child: AppList(
                   apiUrl: '',
                   builder: (dynamic item) {
                     return Container(
-                        height: 250.w,
-                        decoration: const BoxDecoration(
-                          color: Colors.green,
-                          border: Border(
-                            bottom: BorderSide(
-                              color: Color.fromRGBO(0, 0, 0, 0.10),
-                              width: 1,
+                        height: 208.w,
+                        margin: EdgeInsets.only(top: 30.w),
+                        decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color.fromRGBO(4, 75, 154, 0.7),
+                                  Color(0xFF011A51),
+                                ]
                             ),
-                          ),
+                            borderRadius: BorderRadius.circular(20.w),
+                            border: Border.all(
+                                color: const Color.fromRGBO(14, 209, 244, 0.25),
+                                width: 1.w
+                            )
                         ),
-                        child: Center(
-                          child: Text(item['name']),
+                        child: Container(
+                          padding: EdgeInsets.only(left: 22.w, right: 22.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 20.w),
+                              Text('Check-In', style: TextStyle(
+                                  fontSize: 28.w,
+                                  color: Colors.white
+                              )),
+                              SizedBox(height: 32.w),
+                              Text('Depósito Bônus 3%', style: TextStyle(
+                                  fontSize: 32.w,
+                                  color: Color(0xff0ED1F4),
+                                  fontWeight: FontWeight.bold
+                              )),
+                              SizedBox(height: 32.w),
+                              Text('2023-06-26 01:03', style: TextStyle(
+                                  fontSize: 28.w,
+                                  color: Color.fromRGBO(255, 255, 255, 0.70),
+                              )),
+                            ],
+                          ),
                         )
                     );
                   }
