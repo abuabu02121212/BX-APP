@@ -55,7 +55,7 @@ class DepositView extends GetView<DepositController> {
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("RR0.06",style: TextStyle(color: Colors.white,fontSize: 42.w,fontWeight: FontWeight.w700)),
+                                Text("R\$0.06",style: TextStyle(color: Colors.white,fontSize: 42.w,fontWeight: FontWeight.w700)),
                                 SizedBox(height: 17.w),
                                 Text("Fundos totais",style: TextStyle(color: Color.fromRGBO(255, 255, 255, 0.7),fontSize: 24.w)),
                               ],
@@ -63,7 +63,7 @@ class DepositView extends GetView<DepositController> {
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("RR0.06",style: TextStyle(color: Colors.white,fontSize: 42.w,fontWeight: FontWeight.w700)),
+                                Text("R\$0.06",style: TextStyle(color: Colors.white,fontSize: 42.w,fontWeight: FontWeight.w700)),
                                 SizedBox(height: 17.w),
                                 Text("Retirável Total",style: TextStyle(color: Color.fromRGBO(255, 255, 255, 0.7),fontSize: 24.w)),
                               ],
@@ -215,7 +215,7 @@ class DepositView extends GetView<DepositController> {
                               ),
                             ),
                             child: Text(
-                                "RR 50",
+                                "R\$ 50",
                                 style: TextStyle(color: Colors.white,fontSize: 28.w)
                             ),
                       ),
@@ -290,7 +290,7 @@ class DepositView extends GetView<DepositController> {
                               style: TextStyle(color: Colors.white,fontSize: 28.w)
                           ),
                           Text(
-                              "Retirada mínima RR0",
+                              "Retirada mínima R\$0",
                               style: TextStyle(color: Color.fromRGBO(255, 255, 255, 0.4),fontSize: 28.w)
                           ),
                         ],

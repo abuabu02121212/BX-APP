@@ -104,7 +104,7 @@ class MineView extends GetView<MineController> {
                               ),
                               Row(
                                 children: [
-                                  Text("RR 0.00",style: TextStyle(color: Colors.white,fontSize: 42.w,fontWeight: FontWeight.bold)),
+                                  Text("R\$ 0.00",style: TextStyle(color: Colors.white,fontSize: 42.w,fontWeight: FontWeight.bold)),
                                   SizedBox(width: 10.w),
                                   Image.asset("assets/images/i-refresh-money.webp",width: 49.w),
                                 ],
@@ -188,7 +188,7 @@ class MineView extends GetView<MineController> {
                         style: TextStyle(color: Colors.white,fontSize: 26.w),
                         children: [
                           TextSpan(
-                            text: ' RR 0.42',
+                            text: ' R\$ 0.42',
                             style: TextStyle(color: Color(0xff0ED1F4),fontSize: 28.w,fontWeight: FontWeight.bold),
                           )
                         ]
