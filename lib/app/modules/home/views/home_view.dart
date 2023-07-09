@@ -10,6 +10,7 @@ import '../../../../util/toast_util.dart';
 import '../../../../widget/single_scroll_view_marquee.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -32,26 +33,12 @@ class HomeView extends GetView<HomeController> {
             width: double.infinity,
             height: double.infinity,
             alignment: Alignment.topLeft,
-            child: ListView(
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  height: 280.w,
-                  child: const SwiperComponent(
-                    radius: 0,
-                  ),
-                ),
-                const HomeMarquee(),
-                HomeGameTypesWidget(),
-                GameTitleBar(),
-                Container(
-                  margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
-                  alignment: Alignment.topLeft,
-                  child: HomeGameChildTypeTabComponent(),
-                ),
-                GameListWidget()
-                // Image.asset("assets/images/index-title1.webp", height: 83.w),
-              ],
+            child: ListView.builder(
+              itemCount: itemWidgetList.length,
+              cacheExtent: 1334.w * 4,
+              itemBuilder: (BuildContext context, int index) {
+                return itemWidgetList[index];
+              },
             ),
           ),
         ),
@@ -60,8 +47,139 @@ class HomeView extends GetView<HomeController> {
   }
 }
 
-class GameListWidget extends StatelessWidget {
-  GameListWidget({
+final List<Widget> itemWidgetList = [
+  SizedBox(
+    width: double.infinity,
+    height: 280.w,
+    child: const SwiperComponent(
+      radius: 0,
+    ),
+  ),
+  const HomeMarquee(),
+  HomeGameTypesWidget(),
+  GameTitleBar(),
+  Container(
+    margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
+    alignment: Alignment.topLeft,
+    child: HomeGameChildTypeTabComponent(),
+  ),
+  ...List.generate(7, (index) => GameListWidget(titleImgPath: "assets/images/index-title${index + 1}.webp")),
+  WinListWidget(),
+  const BrandListWidget(),
+
+  Container(
+    width: double.infinity,
+    height: 94.w,
+    decoration: const BoxDecoration(color: Color(0xff011A51)),
+    margin: EdgeInsets.only(bottom: 110.w),
+    alignment: Alignment.center,
+    child: Text(
+      "Copyright © All Rights Reserved by Luckyking",
+      style: TextStyle(
+        fontSize: 24.w,
+        color: const Color.fromRGBO(255, 255, 255, 0.60),
+        fontWeight: FontWeight.w400,
+      ),
+    ),
+  ),
+];
+
+class BrandListWidget extends StatelessWidget {
+  const BrandListWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 68.w, left: 20.w, right: 20.w),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Provedores de jogos", style: TextStyle(fontSize: 32.w, color: Colors.white, fontWeight: FontWeight.w700)),
+          SizedBox(height: 10.w),
+          Image.asset("assets/images/jobs.webp", width: 704.w),
+          SizedBox(height: 24.w),
+          Image.asset("assets/images/dot_line.webp", width: double.infinity),
+          SizedBox(height: 30.w),
+          Text("Entre em contato conosco", style: TextStyle(fontSize: 32.w, color: Colors.white, fontWeight: FontWeight.w700)),
+          SizedBox(height: 10.w),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset("assets/images/index-b-f.webp", width: 76.w),
+              SizedBox(width: 30.w),
+              Image.asset("assets/images/index-b-t.webp", width: 76.w),
+            ],
+          ),
+          SizedBox(height: 24.w),
+          Image.asset("assets/images/dot_line.webp", width: double.infinity),
+          SizedBox(height: 30.w),
+          Text("Método de pagamento", style: TextStyle(fontSize: 32.w, color: Colors.white, fontWeight: FontWeight.w700)),
+          SizedBox(height: 10.w),
+          Image.asset("assets/images/index-b-p.webp", width: 139.w),
+          SizedBox(height: 30.w),
+          Image.asset("assets/images/dot_line.webp", width: double.infinity),
+          SizedBox(height: 30.w),
+          Text("Responsabilidade", style: TextStyle(fontSize: 32.w, color: Colors.white, fontWeight: FontWeight.w700)),
+          SizedBox(height: 30.w),
+          Image.asset("assets/images/index-b-r.webp", width: 92.w),
+          SizedBox(height: 30.w),
+          Text(
+            "A LUCKYKING.com opera através de Elektra Entertainment B.V., com número de registro 157256 e domicílio social em Julianaplein 36 Willemstad, Curaçao, certificada pelo governo de Curaçao através da Licença 8048/JAZ2021-105 emitida para prestação de serviço de Cassino e apostas esportivas.",
+            style: TextStyle(
+              fontSize: 26.w,
+              color: const Color.fromRGBO(255, 255, 255, 0.60),
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          SizedBox(height: 30.w),
+          BottomIconsWidget(),
+          SizedBox(height: 50.w),
+        ],
+      ),
+    );
+  }
+}
+
+class BottomIconsWidget extends StatelessWidget {
+  BottomIconsWidget({
+    super.key,
+  });
+
+  final List<String> names = ["Safe \npayment", "24/7 \nsupport", "Mobile \nfriends", "Highest \nodds", "Multi- \ncurrency"];
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: List.generate(
+          names.length,
+          (index) => Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/images/bottom${index + 1}.webp",
+                    width: 42.w,
+                  ),
+                  SizedBox(height: 8.w),
+                  Text(
+                    names[index],
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 22.w, color: const Color(0xffCCCED2), fontWeight: FontWeight.w400),
+                  ),
+                ],
+              )),
+    );
+  }
+}
+
+class WinListWidget extends StatelessWidget {
+  WinListWidget({
     super.key,
   });
 
@@ -70,58 +188,196 @@ class GameListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 26.w, left: 20.w, right: 20.w),
-      padding: EdgeInsets.only(bottom: 100.w),
-      decoration: BoxDecoration(
-          gradient: headerLinearGradient,
-          borderRadius: BorderRadius.horizontal(
-            right: Radius.circular(30.w),
-          )),
-      child: GridView.builder(
-        itemCount: 10,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1),
-        itemBuilder: (BuildContext context, int index) {
-          return Column(
+      width: double.infinity,
+      height: 890.w,
+      margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 80),
+      padding: EdgeInsets.only(bottom: 20.w, left: 20.w, right: 20.w),
+      decoration: BoxDecoration(gradient: headerLinearGradient, borderRadius: BorderRadius.circular(30.w)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Stack(
+              Transform.translate(offset: Offset(0, -40.w), child: Image.asset("assets/images/win.webp", width: 234.w)),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(16.w),
-                    child: Image.asset(
-                      "assets/images/dialog-close.webp",
-                      width: 180.w,
-                      height: 180.w,
-                      color: Colors.grey,
-                      colorBlendMode: BlendMode.src,
-                    ),
+                  Text("LATEST", style: TextStyle(fontSize: 64.w, color: const Color(0xffA926FF), fontWeight: FontWeight.w400)),
+                  Transform.translate(
+                      offset: Offset(0, -15.w),
+                      child: Text("WINNER", style: TextStyle(fontSize: 64.w, color: Colors.white, fontWeight: FontWeight.w400))),
+                ],
+              )
+            ],
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  width: double.infinity,
+                  height: 110.w,
+                  padding: EdgeInsets.only(left: 25.w),
+                  margin: EdgeInsets.only(bottom: 16.w),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.w), color: const Color.fromRGBO(0, 10, 29, 0.25)),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/images/i-win.webp",
+                        width: 55.w,
+                      ),
+                      SizedBox(width: 12.w),
+                      SizedBox(
+                        width: 195.w,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 195.w,
+                              child: Text(
+                                "**********612",
+                                maxLines: 1,
+                                style: TextStyle(fontSize: 24.w, color: Colors.white, fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                            Text(
+                              "Noite de Carna..ggfgfghfhg.",
+                              maxLines: 1,
+                              style: TextStyle(fontSize: 26.w, color: const Color(0xffFDD82A), fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.bottomCenter,
+                        padding: EdgeInsets.only(bottom: 16.w),
+                        margin: EdgeInsets.only(left: 10.w),
+                        child: Image.asset(
+                          "assets/images/i-win-play.webp",
+                          width: 44.w,
+                        ),
+                      ),
+                      Container(
+                        width: 270.w,
+                        height: 48.w,
+                        margin: EdgeInsets.only(left: 27.w),
+                        padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 4.w),
+                        decoration: BoxDecoration(
+                          color: const Color(0xff17181B),
+                          borderRadius: BorderRadius.circular(24.w),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "assets/images/i-win-m.webp",
+                              width: 36.w,
+                            ),
+                            Text(
+                              "R\$765",
+                              style: TextStyle(fontSize: 24.w, color: Colors.white, fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: Image.asset(
-                      "assets/images/game_heart.webp",
-                      width: 35.w,
+                );
+              },
+            ),
+          )
+          // Text(""),
+        ],
+      ),
+      // child: ,
+    );
+  }
+}
+
+class GameListWidget extends StatelessWidget {
+  GameListWidget({
+    super.key,
+    required this.titleImgPath,
+  });
+
+  final HomeController controller = Get.put(HomeController());
+  final String titleImgPath;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: 40.w),
+        Image.asset(titleImgPath, height: 83.w),
+        Container(
+          margin: EdgeInsets.only(top: 0.w, left: 20.w, right: 20.w),
+          width: double.infinity,
+          height: 520.w,
+          decoration: BoxDecoration(
+              gradient: headerLinearGradient,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30.w),
+                topRight: Radius.circular(30.w),
+                bottomRight: Radius.circular(30.w),
+              )),
+          child: GridView.builder(
+            itemCount: 20,
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.2),
+            itemBuilder: (BuildContext context, int index) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(16.w),
+                        child: Image.asset(
+                          "assets/images/dialog-close.webp",
+                          width: 180.w,
+                          height: 180.w,
+                          color: Colors.grey,
+                          colorBlendMode: BlendMode.src,
+                        ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: Image.asset(
+                          "assets/images/game_heart.webp",
+                          width: 35.w,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 6.w),
+                  Text(
+                    "text",
+                    style: TextStyle(
+                      fontSize: 24.w,
+                      color: const Color(0xffcccccc),
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
-              ),
-              SizedBox(height: 6.w),
-              Text(
-                "text",
-                style: TextStyle(
-                  fontSize: 24.w,
-                  color: const Color(0xffcccccc),
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ],
-          );
-        },
-      ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }
@@ -328,6 +584,7 @@ class HomeHeader extends StatelessWidget {
             radius: 30.w,
             text: 'Registar Conta',
             onClick: () {
+              Get.toNamed(Routes.LOGIN_REGISTER);
               Toast.show("按钮被点击");
             },
           ),

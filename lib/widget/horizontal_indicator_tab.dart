@@ -74,7 +74,7 @@ class MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixi
                     return CupertinoButton(
                       minSize: 0,
                       padding: const EdgeInsets.all(0),
-                      pressedOpacity: 0.9,
+                      pressedOpacity: 0.8,
                       onPressed: () => onItemSelectChanged(pos),
                       child: _buildItem(context, pos),
                     );
