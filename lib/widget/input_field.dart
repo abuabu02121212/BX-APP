@@ -50,48 +50,59 @@ class MyInputFiled extends StatelessWidget {
     required this.width,
     required this.height,
     required this.hint,
-    required this.icon,
+    required this.prefix,
     required this.editNode,
     this.inputFormatters,
     this.keyboardType = TextInputType.text,
+    this.onTextChanged,
+    this.bgColor = Colors.black,
+    this.radius = 50,
+    required this.hintStyle,
+    required this.textStyle,
   });
 
   final double width;
   final double height;
+  final double radius;
   final String hint;
-  final String icon;
+  final TextStyle hintStyle;
+  final TextStyle textStyle;
+  final Widget prefix;
+  final Color? bgColor;
   final EditNode editNode;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
+  final ValueChanged<String>? onTextChanged;
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(15.w),
+      borderRadius: BorderRadius.circular(radius),
       child: Container(
         width: width,
         height: height,
-        color: const Color(0xff1c1c28),
+        color: bgColor,
         alignment: Alignment.center,
         padding: EdgeInsets.only(left: 8.w),
         child: CupertinoTextField(
           controller: editNode.editController,
           focusNode: editNode.focusNode,
-          style: TextStyle(fontSize: 14.w, color: const Color(0xffffffff)),
+          style: textStyle,
           keyboardType: keyboardType,
           onChanged: (text) {
             editNode.text.value = text;
+            onTextChanged!(text);
           },
-          decoration:  const BoxDecoration(color: Colors.transparent),
+          decoration: const BoxDecoration(color: Colors.transparent),
           placeholder: hint,
           textAlignVertical: TextAlignVertical.center,
           textAlign: TextAlign.start,
-          placeholderStyle: TextStyle(fontSize: 14.w, color: const Color(0xff6d6d7a)),
+          placeholderStyle: hintStyle,
           cursorColor: Colors.white,
-          cursorHeight: 20.w,
+          cursorHeight: 32.w,
           maxLines: 1,
           maxLength: 32,
-          prefix: Image.asset(icon, width: 14.w),
+          prefix: prefix,
           padding: EdgeInsets.only(left: 10.w),
           // suffix: delView(),
           inputFormatters: inputFormatters,

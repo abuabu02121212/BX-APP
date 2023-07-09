@@ -10,7 +10,7 @@ import '../../login/views/login_view.dart';
 class LoginRegisterWidget extends StatelessWidget {
   LoginRegisterWidget({super.key});
 
-  final List<Widget> pageList = [const LoginWidget(), const RegisterView()];
+  final List<Widget> pageList = [LoginWidget(), const RegisterView()];
 
   @override
   Widget build(BuildContext context) {

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
+import '../../../component/app_user_info_input_field.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -15,7 +16,7 @@ class LoginView extends GetView<LoginController> {
         title: const Text('LoginView'),
         centerTitle: true,
       ),
-      body: const Center(
+      body: Center(
         child: LoginWidget(),
       ),
     );
@@ -23,7 +24,9 @@ class LoginView extends GetView<LoginController> {
 }
 
 class LoginWidget extends StatelessWidget {
-  const LoginWidget({super.key});
+  LoginWidget({super.key});
+
+  final LoginController controller = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +44,14 @@ class LoginWidget extends StatelessWidget {
           "LB88",
           style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w400),
         ),
+        SizedBox(
+          width: 580.w,
+          child: UserInfoInputField(
+            prefixIcon: 'assets/images/user-gray.webp',
+            editNode: controller.userNameEditNode,
+            errText: 'Número de celular de 10 ou 11 dígitos',
+          ),
+        )
       ],
     );
   }

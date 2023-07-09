@@ -1,9 +1,12 @@
+import 'package:flutter_comm/widget/input_field.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
   //TODO: Implement LoginController
 
   final count = 0.obs;
+  EditNode userNameEditNode = EditNode();
+  EditNode passwordEditNode = EditNode();
   @override
   void onInit() {
     super.onInit();
