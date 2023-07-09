@@ -34,7 +34,7 @@ class HomeView extends GetView<HomeController> {
             alignment: Alignment.topLeft,
             child: ListView.builder(
               itemCount: itemWidgetList.length,
-              cacheExtent: 1334.w * 3,
+              cacheExtent: 1334.w * 4,
               itemBuilder: (BuildContext context, int index) {
                 return itemWidgetList[index];
               },
@@ -64,7 +64,23 @@ final List<Widget> itemWidgetList = [
   ),
   ...List.generate(7, (index) => GameListWidget(titleImgPath: "assets/images/index-title${index + 1}.webp")),
   WinListWidget(),
-  const BrandListWidget()
+  const BrandListWidget(),
+
+  Container(
+    width: double.infinity,
+    height: 94.w,
+    decoration: const BoxDecoration(color: Color(0xff011A51)),
+    margin: EdgeInsets.only(bottom: 110.w),
+    alignment: Alignment.center,
+    child: Text(
+      "Copyright © All Rights Reserved by Luckyking",
+      style: TextStyle(
+        fontSize: 24.w,
+        color: const Color.fromRGBO(255, 255, 255, 0.60),
+        fontWeight: FontWeight.w400,
+      ),
+    ),
+  ),
 ];
 
 class BrandListWidget extends StatelessWidget {
@@ -119,8 +135,44 @@ class BrandListWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: 30.w),
+          BottomIconsWidget(),
+          SizedBox(height: 50.w),
         ],
       ),
+    );
+  }
+}
+
+class BottomIconsWidget extends StatelessWidget {
+  BottomIconsWidget({
+    super.key,
+  });
+
+  final List<String> names = ["Safe \npayment", "24/7 \nsupport", "Mobile \nfriends", "Highest \nodds", "Multi- \ncurrency"];
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: List.generate(
+          names.length,
+          (index) => Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/images/bottom${index + 1}.webp",
+                    width: 42.w,
+                  ),
+                  SizedBox(height: 8.w),
+                  Text(
+                    names[index],
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 22.w, color: const Color(0xffCCCED2), fontWeight: FontWeight.w400),
+                  ),
+                ],
+              )),
     );
   }
 }
