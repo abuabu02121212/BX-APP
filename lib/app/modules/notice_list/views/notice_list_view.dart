@@ -17,7 +17,7 @@ class NoticeListView extends GetView<NoticeListController> {
       appBar: AppBar(
         titleSpacing: 0,
         leadingWidth: 0,
-        title: const AppHeader(title: "站内信"),
+        title: const AppHeader(title: "Centro de Notificação"),
       ),
       backgroundColor: const Color.fromRGBO(0, 10, 29, 1),
       body: SafeArea(
@@ -67,7 +67,6 @@ class NoticeListView extends GetView<NoticeListController> {
                   apiUrl: '',
                   builder: (dynamic item) {
                     return Container(
-                        height: 350.w,
                         margin: EdgeInsets.only(top: 30.w),
                         decoration: BoxDecoration(
                             gradient: const LinearGradient(
@@ -85,68 +84,74 @@ class NoticeListView extends GetView<NoticeListController> {
                             )
                         ),
                         child: Container(
-                          padding: EdgeInsets.only(left: 25.w, right: 25.w),
+                          padding: EdgeInsets.only(left: 25.w, right: 25.w,bottom: 22.w),
                           child: Column(
                             children: [
-                              SizedBox(
-                                height: 80.w,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text('ID da ordem: 4DA652749FBC367E', style: TextStyle(color: Color(0xff0ED1F4), fontSize: 32.w)),
-                                    CupertinoButton(
+                              SizedBox(height: 20.w),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          width: 585.w,
+                                          child: Text('Pedido de recarga enviado Pedido de recarga...',
+                                              style: TextStyle(color: Colors.white, fontSize: 28.w),maxLines: 1,overflow: TextOverflow.ellipsis),
+                                        ),
+                                        // 红色未读
+                                        Image(image: AssetImage('assets/images/i-red.webp'), width: 18.w)
+                                      ],
+                                    ),
+                                  ),
+                                  // 展开更多
+                                  Container(
+                                    margin: EdgeInsets.only(left: 23.w),
+                                    child: CupertinoButton(
                                         padding: EdgeInsets.zero,
                                         minSize: 0,
-                                        child: Image(image: AssetImage('assets/images/i-transaction-copy.webp'), width: 36.w),
+                                        child: Image(image: AssetImage('assets/images/i-arrow-white-down.webp'), width: 26.w),
                                         onPressed: (){
 
                                         }
-                                    )
-                                  ],
-                                ),
+                                    ),
+                                  )
+                                ],
                               ),
-                              Divider(color: const Color.fromRGBO(255, 255, 255, 0.25),height: 1.w),
-                              SizedBox(
-                                height: 64.w,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              Container(
+                                margin: EdgeInsets.only(top: 10.w),
+                                alignment: Alignment.centerLeft,
+                                child: Text('2023-06-26 01:03', style: TextStyle(color: Colors.white, fontSize: 24.w)),
+                              ),
+                              // 展开内容
+                              Container(
+                                margin: EdgeInsets.only(top: 17.w),
+                                padding: EdgeInsets.only(top:13.w),
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                      top: BorderSide(
+                                          color: const Color.fromRGBO(255, 255, 255, 0.25),
+                                          width: 1.w
+                                      )
+                                  )
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start, // 主轴对齐方式调整
+                                  crossAxisAlignment: CrossAxisAlignment.start, // 交叉轴对齐方式调整
                                   children: [
-                                    Text('Valor', style: TextStyle(color: Colors.white, fontSize: 28.w)),
-                                    Text('R\$ 1.000,00', style: TextStyle(color: Colors.white, fontSize: 28.w))
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      padding: const EdgeInsets.only(bottom: 0),
+                                      child: Text('Prezado cliente, Você adicionou com SUCESSO R\$.20.00 fichas.  Boa sorte e grandes vitórias! ID do jogo:171 ID do pedido:4DA652749FBC367E ', style: TextStyle(color: Colors.white, fontSize: 28.w,height: 1.3)),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text('Data:2023-06-25 16:36:41', style: TextStyle(color: Colors.white, fontSize: 28.w,height: 1.0)),
+                                    ),
                                   ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 64.w,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text('valor do bônus:', style: TextStyle(color: Colors.white, fontSize: 28.w)),
-                                    Text('R\$ 1.000,00', style: TextStyle(color: Colors.white, fontSize: 28.w))
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 64.w,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text('Modelo', style: TextStyle(color: Colors.white, fontSize: 28.w)),
-                                    Text('pixpay', style: TextStyle(color: Colors.white, fontSize: 28.w))
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 64.w,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text('25.06 16:36', style: TextStyle(color: Colors.white, fontSize: 28.w)),
-                                    // F89F03 黄色字体 Esperando
-                                    Text('Sucesso', style: TextStyle(color: Color(0xff5DDB1C), fontSize: 28.w))
-                                  ],
-                                ),
-                              ),
+                                )
+                              )
+
                             ],
                           ),
                         )
