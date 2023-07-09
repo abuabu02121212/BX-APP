@@ -3,12 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../util/toast_util.dart';
 import '../../../../widget/count_down.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/splash_controller.dart';
 
 class SplashView extends GetView<SplashController> {
   const SplashView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +32,7 @@ class SplashView extends GetView<SplashController> {
                 child: CountdownWidget(
                   seconds: 4,
                   finish: () {
+                    Toast.show("开始去MAIN页面");
                     Get.offNamed(Routes.MAIN);
                   },
                   childBuild: (String text, String text2) {

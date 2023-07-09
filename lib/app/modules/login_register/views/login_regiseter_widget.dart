@@ -17,62 +17,59 @@ class LoginRegisterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Align(
+      alignment: Alignment.topCenter,
       child: Material(
         color: Colors.transparent,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Positioned(
-                bottom: 0.w,
-                child: CupertinoButton(
-                  minSize: 0,
-                  padding: EdgeInsets.all(10.w),
-                  onPressed: () {
-                    Get.back();
-                  },
-                  child: Image.asset(
-                    "assets/images/dialog-close.webp",
-                    width: 40.w,
-                  ),
-                )),
-            Padding(
-              padding: EdgeInsets.only(top: 60.w, bottom: 60.w),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20.w),
-                child: Container(
-                  width: 634.w,
-                  height: 752.w,
-                  decoration: const BoxDecoration(color: Color(0xff011A51)),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 20.w),
-                      LoginRegisterTabComponent(
-                        onSelectChanged: (int index) {
-                          Toast.show("index:$index");
-                          controller.pageController.jumpToPage(index);
-                        },
-                      ),
-                      Expanded(
-                        child: PageView.builder(
-                          itemCount: 10,
-                          physics: const NeverScrollableScrollPhysics(),
-                          onPageChanged: (index) {},
-                          controller: controller.pageController,
-                          itemBuilder: (BuildContext context, int index) {
-                            return pageList[index];
+        child: Container(
+          margin: EdgeInsets.only(top: 250.w),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Positioned(
+                  bottom: 0.w,
+                  child: CupertinoButton(
+                    minSize: 0,
+                    padding: EdgeInsets.all(10.w),
+                    onPressed: () {
+                      Get.back();
+                    },
+                    child: Image.asset(
+                      "assets/images/dialog-close.webp",
+                      width: 40.w,
+                    ),
+                  )),
+              Padding(
+                padding: EdgeInsets.only(top: 60.w, bottom: 60.w),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20.w),
+                  child: Container(
+                    width: 634.w,
+                    //  height: 752.w,
+                    decoration: const BoxDecoration(color: Color(0xff011A51)),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 20.w),
+                        LoginRegisterTabComponent(
+                          onSelectChanged: (int index) {
+                            Toast.show("index:$index");
+                            controller.selectedIndex.value = index;
+                            controller.pageController.jumpToPage(index);
                           },
                         ),
-                      )
-                    ],
+                        Obx(() {
+                          return pageList[controller.selectedIndex.value];
+                        }),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -82,6 +79,6 @@ class LoginRegisterWidget extends StatelessWidget {
 void showLoginRegisterDialog() {
   Get.dialog(
     LoginRegisterWidget(),
-    barrierColor: const Color.fromRGBO(0, 0, 0, 0.7),
+    //  barrierColor: const Color.fromRGBO(0, 0, 0, 0.7),
   );
 }

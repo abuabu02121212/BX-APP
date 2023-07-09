@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 
 class LoginRegisterController extends GetxController {
 
-  PageController pageController = PageController();
+ final PageController pageController = PageController();
 
-  final count = 0.obs;
+   final selectedIndex = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -20,6 +20,4 @@ class LoginRegisterController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
