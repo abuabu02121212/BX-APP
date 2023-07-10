@@ -8,6 +8,12 @@ LinearGradient headerLinearGradient = const LinearGradient(
   end: Alignment.bottomCenter,
 );
 
+LinearGradient yellowLinearGradient = const LinearGradient(
+  colors: [Color.fromRGBO(255, 163, 5, 1), Color.fromRGBO(255, 204, 90, 1)],
+  begin: Alignment.centerLeft,
+  end: Alignment.centerRight,
+);
+
 LinearGradient activeBtnLinearGradient = const LinearGradient(
   colors: [Color.fromRGBO(19, 115, 239, 1), Color.fromRGBO(14, 209, 244, 1)],
   begin: Alignment.topCenter,

@@ -7,6 +7,7 @@ class RegisterController extends GetxController {
   final EditNode phoneEditNode = EditNode();
   final EditNode keyEditNode = EditNode();
   final EditNode codeEditNode = EditNode();
+  final isAgreed = true.obs;
   final selectedIndex = 0.obs;
   @override
   void onInit() {

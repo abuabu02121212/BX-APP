@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 import '../../widget/input_field.dart';
+import '../app_style.dart';
 
 class UserInfoInputField extends StatelessWidget {
   const UserInfoInputField({
@@ -49,47 +51,54 @@ class UserInfoInputField extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MyInputFiled(
-            width: double.infinity,
-            height: 72.w,
-            hint: hint,
-            obscureText: isPassword,
-            inputFormatters: tarFormatterList,
-            keyboardType: isPhone || isCode ? TextInputType.number : TextInputType.text,
-            hintStyle: TextStyle(color: const Color(0xff969799), fontSize: 26.w),
-            textStyle: TextStyle(color: const Color(0xffffffff), fontSize: 26.w),
-            prefix: Padding(
-              padding: EdgeInsets.only(left: 20.w, right: 10.w),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Image.asset(prefixIcon, width: 28.w),
-                  if (isPhone)
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.w),
-                      child: Text(
-                        "+55",
-                        style: TextStyle(
-                          fontSize: 26.w,
-                          color: const Color(0xff0ED1F4),
-                          fontWeight: FontWeight.w400,
+          Obx(() {
+            return MyInputFiled(
+              width: double.infinity,
+              height: 72.w,
+              hint: hint,
+              obscureText: !editNode.eyeIsOPen.value,
+              inputFormatters: tarFormatterList,
+              keyboardType: isPhone || isCode ? TextInputType.number : TextInputType.text,
+              hintStyle: TextStyle(color: const Color(0xff969799), fontSize: 26.w),
+              textStyle: TextStyle(color: const Color(0xffffffff), fontSize: 26.w),
+              prefix: Padding(
+                padding: EdgeInsets.only(left: 20.w, right: 10.w),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.asset(prefixIcon, width: 28.w),
+                    if (isPhone)
+                      Padding(
+                        padding: EdgeInsets.only(left: 20.w),
+                        child: Text(
+                          "+55",
+                          style: TextStyle(
+                            fontSize: 26.w,
+                            color: const Color(0xff0ED1F4),
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
-                      ),
-                    )
-                ],
+                      )
+                  ],
+                ),
               ),
-            ),
-            onTextChanged: (text) {
-              if (isUserName) {
-                editNode.isDisplayErrHint.value = usernameRegExp.hasMatch(text);
-              } else if (isPassword) {
-                editNode.isDisplayErrHint.value = pswRegExp.hasMatch(text);
-              } else if (isPhone) {
-                editNode.isDisplayErrHint.value = phoneNumExp.hasMatch(text);
-              }
-            },
-            editNode: editNode,
-          ),
+              suffix: SuffixImageWidget(
+                editNode: editNode,
+                isCode: isCode,
+                isPassword: isPassword,
+              ),
+              onTextChanged: (text) {
+                if (isUserName) {
+                  editNode.isDisplayErrHint.value = usernameRegExp.hasMatch(text);
+                } else if (isPassword) {
+                  editNode.isDisplayErrHint.value = pswRegExp.hasMatch(text);
+                } else if (isPhone) {
+                  editNode.isDisplayErrHint.value = phoneNumExp.hasMatch(text);
+                }
+              },
+              editNode: editNode,
+            );
+          }),
           Obx(() {
             return editNode.isDisplayErrHint.value
                 ? Padding(
@@ -108,5 +117,65 @@ class UserInfoInputField extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class SuffixImageWidget extends StatelessWidget {
+  const SuffixImageWidget({
+    super.key,
+    this.isPassword = false,
+    this.isCode = false,
+    required this.editNode,
+  });
+
+  final bool isPassword;
+  final bool isCode;
+  final EditNode editNode;
+
+  @override
+  Widget build(BuildContext context) {
+    if (isPassword) {
+      return Obx(() {
+        String eyeImgPath = editNode.eyeIsOPen.value ? "assets/images/eye-open.webp" : "assets/images/eye-close.webp";
+        return CupertinoButton(
+          padding: EdgeInsets.only(right: 28.w, top: 12.w, bottom: 12.w, left: 15.w),
+          onPressed: () {
+            editNode.eyeIsOPen.value = !editNode.eyeIsOPen.value;
+          },
+          child: Image.asset(
+            eyeImgPath,
+            width: 28.w,
+            gaplessPlayback: true,
+          ),
+        );
+      });
+    }
+    if (isCode) {
+      return CupertinoButton(
+        onPressed: () {},
+        minSize: 0,
+        padding: EdgeInsets.zero,
+        child: Container(
+          width: 130.w,
+          height: 46.w,
+          margin: EdgeInsets.only(right: 15.w, top: 2.w),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              gradient: yellowLinearGradient,
+              borderRadius: BorderRadius.circular(
+                100.w,
+              )),
+          child: Text(
+            "Enviar",
+            style: TextStyle(
+              fontSize: 26.w,
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      );
+    }
+    return const SizedBox();
   }
 }

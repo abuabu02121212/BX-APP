@@ -25,12 +25,16 @@ List<TextInputFormatter>? phoneFormatterList = [
   LengthLimitingTextInputFormatter(11),
 
   /// 手机号输入格式化后带有空格，故正则限制中加入空格，如果不加入空格，光标位置会忽略空格
-  FilteringTextInputFormatter.allow(RegExp(r'[0-9] ')),
+  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+];
+
+List<TextInputFormatter>? codeFormatterList = [
+  LengthLimitingTextInputFormatter(6),
+  FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
 ];
 
 List<TextInputFormatter>? emailFormatterList = [
   LengthLimitingTextInputFormatter(64),
-
   FilteringTextInputFormatter.allow(RegExp(r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$')),
 ];
 
@@ -62,6 +66,7 @@ class EditNode {
   final enable = false.obs;
   final obscureTextEnable = true.obs;
   final isDisplayErrHint = false.obs;
+  final eyeIsOPen = false.obs;
 
   EditNode() {
     focusNode.addListener(() => hasFocus.value = focusNode.hasFocus);
@@ -75,6 +80,7 @@ class MyInputFiled extends StatelessWidget {
     required this.height,
     required this.hint,
     required this.prefix,
+    this.suffix,
     required this.editNode,
     this.inputFormatters,
     this.keyboardType = TextInputType.text,
@@ -93,6 +99,7 @@ class MyInputFiled extends StatelessWidget {
   final TextStyle hintStyle;
   final TextStyle textStyle;
   final Widget prefix;
+  final Widget? suffix;
   final Color? bgColor;
   final EditNode editNode;
   final List<TextInputFormatter>? inputFormatters;
@@ -130,6 +137,7 @@ class MyInputFiled extends StatelessWidget {
           obscureText: obscureText,
           maxLength: 32,
           prefix: prefix,
+          suffix: suffix,
           padding: EdgeInsets.only(left: 10.w),
           // suffix: delView(),
           inputFormatters: inputFormatters,

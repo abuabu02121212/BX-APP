@@ -43,7 +43,7 @@ class RegisterWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 40.w),
+          SizedBox(height: 50.w),
           Obx(() {
             var selectedIndex = controller.selectedIndex.value;
             String img1 = selectedIndex == 0 ? "assets/images/reg_email_1.webp" : "assets/images/reg_email_2.webp";
@@ -59,7 +59,7 @@ class RegisterWidget extends StatelessWidget {
                   },
                   minSize: 0,
                   padding: EdgeInsets.zero,
-                  child: Image.asset(img1, width: 72.w),
+                  child: Image.asset(img1, width: 72.w, gaplessPlayback: true,),
                 ),
                 SizedBox(width: 36.w),
                 Container(
@@ -86,6 +86,7 @@ class RegisterWidget extends StatelessWidget {
             }
             return PhoneInputListWidget(controller: controller);
           }),
+          SizedBox(height: 20.w),
           AppButton(
             width: 580.w,
             height: 90.w,
@@ -95,6 +96,49 @@ class RegisterWidget extends StatelessWidget {
               Toast.show("Entrar");
             },
           ),
+          SizedBox(height: 34.w),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Obx(() {
+                bool isAgreed = controller.isAgreed.value;
+                return CupertinoButton(
+                  onPressed: () {
+                    controller.isAgreed.value = !controller.isAgreed.value;
+                  },
+                  minSize: 0,
+                  padding: EdgeInsets.only(left: 15.w, right: 8.w, top: 15.w, bottom: 15.w),
+                  child: Image.asset(
+                    isAgreed ? "assets/images/i-radio-active.webp" : "assets/images/i-radio-no.webp",
+                    width: 40.w,
+                  ),
+                );
+              }),
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(children: [
+                      TextSpan(
+                        text: "Eu concordo",
+                        style: TextStyle(fontSize: 24.w, color: Colors.white, fontWeight: FontWeight.w400),
+                      ),
+                      TextSpan(
+                        text: " com os termos e política de\n privacidade.",
+                        style: TextStyle(
+                          fontSize: 24.w,
+                          color: const Color(0xff0ED1F4),
+                          fontWeight: FontWeight.w400,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
+                    ])
+                  ],
+                ),
+              )
+            ],
+          )
         ],
       ),
     );
