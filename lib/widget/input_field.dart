@@ -5,15 +5,39 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 RegExp usernameRegExp = RegExp(r"^[a-zA-Z][a-zA-Z0-9]{4,13}$");
-RegExp inviteCodeRegExp = RegExp(r"^[A-Za-z0-9]{6,9}$");
-
 RegExp pswRegExp = RegExp(r"^(?!^\d+$)(?!^[a-zA-Z]+$)[0-9A-Za-z]{8,20}$");
-RegExp pswInputLimit = RegExp(r'[0-9a-zA-Z]');
-// 手机号正则表达式
 final phoneNumExp = RegExp(r"^[1-9]([0-9]{8,8})$");
+RegExp inviteCodeRegExp = RegExp(r"^[A-Za-z0-9]{6,9}$");
+// 手机号正则表达式
 final upperCaseCharExp = RegExp(r"^[A-Z]$");
 
-List<TextInputFormatter>? aliaFormatterList = [LengthLimitingTextInputFormatter(20), FilteringTextInputFormatter.allow(RegExp(r'[0-9A-Za-z ]'))];
+List<TextInputFormatter>? userNameFormatterList = [
+  LengthLimitingTextInputFormatter(14),
+  FilteringTextInputFormatter.allow(RegExp(r'[0-9a-zA-Z]')),
+];
+
+List<TextInputFormatter>? passwordFormatterList = [
+  LengthLimitingTextInputFormatter(20),
+  FilteringTextInputFormatter.allow(RegExp(r'[0-9a-zA-Z]')),
+];
+
+List<TextInputFormatter>? phoneFormatterList = [
+  LengthLimitingTextInputFormatter(11),
+
+  /// 手机号输入格式化后带有空格，故正则限制中加入空格，如果不加入空格，光标位置会忽略空格
+  FilteringTextInputFormatter.allow(RegExp(r'[0-9] ')),
+];
+
+List<TextInputFormatter>? emailFormatterList = [
+  LengthLimitingTextInputFormatter(64),
+
+  FilteringTextInputFormatter.allow(RegExp(r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$')),
+];
+
+List<TextInputFormatter>? aliaFormatterList = [
+  LengthLimitingTextInputFormatter(20),
+  FilteringTextInputFormatter.allow(RegExp(r'[0-9A-Za-z ]')),
+];
 
 List<TextInputFormatter>? usdtAddressFormatterList = [
   LengthLimitingTextInputFormatter(40),
@@ -59,6 +83,7 @@ class MyInputFiled extends StatelessWidget {
     this.radius = 50,
     required this.hintStyle,
     required this.textStyle,
+    this.obscureText = false,
   });
 
   final double width;
@@ -73,7 +98,7 @@ class MyInputFiled extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
   final ValueChanged<String>? onTextChanged;
-
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +127,7 @@ class MyInputFiled extends StatelessWidget {
           cursorColor: Colors.white,
           cursorHeight: 32.w,
           maxLines: 1,
+          obscureText: obscureText,
           maxLength: 32,
           prefix: prefix,
           padding: EdgeInsets.only(left: 10.w),

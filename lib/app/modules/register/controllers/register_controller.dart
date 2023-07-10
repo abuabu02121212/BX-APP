@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 class RegisterController extends GetxController {
 
   final EditNode emailEditNode = EditNode();
+  final EditNode phoneEditNode = EditNode();
   final EditNode keyEditNode = EditNode();
   final EditNode codeEditNode = EditNode();
   final selectedIndex = 0.obs;

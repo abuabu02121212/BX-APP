@@ -40,7 +40,7 @@ class LoginRegisterWidget extends StatelessWidget {
                     ),
                   )),
               Padding(
-                padding: EdgeInsets.only(top: 60.w, bottom: 60.w),
+                padding: EdgeInsets.only(top: 70.w, bottom: 70.w),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20.w),
                   child: Container(
@@ -55,7 +55,6 @@ class LoginRegisterWidget extends StatelessWidget {
                         SizedBox(height: 20.w),
                         LoginRegisterTabComponent(
                           onSelectChanged: (int index) {
-                            Toast.show("index:$index");
                             controller.selectedIndex.value = index;
                             controller.pageController.jumpToPage(index);
                           },

@@ -35,6 +35,7 @@ class MainView extends GetView<MainController> {
               color: Colors.purple,
               child: PageView.builder(
                   itemCount: 5,
+                  physics: const NeverScrollableScrollPhysics(),
                   controller: controller.pageController,
                   itemBuilder: (BuildContext context, int index) {
                     return pageList[index];
