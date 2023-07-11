@@ -7,7 +7,10 @@ import 'app_header.dart';
 enum ProgressIndicatorType { circular, linear }
 
 class AppWebview extends StatefulWidget {
-  const AppWebview({super.key});
+  AppWebview({super.key, required this.url, required this.title});
+
+  String url;
+  String title;
 
   @override
   State<AppWebview> createState() => _AppWebviewState();
@@ -73,7 +76,7 @@ class _AppWebviewState extends State<AppWebview> {
           child: AppBar(
             titleSpacing: 0,
             leadingWidth: 0,
-            title: const AppHeader(title: "Webview"),
+            title: AppHeader(title: widget.title),
           ),
         ),
       ),
@@ -84,7 +87,7 @@ class _AppWebviewState extends State<AppWebview> {
               children: [
                 InAppWebView(
                   key: webViewKey,
-                  initialUrlRequest: URLRequest(url: WebUri("https://github.com/flutter")),
+                  initialUrlRequest: URLRequest(url: WebUri(widget.url)),
                   initialSettings: InAppWebViewSettings(
                       allowsBackForwardNavigationGestures: true
                   ),
