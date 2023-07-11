@@ -8,9 +8,11 @@ class AppHeader extends StatelessWidget {
   const AppHeader({
     super.key,
     required this.title,
+    this.isNeedLeftBackArrow = true,
   });
 
   final String title;
+  final bool isNeedLeftBackArrow;
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +25,13 @@ class AppHeader extends StatelessWidget {
         children: [
           Positioned(
             left: 20.w,
-            child: IconButton(
-                onPressed: () {
-                  Get.back();
-                },
-                icon: Icon(Icons.arrow_back_ios, size: 45.w)),
+            child: isNeedLeftBackArrow
+                ? IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: Icon(Icons.arrow_back_ios, size: 45.w))
+                : const SizedBox(),
           ),
           Text(
             title,
