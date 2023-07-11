@@ -9,4 +9,8 @@ class ApiRequest {
   dynamic requestRegister(Map<String, Object> params) {
     return httpUtil.post(register, params);
   }
+
+  dynamic requestLogin(Map<String, Object> params) {
+    return httpUtil.post(login, params);
+  }
 }

@@ -106,6 +106,7 @@ class LoginWidget extends StatelessWidget {
                 text: 'Entrar',
                 onClick: () {
                   Toast.show("Entrar");
+                  controller.login();
                 },
               ),
             ),
