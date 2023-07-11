@@ -5,9 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 RegExp usernameRegExp = RegExp(r"^[a-zA-Z][a-zA-Z0-9]{4,13}$");
-RegExp pswRegExp = RegExp(r"^(?!^\d+$)(?!^[a-zA-Z]+$)[0-9A-Za-z]{8,20}$");
+RegExp pswRegExp = RegExp(r"^[0-9A-Za-z]{4,12}$");
 final phoneNumExp = RegExp(r"^[1-9]([0-9]{8,8})$");
 RegExp inviteCodeRegExp = RegExp(r"^[A-Za-z0-9]{6,9}$");
+
+RegExp emailExp = RegExp("^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}\$");
 // 手机号正则表达式
 final upperCaseCharExp = RegExp(r"^[A-Z]$");
 
@@ -35,7 +37,7 @@ List<TextInputFormatter>? codeFormatterList = [
 
 List<TextInputFormatter>? emailFormatterList = [
   LengthLimitingTextInputFormatter(64),
-  FilteringTextInputFormatter.allow(RegExp(r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$')),
+  FilteringTextInputFormatter.allow(emailExp),
 ];
 
 List<TextInputFormatter>? aliaFormatterList = [

@@ -64,7 +64,7 @@ class LoginWidget extends StatelessWidget {
             width: 580.w,
             child: UserInfoInputField(
               prefixIcon: 'assets/images/key-gray.webp',
-              editNode: controller.userNameEditNode,
+              editNode: controller.keyEditNode,
               hint: 'Senha (4-12 letras e números)',
               errText: 'Senha (4-12 letras e números)',
               isPassword: true,
@@ -106,6 +106,7 @@ class LoginWidget extends StatelessWidget {
                 text: 'Entrar',
                 onClick: () {
                   Toast.show("Entrar");
+                  controller.login();
                 },
               ),
             ),

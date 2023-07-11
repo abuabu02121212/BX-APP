@@ -59,11 +59,11 @@ class ForgetPswWidget extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 26.w,
                             color: const Color(0xff0ED1F4),
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 14.w),
+                          padding: EdgeInsets.only(top: 14.w, bottom: 50.w),
                           child: Image.asset(
                             "assets/images/indicator-1.webp",
                             width: 90.w,

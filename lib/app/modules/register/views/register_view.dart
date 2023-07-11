@@ -94,6 +94,7 @@ class RegisterWidget extends StatelessWidget {
             text: 'Register agora',
             onClick: () {
               Toast.show("Entrar");
+              controller.register();
             },
           ),
           SizedBox(height: 34.w),
@@ -165,6 +166,7 @@ class EmailInputListWidget extends StatelessWidget {
             editNode: controller.emailEditNode,
             hint: 'Email',
             errText: 'Email',
+            isEmail: true,
           ),
         ),
         SizedBox(
