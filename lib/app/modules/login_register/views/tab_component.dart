@@ -8,6 +8,7 @@ class LoginRegisterTabComponent extends StatelessWidget {
   final Callback<int> onSelectChanged;
 
   static const List<String> tabNames = ["Entrar", "Cadastre-se"];
+
   @override
   Widget build(BuildContext context) {
     return HorizontalIndicatorTab(
@@ -17,7 +18,8 @@ class LoginRegisterTabComponent extends StatelessWidget {
       itemWidthList: List.generate(tabNames.length, (index) => getTabItemWidth(index)),
       onSelectChanged: onSelectChanged,
       bgColor: Colors.transparent,
-      indicatorAttr: IndicatorAttr(color: const Color(0xff0ED1F4), height: 6.w, width: 80.w),
+      indicator: Image.asset("assets/images/indicator-1.webp", width: 90.w),
+     // indicatorAttr: IndicatorAttr(color: const Color(0xff0ED1F4), height: 6.w, width: 80.w),
       controller: IndicatorTabController(),
     );
   }

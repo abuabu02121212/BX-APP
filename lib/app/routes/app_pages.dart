@@ -6,6 +6,8 @@ import '../modules/component_test/bindings/component_test_binding.dart';
 import '../modules/component_test/views/component_test_view.dart';
 import '../modules/deposit/bindings/deposit_binding.dart';
 import '../modules/deposit/views/deposit_view.dart';
+import '../modules/forget_psw/bindings/forget_psw_binding.dart';
+import '../modules/forget_psw/views/forget_psw_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -120,6 +122,11 @@ class AppPages {
       name: _Paths.NOTICE_LIST,
       page: () => const NoticeListView(),
       binding: NoticeListBinding(),
+    ),
+    GetPage(
+      name: _Paths.FORGET_PSW,
+      page: () => const ForgetPswView(),
+      binding: ForgetPswBinding(),
     ),
   ];
 }

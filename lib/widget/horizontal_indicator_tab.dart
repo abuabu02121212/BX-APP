@@ -18,6 +18,7 @@ class HorizontalIndicatorTab extends StatefulWidget {
     this.indicatorAttr,
     required this.controller,
     this.bgImgPath,
+    this.indicator,
   });
 
   final int size;
@@ -29,6 +30,7 @@ class HorizontalIndicatorTab extends StatefulWidget {
   final IndicatorAttr? indicatorAttr;
   final IndicatorTabController controller;
   final String? bgImgPath;
+  final Widget? indicator;
 
   @override
   State<HorizontalIndicatorTab> createState() {
@@ -82,6 +84,8 @@ class MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixi
                 );
               },
             ),
+
+            /// indicator
             ValueListenableBuilder(
               valueListenable: leftNotifier,
               builder: (BuildContext context, double value, Widget? child) {
@@ -91,15 +95,16 @@ class MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixi
                   left: value,
                   child: Container(
                     width: itemWidth,
-                    height: widget.indicatorAttr?.height,
                     alignment: Alignment.center,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(widget.indicatorAttr?.height ?? 2 / 2.0),
-                      child: Container(
-                        width: indicatorWidth,
-                        color: widget.indicatorAttr?.color,
-                      ),
-                    ),
+                    child: widget.indicator ??
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(widget.indicatorAttr?.height ?? 2 / 2.0),
+                          child: Container(
+                            width: indicatorWidth,
+                            height: widget.indicatorAttr?.height,
+                            color: widget.indicatorAttr?.color,
+                          ),
+                        ),
                   ),
                 );
               },
@@ -127,7 +132,7 @@ class MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixi
 
   void onItemSelectChanged(int pos) {
     if (widget.controller.selectedIndexNotifier.value != pos) {
-      if (widget.indicatorAttr != null) {
+      if (widget.indicatorAttr != null || widget.indicator != null) {
         anim.updateEndAndStart(getItemWidthSum(pos - 1));
       }
       widget.controller.selectedIndexNotifier.value = pos;
@@ -166,12 +171,12 @@ class MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixi
 
 class IndicatorAttr {
   IndicatorAttr({
-    required this.color,
+    this.color,
     required this.height,
     required this.width,
   });
 
-  final Color color;
+  final Color? color;
   final double height;
   final double width;
 }
