@@ -1,5 +1,5 @@
 class WebURLUtil {
-  static const String _BASE_URL = "http://h5.cyestari.com";
+  static const String _BASE_URL = "https://h5.cyestari.com";
 
   // 活动-首存
   static const Map<String, String> ACTIVITY_DETAIL_FIRST_DEPOSIT = {
