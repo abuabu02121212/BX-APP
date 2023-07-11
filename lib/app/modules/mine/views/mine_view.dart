@@ -57,22 +57,20 @@ class MineView extends GetView<MineController> {
                               onPressed: () {
                                 Get.dialog(AppAvatar());
                               },
-                              child: Obx(() {
-                                return Container(
-                                  margin: EdgeInsets.only(top: 45.w, left: 55.w),
-                                  width: 120.w,
-                                  height: 120.w,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(60.w),
-                                      border: Border.all(color: Color(0xff0ED1F4), width: 4.w),
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/images/avatar/avatar0.webp"),
-                                          fit: BoxFit.cover
-                                      )
-                                  ),
-                                );
-                              }),
+                              child: Container(
+                                margin: EdgeInsets.only(top: 45.w, left: 55.w),
+                                width: 120.w,
+                                height: 120.w,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(60.w),
+                                    border: Border.all(color: Color(0xff0ED1F4), width: 4.w),
+                                    image: const DecorationImage(
+                                        image: AssetImage(
+                                            "assets/images/avatar/avatar0.webp"),
+                                        fit: BoxFit.cover
+                                    )
+                                ),
+                              ),
                             ),
                             Positioned(
                               top: 153.w,

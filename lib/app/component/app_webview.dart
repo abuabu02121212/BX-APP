@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 import 'app_header.dart';
+
+enum ProgressIndicatorType { circular, linear }
 
 class AppWebview extends StatefulWidget {
   const AppWebview({super.key});
@@ -16,7 +19,42 @@ class _AppWebviewState extends State<AppWebview> {
   bool _isAppBarVisible = true;
   double _statusBarHeight = 0.0;
   double _appBarHeight = kToolbarHeight;
-  InAppWebViewController? webViewController;
+  InAppWebViewController? _webViewController;
+
+  double _progress = 0.0;
+  ProgressIndicatorType type = ProgressIndicatorType.linear;
+
+  _setProgress(double progress) {
+    setState(() {
+      _progress = progress;
+    });
+  }
+
+  Widget getProgressIndicator(ProgressIndicatorType type) {
+    switch (type) {
+      case ProgressIndicatorType.circular:
+        return Center(
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              color: Colors.white.withAlpha(70),
+            ),
+            child: const CircularProgressIndicator(),
+          ),
+        );
+      case ProgressIndicatorType.linear:
+      default:
+        return SizedBox(
+          height: 2,
+          child: LinearProgressIndicator(
+            value: _progress,
+            backgroundColor: Colors.white,
+            valueColor: const AlwaysStoppedAnimation<Color>(Color(0xff011A51)),
+          ),
+        );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +80,25 @@ class _AppWebviewState extends State<AppWebview> {
       body: Column(
         children: [
           Expanded(
-            child: InAppWebView(
-              initialUrlRequest: URLRequest(url: Uri.parse('https://github.com/flutter')),
-              onWebViewCreated: (controller) {
-                webViewController = controller;
-              },
+            child: Stack(
+              children: [
+                InAppWebView(
+                  key: webViewKey,
+                  initialUrlRequest: URLRequest(url: WebUri("https://github.com/flutter")),
+                  initialSettings: InAppWebViewSettings(
+                      allowsBackForwardNavigationGestures: true
+                  ),
+                  onWebViewCreated: (controller) {
+                    _webViewController = controller;
+                  },
+                  onProgressChanged: (controller, progress) {
+                    setState(() {
+                      _progress = progress / 100;
+                    });
+                  },
+                ),
+                _progress < 1.0 ? getProgressIndicator(type) : Container(),
+              ],
             )
           )
         ],
