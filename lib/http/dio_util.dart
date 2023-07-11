@@ -2,18 +2,17 @@ import 'package:dio/dio.dart';
 
 import '../util/Log.dart';
 
-DioUtil httpUtil = DioUtil();
-
 class DioUtil {
   final dio = Dio();
+  final String baseUrl;
 
-  DioUtil() {
+  DioUtil(this.baseUrl) {
     init();
   }
 
   void init() {
     BaseOptions options = dio.options;
-    options.baseUrl = 'https://api.pub.dev';
+    options.baseUrl = '';
     options.connectTimeout = const Duration(seconds: 10);
     options.receiveTimeout = const Duration(seconds: 10);
   }
@@ -24,16 +23,16 @@ class DioUtil {
     Log.d(response.data.toString());
   }
 
-  dynamic get(String url, Map<String, Object> param) async {
+  dynamic get(String path, Map<String, Object> param) async {
     Response response;
-    response = await dio.get(url, queryParameters: param);
+    response = await dio.get(path, queryParameters: param);
     Log.d(response.data.toString());
     return response.data;
   }
 
-  dynamic post(String url, Map<String, Object> param) async {
+  dynamic post(String path, Map<String, Object> param) async {
     Response response;
-    response = await dio.post(url, queryParameters: param);
+    response = await dio.post(path, queryParameters: param);
     return response.data;
   }
 }

@@ -165,6 +165,7 @@ class EmailInputListWidget extends StatelessWidget {
             editNode: controller.emailEditNode,
             hint: 'Email',
             errText: 'Email',
+            isEmail: true,
           ),
         ),
         SizedBox(

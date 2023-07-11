@@ -6,7 +6,7 @@ class LoginController extends GetxController {
 
   final count = 0.obs;
   EditNode userNameEditNode = EditNode();
-  EditNode passwordEditNode = EditNode();
+  EditNode keyEditNode = EditNode();
   @override
   void onInit() {
     super.onInit();
