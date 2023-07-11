@@ -20,6 +20,7 @@ abstract class Routes {
   static const LOGIN_REGISTER = _Paths.LOGIN_REGISTER;
   static const NOTICE_LIST = _Paths.NOTICE_LIST;
   static const FORGET_PSW = _Paths.FORGET_PSW;
+  static const WEBVIEW = _Paths.WEBVIEW;
 }
 
 abstract class _Paths {
@@ -41,4 +42,5 @@ abstract class _Paths {
   static const LOGIN_REGISTER = '/login-register';
   static const NOTICE_LIST = '/notice-list';
   static const FORGET_PSW = '/forget-psw';
+  static const WEBVIEW = '/webview';
 }

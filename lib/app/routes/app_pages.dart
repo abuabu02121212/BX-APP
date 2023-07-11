@@ -32,6 +32,8 @@ import '../modules/transaction/bindings/transaction_binding.dart';
 import '../modules/transaction/views/transaction_view.dart';
 import '../modules/vip/bindings/vip_binding.dart';
 import '../modules/vip/views/vip_view.dart';
+import '../modules/webview/bindings/webview_binding.dart';
+import '../modules/webview/views/webview_view.dart';
 import '../modules/withdraw/bindings/withdraw_binding.dart';
 import '../modules/withdraw/views/withdraw_view.dart';
 
@@ -127,6 +129,11 @@ class AppPages {
       name: _Paths.FORGET_PSW,
       page: () => const ForgetPswView(),
       binding: ForgetPswBinding(),
+    ),
+    GetPage(
+      name: _Paths.WEBVIEW,
+      page: () => const WebviewView(),
+      binding: WebviewBinding(),
     ),
   ];
 }
