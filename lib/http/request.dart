@@ -13,4 +13,8 @@ class ApiRequest {
   dynamic requestLogin(Map<String, Object> params) {
     return httpUtil.post(login, params);
   }
+
+  dynamic requestSms(Map<String, Object> params) {
+    return httpUtil.post(sms, params);
+  }
 }

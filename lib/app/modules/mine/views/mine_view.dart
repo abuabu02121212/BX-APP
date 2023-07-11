@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../http/request.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_progress.dart';
 import '../../../routes/app_pages.dart';
@@ -307,7 +308,11 @@ class MineView extends GetView<MineController> {
                 text: 'Sair',
                 colorList: const [Color(0xffFFD500), Color(0xffFF9901)],
                 onClick: () {
-
+                  apiRequest.requestSms({
+                    'tel': '6666666668',
+                    'ty': 1,
+                    'flag': 'text'
+                  });
                 },
               ),
             ],
