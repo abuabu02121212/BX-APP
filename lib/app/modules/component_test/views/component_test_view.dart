@@ -25,6 +25,7 @@ class ComponentTestView extends GetView<ComponentTestController> {
       appBar: AppBar(
         titleSpacing: 0,
         leadingWidth: 0,
+        toolbarHeight: 110.w,
         title: const AppHeader(title: "页面标题示例"),
       ),
       body: SafeArea(

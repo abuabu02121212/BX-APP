@@ -33,6 +33,8 @@ samples, guidance on mobile development, and a full API reference.
    以后其他模块会作为通用项目框架，以后搭建项目只需要删除app模块，其他模块稍微配置修改下就行了。
 
 接口文档地址：http://rap2.cyestari.com/organization/repository/editor?id=17&mod=55
+UI地址：
+https://www.figma.com/file/VQCM9LAoTTvkuqvdWgtiX9/LB88-%E7%A7%BB%E5%8A%A8%E7%AB%AF?node-id=665%3A14552&mode=dev
 账号密码： 自己注册，然后找后端相关人员，添加权限。
 henry常用密码：aa123456
 H5地址： http://h5.cyestari.com/

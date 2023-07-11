@@ -19,3 +19,9 @@ LinearGradient activeBtnLinearGradient = const LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
 );
+
+LinearGradient tabBgLinearGradient = const LinearGradient(
+  colors: [Color(0xff020a1c), Color(0xff051a4b)],
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+);
