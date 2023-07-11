@@ -19,7 +19,10 @@ class PromotionView extends GetView<PromotionController> {
         titleSpacing: 0,
         leadingWidth: 0,
         toolbarHeight: 110.w,
-        title: const AppHeader(title: "Promoção"),
+        title: const AppHeader(
+          title: "Promoção",
+          isNeedLeftBackArrow: false,
+        ),
       ),
       body: SafeArea(
         child: Container(
@@ -92,18 +95,22 @@ class ItemWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.only(left: 20.w, top: 14.w),
+                    padding: EdgeInsets.only(left: 20.w, top: 14.w, right: 10.w),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Primeiro depósito + bônus de 20%",
+                          "Primeiro depósito + bônus de 20% gjghghghhjhjh",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: 28.w, color: Colors.white, fontWeight: FontWeight.w700),
                         ),
                         Text(
                           "20/06/2023 - Longo prazo",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: 24.w, color: const Color.fromRGBO(255, 255, 255, 0.70), fontWeight: FontWeight.w400),
                         ),
                       ],
