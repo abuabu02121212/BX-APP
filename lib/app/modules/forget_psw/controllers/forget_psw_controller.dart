@@ -1,9 +1,12 @@
 import 'package:get/get.dart';
 
-class ForgetPswController extends GetxController {
-  //TODO: Implement ForgetPswController
+import '../../../../widget/input_field.dart';
 
-  final count = 0.obs;
+class ForgetPswController extends GetxController {
+  final EditNode phoneEditNode = EditNode();
+  final EditNode keyEditNode = EditNode();
+  final EditNode codeEditNode = EditNode();
+
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +21,4 @@ class ForgetPswController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

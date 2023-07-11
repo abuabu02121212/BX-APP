@@ -11,6 +11,7 @@ import '../../../../widget/single_scroll_view_marquee.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../../../routes/app_pages.dart';
+import '../../forget_psw/views/forget_psw_widget.dart';
 import '../../login_register/views/login_regiseter_widget.dart';
 import '../controllers/home_controller.dart';
 
@@ -592,7 +593,10 @@ class HomeHeader extends StatelessWidget {
           ),
           SizedBox(width: 26.w),
           CupertinoButton(
-            onPressed: () {},
+            onPressed: () {
+              showForgetPswDialog();
+              Toast.show("按钮被点击");
+            },
             minSize: 0,
             padding: EdgeInsets.all(10.w),
             child: Image.asset("assets/images/home_message.webp", width: 60.w),
