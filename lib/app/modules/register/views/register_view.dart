@@ -94,6 +94,7 @@ class RegisterWidget extends StatelessWidget {
             text: 'Register agora',
             onClick: () {
               Toast.show("Entrar");
+              controller.register();
             },
           ),
           SizedBox(height: 34.w),
