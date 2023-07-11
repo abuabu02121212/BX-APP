@@ -174,7 +174,7 @@ class MineView extends GetView<MineController> {
                               text: 'Depósito',
                               colorList: const [Color(0xffFFD500), Color(0xffFF9901)],
                               onClick: () {
-
+                                Get.toNamed(Routes.WEBVIEW);
                               },
                             ),
                             AppButton(

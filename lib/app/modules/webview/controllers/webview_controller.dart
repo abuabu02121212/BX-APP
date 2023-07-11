@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 class WebviewController extends GetxController {
   //TODO: Implement WebviewController
+   RxBool isAppBarVisible = true.obs;
 
   final count = 0.obs;
   @override
