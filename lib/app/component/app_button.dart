@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppButton extends StatelessWidget {
@@ -10,6 +11,7 @@ class AppButton extends StatelessWidget {
     required this.onClick,
     this.colorList = colorList1,
     required this.radius,
+    this.textColor = Colors.white,
   });
 
   final double width;
@@ -18,8 +20,10 @@ class AppButton extends StatelessWidget {
   final VoidCallback onClick;
   final List<Color> colorList;
   final double radius;
+  final Color textColor;
 
   static const colorList1 = [Color(0xff0ED1F4), Color(0xff1373EF)];
+  static const colorList2 = [Color(0xffFFD500), Color(0xffFF9901)];
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,7 @@ class AppButton extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          gradient: const LinearGradient(colors: colorList1),
+          gradient:  LinearGradient(colors: colorList),
           borderRadius: BorderRadius.circular(radius),
         ),
         alignment: Alignment.center,
@@ -40,7 +44,7 @@ class AppButton extends StatelessWidget {
           text,
           style: TextStyle(
             fontSize: 28.w,
-            color: const Color(0xffffffff),
+            color: textColor,
             fontWeight: FontWeight.w700,
           ),
         ),

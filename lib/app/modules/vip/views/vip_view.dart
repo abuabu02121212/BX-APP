@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_comm/app/modules/vip/views/vip_card_widget.dart';
+import 'package:flutter_comm/app/modules/vip/views/progress_card_1_widget.dart';
+import 'package:flutter_comm/app/modules/vip/views/progress_card_2_widget.dart';
+import 'package:flutter_comm/app/modules/vip/views/vip_level_card_widget.dart';
+import 'package:flutter_comm/app/modules/vip/views/vip_withdraw_card_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-
 import '../../../component/app_header.dart';
-import '../../../component/app_progress.dart';
 import '../controllers/vip_controller.dart';
 
 class VipView extends GetView<VipController> {
@@ -26,7 +27,23 @@ class VipView extends GetView<VipController> {
       body: Container(
         color: const Color(0xff020a1d),
         child: ListView(
-          children: const [VipCard()],
+          children: [
+            const VipLevelCard(),
+            const VipWithdrawCardWidget(),
+            Padding(
+              padding: EdgeInsets.only(top: 30.w, left: 20.w),
+              child: Text(
+                "Distância próximo nível:",
+                style: TextStyle(
+                  fontSize: 28.w,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            const VipProgress1CardWidget(),
+            const VipProgress2CardWidget(),
+          ],
         ),
       ),
     );

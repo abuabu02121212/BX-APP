@@ -25,3 +25,4 @@ LinearGradient tabBgLinearGradient = const LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
 );
+// #044B9A, #011A51

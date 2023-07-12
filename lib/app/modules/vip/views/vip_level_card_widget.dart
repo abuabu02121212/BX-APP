@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../component/app_progress.dart';
 
-class VipCard extends StatelessWidget {
-  const VipCard({super.key});
+class VipLevelCard extends StatelessWidget {
+  const VipLevelCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +48,6 @@ class VipCard extends StatelessWidget {
                           ),
                         ],
                       ),
-
-
                       Container(
                         padding: EdgeInsets.only(top: 12.w, left: 20.w, right: 20.w),
                         child: Row(
