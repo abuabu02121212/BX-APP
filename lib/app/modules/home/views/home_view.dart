@@ -12,6 +12,7 @@ import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../../../routes/app_pages.dart';
 import '../../forget_psw/views/forget_psw_widget.dart';
+import '../../home_menu/views/home_menu_view.dart';
 import '../../login_register/views/login_regiseter_widget.dart';
 import '../controllers/home_controller.dart';
 
@@ -573,7 +574,9 @@ class HomeHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CupertinoButton(
-            onPressed: () {},
+            onPressed: () {
+              showHomeDrawer();
+            },
             minSize: 0,
             padding: EdgeInsets.all(16.w),
             child: Image.asset("assets/images/i-popup-btn.webp", width: 40.w),

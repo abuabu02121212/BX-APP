@@ -10,6 +10,8 @@ import '../modules/forget_psw/bindings/forget_psw_binding.dart';
 import '../modules/forget_psw/views/forget_psw_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/home_menu/bindings/home_menu_binding.dart';
+import '../modules/home_menu/views/home_menu_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/login_register/bindings/login_register_binding.dart';
@@ -134,6 +136,11 @@ class AppPages {
       name: _Paths.WEBVIEW,
       page: () => const WebviewView(),
       binding: WebviewBinding(),
+    ),
+    GetPage(
+      name: _Paths.HOME_MENU,
+      page: () => const HomeMenuView(),
+      binding: HomeMenuBinding(),
     ),
   ];
 }

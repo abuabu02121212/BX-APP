@@ -31,4 +31,27 @@ LinearGradient tabBgLinearGradient = const LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
 );
-// #044B9A, #011A51
+
+LinearGradient drawerItem1 = const LinearGradient(
+  colors: [Color(0xff09BD94), Color(0xff2D4EE9)],
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+);
+
+LinearGradient drawerItem2 = const LinearGradient(
+  colors: [Color(0xffFF9739), Color(0xffF23D32)],
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+);
+
+LinearGradient drawerItem3 = const LinearGradient(
+  colors: [Color(0xffA14FD1), Color(0xffEF30A5)],
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+);
+
+LinearGradient drawerItem4 = const LinearGradient(
+  colors: [Color(0xff9C27D7), Color(0xff2459FE)],
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+);
