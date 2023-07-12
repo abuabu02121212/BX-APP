@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/app/component/app_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import '../../../../util/text_util.dart';
+import '../../../../util/toast_util.dart';
 import '../../../app_style.dart';
 import '../controllers/home_menu_controller.dart';
 
@@ -58,21 +61,71 @@ class HomeDrawerWidget extends StatelessWidget {
                 height: 26.w,
               ),
               ...List.generate(4, (index) => ItemType2Widget(index: index)),
-
               Padding(
                 padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 30.w),
                 child: Text(
-                    "Copie o link e cole-o no navegador do seu computador para abri-lo em seu computador",
-                    style: TextStyle(
-                      fontSize: 24.w,
-                      color: const Color(0xffFFD500),
-                      fontWeight: FontWeight.w400,
-                    ),
+                  "Copie o link e cole-o no navegador do seu computador para abri-lo em seu computador",
+                  style: TextStyle(
+                    fontSize: 24.w,
+                    color: const Color(0xffFFD500),
+                    fontWeight: FontWeight.w400,
                   ),
-              )
+                ),
+              ),
+              SizedBox(height: 14.w),
+              const BottomCopyWidget(),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class BottomCopyWidget extends StatelessWidget {
+  const BottomCopyWidget({
+    super.key,
+  });
+
+  final String text = "final String text = https://ds.lb88.com";
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 550.w,
+      height: 70.w,
+      decoration: BoxDecoration(
+        color: const Color(0xff000A1D),
+        border: Border.all(
+          color: const Color.fromRGBO(255, 255, 255, 0.10),
+          width: 1.w,
+        ),
+        borderRadius: BorderRadius.circular(8.w),
+      ),
+      padding: EdgeInsets.only(left: 20.w),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: 24.w,
+              color: Colors.white,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          AppButton(
+            width: 150.w,
+            height: 70.w,
+            radius: 8.w,
+            text: 'Cópia',
+            onClick: () {
+              copyText(text);
+            },
+          )
+        ],
       ),
     );
   }
@@ -101,7 +154,7 @@ class ItemType2Widget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
-      onPressed: () {  },
+      onPressed: () {},
       minSize: 0,
       padding: EdgeInsets.only(left: 30.w),
       child: SizedBox(

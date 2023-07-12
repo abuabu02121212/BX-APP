@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_comm/util/toast_util.dart';
 
 class TextMeasureUtil {
   static Size getTextSize({
@@ -13,4 +15,11 @@ class TextMeasureUtil {
     // Log.d("textWidth:$textWidth  textHeight:$textHeight - lines:$lines");
     return Size(painter.width, painter.height);
   }
+}
+
+/// 复制链接
+void copyText(String link) {
+  Clipboard.setData(ClipboardData(text: link));
+
+  Toast.show('已经复制');
 }
