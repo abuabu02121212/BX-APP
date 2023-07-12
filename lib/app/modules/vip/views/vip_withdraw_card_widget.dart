@@ -12,11 +12,13 @@ class VipWithdrawCardWidget extends StatelessWidget {
     return Center(
       child: Container(
         margin: EdgeInsets.only(top: 30.w),
-        padding: EdgeInsets.only(left: 20.w, right: 20.w
-        ),
+        padding: EdgeInsets.only(left: 20.w, right: 20.w),
         width: 710.w,
         height: 248.w,
-        decoration: BoxDecoration(gradient: headerLinearGradient, borderRadius: BorderRadius.circular(20.w)),
+        decoration: BoxDecoration(
+          gradient: headerLinearGradient3,
+          borderRadius: BorderRadius.circular(20.w),
+        ),
         child: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,6 +36,7 @@ class ItemWidget extends StatelessWidget {
   });
 
   final List<String> names = ["Número de saques \npor dia", "Limite diário \nde retirada", "Bônus de \natualização"];
+  final List<String> imgList = ["i-withdarw", "i-bet-record", "i-vip2"];
   final int index;
 
   @override
@@ -43,7 +46,7 @@ class ItemWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image.asset("assets/images/i-withdarw.webp", width: 51.w),
+        Image.asset("assets/images/${imgList[index]}.webp", width: 51.w),
         SizedBox(height: 20.w),
         Text(
           "0",
