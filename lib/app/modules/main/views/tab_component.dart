@@ -12,13 +12,19 @@ class MainHorizontalTabComponent extends StatelessWidget {
 
   final Callback<int> onSelectChanged;
 
-  static const List<String> tabNames = ["Casa", "Promoção", "Depósito", "VIP", "Minha", "组件测试页"];
+  static const List<String> tabNames = [
+    "Casa",
+    "Promoção",
+    "Depósito",
+    "VIP",
+    "Minha",
+  //  "组件测试页",
+  ];
   static const selectedIconList = ["i-index", "i-promotion", "blue-circle", "i-vip", "i-personal", "i-personal"];
   static const unselectedIconList = ["i-index-gray", "i-promotion-gray", "blue-circle", "i-vip-gray", "i-personal-gray", "i-personal-gray"];
   static const miniScale = 1.3;
   static const maxScale = 1.6;
   final animScale = miniScale.obs;
-
 
   @override
   Widget build(BuildContext context) {

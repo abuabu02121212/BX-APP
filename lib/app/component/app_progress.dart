@@ -19,6 +19,8 @@ class AppProgress extends StatelessWidget {
 
   static const colorList1 = [Color(0xff1373EF), Color(0xff0ED1F4)];
 
+  static const colorList2 = [Color(0xff0BE3FF), Color(0xffFFD90C)];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,7 +36,7 @@ class AppProgress extends StatelessWidget {
           width: width * progress / 100,
           height: double.infinity,
           decoration: BoxDecoration(
-            gradient: const LinearGradient(colors: colorList1),
+            gradient: LinearGradient(colors: colorList),
             borderRadius: BorderRadius.circular(radius),
           ),
           alignment: Alignment.centerLeft,
