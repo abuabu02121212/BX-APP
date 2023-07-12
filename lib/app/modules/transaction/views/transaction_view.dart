@@ -49,15 +49,17 @@ class TransactionView extends GetView<TransactionController> {
                   ),
                 ],
               ),
-              child: AppTab(tabs: const [
-                {
-                  'label': 'Depósito',
-                  'value': '1'
-                },
-                {
-                  'label': 'Retirar',
-                  'value': '2'
-                }
+              child: AppTab(
+                  controller: controller.tabController,
+                  tabs: const [
+                    {
+                      'label': 'Depósito',
+                      'value': '1'
+                    },
+                    {
+                      'label': 'Retirar',
+                      'value': '2'
+                    }
               ], height: 100.w, indicatorWidth: 88.w),
             ),
             Flexible(child: Container(

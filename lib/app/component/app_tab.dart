@@ -10,9 +10,12 @@ class AppTab extends StatefulWidget {
     this.height,
     this.onTap,
     this.indicatorWidth,
+    this.controller,
   });
 
   final List<Map<String, dynamic>> tabs;
+
+  final TabController? controller;
 
   // 是否可以滚动
   final bool isScrollable;
@@ -31,18 +34,16 @@ class AppTab extends StatefulWidget {
 }
 
 class _AppTabState extends State<AppTab> with SingleTickerProviderStateMixin {
-  late TabController _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = TabController(length: widget.tabs.length, vsync: this);
   }
 
   @override
   Widget build(BuildContext context) {
     return TabBar(
-      controller: _controller,
+      controller: widget.controller,
       indicatorColor: const Color.fromRGBO(14, 209, 244, 1),
       labelColor: Colors.white,
       unselectedLabelColor: const Color.fromRGBO(255, 255, 255, 0.40),

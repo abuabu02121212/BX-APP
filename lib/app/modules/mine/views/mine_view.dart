@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_avatar.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +9,6 @@ import 'package:get/get.dart';
 import '../../../../http/request.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_progress.dart';
-import '../../../routes/app_pages.dart';
 import '../controllers/mine_controller.dart';
 
 class MineView extends GetView<MineController> {
@@ -173,7 +171,7 @@ class MineView extends GetView<MineController> {
                               text: 'Depósito',
                               colorList: const [Color(0xffFFD500), Color(0xffFF9901)],
                               onClick: () {
-                                Get.toNamed(Routes.WEBVIEW);
+                                Get.toNamed(Routes.DEPOSIT);
                               },
                             ),
                             AppButton(
@@ -182,7 +180,7 @@ class MineView extends GetView<MineController> {
                               radius: 100.w,
                               text: 'Retirar',
                               onClick: () {
-                                Get.toNamed(Routes.NOTICE_LIST);
+                                Get.toNamed(Routes.DEPOSIT);
                               },
                             ),
                           ],
@@ -196,7 +194,7 @@ class MineView extends GetView<MineController> {
                 margin: EdgeInsets.only(left: 74.w, top: 30.w, bottom: 30.w),
                 child: Row(
                   children: [
-                    Image(image: AssetImage("assets/images/bonusgood.webp"), width: 152.w),
+                    Image(image: const AssetImage("assets/images/bonusgood.webp"), width: 152.w),
                     SizedBox(width: 44.w),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -226,7 +224,7 @@ class MineView extends GetView<MineController> {
                 height: 272.w,
                 margin: EdgeInsets.only(left: 45.w, right: 45.w, bottom: 30.w),
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                         colors: [Color(0xff044B9A), Color(0xff011A51)],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter
@@ -241,13 +239,13 @@ class MineView extends GetView<MineController> {
                             padding: EdgeInsets.only(left: 26.w, right: 26.w),
                             child: Row(
                               children: [
-                                Image(image: AssetImage("assets/images/i-finance-record.webp"),
+                                Image(image: const AssetImage("assets/images/i-finance-record.webp"),
                                     width: 40.w),
                                 SizedBox(width: 26.w),
                                 Text('Transação', style: TextStyle(
                                     color: Colors.white, fontSize: 28.w)),
-                                Expanded(child: SizedBox()),
-                                Image(image: AssetImage("assets/images/i-arrow-right-bold.webp"),
+                                const Expanded(child: SizedBox()),
+                                Image(image: const AssetImage("assets/images/i-arrow-right-bold.webp"),
                                     width: 20.w),
                               ],
                             ),
@@ -263,13 +261,13 @@ class MineView extends GetView<MineController> {
                             height: 90.w,
                             child: Row(
                               children: [
-                                Image(image: AssetImage("assets/images/i-agent-record.webp"),
+                                Image(image: const AssetImage("assets/images/i-agent-record.webp"),
                                     width: 40.w),
                                 SizedBox(width: 26.w),
                                 Text('Histórico de Apostas', style: TextStyle(
                                     color: Colors.white, fontSize: 28.w)),
-                                Expanded(child: SizedBox()),
-                                Image(image: AssetImage("assets/images/i-arrow-right-bold.webp"),
+                                const Expanded(child: SizedBox()),
+                                Image(image: const AssetImage("assets/images/i-arrow-right-bold.webp"),
                                     width: 20.w),
                               ],
                             ),
