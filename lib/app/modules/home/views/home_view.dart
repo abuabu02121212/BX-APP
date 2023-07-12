@@ -2,15 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/modules/home/views/swiper_component.dart';
 import 'package:flutter_comm/app/modules/home/views/tab_component.dart';
+import 'package:flutter_comm/widget/keep_alive_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-
 import '../../../../util/toast_util.dart';
 import '../../../../widget/single_scroll_view_marquee.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
-import '../../../routes/app_pages.dart';
 import '../../forget_psw/views/forget_psw_widget.dart';
 import '../../home_menu/views/home_menu_view.dart';
 import '../../login_register/views/login_regiseter_widget.dart';
@@ -38,9 +37,10 @@ class HomeView extends GetView<HomeController> {
             alignment: Alignment.topLeft,
             child: ListView.builder(
               itemCount: itemWidgetList.length,
-              cacheExtent: 1334.w * 4,
+              //  cacheExtent: 1334.w * 4,
               itemBuilder: (BuildContext context, int index) {
-                return itemWidgetList[index];
+                // Log.d("====itemBuilder===itemBuilder===index:$index=====");
+                return AliveWidget(child: itemWidgetList[index]);
               },
             ),
           ),
@@ -69,7 +69,6 @@ final List<Widget> itemWidgetList = [
   ...List.generate(7, (index) => GameListWidget(titleImgPath: "assets/images/index-title${index + 1}.webp")),
   WinListWidget(),
   const BrandListWidget(),
-
   Container(
     width: double.infinity,
     height: 94.w,
@@ -590,7 +589,7 @@ class HomeHeader extends StatelessWidget {
             radius: 30.w,
             text: 'Registar Conta',
             onClick: () {
-             // Get.toNamed(Routes.LOGIN_REGISTER);
+              // Get.toNamed(Routes.LOGIN_REGISTER);
               showLoginRegisterDialog();
               Toast.show("按钮被点击");
             },
