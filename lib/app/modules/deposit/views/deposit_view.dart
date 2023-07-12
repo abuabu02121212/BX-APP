@@ -91,25 +91,22 @@ class DepositView extends GetView<DepositController> {
             )
           ];
         },
-        body: Container(
-          color: Colors.amber,
-          child: TabBarView(
-            controller: controller.tabController,
-            children: [
-              ListView(
-                children: [
-                  _buildDeposit()
-                ],
-              ),
-              ListView(
-                children: [
-                  _buildWithdraw()
-                ],
-              ),
-              // _buildDeposit(),
-              // _buildWithdraw(),
-            ],
-          ),
+        body: TabBarView(
+          controller: controller.tabController,
+          children: [
+            ListView(
+              children: [
+                _buildDeposit()
+              ],
+            ),
+            ListView(
+              children: [
+                _buildWithdraw()
+              ],
+            ),
+            // _buildDeposit(),
+            // _buildWithdraw(),
+          ],
         ),
       ),
     );
@@ -232,8 +229,7 @@ class DepositView extends GetView<DepositController> {
 
   Widget _buildDeposit() {
     return Container(
-      color: Colors.white,
-      // padding: EdgeInsets.only(left: 20.w,right: 20.w),
+      padding: EdgeInsets.only(left: 20.w,right: 20.w),
       child: Column(
         children: [
           Container(
@@ -363,8 +359,7 @@ class DepositView extends GetView<DepositController> {
 
   Widget _buildWithdraw() {
     return Container(
-      color: Colors.red,
-      // padding: EdgeInsets.only(left: 20.w,right: 20.w,top: 36.w),
+      padding: EdgeInsets.only(left: 20.w,right: 20.w,top: 36.w),
       child: Column(
         children: [
           Container(
@@ -567,9 +562,42 @@ class DepositView extends GetView<DepositController> {
           Text(' 3. As recompensas da promoção podem ser retiradas diretamente.',style: TextStyle(color: Colors.white,fontSize: 26.w)),
           SizedBox(height: 15.w),
           Text('4. O saldo não retirável na conta de recarga (Atividade) (incluindo, entre outros, o valor da recarga, recompensas por participar de atividades e valor de ganhos e perdas do jogo, etc.).',style: TextStyle(color: Colors.white,fontSize: 26.w)),
-          // SizedBox(height: 85.w),
+          SizedBox(height: 85.w),
         ],
       ),
+    );
+  }
+
+  Widget __buildTabBarBg() {
+    // background: linear-gradient(180deg, rgba(1, 26, 81, 0.00) 35.94%, #011A51 100%);
+    // box-shadow: 0px -1px 0px 0px rgba(255, 255, 255, 0.10) inset, 0px 4px 5px 0px rgba(0, 0, 0, 0.30);
+    // 将上面的css转换成Flutter代码
+    return Container(
+      height: 108.w,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color.fromRGBO(1, 26, 81, 0.359),
+            Color.fromRGBO(1, 26, 81, 1),
+          ],
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color.fromRGBO(255, 255, 255, 0.1),
+            offset: Offset(0, -1.w),
+            blurRadius: 0,
+            spreadRadius: 0,
+          ),
+          BoxShadow(
+            color: const Color.fromRGBO(0, 0, 0, 0.3),
+            offset: Offset(0, 4.w),
+            blurRadius: 5.w,
+            spreadRadius: 0,
+          ),
+        ],
+      )
     );
   }
 }
