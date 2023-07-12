@@ -85,6 +85,7 @@ final List<Widget> itemWidgetList = [
       ),
     ),
   ),
+  SizedBox(height: 125.w),
 ];
 
 class BrandListWidget extends StatelessWidget {

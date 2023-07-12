@@ -45,7 +45,8 @@ class PromotionView extends GetView<PromotionController> {
                     return ItemWidget(index: index);
                   },
                 ),
-              )
+              ),
+              SizedBox(height: 125.w),
             ],
           ),
         ),

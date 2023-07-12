@@ -471,6 +471,7 @@ class DepositView extends GetView<DepositController> {
                   SizedBox(height: 15.w),
                   Text('4. O saldo não retirável na conta de recarga (Atividade) (incluindo, entre outros, o valor da recarga, recompensas por participar de atividades e valor de ganhos e perdas do jogo, etc.).',style: TextStyle(color: Colors.white,fontSize: 26.w)),
                   SizedBox(height: 85.w),
+                  SizedBox(height: 125.w),
                 ],
               ),
             )
