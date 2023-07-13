@@ -14,7 +14,7 @@ class AutoScrollUtil {
           continue;
         }
         if(sc.position.extentAfter == 0){
-          await Future.delayed(const Duration(milliseconds: 1000));
+         // await Future.delayed(const Duration(milliseconds: 1000));
           sc.jumpTo(0);
         }
         await startScroll();
@@ -26,7 +26,7 @@ class AutoScrollUtil {
   int exeTimes = 0;
   Future<void> startScroll() async {
     var extentAfter = sc.position.extentAfter;
-    double scrollUnitDistance = 50;
+    double scrollUnitDistance = 20;
     double unitDuring = 500;
     double scrollDistance = extentAfter >= scrollUnitDistance ? scrollUnitDistance : extentAfter;
     int scrollDuring = (scrollDistance / scrollUnitDistance * unitDuring).toInt();
