@@ -454,6 +454,7 @@ class DepositView extends GetView<DepositController> {
                           }),
                           MyInputFiled(
                             bgColor: Colors.transparent,
+                            keyboardType: TextInputType.number,
                             width: double.infinity,
                             textDirection: TextDirection.rtl,
                             height: 72.w,
@@ -504,7 +505,8 @@ class DepositView extends GetView<DepositController> {
                               child: Align(
                                 alignment: Alignment.centerRight,
                                 child: Text("Insira o nome do titular do cartão",
-                                    style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 0.4),
+                                    style: TextStyle(
+                                        color: const Color.fromRGBO(255, 255, 255, 0.4),
                                         fontSize: 28.w)),
                               ),
                             );
@@ -556,6 +558,7 @@ class DepositView extends GetView<DepositController> {
                           MyInputFiled(
                             bgColor: Colors.transparent,
                             width: double.infinity,
+                            keyboardType: TextInputType.number,
                             textDirection: TextDirection.rtl,
                             height: 72.w,
                             hint: '',
@@ -572,11 +575,13 @@ class DepositView extends GetView<DepositController> {
                     onPressed: () {
                       BottomSheetUtil.showBottomSheet(
                           context,
-                          selectData: controller.depositControllerPage.depositSelectLabel.value,
-                          data: controller.depositControllerPage.depositSelectData,
+                          data: controller.withdrawControllerPage.withdrawSelectData,
                           ok: (String value, String label) {
-                            controller.depositControllerPage.setDepositSelectLabelValue(
-                                value, label);
+                            controller.withdrawControllerPage.idNode.editController.text = value;
+                            controller.withdrawControllerPage.idNode.editController.selection =
+                                TextSelection.fromPosition(
+                                    TextPosition(offset: controller.withdrawControllerPage.idNode
+                                        .editController.text.length));
                           }
                       );
                     },
@@ -605,19 +610,21 @@ class DepositView extends GetView<DepositController> {
                       onPressed: () {
                         BottomSheetUtil.showBottomSheet(
                             context,
-                            selectData: controller.depositControllerPage.depositSelectLabel.value,
-                            data: controller.depositControllerPage.depositSelectData,
+                            selectData: controller.withdrawControllerPage.waysSelectLabel.value,
+                            data: controller.withdrawControllerPage.ways,
                             ok: (String value, String label) {
-                              controller.depositControllerPage.setDepositSelectLabelValue(value,
-                                  label);
+                              controller.withdrawControllerPage.setWaysData(label, value);
                             }
                         );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text("CPF", style: TextStyle(
-                              color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w)),
+                          Obx(() {
+                            return Text(controller.withdrawControllerPage.waysSelectLabel.value,
+                                style: TextStyle(
+                                    color: const Color.fromRGBO(255, 255, 255, 1), fontSize: 28.w));
+                          }),
                           SizedBox(width: 19.w),
                           Image.asset("assets/images/i-arrow-white-down.webp", width: 16.w)
                         ],
@@ -642,7 +649,10 @@ class DepositView extends GetView<DepositController> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("CPF:", style: TextStyle(color: Colors.white, fontSize: 28.w)),
+                  Obx(() {
+                    return Text(controller.withdrawControllerPage.waysSelectLabel.value,
+                        style: TextStyle(color: Colors.white, fontSize: 28.w));
+                  }),
                   SizedBox(width: 10.w),
                   Expanded(
                       child: Stack(
@@ -652,19 +662,26 @@ class DepositView extends GetView<DepositController> {
                               visible: controller.withdrawControllerPage.accountNode.text.isEmpty,
                               child: Align(
                                 alignment: Alignment.centerRight,
-                                child: Text("CPF", style: TextStyle(color: const Color.fromRGBO(
-                                    255, 255, 255, 0.4), fontSize: 28.w)),
+                                child: Obx(() {
+                                  return Text(
+                                      controller.withdrawControllerPage.waysSelectLabel.value,
+                                      style: TextStyle(color: const Color.fromRGBO(
+                                          255, 255, 255, 0.4), fontSize: 28.w));
+                                }),
                               ),
                             );
                           }),
-                          MyInputFiled(
-                            bgColor: Colors.transparent,
-                            width: double.infinity,
-                            textDirection: TextDirection.rtl,
-                            height: 72.w,
-                            hint: '',
-                            editNode: controller.withdrawControllerPage.accountNode,
-                          ),
+                          Obx(() {
+                            return MyInputFiled(
+                              bgColor: Colors.transparent,
+                              width: double.infinity,
+                              keyboardType: controller.withdrawControllerPage.waysSelectValue.value == '2' ? TextInputType.text : TextInputType.number,
+                              textDirection: TextDirection.rtl,
+                              height: 72.w,
+                              hint: '',
+                              editNode: controller.withdrawControllerPage.accountNode,
+                            );
+                          }),
                         ],
                       )
                   ),

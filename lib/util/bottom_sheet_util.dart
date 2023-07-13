@@ -32,7 +32,7 @@ class BottomSheetUtil {
         selectData: selectData ?? _getPickerData(data)[0],
         pickerStyle: PickerStyle(
           backgroundColor: const Color.fromRGBO(0, 10, 29, 1),
-          pickerHeight: 700.w,
+          pickerHeight: 500.w,
           pickerTitleHeight: 116.w,
           textColor: Colors.white,
           pickerItemHeight: 90.w,

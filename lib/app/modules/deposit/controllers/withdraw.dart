@@ -16,7 +16,15 @@ class WithdrawControllerPage extends GetxController {
   // pid account
   EditNode accountNode = EditNode();
 
-  final withdrawSelectData = <Map<String, String>>[
+  final ways = [
+    { 'label': 'CPF', 'value': '1' },
+    { 'label': 'E-mail', 'value': '2' },
+    { 'label': 'Telefone(+55)', 'value': '3' },
+  ];
+  final waysSelectLabel = 'CPF'.obs;
+  final waysSelectValue = '1'.obs;
+
+  final withdrawSelectData =[
     {
       'label': 'A',
       'value': '1'
@@ -52,11 +60,28 @@ class WithdrawControllerPage extends GetxController {
       ],
       "member_bank_t": 1
     });
+    setWithdrawSelectData();
+  }
+
+  setWithdrawSelectData() {
+    final d = (pageData.memberBankList ?? []).map((e) {
+      return {
+        'label': e.pixId.toString() ?? '',
+        'value': e.pixId.toString() ?? ''
+      };
+    }).toList();
+    withdrawSelectData.value = d;
+  }
+
+  setWaysData(String label, String value) {
+    waysSelectLabel.value = label;
+    waysSelectValue.value = value;
   }
 
   @override
   void onInit() {
     super.onInit();
+    initChannelData();
   }
 
   @override
