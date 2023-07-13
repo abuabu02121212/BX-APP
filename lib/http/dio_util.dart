@@ -54,6 +54,7 @@ class DioUtil {
   }
 
   dynamic post(String path, Map<String, dynamic> data) async {
+    print('123123');
     // final cborValue = CborValue(data);
     // final cborBuffer = cbor.encode(cborValue);
     // q: arrayBuffer 和 Uint8List 有什么区别？

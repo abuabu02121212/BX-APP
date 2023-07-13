@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../widget/input_field.dart';
+
 class DepositController extends GetxController with GetSingleTickerProviderStateMixin {
   //TODO: Implement DepositController
 
@@ -9,8 +11,14 @@ class DepositController extends GetxController with GetSingleTickerProviderState
 
   late ScrollController scrollViewController;
   late TabController tabController;
+  EditNode amountNode = EditNode();
 
   final arguments = Get.arguments;
+
+  setAmountValue(String value) {
+    amountNode.editController.text = value;
+    print('amountNode.editController.text: ${amountNode.text}');
+  }
 
 
   @override
@@ -31,6 +39,7 @@ class DepositController extends GetxController with GetSingleTickerProviderState
     super.onClose();
     scrollViewController.dispose();
     tabController.dispose();
+    amountNode.dispose();
   }
 
   void increment() => count.value++;

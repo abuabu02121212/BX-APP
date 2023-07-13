@@ -64,7 +64,7 @@ class EditNode {
   final FocusNode focusNode = FocusNode();
   final hasFocus = false.obs;
   final TextEditingController editController = TextEditingController();
-  final text = "".obs;
+  late final text = "".obs;
   final enable = false.obs;
   final obscureTextEnable = true.obs;
   final isDisplayErrHint = false.obs;
@@ -72,6 +72,14 @@ class EditNode {
 
   EditNode() {
     focusNode.addListener(() => hasFocus.value = focusNode.hasFocus);
+    editController.addListener(() {
+      text.value = editController.text;
+    });
+  }
+
+  dispose() {
+    focusNode.dispose();
+    editController.dispose();
   }
 }
 
@@ -81,7 +89,7 @@ class MyInputFiled extends StatelessWidget {
     required this.width,
     required this.height,
     required this.hint,
-    required this.prefix,
+    this.prefix,
     this.suffix,
     required this.editNode,
     this.inputFormatters,
@@ -89,8 +97,8 @@ class MyInputFiled extends StatelessWidget {
     this.onTextChanged,
     this.bgColor = Colors.black,
     this.radius = 50,
-    required this.hintStyle,
-    required this.textStyle,
+    this.hintStyle,
+    this.textStyle,
     this.obscureText = false,
   });
 
@@ -98,9 +106,9 @@ class MyInputFiled extends StatelessWidget {
   final double height;
   final double radius;
   final String hint;
-  final TextStyle hintStyle;
-  final TextStyle textStyle;
-  final Widget prefix;
+  final TextStyle? hintStyle;
+  final TextStyle? textStyle;
+  final Widget? prefix;
   final Widget? suffix;
   final Color? bgColor;
   final EditNode editNode;
@@ -122,7 +130,7 @@ class MyInputFiled extends StatelessWidget {
         child: CupertinoTextField(
           controller: editNode.editController,
           focusNode: editNode.focusNode,
-          style: textStyle,
+          style: textStyle ?? TextStyle(color: Colors.white, fontSize: 28.w),
           keyboardType: keyboardType,
           onChanged: (text) {
             editNode.text.value = text;
@@ -132,7 +140,7 @@ class MyInputFiled extends StatelessWidget {
           placeholder: hint,
           textAlignVertical: TextAlignVertical.center,
           textAlign: TextAlign.start,
-          placeholderStyle: hintStyle,
+          placeholderStyle: hintStyle ?? TextStyle(color: const Color.fromRGBO(144, 146, 150, 1), fontSize: 28.w),
           cursorColor: Colors.white,
           cursorHeight: 32.w,
           maxLines: 1,
