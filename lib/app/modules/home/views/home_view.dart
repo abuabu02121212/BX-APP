@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/modules/home/views/swiper_component.dart';
 import 'package:flutter_comm/app/modules/home/views/tab_component.dart';
-import 'package:flutter_comm/widget/keep_alive_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import '../../../../util/toast_util.dart';
+import '../../../../widget/auto_scroll.dart';
 import '../../../../widget/single_scroll_view_marquee.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
@@ -14,6 +14,7 @@ import '../../forget_psw/views/forget_psw_widget.dart';
 import '../../home_menu/views/home_menu_view.dart';
 import '../../login_register/views/login_regiseter_widget.dart';
 import '../controllers/home_controller.dart';
+import 'game_type_list.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -35,13 +36,8 @@ class HomeView extends GetView<HomeController> {
             width: double.infinity,
             height: double.infinity,
             alignment: Alignment.topLeft,
-            child: ListView.builder(
-              itemCount: itemWidgetList.length,
-              //  cacheExtent: 1334.w * 4,
-              itemBuilder: (BuildContext context, int index) {
-                // Log.d("====itemBuilder===itemBuilder===index:$index=====");
-                return AliveWidget(child: itemWidgetList[index]);
-              },
+            child: SingleChildScrollView(
+              child: ItemGenerateWidget(),
             ),
           ),
         ),
@@ -50,42 +46,68 @@ class HomeView extends GetView<HomeController> {
   }
 }
 
-final List<Widget> itemWidgetList = [
-  SizedBox(
-    width: double.infinity,
-    height: 280.w,
-    child: const SwiperComponent(
-      radius: 0,
-    ),
-  ),
-  const HomeMarquee(),
-  HomeGameTypesWidget(),
-  GameTitleBar(),
-  Container(
-    margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
-    alignment: Alignment.topLeft,
-    child: HomeGameChildTypeTabComponent(),
-  ),
-  ...List.generate(7, (index) => GameListWidget(titleImgPath: "assets/images/index-title${index + 1}.webp")),
-  WinListWidget(),
-  const BrandListWidget(),
-  Container(
-    width: double.infinity,
-    height: 94.w,
-    decoration: const BoxDecoration(color: Color(0xff011A51)),
-    margin: EdgeInsets.only(bottom: 110.w),
-    alignment: Alignment.center,
-    child: Text(
-      "Copyright © All Rights Reserved by Luckyking",
-      style: TextStyle(
-        fontSize: 24.w,
-        color: const Color.fromRGBO(255, 255, 255, 0.60),
-        fontWeight: FontWeight.w400,
-      ),
-    ),
-  ),
-  SizedBox(height: 125.w),
-];
+class ItemGenerateWidget extends StatelessWidget {
+  ItemGenerateWidget({super.key});
+
+  final HomeController controller = Get.put(HomeController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: double.infinity,
+          height: 280.w,
+          child: const SwiperComponent(
+            radius: 0,
+          ),
+        ),
+        const HomeMarquee(),
+        HomeGameTypesWidget(),
+        Obx(() {
+          bool isShowAll = controller.selectedGameTypeIndex.value == -1;
+          return isShowAll
+              ? Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GameTitleBar(),
+                    Container(
+                      margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
+                      alignment: Alignment.topLeft,
+                      child: HomeGameChildTypeTabComponent(),
+                    ),
+                    ...List.generate(7, (index) => HorizontalGameListWidget(titleImgPath: "assets/images/index-title${index + 1}.webp")),
+                    WinListWidget(),
+                    const BrandListWidget(),
+                    Container(
+                      width: double.infinity,
+                      height: 94.w,
+                      decoration: const BoxDecoration(color: Color(0xff011A51)),
+                      margin: EdgeInsets.only(bottom: 110.w),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Copyright © All Rights Reserved by Luckyking",
+                        style: TextStyle(
+                          fontSize: 24.w,
+                          color: const Color.fromRGBO(255, 255, 255, 0.60),
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : const VerticalGameTypeList();
+        }),
+        SizedBox(height: 125.w),
+      ],
+    );
+  }
+}
 
 class BrandListWidget extends StatelessWidget {
   const BrandListWidget({
@@ -182,11 +204,10 @@ class BottomIconsWidget extends StatelessWidget {
 }
 
 class WinListWidget extends StatelessWidget {
-  WinListWidget({
-    super.key,
-  });
+  WinListWidget({super.key});
 
   final HomeController controller = Get.put(HomeController());
+  final AutoScrollUtil autoScrollUtil = AutoScrollUtil();
 
   @override
   Widget build(BuildContext context) {
@@ -220,6 +241,7 @@ class WinListWidget extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               itemCount: 10,
+              controller: autoScrollUtil.sc,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   width: double.infinity,
@@ -308,83 +330,6 @@ class WinListWidget extends StatelessWidget {
   }
 }
 
-class GameListWidget extends StatelessWidget {
-  GameListWidget({
-    super.key,
-    required this.titleImgPath,
-  });
-
-  final HomeController controller = Get.put(HomeController());
-  final String titleImgPath;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: 40.w),
-        Image.asset(titleImgPath, height: 83.w),
-        Container(
-          margin: EdgeInsets.only(top: 0.w, left: 20.w, right: 20.w),
-          width: double.infinity,
-          height: 520.w,
-          decoration: BoxDecoration(
-              gradient: headerLinearGradient,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30.w),
-                topRight: Radius.circular(30.w),
-                bottomRight: Radius.circular(30.w),
-              )),
-          child: GridView.builder(
-            itemCount: 20,
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.2),
-            itemBuilder: (BuildContext context, int index) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(16.w),
-                        child: Image.asset(
-                          "assets/images/dialog-close.webp",
-                          width: 180.w,
-                          height: 180.w,
-                          color: Colors.grey,
-                          colorBlendMode: BlendMode.src,
-                        ),
-                      ),
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        child: Image.asset(
-                          "assets/images/game_heart.webp",
-                          width: 35.w,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 6.w),
-                  Text(
-                    "text",
-                    style: TextStyle(
-                      fontSize: 24.w,
-                      color: const Color(0xffcccccc),
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class GameTitleBar extends StatelessWidget {
   GameTitleBar({super.key});
 
@@ -399,8 +344,9 @@ class GameTitleBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Obx(() {
+            int selectedIndex = controller.selectedGameTypeIndex.value;
             return Text(
-              controller.gameTypes[controller.selectedGameTypeIndex.value].replaceAll(RegExp(r'\n+'), ''),
+              selectedIndex > -1 ? controller.gameTypes[selectedIndex].replaceAll(RegExp(r'\n+'), '') : "",
               style: TextStyle(
                 fontSize: 32.w,
                 color: Colors.white,
