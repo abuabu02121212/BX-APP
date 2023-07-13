@@ -40,7 +40,7 @@ class Log {
   static void _print(Level level, dynamic msg, {int traceDepth = 1}) {
     String traceInfo = getTraceInfo(level, traceDepth: traceDepth);
     String log = "${DateTime.now()} $traceInfo $tag$msg";
-    if (isDebugMode()) {
+    if (debugEnable) {
       debugPrint(log);
     } else {
       logger.log(level, log);

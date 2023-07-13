@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import '../../../../util/toast_util.dart';
+import '../../../../widget/auto_scroll.dart';
 import '../../../../widget/single_scroll_view_marquee.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
@@ -182,11 +183,10 @@ class BottomIconsWidget extends StatelessWidget {
 }
 
 class WinListWidget extends StatelessWidget {
-  WinListWidget({
-    super.key,
-  });
+  WinListWidget({super.key});
 
   final HomeController controller = Get.put(HomeController());
+  final AutoScrollUtil autoScrollUtil = AutoScrollUtil();
 
   @override
   Widget build(BuildContext context) {
@@ -220,6 +220,7 @@ class WinListWidget extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               itemCount: 10,
+              controller: autoScrollUtil.sc,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   width: double.infinity,
@@ -399,8 +400,9 @@ class GameTitleBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Obx(() {
+            int selectedIndex = controller.selectedGameTypeIndex.value;
             return Text(
-              controller.gameTypes[controller.selectedGameTypeIndex.value].replaceAll(RegExp(r'\n+'), ''),
+              selectedIndex > -1 ? controller.gameTypes[selectedIndex].replaceAll(RegExp(r'\n+'), '') : "",
               style: TextStyle(
                 fontSize: 32.w,
                 color: Colors.white,

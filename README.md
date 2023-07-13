@@ -37,4 +37,4 @@ UI地址：
 https://www.figma.com/file/VQCM9LAoTTvkuqvdWgtiX9/LB88-%E7%A7%BB%E5%8A%A8%E7%AB%AF?node-id=665%3A14552&mode=dev
 账号密码： 自己注册，然后找后端相关人员，添加权限。
 henry常用密码：aa123456
-H5地址： http://h5.cyestari.com/
+H5地址： https://h5.cyestari.com/
