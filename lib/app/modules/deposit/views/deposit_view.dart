@@ -454,6 +454,7 @@ class DepositView extends GetView<DepositController> {
                           }),
                           MyInputFiled(
                             bgColor: Colors.transparent,
+                            textRegExp: RegExp(r'^[0-9]{5}$'),
                             keyboardType: TextInputType.number,
                             width: double.infinity,
                             textDirection: TextDirection.rtl,
@@ -466,6 +467,9 @@ class DepositView extends GetView<DepositController> {
                   ),
                 ],
               )),
+          Obx(() {
+            return Text(controller.withdrawControllerPage.minAmountNode.isVerify.value.toString(), style: TextStyle(color: Colors.white, fontSize: 28.w));
+          }),
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -675,7 +679,8 @@ class DepositView extends GetView<DepositController> {
                             return MyInputFiled(
                               bgColor: Colors.transparent,
                               width: double.infinity,
-                              keyboardType: controller.withdrawControllerPage.waysSelectValue.value == '2' ? TextInputType.text : TextInputType.number,
+                              keyboardType: controller.withdrawControllerPage.waysSelectValue
+                                  .value == '2' ? TextInputType.text : TextInputType.number,
                               textDirection: TextDirection.rtl,
                               height: 72.w,
                               hint: '',
@@ -714,7 +719,8 @@ class DepositView extends GetView<DepositController> {
               ],
             ),
           ),
-          SizedBox(height: 40.w),
+          SizedBox(
+              height: 40.w),
           AppButton(
             width: 580.w,
             height: 90.w,
