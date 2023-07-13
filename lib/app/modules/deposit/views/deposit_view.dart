@@ -3,12 +3,14 @@ import 'dart:math';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/app/component/app_cupertino_button.dart';
 import 'package:flutter_comm/app/component/app_tab.dart';
 import 'package:flutter_comm/widget/input_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../util/bottom_sheet_util.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_header.dart';
 import '../controllers/deposit_controller.dart';
@@ -91,7 +93,7 @@ class DepositView extends GetView<DepositController> {
           controller: controller.tabController,
           children: [
             ListView(
-              children: [_buildDeposit(controller)],
+              children: [_buildDeposit(controller, context)],
             ),
             ListView(
               children: [_buildWithdraw(controller)],
@@ -220,7 +222,7 @@ class DepositView extends GetView<DepositController> {
     );
   }
 
-  Widget _buildDeposit(DepositController controller) {
+  Widget _buildDeposit(DepositController controller, BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 20.w, right: 20.w),
       child: Column(
@@ -235,7 +237,7 @@ class DepositView extends GetView<DepositController> {
             margin: EdgeInsets.only(bottom: 16.w, top: 36.w),
             padding: EdgeInsets.only(bottom: 10.w, left: 10.w, right: 10.w),
             child: Text(
-                " Prezado usuário, quando o valor da primeira recarga for maior que 50 reais, você receberá no máximo 20% de recompensa de recarga, e quando o valor da recarga for maior que 50 reais, você receberá no máximo 10% de recompensa de recarga! 6 vezes ao dia, quanto maior o valor da recarga, maior a proporção de presentes!!",
+                "Prezado usuário, quando o valor da primeira recarga for maior que 50 reais, você receberá no máximo 20% de recompensa de recarga, e quando o valor da recarga for maior que 50 reais, você receberá no máximo 10% de recompensa de recarga! 6 vezes ao dia, quanto maior o valor da recarga, maior a proporção de presentes!!",
                 style: TextStyle(color: Color(0xffF7BA17), fontSize: 24.w, height: 1.5),
                 textAlign: TextAlign.center),
           ),
@@ -262,28 +264,39 @@ class DepositView extends GetView<DepositController> {
                 ),
                 // child: Text("201", style: TextStyle(color: Colors.white, fontSize: 28.w)),
               ),
-              Positioned(
-                  right: 0,
-                  top: 0,
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 108.w,
-                    height: 30.w,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/i-label-bg.webp"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: Text('+20.00', style: TextStyle(color: Colors.white, fontSize: 24.w)),
-                  ))
+              Obx(() {
+                return Visibility(
+                    visible: controller.isAmountInDepositData(),
+                    child: Positioned(
+                        right: 0,
+                        top: 0,
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: 108.w,
+                          height: 30.w,
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/images/i-label-bg.webp"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          child: Obx(() {
+                            return Text(controller.depositDiscount.value,
+                                style: TextStyle(color: Colors.white,
+                                    fontSize: 24.w));
+                          }),
+                        )
+                    )
+                );
+              })
             ],
           ),
-          Obx(() {
-            return Text(controller.amountNode.text.value, style: TextStyle(color: Colors.white));
-          }),
           SizedBox(height: 24.w),
-          _buildAmountWrap(),
+          Obx(() {
+            return Text("Valor da recarga ${controller.amountNode.text}",
+                style: TextStyle(color: Colors.white, fontSize: 24.w));
+          }),
+          _buildAmountWrap(controller),
           Container(
               margin: EdgeInsets.only(top: 36.w, bottom: 16.w),
               alignment: Alignment.centerLeft,
@@ -301,16 +314,33 @@ class DepositView extends GetView<DepositController> {
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.circular(8.w)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Canal de pagamento rápido 1",
-                    style: TextStyle(color: Colors.white, fontSize: 28.w)),
-                Image(image: const AssetImage("assets/images/i-radio-active.webp"), width: 32.w),
-              ],
+            child: AppCupertinoButton(
+              onPressed: () {
+                BottomSheetUtil.showBottomSheet(
+                    context,
+                    selectData: controller.depositSelectLabel.value,
+                    data: controller.depositSelectData,
+                    ok: (String value, String label) {
+                      controller.setDepositSelectLabelValue(value, label);
+                    }
+                );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Obx(() {
+                    return Text(controller.depositSelectLabel.value,
+                        style: TextStyle(color: Colors.white, fontSize: 28.w));
+                  }),
+                  Image(
+                      image: const AssetImage("assets/images/i-radio-active.webp"),
+                      width: 32.w),
+                ],
+              ),
             ),
           ),
-          SizedBox(height: 40.w),
+          SizedBox(
+              height: 40.w),
           AppButton(
             width: 580.w,
             height: 90.w,
@@ -323,57 +353,68 @@ class DepositView extends GetView<DepositController> {
     );
   }
 
-  Widget _buildAmountWrap() {
-    return Wrap(
-      alignment: WrapAlignment.start,
-      runAlignment: WrapAlignment.start,
-      spacing: 18.w,
-      runSpacing: 18.w,
-      children: [
-        for (var i = 0; i < 10; i++)
-          Stack(
-            children: [
-              CupertinoButton(
-                onPressed: () {
-                  controller.setAmountValue(i.toString());
-                },
-                padding: EdgeInsets.zero,
-                child: Container(
-                  width: 224.w,
-                  height: 100.w,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
-                    borderRadius: BorderRadius.circular(8.w),
-                    image: const DecorationImage(
-                      // 激活样式图片背景改为btn-bg-active
-                      image: AssetImage("assets/images/btn-bg-gray.webp"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: Text("R\$ 50", style: TextStyle(color: Colors.white, fontSize: 28.w)),
-                ),
-              ),
-              Positioned(
-                  right: 0,
-                  top: 0,
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 108.w,
-                    height: 30.w,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/i-label-bg.webp"),
-                        fit: BoxFit.cover,
+  Widget _buildAmountWrap(DepositController controller) {
+    return Obx(() {
+      return Wrap(
+        alignment: WrapAlignment.start,
+        runAlignment: WrapAlignment.start,
+        spacing: 18.w,
+        runSpacing: 18.w,
+        children: [
+          for (var i = 0; i < controller.depositData.length; i++)
+            Stack(
+              children: [
+                CupertinoButton(
+                  onPressed: () {
+                    controller.setInputValue(controller.depositData[i]['amount'] as String,
+                        controller.depositData[i]['discount'] as String);
+                  },
+                  padding: EdgeInsets.zero,
+                  child: Obx(() {
+                    return Container(
+                      width: 224.w,
+                      height: 100.w,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
+                        borderRadius: BorderRadius.circular(8.w),
+                        image: DecorationImage(
+                          // 激活样式图片背景改为btn-bg-active
+                          image: AssetImage(
+                              controller.isSelectAmount(controller.depositData[i]['amount']!)
+                                  ? "assets/images/btn-bg-active.webp"
+                                  : "assets/images/btn-bg-gray.webp"),
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    child: Text('+20.00', style: TextStyle(color: Colors.white, fontSize: 24.w)),
-                  )
-              )
-            ],
-          ),
-      ],
-    );
+                      child: Text("R\$ ${controller.depositData[i]['amount']}",
+                          style: TextStyle(color: Colors.white, fontSize: 28.w)),
+                    );
+                  }),
+                ),
+                Positioned(
+                    right: 0,
+                    top: 0,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 108.w,
+                      height: 30.w,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/i-label-bg.webp"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Text("${controller.depositData[i]['discount']}",
+                          style: TextStyle(color: Colors.white, fontSize: 24.w)),
+                    )
+                )
+              ],
+            ),
+        ],
+      );
+    });
   }
 
   Widget _buildWithdraw(DepositController controller) {
