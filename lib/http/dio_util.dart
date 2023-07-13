@@ -54,14 +54,17 @@ class DioUtil {
   }
 
   dynamic post(String path, Map<String, dynamic> data) async {
-    final cborValue = CborValue(data);
-    final cborBuffer = cbor.encode(cborValue);
-
+    // final cborValue = CborValue(data);
+    // final cborBuffer = cbor.encode(cborValue);
     // q: arrayBuffer 和 Uint8List 有什么区别？
-
     Response response;
-    print('发送数据 ${cborBuffer.runtimeType}; 数据：$cborBuffer');
-    response = await dio.post(path, data: cborBuffer, options: Options(
+    // print('发送数据 ${cborBuffer.runtimeType}; 数据：$cborBuffer');
+
+    // 将 data 转换成Base64字符串
+    String base64Str = base64Encode(data.toString().codeUnits);
+    print('发送数据:$base64Str');
+
+    response = await dio.post(path, data: base64Str, options: Options(
       responseType: ResponseType.bytes,
       contentType: 'application/x-www-form-urlencoded',
       headers: {

@@ -10,12 +10,15 @@ class DepositController extends GetxController with GetSingleTickerProviderState
   late ScrollController scrollViewController;
   late TabController tabController;
 
+  final arguments = Get.arguments;
+
 
   @override
   void onInit() {
     super.onInit();
+    int index = arguments != null ? arguments['index'] : 0;
     scrollViewController = ScrollController();
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 2, vsync: this, initialIndex: index);
   }
 
   @override

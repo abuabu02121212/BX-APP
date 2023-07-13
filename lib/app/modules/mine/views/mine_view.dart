@@ -171,7 +171,7 @@ class MineView extends GetView<MineController> {
                               text: 'Depósito',
                               colorList: const [Color(0xffFFD500), Color(0xffFF9901)],
                               onClick: () {
-                                Get.toNamed(Routes.DEPOSIT);
+                                Get.toNamed(Routes.DEPOSIT, arguments: {'index': 0});
                               },
                             ),
                             AppButton(
@@ -180,7 +180,7 @@ class MineView extends GetView<MineController> {
                               radius: 100.w,
                               text: 'Retirar',
                               onClick: () {
-                                Get.toNamed(Routes.DEPOSIT);
+                                Get.toNamed(Routes.DEPOSIT, arguments: {'index': 1});
                               },
                             ),
                           ],
