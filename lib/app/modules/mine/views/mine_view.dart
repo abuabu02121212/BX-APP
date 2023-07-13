@@ -186,7 +186,6 @@ class MineView extends GetView<MineController> {
                           ],
                         ),
                       ),
-
                     ],
                   )
               ),
@@ -221,7 +220,6 @@ class MineView extends GetView<MineController> {
               ),
               Container(
                 width: 660.w,
-                height: 272.w,
                 margin: EdgeInsets.only(left: 45.w, right: 45.w, bottom: 30.w),
                 decoration: BoxDecoration(
                     gradient: const LinearGradient(

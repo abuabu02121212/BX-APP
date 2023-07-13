@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/modules/deposit/controllers/deposit.dart';
+import 'package:flutter_comm/app/modules/deposit/controllers/withdraw.dart';
 import 'package:flutter_comm/app/modules/deposit/views/deposit_data.dart';
 import 'package:get/get.dart';
 
@@ -12,12 +13,14 @@ class DepositController extends GetxController with GetSingleTickerProviderState
   final arguments = Get.arguments;
 
   final depositControllerPage = DepositControllerPage();
+  final withdrawControllerPage = WithdrawControllerPage();
 
   @override
   void onInit() {
     super.onInit();
     int index = arguments != null ? arguments['index'] : 0;
     depositControllerPage.onInit();
+    withdrawControllerPage.onInit();
     scrollViewController = ScrollController();
     tabController = TabController(length: 2, vsync: this, initialIndex: index);
   }
@@ -26,6 +29,7 @@ class DepositController extends GetxController with GetSingleTickerProviderState
   void onReady() {
     super.onReady();
     depositControllerPage.onReady();
+    withdrawControllerPage.onReady();
   }
 
   @override
@@ -34,5 +38,6 @@ class DepositController extends GetxController with GetSingleTickerProviderState
     scrollViewController.dispose();
     tabController.dispose();
     depositControllerPage.onClose();
+    withdrawControllerPage.onClose();
   }
 }

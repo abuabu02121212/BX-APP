@@ -100,6 +100,7 @@ class MyInputFiled extends StatelessWidget {
     this.hintStyle,
     this.textStyle,
     this.obscureText = false,
+    this.textDirection,
   });
 
   final double width;
@@ -116,6 +117,7 @@ class MyInputFiled extends StatelessWidget {
   final TextInputType? keyboardType;
   final ValueChanged<String>? onTextChanged;
   final bool obscureText;
+  final TextDirection? textDirection;
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +132,7 @@ class MyInputFiled extends StatelessWidget {
         child: CupertinoTextField(
           controller: editNode.editController,
           focusNode: editNode.focusNode,
+          textDirection: textDirection,
           style: textStyle ?? TextStyle(color: Colors.white, fontSize: 28.w),
           keyboardType: keyboardType,
           onChanged: (text) {
@@ -140,7 +143,7 @@ class MyInputFiled extends StatelessWidget {
           placeholder: hint,
           textAlignVertical: TextAlignVertical.center,
           textAlign: TextAlign.start,
-          placeholderStyle: hintStyle ?? TextStyle(color: const Color.fromRGBO(144, 146, 150, 1), fontSize: 28.w),
+          placeholderStyle: hintStyle ?? TextStyle(color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w),
           cursorColor: Colors.white,
           cursorHeight: 32.w,
           maxLines: 1,

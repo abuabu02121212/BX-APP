@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_cupertino_button.dart';
@@ -96,7 +93,7 @@ class DepositView extends GetView<DepositController> {
               children: [_buildDeposit(controller, context)],
             ),
             ListView(
-              children: [_buildWithdraw(controller)],
+              children: [_buildWithdraw(controller, context)],
             ),
           ],
         ),
@@ -417,7 +414,7 @@ class DepositView extends GetView<DepositController> {
     });
   }
 
-  Widget _buildWithdraw(DepositController controller) {
+  Widget _buildWithdraw(DepositController controller, BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 36.w),
       child: Column(
@@ -438,8 +435,24 @@ class DepositView extends GetView<DepositController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Valor da retirada", style: TextStyle(color: Colors.white, fontSize: 28.w)),
-                  Text("Retirada mínima R\$0", style: TextStyle(
-                      color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w)),
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        MyInputFiled(
+                          bgColor: Colors.transparent,
+                          width: double.infinity,
+                          textDirection: TextDirection.rtl,
+                          height: 72.w,
+                          hint: '',
+                          editNode: controller.withdrawControllerPage.minAmountNode,
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Text("Retirada mínima R\$0", style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w)),
+                        )
+                      ],
+                    )
+                  ),
                 ],
               )),
           Container(
@@ -472,8 +485,24 @@ class DepositView extends GetView<DepositController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Nome do usuário:", style: TextStyle(color: Colors.white, fontSize: 28.w)),
-                  Text("Insira o nome do titular do cartão", style: TextStyle(
-                      color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 26.w)),
+                  Expanded(
+                      child: Stack(
+                        children: [
+                          MyInputFiled(
+                            bgColor: Colors.transparent,
+                            width: double.infinity,
+                            textDirection: TextDirection.rtl,
+                            height: 72.w,
+                            hint: '',
+                            editNode: controller.withdrawControllerPage.minAmountNode,
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Text("Insira o nome do titular do cartão", style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w)),
+                          )
+                        ],
+                      )
+                  ),
                 ],
               )),
           SizedBox(height: 34.w),
@@ -481,7 +510,7 @@ class DepositView extends GetView<DepositController> {
               width: double.infinity,
               height: 72.w,
               alignment: Alignment.centerLeft,
-              padding: EdgeInsets.only(left: 24.w, right: 20.w),
+              padding: EdgeInsets.only(left: 24.w),
               decoration: BoxDecoration(
                   border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
                   image: const DecorationImage(
@@ -493,8 +522,40 @@ class DepositView extends GetView<DepositController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Código CPF:", style: TextStyle(color: Colors.white, fontSize: 28.w)),
-                  Text("Insira o seu código CPF", style: TextStyle(
-                      color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w)),
+                  Expanded(
+                      child: Stack(
+                        children: [
+                          MyInputFiled(
+                            bgColor: Colors.transparent,
+                            width: double.infinity,
+                            textDirection: TextDirection.rtl,
+                            height: 72.w,
+                            hint: '',
+                            editNode: controller.withdrawControllerPage.minAmountNode,
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Text("Insira o seu código CPF", style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w)),
+                          )
+                        ],
+                      )
+                  ),
+                  AppCupertinoButton(
+                    child: Padding(
+                      padding: EdgeInsets.all(20.w),
+                      child: Image.asset("assets/images/i-arrow-white-down.webp", width: 16.w),
+                    ),
+                    onPressed: () {
+                      BottomSheetUtil.showBottomSheet(
+                          context,
+                          selectData: controller.depositControllerPage.depositSelectLabel.value,
+                          data: controller.depositControllerPage.depositSelectData,
+                          ok: (String value, String label) {
+                            controller.depositControllerPage.setDepositSelectLabelValue(value, label);
+                          }
+                      );
+                    },
+                  )
                 ],
               )),
           SizedBox(height: 34.w),
@@ -514,13 +575,28 @@ class DepositView extends GetView<DepositController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Tipo Pix:", style: TextStyle(color: Colors.white, fontSize: 28.w)),
-                  Row(
-                    children: [
-                      Text("CPF", style: TextStyle(
-                          color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w)),
-                      SizedBox(width: 19.w),
-                      Image.asset("assets/images/i-arrow-white-down.webp", width: 16.w)
-                    ],
+                  Expanded(
+                    child: AppCupertinoButton(
+                      onPressed: () {
+                        BottomSheetUtil.showBottomSheet(
+                            context,
+                            selectData: controller.depositControllerPage.depositSelectLabel.value,
+                            data: controller.depositControllerPage.depositSelectData,
+                            ok: (String value, String label) {
+                              controller.depositControllerPage.setDepositSelectLabelValue(value, label);
+                            }
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text("CPF", style: TextStyle(
+                              color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w)),
+                          SizedBox(width: 19.w),
+                          Image.asset("assets/images/i-arrow-white-down.webp", width: 16.w)
+                        ],
+                      ),
+                    ),
                   )
                 ],
               )),
@@ -542,8 +618,24 @@ class DepositView extends GetView<DepositController> {
                 children: [
                   Text("CPF:", style: TextStyle(color: Colors.white, fontSize: 28.w)),
                   SizedBox(width: 10.w),
-                  Text("CPF", style: TextStyle(
-                      color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w)),
+                  Expanded(
+                      child: Stack(
+                        children: [
+                          MyInputFiled(
+                            bgColor: Colors.transparent,
+                            width: double.infinity,
+                            textDirection: TextDirection.rtl,
+                            height: 72.w,
+                            hint: '',
+                            editNode: controller.withdrawControllerPage.minAmountNode,
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Text("CPF", style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w)),
+                          )
+                        ],
+                      )
+                  ),
                 ],
               )),
           SizedBox(height: 34.w),
