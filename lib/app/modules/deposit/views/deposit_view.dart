@@ -260,13 +260,13 @@ class DepositView extends GetView<DepositController> {
                   width: double.infinity,
                   height: 72.w,
                   hint: '(50.00-9999999.00)',
-                  editNode: controller.amountNode,
+                  editNode: controller.depositControllerPage.amountNode,
                 ),
                 // child: Text("201", style: TextStyle(color: Colors.white, fontSize: 28.w)),
               ),
               Obx(() {
                 return Visibility(
-                    visible: controller.isAmountInDepositData(),
+                    visible: controller.depositControllerPage.isAmountInDepositData(),
                     child: Positioned(
                         right: 0,
                         top: 0,
@@ -281,7 +281,7 @@ class DepositView extends GetView<DepositController> {
                             ),
                           ),
                           child: Obx(() {
-                            return Text(controller.depositDiscount.value,
+                            return Text(controller.depositControllerPage.depositDiscount.value,
                                 style: TextStyle(color: Colors.white,
                                     fontSize: 24.w));
                           }),
@@ -293,7 +293,7 @@ class DepositView extends GetView<DepositController> {
           ),
           SizedBox(height: 24.w),
           Obx(() {
-            return Text("Valor da recarga ${controller.amountNode.text}",
+            return Text("Valor da recarga ${controller.depositControllerPage.amountNode.text}",
                 style: TextStyle(color: Colors.white, fontSize: 24.w));
           }),
           _buildAmountWrap(controller),
@@ -318,10 +318,10 @@ class DepositView extends GetView<DepositController> {
               onPressed: () {
                 BottomSheetUtil.showBottomSheet(
                     context,
-                    selectData: controller.depositSelectLabel.value,
-                    data: controller.depositSelectData,
+                    selectData: controller.depositControllerPage.depositSelectLabel.value,
+                    data: controller.depositControllerPage.depositSelectData,
                     ok: (String value, String label) {
-                      controller.setDepositSelectLabelValue(value, label);
+                      controller.depositControllerPage.setDepositSelectLabelValue(value, label);
                     }
                 );
               },
@@ -329,7 +329,7 @@ class DepositView extends GetView<DepositController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Obx(() {
-                    return Text(controller.depositSelectLabel.value,
+                    return Text(controller.depositControllerPage.depositSelectLabel.value,
                         style: TextStyle(color: Colors.white, fontSize: 28.w));
                   }),
                   Image(
@@ -361,13 +361,13 @@ class DepositView extends GetView<DepositController> {
         spacing: 18.w,
         runSpacing: 18.w,
         children: [
-          for (var i = 0; i < controller.depositData.length; i++)
+          for (var i = 0; i < controller.depositControllerPage.depositData.length; i++)
             Stack(
               children: [
                 CupertinoButton(
                   onPressed: () {
-                    controller.setInputValue(controller.depositData[i]['amount'] as String,
-                        controller.depositData[i]['discount'] as String);
+                    controller.depositControllerPage.setInputValue(controller.depositControllerPage.depositData[i]['amount'] as String,
+                        controller.depositControllerPage.depositData[i]['discount'] as String);
                   },
                   padding: EdgeInsets.zero,
                   child: Obx(() {
@@ -382,13 +382,13 @@ class DepositView extends GetView<DepositController> {
                         image: DecorationImage(
                           // 激活样式图片背景改为btn-bg-active
                           image: AssetImage(
-                              controller.isSelectAmount(controller.depositData[i]['amount']!)
+                              controller.depositControllerPage.isSelectAmount(controller.depositControllerPage.depositData[i]['amount']!)
                                   ? "assets/images/btn-bg-active.webp"
                                   : "assets/images/btn-bg-gray.webp"),
                           fit: BoxFit.cover,
                         ),
                       ),
-                      child: Text("R\$ ${controller.depositData[i]['amount']}",
+                      child: Text("R\$ ${controller.depositControllerPage.depositData[i]['amount']}",
                           style: TextStyle(color: Colors.white, fontSize: 28.w)),
                     );
                   }),
@@ -406,7 +406,7 @@ class DepositView extends GetView<DepositController> {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      child: Text("${controller.depositData[i]['discount']}",
+                      child: Text("${controller.depositControllerPage.depositData[i]['discount']}",
                           style: TextStyle(color: Colors.white, fontSize: 24.w)),
                     )
                 )
