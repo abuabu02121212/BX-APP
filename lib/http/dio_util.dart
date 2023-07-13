@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:cbor/cbor.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_comm/util/toast_util.dart';
 import '../util/Log.dart';
 import 'dart:ffi';
 import 'dart:typed_data';
@@ -46,25 +47,20 @@ class DioUtil {
     Log.d(response.data.toString());
   }
 
-  dynamic get(String path, Map<String, Object> param) async {
+  Future get(String path, Map<String, Object> param) async {
     Response response;
     response = await dio.get(path, queryParameters: param);
     Log.d("path:${response.requestOptions.uri} param:${response.requestOptions.queryParameters}");
     return response.data;
   }
 
-  dynamic post(String path, Map<String, dynamic> data) async {
-    print('123123');
-    // final cborValue = CborValue(data);
-    // final cborBuffer = cbor.encode(cborValue);
-    // q: arrayBuffer 和 Uint8List 有什么区别？
+  Future<Object?> post(String path, Map<String, dynamic> d) async {
+    final cborValue = CborValue(d);
+    final cborBuffer = cbor.encode(cborValue);
     Response response;
-    // print('发送数据 ${cborBuffer.runtimeType}; 数据：$cborBuffer');
-
     // 将 data 转换成Base64字符串
-    String base64Str = base64Encode(data.toString().codeUnits);
-    print('发送数据:$base64Str');
-
+    String base64Str = base64Encode(cborBuffer);
+    Log.d('\n${'-'*200}\n源数据:$d\n发送数据: cborBuffer:$cborBuffer base64Str:$base64Str');
     response = await dio.post(path, data: base64Str, options: Options(
       responseType: ResponseType.bytes,
       contentType: 'application/x-www-form-urlencoded',
@@ -72,15 +68,20 @@ class DioUtil {
         'd': 35
       }
     ));
-
     // 将字节数组转换为 ArrayBuffer
     Uint8List byteData = response.data;
-    ByteBuffer buffer = byteData.buffer;
-    var result = buffer.asUint8List();
-    print('接收数据:$result');
+    final responseData = cbor.decode(byteData);
+    bool status = (responseData.toJson() as Map<String, dynamic>)['status'];
+    dynamic data = (responseData.toJson() as Map<String, dynamic>)['data'];
+    Log.d('\nstatus: ${(responseData.toJson() as Map<String, dynamic>)['status']}');
+    Log.d('\ndata:${(responseData.toJson() as Map<String, dynamic>)['data']}');
+    Log.d("\npath:${response.requestOptions.uri}\n源数据: ${response.data}\n结果:${cbor.decode(byteData)}\n${'-'*200}");
 
-    Log.d("path:${response.requestOptions.uri} response:$result，结果:${cbor.decode(result)}");
-    Log.d('');
-    return response.data;
+    if (status == false) {
+      Toast.show('$data');
+      return null;
+    } else {
+      return data;
+    }
   }
 }

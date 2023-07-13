@@ -6,8 +6,15 @@ import '../views/withdraw_data.dart';
 
 class WithdrawControllerPage extends GetxController {
 
-  EditNode minAmountNode = EditNode();
   WithdrawData pageData = WithdrawData();
+  // 最小金额
+  EditNode minAmountNode = EditNode();
+  // 用户名
+  EditNode usernameNode = EditNode();
+  // pix id
+  EditNode idNode = EditNode();
+  // pid account
+  EditNode accountNode = EditNode();
 
   final withdrawSelectData = <Map<String, String>>[
     {

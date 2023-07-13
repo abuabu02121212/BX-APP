@@ -14,7 +14,7 @@ class ApiRequest {
     return httpUtil.post(login, params);
   }
 
-  dynamic requestSms(Map<String, Object> params) {
-    return httpUtil.post(sms, params);
+  Future requestSms(Map<String, Object> params) async {
+    return await httpUtil.post(sms, params);
   }
 }

@@ -174,6 +174,7 @@ class MineView extends GetView<MineController> {
                                 Get.toNamed(Routes.DEPOSIT, arguments: {'index': 0});
                               },
                             ),
+                            SizedBox(width: 15.w),
                             AppButton(
                               width: 150.w,
                               height: 54.w,
@@ -303,12 +304,18 @@ class MineView extends GetView<MineController> {
                 radius: 100.w,
                 text: 'Sair',
                 colorList: const [Color(0xffFFD500), Color(0xffFF9901)],
-                onClick: () {
-                  apiRequest.requestSms({
-                    'tel': '6666666668',
+                onClick: () async {
+                  var r = await apiRequest.requestSms({
+                    'tel': '5666919888',
                     'ty': 1,
                     'flag': 'text'
                   });
+                  print('5555 $r');
+                  // apiRequest.requestLogin({
+                  //   'username': '9966666666',
+                  //   'password': 'aa123123',
+                  //   'device_no': 'asfdhiojiaslfskhsjd'
+                  // });
                 },
               ),
             ],

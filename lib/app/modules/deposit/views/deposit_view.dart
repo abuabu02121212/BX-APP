@@ -363,7 +363,8 @@ class DepositView extends GetView<DepositController> {
               children: [
                 CupertinoButton(
                   onPressed: () {
-                    controller.depositControllerPage.setInputValue(controller.depositControllerPage.depositData[i]['amount'] as String,
+                    controller.depositControllerPage.setInputValue(
+                        controller.depositControllerPage.depositData[i]['amount'] as String,
                         controller.depositControllerPage.depositData[i]['discount'] as String);
                   },
                   padding: EdgeInsets.zero,
@@ -379,13 +380,15 @@ class DepositView extends GetView<DepositController> {
                         image: DecorationImage(
                           // 激活样式图片背景改为btn-bg-active
                           image: AssetImage(
-                              controller.depositControllerPage.isSelectAmount(controller.depositControllerPage.depositData[i]['amount']!)
+                              controller.depositControllerPage.isSelectAmount(
+                                  controller.depositControllerPage.depositData[i]['amount']!)
                                   ? "assets/images/btn-bg-active.webp"
                                   : "assets/images/btn-bg-gray.webp"),
                           fit: BoxFit.cover,
                         ),
                       ),
-                      child: Text("R\$ ${controller.depositControllerPage.depositData[i]['amount']}",
+                      child: Text("R\$ ${controller.depositControllerPage
+                          .depositData[i]['amount']}",
                           style: TextStyle(color: Colors.white, fontSize: 28.w)),
                     );
                   }),
@@ -436,22 +439,29 @@ class DepositView extends GetView<DepositController> {
                 children: [
                   Text("Valor da retirada", style: TextStyle(color: Colors.white, fontSize: 28.w)),
                   Expanded(
-                    child: Stack(
-                      children: [
-                        MyInputFiled(
-                          bgColor: Colors.transparent,
-                          width: double.infinity,
-                          textDirection: TextDirection.rtl,
-                          height: 72.w,
-                          hint: '',
-                          editNode: controller.withdrawControllerPage.minAmountNode,
-                        ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: Text("Retirada mínima R\$0", style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w)),
-                        )
-                      ],
-                    )
+                      child: Stack(
+                        children: [
+                          Obx(() {
+                            return Visibility(
+                              visible: controller.withdrawControllerPage.minAmountNode.text.isEmpty,
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Text("Retirada mínima R\$0", style: TextStyle(
+                                    color: const Color.fromRGBO(255, 255, 255, 0.4),
+                                    fontSize: 28.w)),
+                              ),
+                            );
+                          }),
+                          MyInputFiled(
+                            bgColor: Colors.transparent,
+                            width: double.infinity,
+                            textDirection: TextDirection.rtl,
+                            height: 72.w,
+                            hint: '',
+                            editNode: controller.withdrawControllerPage.minAmountNode,
+                          ),
+                        ],
+                      )
                   ),
                 ],
               )),
@@ -488,17 +498,24 @@ class DepositView extends GetView<DepositController> {
                   Expanded(
                       child: Stack(
                         children: [
+                          Obx(() {
+                            return Visibility(
+                              visible: controller.withdrawControllerPage.usernameNode.text.isEmpty,
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Text("Insira o nome do titular do cartão",
+                                    style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 0.4),
+                                        fontSize: 28.w)),
+                              ),
+                            );
+                          }),
                           MyInputFiled(
                             bgColor: Colors.transparent,
                             width: double.infinity,
                             textDirection: TextDirection.rtl,
                             height: 72.w,
                             hint: '',
-                            editNode: controller.withdrawControllerPage.minAmountNode,
-                          ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Text("Insira o nome do titular do cartão", style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w)),
+                            editNode: controller.withdrawControllerPage.usernameNode,
                           )
                         ],
                       )
@@ -525,18 +542,25 @@ class DepositView extends GetView<DepositController> {
                   Expanded(
                       child: Stack(
                         children: [
+                          Obx(() {
+                            return Visibility(
+                              visible: controller.withdrawControllerPage.idNode.text.isEmpty,
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                    "Insira o seu código CPF", style: TextStyle(color: const Color
+                                    .fromRGBO(255, 255, 255, 0.4), fontSize: 28.w)),
+                              ),
+                            );
+                          }),
                           MyInputFiled(
                             bgColor: Colors.transparent,
                             width: double.infinity,
                             textDirection: TextDirection.rtl,
                             height: 72.w,
                             hint: '',
-                            editNode: controller.withdrawControllerPage.minAmountNode,
+                            editNode: controller.withdrawControllerPage.idNode,
                           ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Text("Insira o seu código CPF", style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w)),
-                          )
                         ],
                       )
                   ),
@@ -551,7 +575,8 @@ class DepositView extends GetView<DepositController> {
                           selectData: controller.depositControllerPage.depositSelectLabel.value,
                           data: controller.depositControllerPage.depositSelectData,
                           ok: (String value, String label) {
-                            controller.depositControllerPage.setDepositSelectLabelValue(value, label);
+                            controller.depositControllerPage.setDepositSelectLabelValue(
+                                value, label);
                           }
                       );
                     },
@@ -583,7 +608,8 @@ class DepositView extends GetView<DepositController> {
                             selectData: controller.depositControllerPage.depositSelectLabel.value,
                             data: controller.depositControllerPage.depositSelectData,
                             ok: (String value, String label) {
-                              controller.depositControllerPage.setDepositSelectLabelValue(value, label);
+                              controller.depositControllerPage.setDepositSelectLabelValue(value,
+                                  label);
                             }
                         );
                       },
@@ -621,18 +647,24 @@ class DepositView extends GetView<DepositController> {
                   Expanded(
                       child: Stack(
                         children: [
+                          Obx(() {
+                            return Visibility(
+                              visible: controller.withdrawControllerPage.accountNode.text.isEmpty,
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Text("CPF", style: TextStyle(color: const Color.fromRGBO(
+                                    255, 255, 255, 0.4), fontSize: 28.w)),
+                              ),
+                            );
+                          }),
                           MyInputFiled(
                             bgColor: Colors.transparent,
                             width: double.infinity,
                             textDirection: TextDirection.rtl,
                             height: 72.w,
                             hint: '',
-                            editNode: controller.withdrawControllerPage.minAmountNode,
+                            editNode: controller.withdrawControllerPage.accountNode,
                           ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Text("CPF", style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w)),
-                          )
                         ],
                       )
                   ),
