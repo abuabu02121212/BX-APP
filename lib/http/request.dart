@@ -17,4 +17,8 @@ class ApiRequest {
   Future requestSms(Map<String, Object> params) async {
     return await httpUtil.post(sms, params);
   }
+
+  Future requestBanner({Map<String, Object>? params}) async {
+    return await httpUtil.get(banner, params ?? {});
+  }
 }

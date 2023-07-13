@@ -311,6 +311,9 @@ class MineView extends GetView<MineController> {
                     'flag': 'text'
                   });
                   print('5555 $r');
+
+                  var b = await apiRequest.requestBanner();
+                  print('77777 $b');
                   // apiRequest.requestLogin({
                   //   'username': '9966666666',
                   //   'password': 'aa123123',

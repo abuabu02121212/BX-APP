@@ -49,9 +49,28 @@ class DioUtil {
 
   Future get(String path, Map<String, Object> param) async {
     Response response;
-    response = await dio.get(path, queryParameters: param);
-    Log.d("path:${response.requestOptions.uri} param:${response.requestOptions.queryParameters}");
-    return response.data;
+    response = await dio.get(path, queryParameters: param, options: Options(
+      responseType: ResponseType.bytes,
+      contentType: 'application/x-www-form-urlencoded',
+      headers: {
+        'd': 35
+      }
+    ));
+    // 将字节数组转换为 ArrayBuffer
+    Uint8List byteData = response.data;
+    final responseData = cbor.decode(byteData);
+    bool status = (responseData.toJson() as Map<String, dynamic>)['status'];
+    dynamic data = (responseData.toJson() as Map<String, dynamic>)['data'];
+    Log.d('\nstatus: ${(responseData.toJson() as Map<String, dynamic>)['status']}');
+    Log.d('\ndata:${(responseData.toJson() as Map<String, dynamic>)['data']}');
+    Log.d("\npath:${response.requestOptions.uri}\n源数据: ${response.data}\n结果:${cbor.decode(byteData)}\n${'-'*200}");
+
+    if (status == false) {
+      Toast.show('$data');
+      return null;
+    } else {
+      return data;
+    }
   }
 
   Future<Object?> post(String path, Map<String, dynamic> d) async {
