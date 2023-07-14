@@ -49,7 +49,7 @@ class LoginController extends GetxController {
       var userInfo = await apiRequest.requestMemberInfo();
       UserInfoEntity userInfoEntity = UserInfoEntity.fromJson(userInfo);
       GlobeController controller = Get.find<GlobeController>();
-      controller.userInfoEntity = userInfoEntity;
+      controller.userInfoEntity.value = userInfoEntity;
       Log.d("封装后的数据是： userInfoEntity:${userInfoEntity.username}");
       Get.back();
     } else {

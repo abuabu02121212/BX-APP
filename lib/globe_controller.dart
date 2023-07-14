@@ -11,7 +11,11 @@ class GlobeController extends GetxController with WidgetsBindingObserver {
   GlobeController(this.context);
 
   final BuildContext context;
-   UserInfoEntity? userInfoEntity;
+  final userInfoEntity = Rx<UserInfoEntity?>(null);
+
+  bool isLogin() {
+    return userInfoEntity.value == null;
+  }
 
   @override
   Future<void> onInit() async {
