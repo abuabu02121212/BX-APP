@@ -56,22 +56,26 @@ class MineView extends GetView<MineController> {
                             CupertinoButton(
                               padding: EdgeInsets.zero,
                               onPressed: () {
-                                Get.dialog(AppAvatar());
+                                Get.dialog(const AppAvatar());
                               },
-                              child: Container(
-                                margin: EdgeInsets.only(top: 45.w, left: 55.w),
-                                width: 120.w,
-                                height: 120.w,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(60.w),
-                                    border: Border.all(color: Color(0xff0ED1F4), width: 4.w),
-                                    image: const DecorationImage(
-                                        image: AssetImage(
-                                            "assets/images/avatar/avatar0.webp"),
-                                        fit: BoxFit.cover
-                                    )
-                                ),
-                              ),
+                              child: Obx(() {
+                                return Container(
+                                  margin: EdgeInsets.only(top: 45.w, left: 55.w),
+                                  width: 120.w,
+                                  height: 120.w,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(60.w),
+                                      border: Border.all(color: Color(0xff0ED1F4), width: 4.w),
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/images/avatar/avatar${int.parse(
+                                                  controller.globeController.userInfoEntity.value
+                                                      ?.avatar ?? '1')}.webp"),
+                                          fit: BoxFit.cover
+                                      )
+                                  ),
+                                );
+                              }),
                             ),
                             Positioned(
                               top: 153.w,
@@ -88,7 +92,8 @@ class MineView extends GetView<MineController> {
                                     children: [
                                       Obx(() {
                                         return Text(
-                                            controller.globeController.userInfoEntity.value.toString(),
+                                            controller.globeController.userInfoEntity.value?.uid ??
+                                                "",
                                             style: TextStyle(color: Colors.white,
                                                 fontSize: 28.w,
                                                 fontWeight: FontWeight.bold
@@ -115,8 +120,15 @@ class MineView extends GetView<MineController> {
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            Text("qiaofeng88", style: TextStyle(
-                                                color: Colors.white, fontSize: 26.w)),
+                                            Obx(() {
+                                              return Text(
+                                                  controller.globeController.userInfoEntity.value
+                                                      ?.username ?? "", style:
+                                              TextStyle(
+                                                  color: Colors.white, fontSize: 26.w)
+                                              );
+                                            }
+                                            ),
                                             SizedBox(width: 7.w),
                                             Image.asset("assets/images/i-copy.webp", width: 25.w),
                                           ],
@@ -157,14 +169,27 @@ class MineView extends GetView<MineController> {
                         margin: EdgeInsets.only(left: 55.w, top: 7.w),
                         child: Row(
                           children: [
-                            AppProgress(
-                              width: 535.w,
-                              height: 30.w,
-                              radius: 100.w,
-                              progress: 50,
-                            ),
+                            Obx(() {
+                              return Flexible(
+                                child: AppProgress(
+                                  width: 535.w,
+                                  height: 30.w,
+                                  radius: 100.w,
+                                  progress: controller.getProgress(),
+                                ),
+                              );
+                            }),
                             SizedBox(width: 15.w),
-                            Text('0 / 1', style: TextStyle(color: Colors.white, fontSize: 26.w)),
+                            Obx(() {
+                              return Text(
+                                  '${controller.globeController.userInfoEntity.value
+                                      ?.depositAmount ?? "0"} / '
+                                      '${controller.globeController.userInfoEntity.value
+                                      ?.nextDeposit ?? "0"}',
+                                  style: TextStyle(color: Colors.white, fontSize: 26.w)
+                              );
+                            }),
+                            SizedBox(width: 15.w),
                           ],
                         ),
                       ),
@@ -326,9 +351,9 @@ class MineView extends GetView<MineController> {
                   var b = await apiRequest.requestBanner();
                   print('77777 $b');
                   GlobeController controller = Get.find<GlobeController>();
-                  if(controller.isLogin()){
+                  if (controller.isLogin()) {
                     controller.loginOut();
-                  }else{
+                  } else {
                     showLoginRegisterDialog();
                   }
                   // apiRequest.requestLogin({

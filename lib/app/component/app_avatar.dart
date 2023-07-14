@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/globe_controller.dart';
+import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../http/comm_request.dart';
 import '../modules/mine/controllers/mine_controller.dart';
 import 'app_button.dart';
 
@@ -15,7 +18,28 @@ class AppAvatar extends StatefulWidget {
 }
 
 class _AppAvatarState extends State<AppAvatar> {
-  // final controller = Get.find<MineController>();
+  final controller = Get.find<GlobeController>();
+
+  late int _avatar;
+
+  setAvatar(int avatar) {
+    setState(() {
+      _avatar = avatar;
+    });
+  }
+
+  updateAvatar() async {
+    Toast.show('修改成功');
+    await requestUserInfo();
+    Get.back();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _avatar = int.parse(controller.userInfoEntity.value?.avatar ?? '1');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +48,7 @@ class _AppAvatarState extends State<AppAvatar> {
         width: 634.w,
         height: 713.w,
         decoration: BoxDecoration(
-          color: Color(0xFF011A51),
+          color: const Color(0xFF011A51),
           borderRadius: BorderRadius.circular(20.w),
         ),
         child: Column(
@@ -51,25 +75,27 @@ class _AppAvatarState extends State<AppAvatar> {
                   spacing: 28.w,
                   runSpacing: 28.w,
                   children: [
-                    for(var i = 0; i < 12; i++)
+                    for(var i = 1; i <= 12; i++)
                       CupertinoButton(
                         padding: EdgeInsets.zero,
                         child: Container(
+                          width: 120.w,
+                          height: 120.w,
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: Color(0xFF0ED1F4),
-                              width: i == 0 ? 5.w : 0.w,
+                              color: const Color(0xFF0ED1F4),
+                              width: i == _avatar ? 5.w : 0.w,
                             ),
                             borderRadius: BorderRadius.circular(120.w),
                           ),
                           child: Image.asset(
-                            'assets/images/avatar/avatar${i}.webp',
+                            'assets/images/avatar/avatar$i.webp',
                             width: 120.w,
                             height: 120.w,
                           ),
                         ),
                         onPressed: () {
-                          // controller.avatarIndex.value = i;
+                          setAvatar(i);
                         },
                       )
                   ],
@@ -96,7 +122,7 @@ class _AppAvatarState extends State<AppAvatar> {
                     radius: 100.w,
                     text: 'Confirme',
                     onClick: () {
-
+                      updateAvatar();
                     },
                   ),
                 ],
