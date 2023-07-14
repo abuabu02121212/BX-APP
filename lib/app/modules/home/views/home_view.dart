@@ -5,8 +5,10 @@ import 'package:flutter_comm/app/modules/home/views/tab_component.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import '../../../../util/Log.dart';
 import '../../../../util/toast_util.dart';
 import '../../../../widget/auto_scroll.dart';
+import '../../../../widget/back_event_interceptor.dart';
 import '../../../../widget/single_scroll_view_marquee.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
@@ -30,14 +32,19 @@ class HomeView extends GetView<HomeController> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Center(
-          child: Container(
-            color: Colors.black,
-            width: double.infinity,
-            height: double.infinity,
-            alignment: Alignment.topLeft,
-            child: SingleChildScrollView(
-              child: ItemGenerateWidget(),
+        child: BackInterceptorWidget(
+          isInterceptor: (obj) {
+            return controller.consumePressedRecord();
+          },
+          child: Center(
+            child: Container(
+              color: Colors.black,
+              width: double.infinity,
+              height: double.infinity,
+              alignment: Alignment.topLeft,
+              child: SingleChildScrollView(
+                child: ItemGenerateWidget(),
+              ),
             ),
           ),
         ),
@@ -449,7 +456,7 @@ class HomeGameTypesWidget extends StatelessWidget {
                     return CupertinoButton(
                       onPressed: () {
                         controller.selectedGameTypeIndex.value = index;
-                        Toast.show("$index");
+                        controller.addPressedRecord(index);
                       },
                       minSize: 0,
                       padding: EdgeInsets.zero,

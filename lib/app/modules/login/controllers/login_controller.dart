@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:cbor/cbor.dart';
 import '../../../../http/request.dart';
 import '../../../../util/Log.dart';
+import '../../../entity/user_info.dart';
+import '../../../../globe_controller.dart';
 
 class LoginController extends GetxController {
   EditNode userNameEditNode = EditNode();
@@ -30,8 +32,6 @@ class LoginController extends GetxController {
     keyEditNode.isDisplayErrHint.value = !pswRegExp.hasMatch(keyEditNode.text.value);
     return !userNameEditNode.isDisplayErrHint.value && !keyEditNode.isDisplayErrHint.value;
   }
-  
-  
 
   Future<void> login() async {
     var inputIsOk = checkInput();
@@ -41,13 +41,19 @@ class LoginController extends GetxController {
     param['username'] = userNameEditNode.text.value;
     param['password'] = keyEditNode.text.value;
     param['device_no'] = "${DateTime.now().millisecondsSinceEpoch}-test";
-   // param['code'] = userNameEditNode.text.value;
-   // param['vid'] = userNameEditNode.text.value;
+    // param['code'] = userNameEditNode.text.value;
+    // param['vid'] = userNameEditNode.text.value;
     var loginRet = await apiRequest.requestLogin(param);
-    Log.d("origin:$loginRet");
-  //  cbor.decode(encoded);
-   // final encoded = cbor.decode(loginRet);
-    CborString cborString = CborString(loginRet);
-    Log.d("loginRet:${cborString.toJson()}");
+    if (loginRet == '1000') {
+      Log.d("登陆成功...");
+      var userInfo = await apiRequest.requestMemberInfo();
+      UserInfoEntity userInfoEntity = UserInfoEntity.fromJson(userInfo);
+      GlobeController controller = Get.find<GlobeController>();
+      controller.userInfoEntity = userInfoEntity;
+      Log.d("封装后的数据是： userInfoEntity:${userInfoEntity.username}");
+      Get.back();
+    } else {
+      Log.e("登陆失败...");
+    }
   }
 }

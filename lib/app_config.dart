@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_comm/skin/skin_manager.dart';
-import 'package:flutter_comm/util/Log.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
-import '../env.dart';
+
+import 'globe_controller.dart';
 
 RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
@@ -93,38 +90,7 @@ class AppInitBinding extends Bindings {
 
   @override
   void dependencies() {
-    Get.put(AppInitController(context));
+    Get.put(GlobeController(context));
   }
 }
 
-class AppInitController extends GetxController with WidgetsBindingObserver {
-  AppInitController(this.context);
-
-  final BuildContext context;
-
-  @override
-  void onInit() {
-    /// 强制竖屏
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
-    super.onInit();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void didChangePlatformBrightness() {
-    Log.d("当前系统主题模式改变");
-    syncSystemThemeMode(context);
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-    syncSystemThemeMode(context);
-    printEnv();
-  }
-
-  Future<void> printEnv() async {
-    var appInfo = await EnvironmentConfig.getAppInfo();
-    Log.i(EnvironmentConfig.getEnvInfo() + appInfo);
-  }
-}

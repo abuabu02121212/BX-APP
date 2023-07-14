@@ -21,4 +21,8 @@ class ApiRequest {
   Future requestBanner({Map<String, Object>? params}) async {
     return await httpUtil.get(banner, params ?? {});
   }
+
+  Future requestMemberInfo() async {
+    return await httpUtil.get(memberInfo, {});
+  }
 }
