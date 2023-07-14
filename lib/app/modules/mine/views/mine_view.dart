@@ -11,6 +11,7 @@ import '../../../../globe_controller.dart';
 import '../../../../http/request.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_progress.dart';
+import '../../main/controllers/main_controller.dart';
 import '../controllers/mine_controller.dart';
 
 class MineView extends GetView<MineController> {
@@ -328,6 +329,8 @@ class MineView extends GetView<MineController> {
                   GlobeController controller = Get.find<GlobeController>();
                   if(controller.isLogin()){
                     controller.loginOut();
+                    MainController main = Get.find<MainController>();
+                    main.indicatorTabController.onItemSelectChanged(0);
                   }else{
                     showLoginRegisterDialog();
                   }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
+import '../util/Log.dart';
 import 'comm_anim2.dart';
 
 typedef ItemBuilder = Widget Function(BuildContext context, int index, int selectedPos);
@@ -77,7 +78,7 @@ class MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixi
                       minSize: 0,
                       padding: const EdgeInsets.all(0),
                       pressedOpacity: 0.8,
-                      onPressed: () => onItemSelectChanged(pos),
+                      onPressed: () => onItemClick(pos),
                       child: _buildItem(context, pos),
                     );
                   }),
@@ -130,7 +131,7 @@ class MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixi
     return sumWidth;
   }
 
-  void onItemSelectChanged(int pos) {
+  void onItemClick(int pos) {
     if (widget.controller.selectedIndexNotifier.value != pos) {
       if (widget.indicatorAttr != null || widget.indicator != null) {
         anim.updateEndAndStart(getItemWidthSum(pos - 1));
@@ -138,6 +139,9 @@ class MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixi
       widget.controller.selectedIndexNotifier.value = pos;
       widget.onSelectChanged(pos);
       autoScroll(pos);
+      widget.controller.posList.add(pos);
+    } else {
+      Log.d("相同位置不跳转");
     }
   }
 
@@ -183,18 +187,31 @@ class IndicatorAttr {
 
 class IndicatorTabController {
   MyState? myState;
+  List<int> posList = [];
 
   IndicatorTabController({int defSelectPos = 0}) {
     selectedIndexNotifier.value = defSelectPos;
+    posList.add(defSelectPos);
   }
 
-  void attach(MyState myState) {
-    this.myState = myState;
+  void attach(MyState state) {
+    myState = state;
   }
 
   final ValueNotifier<int> selectedIndexNotifier = ValueNotifier<int>(0);
 
   void onItemSelectChanged(int pos) {
-    myState?.onItemSelectChanged(pos);
+    myState?.onItemClick(pos);
+  }
+
+  void back() {
+    Log.d("=======back====$posList====myState:$myState=====");
+    if (posList.isNotEmpty) {
+      var last = posList.removeLast();
+      if (last == selectedIndexNotifier.value && posList.isNotEmpty) {
+        last = posList.removeLast();
+      }
+      myState?.onItemClick(last);
+    }
   }
 }

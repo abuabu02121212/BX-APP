@@ -24,6 +24,7 @@ class GlobeController extends GetxController with WidgetsBindingObserver {
      userInfoEntity.value = null;
      await spUtil.setString(keyLoginToken, "");
      apiRequest.httpUtil.loginToken = "";
+     Log.d("已经退出登陆...");
   }
 
   @override
