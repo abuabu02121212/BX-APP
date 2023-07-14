@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_comm/app/entity/balance.dart';
 import 'package:flutter_comm/skin/skin_manager.dart';
 import 'package:flutter_comm/util/Log.dart';
 import 'package:flutter_comm/util/sp_util.dart';
@@ -15,6 +16,7 @@ class GlobeController extends GetxController with WidgetsBindingObserver {
 
   final BuildContext context;
   final userInfoEntity = Rx<UserInfoEntity?>(null);
+  final balance = Rx<BalanceEntity?>(null);
 
   bool isLogin() {
     return userInfoEntity.value != null;
@@ -22,6 +24,7 @@ class GlobeController extends GetxController with WidgetsBindingObserver {
 
   Future<void> loginOut() async {
      userInfoEntity.value = null;
+     balance.value = null;
      await spUtil.setString(keyLoginToken, "");
      apiRequest.httpUtil.loginToken = "";
      Log.d("已经退出登陆...");

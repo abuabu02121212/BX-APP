@@ -6,6 +6,7 @@ import 'package:cbor/cbor.dart';
 import '../../../../http/comm_request.dart';
 import '../../../../http/request.dart';
 import '../../../../util/Log.dart';
+import '../../../../util/loading_util.dart';
 import '../../../entity/user_info.dart';
 import '../../../../globe_controller.dart';
 
@@ -35,6 +36,7 @@ class LoginController extends GetxController {
   }
 
   Future<void> login() async {
+    AppLoading.show();
     var inputIsOk = checkInput();
     Log.d("inputIsOk:$inputIsOk");
     if (!inputIsOk) return;
@@ -48,6 +50,8 @@ class LoginController extends GetxController {
     if (loginRet == '1000') {
       Log.d("登陆成功...");
       await requestUserInfo();
+      await requestCommBalance();
+      AppLoading.close();
       Get.back();
     } else {
       Log.e("登陆失败...");
