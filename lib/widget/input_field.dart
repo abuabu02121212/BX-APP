@@ -69,7 +69,7 @@ class EditNode {
   final obscureTextEnable = true.obs;
   final isDisplayErrHint = false.obs;
   final eyeIsOPen = false.obs;
-  final isVerify = false.obs;
+  // 开始验证
 
   EditNode() {
     focusNode.addListener(() => hasFocus.value = focusNode.hasFocus);
@@ -77,6 +77,7 @@ class EditNode {
 
   dispose() {
     focusNode.dispose();
+    print('销毁了');
     editController.dispose();
   }
 }
@@ -181,7 +182,6 @@ class MyInputFiled extends StatefulWidget {
     this.textStyle,
     this.obscureText = false,
     this.textDirection,
-    this.textRegExp
   });
 
   final double width;
@@ -199,7 +199,6 @@ class MyInputFiled extends StatefulWidget {
   final ValueChanged<String>? onTextChanged;
   final bool obscureText;
   final TextDirection? textDirection;
-  final RegExp? textRegExp;
 
   @override
   State<MyInputFiled> createState() => _MyInputFiledState();
@@ -214,16 +213,17 @@ class _MyInputFiledState extends State<MyInputFiled> {
       print('输入改变 ${widget.editNode.text.value}');
       widget.editNode.text.value = widget.editNode.editController.text;
 
-      if (widget.textRegExp != null){
-        widget.editNode.isVerify.value = widget.textRegExp!.hasMatch(widget.editNode.text.value);
+      if (widget.onTextChanged != null){
+        widget.onTextChanged!(widget.editNode.text.value);
       }
     });
   }
 
   @override
   void dispose() {
-    widget.editNode.dispose();
     super.dispose();
+    print('input销毁了');
+    widget.editNode.dispose();
   }
 
   @override
@@ -242,11 +242,6 @@ class _MyInputFiledState extends State<MyInputFiled> {
           textDirection: widget.textDirection,
           style: widget.textStyle ?? TextStyle(color: Colors.white, fontSize: 28.w),
           keyboardType: widget.keyboardType,
-          onChanged: (text) {
-            if (widget.onTextChanged != null){
-              widget.onTextChanged!(text);
-            }
-          },
           decoration: const BoxDecoration(color: Colors.transparent),
           placeholder: widget.hint,
           textAlignVertical: TextAlignVertical.center,

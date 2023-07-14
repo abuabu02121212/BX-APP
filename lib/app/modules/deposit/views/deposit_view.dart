@@ -418,6 +418,7 @@ class DepositView extends GetView<DepositController> {
   }
 
   Widget _buildWithdraw(DepositController controller, BuildContext context) {
+    print('buildWithdraw');
     return Container(
       padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 36.w),
       child: Column(
@@ -454,12 +455,14 @@ class DepositView extends GetView<DepositController> {
                           }),
                           MyInputFiled(
                             bgColor: Colors.transparent,
-                            textRegExp: RegExp(r'^[0-9]{5}$'),
                             keyboardType: TextInputType.number,
                             width: double.infinity,
                             textDirection: TextDirection.rtl,
                             height: 72.w,
                             hint: '',
+                            onTextChanged: (String value) {
+                              print('vvv $value');
+                            },
                             editNode: controller.withdrawControllerPage.minAmountNode,
                           ),
                         ],
@@ -468,7 +471,9 @@ class DepositView extends GetView<DepositController> {
                 ],
               )),
           Obx(() {
-            return Text(controller.withdrawControllerPage.minAmountNode.isVerify.value.toString(), style: TextStyle(color: Colors.white, fontSize: 28.w));
+            return controller.withdrawControllerPage.isClickSubmit.isTrue ?
+              VerifyError(error: controller.withdrawControllerPage.validateMinAmount() ?? '1') :
+              SizedBox(height: 34.w);
           }),
           Container(
             decoration: const BoxDecoration(
@@ -477,7 +482,7 @@ class DepositView extends GetView<DepositController> {
                 fit: BoxFit.cover,
               ),
             ),
-            margin: EdgeInsets.only(bottom: 24.w, top: 36.w),
+            margin: EdgeInsets.only(bottom: 24.w),
             padding: EdgeInsets.only(bottom: 10.w, left: 10.w, right: 10.w),
             child: Text(
                 " Uma conta só pode ser vinculada a um número de CPF para saque, uma vez vinculada não pode ser alterada.",
@@ -528,7 +533,11 @@ class DepositView extends GetView<DepositController> {
                   ),
                 ],
               )),
-          SizedBox(height: 34.w),
+          Obx(() {
+            return controller.withdrawControllerPage.isClickSubmit.isTrue ?
+              VerifyError(error: controller.withdrawControllerPage.validateUsername() ?? '') :
+              SizedBox(height: 34.w);
+          }),
           Container(
               width: double.infinity,
               height: 72.w,
@@ -592,7 +601,11 @@ class DepositView extends GetView<DepositController> {
                   )
                 ],
               )),
-          SizedBox(height: 34.w),
+          Obx(() {
+            return controller.withdrawControllerPage.isClickSubmit.isTrue ?
+              VerifyError(error: controller.withdrawControllerPage.validateId() ?? '') :
+              SizedBox(height: 34.w);
+          }),
           Container(
               width: double.infinity,
               height: 72.w,
@@ -692,7 +705,11 @@ class DepositView extends GetView<DepositController> {
                   ),
                 ],
               )),
-          SizedBox(height: 34.w),
+          Obx(() {
+            return controller.withdrawControllerPage.isClickSubmit.isTrue ?
+              VerifyError(error: controller.withdrawControllerPage.validateAccount() ?? '') :
+              SizedBox(height: 34.w);
+          }),
           Container(
               margin: EdgeInsets.only(top: 36.w, bottom: 16.w),
               alignment: Alignment.centerLeft,
@@ -726,7 +743,9 @@ class DepositView extends GetView<DepositController> {
             height: 90.w,
             radius: 100.w,
             text: 'Retirar',
-            onClick: () {},
+            onClick: () {
+              controller.withdrawControllerPage.submit();
+            },
           ),
           SizedBox(height: 54.w),
           Text('Regras de retirada', style: TextStyle(
@@ -749,6 +768,25 @@ class DepositView extends GetView<DepositController> {
           SizedBox(height: 85.w),
         ],
       ),
+    );
+  }
+}
+
+class VerifyError extends StatelessWidget {
+  const VerifyError({Key? key, required this.error}) : super(key: key);
+  final String error;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Container(
+          height: 44.w,
+          padding: EdgeInsets.only(right: 20.w),
+          child: Center(child: Text(error, style: TextStyle(color: const Color.fromRGBO(255, 105, 13, 1), fontSize: 22.w,), textAlign: TextAlign.right)),
+        ),
+      ],
     );
   }
 }

@@ -53,7 +53,7 @@ class DioUtil {
       responseType: ResponseType.bytes,
       contentType: 'application/x-www-form-urlencoded',
       headers: {
-        'd': 35
+        'd': 35,
       }
     ));
     // 将字节数组转换为 ArrayBuffer

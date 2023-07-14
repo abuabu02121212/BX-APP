@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../util/toast_util.dart';
 import '../../../../widget/input_field.dart';
 import '../views/withdraw_data.dart';
 
@@ -78,8 +79,49 @@ class WithdrawControllerPage extends GetxController {
     waysSelectValue.value = value;
   }
 
+  final isClickSubmit = false.obs;
+  // 验证最小金额
+  String? validateMinAmount() {
+    if (minAmountNode.text.value.isEmpty) {
+      return '请输入最小金额';
+    } else if (double.parse(minAmountNode.text.value) < double.parse(pageData.config?.fmin ?? '0')) {
+      return '最小金额为${pageData.config?.fmin}';
+    }
+    return null;
+  }
+
+  // 验证用户名
+  String? validateUsername() {
+    if (usernameNode.text.value.isEmpty) {
+      return '请输入用户名';
+    }
+    return null;
+  }
+
+  // 验证pix id
+  String? validateId() {
+    if (idNode.text.value.isEmpty) {
+      return '请输入pix id';
+    }
+    return null;
+  }
+
+  // 验证pix account
+  String? validateAccount() {
+    if (accountNode.text.value.isEmpty) {
+      return '请输入pix account';
+    }
+    return null;
+  }
+
+  // 提交函数
+  void submit() {
+    isClickSubmit.value = true;
+  }
+
   @override
   void onInit() {
+    print('WithdrawControllerPage init');
     super.onInit();
     initChannelData();
   }

@@ -28,6 +28,7 @@ class DepositController extends GetxController with GetSingleTickerProviderState
   @override
   void onReady() {
     super.onReady();
+    print('input初始化');
     depositControllerPage.onReady();
     withdrawControllerPage.onReady();
   }
@@ -35,6 +36,7 @@ class DepositController extends GetxController with GetSingleTickerProviderState
   @override
   void onClose() {
     super.onClose();
+    print('控制器销毁了');
     scrollViewController.dispose();
     tabController.dispose();
     depositControllerPage.onClose();
