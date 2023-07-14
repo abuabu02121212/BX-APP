@@ -44,11 +44,13 @@ class MainView extends GetView<MainController> {
               left: 0.w,
               bottom: 0.w,
               child: MainHorizontalTabComponent(
+                indicatorTabController: controller.indicatorTabController,
                 onSelectChanged: (pos) {
                   GlobeController globeController = Get.find<GlobeController>();
                   if (pos >= 2) {
                     if (!globeController.isLogin()) {
                       Log.d("还没有登陆");
+                      controller.indicatorTabController.back();
                       showLoginRegisterDialog();
                     } else {
                       Log.d("已经登陆");
@@ -57,8 +59,6 @@ class MainView extends GetView<MainController> {
                   } else {
                     controller.pageController.jumpToPage(pos);
                   }
-
-                  //Toast.show("$pos");
                 },
               ),
             ),

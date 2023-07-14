@@ -4,13 +4,18 @@ import 'package:get/get.dart';
 import '../../../../widget/horizontal_indicator_tab.dart';
 
 class MainHorizontalTabComponent extends StatelessWidget {
-  MainHorizontalTabComponent({super.key, required this.onSelectChanged}) {
+  MainHorizontalTabComponent({
+    super.key,
+    required this.onSelectChanged,
+    required this.indicatorTabController,
+  }) {
     Future.delayed(const Duration(milliseconds: 250), () {
       animScale.value = maxScale;
     });
   }
 
   final Callback<int> onSelectChanged;
+  final IndicatorTabController indicatorTabController;
 
   static const List<String> tabNames = [
     "Casa",
@@ -18,7 +23,7 @@ class MainHorizontalTabComponent extends StatelessWidget {
     "Depósito",
     "VIP",
     "Minha",
-  //  "组件测试页",
+    //  "组件测试页",
   ];
   static const selectedIconList = ["i-index", "i-promotion", "blue-circle", "i-vip", "i-personal", "i-personal"];
   static const unselectedIconList = ["i-index-gray", "i-promotion-gray", "blue-circle", "i-vip-gray", "i-personal-gray", "i-personal-gray"];
@@ -37,7 +42,7 @@ class MainHorizontalTabComponent extends StatelessWidget {
       bgColor: Colors.transparent,
       bgImgPath: "assets/images/app-footer-bg.webp",
       indicatorAttr: IndicatorAttr(color: const Color(0xffd54f7d), height: 0.w, width: 44.w),
-      controller: IndicatorTabController(),
+      controller: indicatorTabController,
     );
   }
 

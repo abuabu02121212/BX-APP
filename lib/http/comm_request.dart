@@ -19,3 +19,13 @@ Future<void> requestUserInfo() async {
     Log.d("用户还没有登陆，不请求用户信息");
   }
 }
+
+Future<void> requestCommBalance() async {
+  String loginToken = spUtil.getString(keyLoginToken) ?? "";
+  if (loginToken.isNotEmpty) {
+    var balance = await apiRequest.requestBalance();
+
+  } else {
+    Log.d("用户还没有登陆，不请求余额信息");
+  }
+}
