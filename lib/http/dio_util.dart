@@ -63,13 +63,18 @@ class DioUtil {
     final responseData = cbor.decode(byteData);
     bool status = (responseData.toJson() as Map<String, dynamic>)['status'];
     dynamic data = (responseData.toJson() as Map<String, dynamic>)['data'];
-    Log.d('\nstatus: ${(responseData.toJson() as Map<String, dynamic>)['status']}');
-    Log.d('\ndata:${(responseData.toJson() as Map<String, dynamic>)['data']}');
-    Log.d("\npath:${response.requestOptions.uri}\n源数据: ${response.data}\n结果:${cbor.decode(byteData)}\n${'-' * 200}");
+    // Log.d('\nstatus: ${(responseData.toJson() as Map<String, dynamic>)['status']}');
+    // Log.d('\ndata:${(responseData.toJson() as Map<String, dynamic>)['data']}');
+    // \n源数据: ${response.data} \n结果:${cbor.decode(byteData)}
+    Log.d("\npath:${response.requestOptions.uri} responseData :$responseData \n${'-' * 200}");
 
+    return onRequestFinish(status, data);
+  }
+
+  onRequestFinish(bool status, data) {
     if (status == false) {
       Toast.show('$data');
-      return null;
+      return data;
     } else {
       return data;
     }
@@ -104,15 +109,11 @@ class DioUtil {
     if (ids != null) {
       id = ids[0];
       bool isOk = await spUtil.setString(keyLoginToken, id);
+      loginToken = id;
       Log.e("$path 保存登陆toKen:$id 到本地是否成功：$isOk");
     }
     Log.d("header map:$headerMap");
     Log.d("path:${response.requestOptions.uri}  请求参数:$d 返回:${responseData.toJson()}\n${'-' * 200}");
-    if (status == false) {
-      Toast.show('$data');
-      return data;
-    } else {
-      return data;
-    }
+    return onRequestFinish(status, data);
   }
 }
