@@ -147,6 +147,6 @@ class InputListWidget extends StatelessWidget {
 void showForgetPswDialog() {
   Get.dialog(
     ForgetPswWidget(),
-    //  barrierColor: const Color.fromRGBO(0, 0, 0, 0.7),
+    barrierDismissible: false,
   );
 }

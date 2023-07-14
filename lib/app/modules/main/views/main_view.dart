@@ -9,9 +9,12 @@ import 'package:flutter_comm/app/modules/vip/views/vip_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import '../../../../globe_controller.dart';
+import '../../../../util/Log.dart';
 import '../../../../util/toast_util.dart';
 import '../../../../widget/keep_alive_page.dart';
 import '../../../app_style.dart';
+import '../../login_register/views/login_regiseter_widget.dart';
 import '../controllers/main_controller.dart';
 
 class MainView extends GetView<MainController> {
@@ -43,7 +46,17 @@ class MainView extends GetView<MainController> {
               child: MainHorizontalTabComponent(
                 onSelectChanged: (pos) {
                   controller.pageController.jumpToPage(pos);
-                  Toast.show("$pos");
+                  GlobeController globeController = Get.find<GlobeController>();
+                  if (pos >= 2) {
+                    if (!globeController.isLogin()) {
+                      Log.d("还没有登陆");
+                      showLoginRegisterDialog();
+                    }else{
+                      Log.d("已经登陆");
+                    }
+                  }
+
+                  //Toast.show("$pos");
                 },
               ),
             ),

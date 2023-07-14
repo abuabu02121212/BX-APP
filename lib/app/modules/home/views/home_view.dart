@@ -5,7 +5,6 @@ import 'package:flutter_comm/app/modules/home/views/tab_component.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import '../../../../util/Log.dart';
 import '../../../../util/toast_util.dart';
 import '../../../../widget/auto_scroll.dart';
 import '../../../../widget/back_event_interceptor.dart';
@@ -14,7 +13,6 @@ import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../../forget_psw/views/forget_psw_widget.dart';
 import '../../home_menu/views/home_menu_view.dart';
-import '../../login_register/views/login_regiseter_widget.dart';
 import '../controllers/home_controller.dart';
 import 'game_type_list.dart';
 
@@ -543,7 +541,6 @@ class HomeHeader extends StatelessWidget {
             text: 'Registar Conta',
             onClick: () {
               // Get.toNamed(Routes.LOGIN_REGISTER);
-              showLoginRegisterDialog();
               Toast.show("按钮被点击");
             },
           ),

@@ -78,6 +78,7 @@ class LoginRegisterWidget extends StatelessWidget {
 void showLoginRegisterDialog() {
   Get.dialog(
     LoginRegisterWidget(),
+    barrierDismissible: false
     //  barrierColor: const Color.fromRGBO(0, 0, 0, 0.7),
   );
 }
