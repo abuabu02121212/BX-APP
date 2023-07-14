@@ -86,7 +86,7 @@ class MineView extends GetView<MineController> {
                                     children: [
                                       Obx(() {
                                         return Text(
-                                            controller.globeController.userInfoEntity?.uid ?? "",
+                                            controller.globeController.userInfoEntity.value.toString(),
                                             style: TextStyle(color: Colors.white,
                                                 fontSize: 28.w,
                                                 fontWeight: FontWeight.bold
