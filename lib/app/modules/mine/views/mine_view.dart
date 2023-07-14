@@ -84,9 +84,15 @@ class MineView extends GetView<MineController> {
                                 children: [
                                   Row(
                                     children: [
-                                      Text("我的昵称", style: TextStyle(color: Colors.white,
-                                          fontSize: 28.w,
-                                          fontWeight: FontWeight.bold)),
+                                      Obx(() {
+                                        return Text(
+                                            controller.globeController.userInfoEntity?.uid ?? "",
+                                            style: TextStyle(color: Colors.white,
+                                                fontSize: 28.w,
+                                                fontWeight: FontWeight.bold
+                                            )
+                                        );
+                                      }),
                                       SizedBox(width: 11.w),
                                       Image.asset("assets/images/i-edit-name.webp", width: 27.w),
                                     ],
@@ -238,13 +244,15 @@ class MineView extends GetView<MineController> {
                             padding: EdgeInsets.only(left: 26.w, right: 26.w),
                             child: Row(
                               children: [
-                                Image(image: const AssetImage("assets/images/i-finance-record.webp"),
+                                Image(image: const AssetImage(
+                                    "assets/images/i-finance-record.webp"),
                                     width: 40.w),
                                 SizedBox(width: 26.w),
                                 Text('Transação', style: TextStyle(
                                     color: Colors.white, fontSize: 28.w)),
                                 const Expanded(child: SizedBox()),
-                                Image(image: const AssetImage("assets/images/i-arrow-right-bold.webp"),
+                                Image(image: const AssetImage(
+                                    "assets/images/i-arrow-right-bold.webp"),
                                     width: 20.w),
                               ],
                             ),
@@ -266,7 +274,8 @@ class MineView extends GetView<MineController> {
                                 Text('Histórico de Apostas', style: TextStyle(
                                     color: Colors.white, fontSize: 28.w)),
                                 const Expanded(child: SizedBox()),
-                                Image(image: const AssetImage("assets/images/i-arrow-right-bold.webp"),
+                                Image(image: const AssetImage(
+                                    "assets/images/i-arrow-right-bold.webp"),
                                     width: 20.w),
                               ],
                             ),

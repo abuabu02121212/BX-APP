@@ -141,6 +141,7 @@ class _MyInputFiledState extends State<MyInputFiled> {
   @override
   void initState() {
     super.initState();
+    print('初始化');
     widget.editNode.initState();
     widget.editNode.editController.addListener(_addListener);
   }
@@ -149,6 +150,7 @@ class _MyInputFiledState extends State<MyInputFiled> {
   void dispose() {
     widget.editNode.editController.removeListener(_addListener);
     widget.editNode.dispose();
+    print('销毁');
     super.dispose();
   }
 
