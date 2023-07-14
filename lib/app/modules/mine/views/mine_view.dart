@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_avatar.dart';
+import 'package:flutter_comm/app/modules/login_register/views/login_regiseter_widget.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../globe_controller.dart';
 import '../../../../http/request.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_progress.dart';
@@ -323,6 +325,12 @@ class MineView extends GetView<MineController> {
 
                   var b = await apiRequest.requestBanner();
                   print('77777 $b');
+                  GlobeController controller = Get.find<GlobeController>();
+                  if(controller.isLogin()){
+                    controller.loginOut();
+                  }else{
+                    showLoginRegisterDialog();
+                  }
                   // apiRequest.requestLogin({
                   //   'username': '9966666666',
                   //   'password': 'aa123123',

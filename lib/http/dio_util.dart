@@ -28,7 +28,7 @@ Uint8List mapToUint8List(Map<String, dynamic> map) {
 class DioUtil {
   final dio = Dio();
   final String baseUrl;
-  String? loginToken;
+  String loginToken = "";
 
   DioUtil(this.baseUrl) {
     init();
@@ -39,7 +39,11 @@ class DioUtil {
     options.baseUrl = baseUrl;
     options.connectTimeout = const Duration(seconds: 10);
     options.receiveTimeout = const Duration(seconds: 10);
-    loginToken ??= spUtil.getString(keyLoginToken);
+    setLoginToken();
+  }
+
+  void setLoginToken(){
+    loginToken = loginToken.isEmpty ? spUtil.getString(keyLoginToken) ?? "" : loginToken;
   }
 
   void getSample() async {
@@ -50,7 +54,7 @@ class DioUtil {
 
   Future get(String path, Map<String, Object> param) async {
     Response response;
-    loginToken ??= spUtil.getString(keyLoginToken);
+    setLoginToken();
     response = await dio.get(path,
         queryParameters: param,
         options: Options(
@@ -87,7 +91,7 @@ class DioUtil {
     // 将 data 转换成Base64字符串
     String base64Str = base64Encode(cborBuffer);
     Log.d('\n${'-' * 200}\n \n发送数据: cborBuffer:$cborBuffer base64Str:$base64Str');
-    loginToken ??= spUtil.getString(keyLoginToken);
+    setLoginToken();
     response = await dio.post(path,
         data: base64Str,
         options: Options(

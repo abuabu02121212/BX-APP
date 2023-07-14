@@ -3,9 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_comm/skin/skin_manager.dart';
 import 'package:flutter_comm/util/Log.dart';
 import 'package:flutter_comm/util/sp_util.dart';
+import 'package:flutter_comm/util/sp_util_key.dart';
 import 'package:get/get.dart';
 import 'env.dart';
 import 'app/entity/user_info.dart';
+import 'http/request.dart';
 
 class GlobeController extends GetxController with WidgetsBindingObserver {
   GlobeController(this.context);
@@ -14,7 +16,13 @@ class GlobeController extends GetxController with WidgetsBindingObserver {
   final userInfoEntity = Rx<UserInfoEntity?>(null);
 
   bool isLogin() {
-    return userInfoEntity.value == null;
+    return userInfoEntity.value != null;
+  }
+
+  Future<void> loginOut() async {
+     userInfoEntity.value = null;
+     await spUtil.setString(keyLoginToken, "");
+     apiRequest.httpUtil.loginToken = "";
   }
 
   @override

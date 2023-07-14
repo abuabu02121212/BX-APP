@@ -45,15 +45,17 @@ class MainView extends GetView<MainController> {
               bottom: 0.w,
               child: MainHorizontalTabComponent(
                 onSelectChanged: (pos) {
-                  controller.pageController.jumpToPage(pos);
                   GlobeController globeController = Get.find<GlobeController>();
                   if (pos >= 2) {
                     if (!globeController.isLogin()) {
                       Log.d("还没有登陆");
                       showLoginRegisterDialog();
-                    }else{
+                    } else {
                       Log.d("已经登陆");
+                      controller.pageController.jumpToPage(pos);
                     }
+                  } else {
+                    controller.pageController.jumpToPage(pos);
                   }
 
                   //Toast.show("$pos");
