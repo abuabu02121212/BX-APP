@@ -4,7 +4,9 @@ class WebviewController extends GetxController {
   //TODO: Implement WebviewController
    RxBool isAppBarVisible = true.obs;
 
-  final count = 0.obs;
+  final title = Get.arguments['title'] ?? '';
+  final url = Get.arguments['url'] ?? '';
+
   @override
   void onInit() {
     super.onInit();
@@ -20,5 +22,4 @@ class WebviewController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
 }

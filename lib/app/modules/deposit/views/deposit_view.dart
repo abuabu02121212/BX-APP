@@ -90,7 +90,21 @@ class DepositView extends GetView<DepositController> {
           controller: controller.tabController,
           children: [
             ListView(
-              children: [_buildDeposit(controller, context)],
+              children: [
+                Obx(() {
+                  return controller.depositControllerPage.isFetching.isFalse ?
+                    _buildDeposit(controller, context) :
+                    const Center(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 50.0),
+                        child: CupertinoActivityIndicator(
+                          radius: 14.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    );
+                })
+              ],
             ),
             ListView(
               children: [_buildWithdraw(controller, context)],
@@ -252,13 +266,15 @@ class DepositView extends GetView<DepositController> {
                       fit: BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.circular(8.w)),
-                child: MyInputFiled(
-                  bgColor: Colors.transparent,
-                  width: double.infinity,
-                  height: 72.w,
-                  hint: '(50.00-9999999.00)',
-                  editNode: controller.depositControllerPage.amountNode,
-                ),
+                child: Obx(() {
+                  return MyInputFiled(
+                    bgColor: Colors.transparent,
+                    width: double.infinity,
+                    height: 72.w,
+                    hint: controller.depositControllerPage.getDepositInputPlaceholder(),
+                    editNode: controller.depositControllerPage.amountNode,
+                  );
+                }),
                 // child: Text("201", style: TextStyle(color: Colors.white, fontSize: 28.w)),
               ),
               Obx(() {
@@ -288,10 +304,10 @@ class DepositView extends GetView<DepositController> {
               })
             ],
           ),
-          SizedBox(height: 24.w),
           Obx(() {
-            return Text("Valor da recarga ${controller.depositControllerPage.amountNode.text}",
-                style: TextStyle(color: Colors.white, fontSize: 24.w));
+            return controller.depositControllerPage.isClickSubmit.isTrue ?
+              VerifyError(error: controller.depositControllerPage.validateAmount() ?? '', mainAxis: MainAxisAlignment.start) :
+              SizedBox(height: 30.w);
           }),
           _buildAmountWrap(controller),
           Container(
@@ -343,7 +359,9 @@ class DepositView extends GetView<DepositController> {
             height: 90.w,
             radius: 100.w,
             text: 'Depósito',
-            onClick: () {},
+            onClick: () {
+              controller.depositControllerPage.submit();
+            },
           ),
         ],
       ),
@@ -471,8 +489,8 @@ class DepositView extends GetView<DepositController> {
               )),
           Obx(() {
             return controller.withdrawControllerPage.isClickSubmit.isTrue ?
-              VerifyError(error: controller.withdrawControllerPage.validateMinAmount() ?? '1') :
-              SizedBox(height: 34.w);
+            VerifyError(error: controller.withdrawControllerPage.validateMinAmount() ?? '1') :
+            SizedBox(height: 34.w);
           }),
           Container(
             decoration: const BoxDecoration(
@@ -534,8 +552,8 @@ class DepositView extends GetView<DepositController> {
               )),
           Obx(() {
             return controller.withdrawControllerPage.isClickSubmit.isTrue ?
-              VerifyError(error: controller.withdrawControllerPage.validateUsername() ?? '') :
-              SizedBox(height: 34.w);
+            VerifyError(error: controller.withdrawControllerPage.validateUsername() ?? '') :
+            SizedBox(height: 34.w);
           }),
           Container(
               width: double.infinity,
@@ -602,8 +620,8 @@ class DepositView extends GetView<DepositController> {
               )),
           Obx(() {
             return controller.withdrawControllerPage.isClickSubmit.isTrue ?
-              VerifyError(error: controller.withdrawControllerPage.validateId() ?? '') :
-              SizedBox(height: 34.w);
+            VerifyError(error: controller.withdrawControllerPage.validateId() ?? '') :
+            SizedBox(height: 34.w);
           }),
           Container(
               width: double.infinity,
@@ -706,8 +724,8 @@ class DepositView extends GetView<DepositController> {
               )),
           Obx(() {
             return controller.withdrawControllerPage.isClickSubmit.isTrue ?
-              VerifyError(error: controller.withdrawControllerPage.validateAccount() ?? '') :
-              SizedBox(height: 34.w);
+            VerifyError(error: controller.withdrawControllerPage.validateAccount() ?? '') :
+            SizedBox(height: 34.w);
           }),
           Container(
               margin: EdgeInsets.only(top: 36.w, bottom: 16.w),
@@ -772,18 +790,21 @@ class DepositView extends GetView<DepositController> {
 }
 
 class VerifyError extends StatelessWidget {
-  const VerifyError({Key? key, required this.error}) : super(key: key);
+  const VerifyError({Key? key, required this.error, this.mainAxis}) : super(key: key);
   final String error;
+  final MainAxisAlignment? mainAxis;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: mainAxis ?? MainAxisAlignment.end,
       children: [
         Container(
           height: 44.w,
           padding: EdgeInsets.only(right: 20.w),
-          child: Center(child: Text(error, style: TextStyle(color: const Color.fromRGBO(255, 105, 13, 1), fontSize: 22.w,), textAlign: TextAlign.right)),
+          child: Center(child: Text(error,
+              style: TextStyle(color: const Color.fromRGBO(255, 105, 13, 1), fontSize: 22.w,),
+              textAlign: TextAlign.right)),
         ),
       ],
     );

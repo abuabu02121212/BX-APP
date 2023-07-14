@@ -94,8 +94,8 @@ class ApiRequest {
     return await httpUtil.get(withdrawConfig, {});
   }
 
-  Future requestPayDeposit() async {
-    return await httpUtil.post(payDeposit, {});
+  Future requestPayDeposit(Map<String, Object> data) async {
+    return await httpUtil.post(payDeposit, data);
   }
 
   Future requestMemberRecord() async {

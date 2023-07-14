@@ -11,8 +11,8 @@ class WebviewView extends GetView<WebviewController> {
   @override
   Widget build(BuildContext context) {
     return AppWebview(
-      title: WebURLUtil.ACTIVITY_DETAIL_CHECK_IN['title'] ?? '',
-      url: WebURLUtil.ACTIVITY_DETAIL_CHECK_IN['url'] ?? '',
+      title: controller.title,
+      url: controller.url,
     );
   }
 }
