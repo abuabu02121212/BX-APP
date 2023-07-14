@@ -7,6 +7,7 @@ import 'package:flutter_comm/util/sp_util_key.dart';
 import 'package:get/get.dart';
 import 'env.dart';
 import 'app/entity/user_info.dart';
+import 'http/comm_request.dart';
 import 'http/request.dart';
 
 class GlobeController extends GetxController with WidgetsBindingObserver {
@@ -32,6 +33,7 @@ class GlobeController extends GetxController with WidgetsBindingObserver {
     super.onInit();
     WidgetsBinding.instance.addObserver(this);
     await spUtil.init();
+    await requestUserInfo();
   }
 
   @override

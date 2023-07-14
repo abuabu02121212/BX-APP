@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_comm/widget/input_field.dart';
 import 'package:get/get.dart';
 import 'package:cbor/cbor.dart';
+import '../../../../http/comm_request.dart';
 import '../../../../http/request.dart';
 import '../../../../util/Log.dart';
 import '../../../entity/user_info.dart';
@@ -46,11 +47,7 @@ class LoginController extends GetxController {
     var loginRet = await apiRequest.requestLogin(param);
     if (loginRet == '1000') {
       Log.d("登陆成功...");
-      var userInfo = await apiRequest.requestMemberInfo();
-      UserInfoEntity userInfoEntity = UserInfoEntity.fromJson(userInfo);
-      GlobeController controller = Get.find<GlobeController>();
-      controller.userInfoEntity.value = userInfoEntity;
-      Log.d("封装后的数据是： userInfoEntity:${userInfoEntity.username}");
+      await requestUserInfo();
       Get.back();
     } else {
       Log.e("登陆失败...");
