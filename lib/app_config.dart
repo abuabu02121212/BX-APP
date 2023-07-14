@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'app/globe_controller.dart';
+import 'globe_controller.dart';
 
 RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 

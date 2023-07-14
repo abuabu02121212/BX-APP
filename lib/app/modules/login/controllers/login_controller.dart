@@ -6,7 +6,7 @@ import 'package:cbor/cbor.dart';
 import '../../../../http/request.dart';
 import '../../../../util/Log.dart';
 import '../../../entity/user_info.dart';
-import '../../../globe_controller.dart';
+import '../../../../globe_controller.dart';
 
 class LoginController extends GetxController {
   EditNode userNameEditNode = EditNode();
