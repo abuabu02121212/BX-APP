@@ -117,4 +117,8 @@ class ApiRequest {
   Future requestPromoDepositConfig() async {
     return await httpUtil.get(promoDepositConfig, {});
   }
+
+  Future requestUpdateAvatar({Map<String, Object>? params}) async {
+    return await httpUtil.get(updateAvatar, params ?? {});
+  }
 }

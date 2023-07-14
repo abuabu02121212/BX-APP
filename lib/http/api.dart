@@ -31,5 +31,6 @@ const String payWithdraw = "/pay/withdraw";
 const String treasureConfig = "/member/treasure/config";
 const String treasureApply = "/member/treasure/apply";
 const String promoDepositConfig = "/member/promo/deposit/config";
+const String updateAvatar = "/member/update/avatar";
 
 
