@@ -61,108 +61,31 @@ final FilteringTextInputFormatter pureNumFormatter = FilteringTextInputFormatter
 final FilteringTextInputFormatter phoneInputFormatter = FilteringTextInputFormatter.allow(RegExp("[0-9 ]"));
 
 class EditNode {
-  final FocusNode focusNode = FocusNode();
+  late FocusNode focusNode;
   final hasFocus = false.obs;
-  final TextEditingController editController = TextEditingController();
+  late TextEditingController editController;
   late final text = "".obs;
   final enable = false.obs;
   final obscureTextEnable = true.obs;
   final isDisplayErrHint = false.obs;
   final eyeIsOPen = false.obs;
-  // 开始验证
 
-  EditNode() {
-    focusNode.addListener(() => hasFocus.value = focusNode.hasFocus);
+  _addeventHasFocus() {
+    hasFocus.value = focusNode.hasFocus;
+  }
+
+  initState() {
+    focusNode = FocusNode();
+    focusNode.addListener(_addeventHasFocus);
+    editController = TextEditingController();
   }
 
   dispose() {
+    focusNode.removeListener(_addeventHasFocus);
     focusNode.dispose();
-    print('销毁了');
     editController.dispose();
   }
 }
-
-// class MyInputFiled extends StatelessWidget {
-//   const MyInputFiled({
-//     super.key,
-//     required this.width,
-//     required this.height,
-//     required this.hint,
-//     this.prefix,
-//     this.suffix,
-//     required this.editNode,
-//     this.inputFormatters,
-//     this.keyboardType = TextInputType.text,
-//     this.onTextChanged,
-//     this.bgColor = Colors.black,
-//     this.radius = 50,
-//     this.hintStyle,
-//     this.textStyle,
-//     this.obscureText = false,
-//     this.textDirection,
-//     this.textRegExp
-//   });
-//
-//   final double width;
-//   final double height;
-//   final double radius;
-//   final String hint;
-//   final TextStyle? hintStyle;
-//   final TextStyle? textStyle;
-//   final Widget? prefix;
-//   final Widget? suffix;
-//   final Color? bgColor;
-//   final EditNode editNode;
-//   final List<TextInputFormatter>? inputFormatters;
-//   final TextInputType? keyboardType;
-//   final ValueChanged<String>? onTextChanged;
-//   final bool obscureText;
-//   final TextDirection? textDirection;
-//   final RegExp? textRegExp;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return ClipRRect(
-//       borderRadius: BorderRadius.circular(radius),
-//       child: Container(
-//         width: width,
-//         height: height,
-//         color: bgColor,
-//         alignment: Alignment.center,
-//         padding: EdgeInsets.only(left: 8.w),
-//         child: CupertinoTextField(
-//           controller: editNode.editController,
-//           focusNode: editNode.focusNode,
-//           textDirection: textDirection,
-//           style: textStyle ?? TextStyle(color: Colors.white, fontSize: 28.w),
-//           keyboardType: keyboardType,
-//           onChanged: (text) {
-//             print('输入改变 $text');
-//             editNode.text.value = text;
-//             if (onTextChanged != null){
-//               onTextChanged!(text);
-//             }
-//           },
-//           decoration: const BoxDecoration(color: Colors.transparent),
-//           placeholder: hint,
-//           textAlignVertical: TextAlignVertical.center,
-//           textAlign: TextAlign.start,
-//           placeholderStyle: hintStyle ?? TextStyle(color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w),
-//           cursorColor: Colors.white,
-//           cursorHeight: 32.w,
-//           maxLines: 1,
-//           obscureText: obscureText,
-//           maxLength: 32,
-//           prefix: prefix,
-//           suffix: suffix,
-//           padding: EdgeInsets.only(left: 10.w),
-//           // suffix: delView(),
-//           inputFormatters: inputFormatters,
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class MyInputFiled extends StatefulWidget {
   const MyInputFiled({
@@ -206,24 +129,26 @@ class MyInputFiled extends StatefulWidget {
 
 class _MyInputFiledState extends State<MyInputFiled> {
 
+  _addListener() {
+    widget.editNode.text.value = widget.editNode.editController.text;
+
+    if (widget.onTextChanged != null){
+      widget.onTextChanged!(widget.editNode.text.value);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    widget.editNode.editController.addListener(() {
-      print('输入改变 ${widget.editNode.text.value}');
-      widget.editNode.text.value = widget.editNode.editController.text;
-
-      if (widget.onTextChanged != null){
-        widget.onTextChanged!(widget.editNode.text.value);
-      }
-    });
+    widget.editNode.initState();
+    widget.editNode.editController.addListener(_addListener);
   }
 
   @override
   void dispose() {
-    super.dispose();
-    print('input销毁了');
+    widget.editNode.editController.removeListener(_addListener);
     widget.editNode.dispose();
+    super.dispose();
   }
 
   @override

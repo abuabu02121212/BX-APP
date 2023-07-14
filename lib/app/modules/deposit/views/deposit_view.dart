@@ -418,7 +418,6 @@ class DepositView extends GetView<DepositController> {
   }
 
   Widget _buildWithdraw(DepositController controller, BuildContext context) {
-    print('buildWithdraw');
     return Container(
       padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 36.w),
       child: Column(

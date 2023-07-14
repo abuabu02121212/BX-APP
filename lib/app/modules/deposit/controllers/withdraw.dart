@@ -121,7 +121,6 @@ class WithdrawControllerPage extends GetxController {
 
   @override
   void onInit() {
-    print('WithdrawControllerPage init');
     super.onInit();
     initChannelData();
   }
