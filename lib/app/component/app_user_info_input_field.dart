@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
+import '../../http/verify_code_send_helper.dart';
 import '../../util/Log.dart';
 import '../../widget/input_field.dart';
 import '../app_style.dart';
@@ -19,6 +20,7 @@ class UserInfoInputField extends StatelessWidget {
     this.isPhone = false,
     this.isCode = false,
     this.isEmail = false,
+    this.verifyCodeSender,
     required this.hint,
   });
 
@@ -31,6 +33,7 @@ class UserInfoInputField extends StatelessWidget {
   final bool isPhone;
   final bool isCode;
   final bool isEmail;
+  final VerifyCodeSender? verifyCodeSender;
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +91,7 @@ class UserInfoInputField extends StatelessWidget {
                 editNode: editNode,
                 isCode: isCode,
                 isPassword: isPassword,
+                verifyCodeSender: verifyCodeSender,
               ),
               onTextChanged: (text) {
                 if (isUserName) {
@@ -131,11 +135,13 @@ class SuffixImageWidget extends StatelessWidget {
     this.isPassword = false,
     this.isCode = false,
     required this.editNode,
+    this.verifyCodeSender,
   });
 
   final bool isPassword;
   final bool isCode;
   final EditNode editNode;
+  final VerifyCodeSender? verifyCodeSender;
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +163,12 @@ class SuffixImageWidget extends StatelessWidget {
     }
     if (isCode) {
       return CupertinoButton(
-        onPressed: () {},
+        onPressed: () {
+          var isCountDown = verifyCodeSender!.countTime.value > 0;
+          if (!isCountDown) {
+            verifyCodeSender?.requestSendVerifiedCode();
+          }
+        },
         minSize: 0,
         padding: EdgeInsets.zero,
         child: Container(
@@ -170,14 +181,17 @@ class SuffixImageWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(
                 100.w,
               )),
-          child: Text(
-            "Enviar",
-            style: TextStyle(
-              fontSize: 26.w,
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+          child: Obx(() {
+            var isCountDown = verifyCodeSender!.countTime.value > 0;
+            return Text(
+              isCountDown ? "${verifyCodeSender!.countTime.value}" : "Enviar",
+              style: TextStyle(
+                fontSize: 26.w,
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+            );
+          }),
         ),
       );
     }

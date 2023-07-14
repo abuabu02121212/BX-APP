@@ -30,6 +30,11 @@ Future<void> requestCommBalance() async {
     controller.balance.value = entity;
     Log.d("封装后的数据是： BalanceEntity:$entity");
   } else {
-    Log.d("用户还没有登陆，不请求余额信息");
+    Log.d("用户还没有登陆，不请求余额");
   }
+}
+
+Future<dynamic> requestCommPhoneVerifyCode(String tel) async {
+  // ty: 1注册2忘记密码
+  return await apiRequest.requestSms({'tel': tel, 'ty': 1, 'flag': 'text'});
 }

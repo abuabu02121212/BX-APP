@@ -1,7 +1,10 @@
+import 'package:flutter_comm/util/loading_util.dart';
+import 'package:flutter_comm/util/system_util.dart';
 import 'package:flutter_comm/widget/input_field.dart';
 import 'package:get/get.dart';
 
 import '../../../../http/request.dart';
+import '../../../../http/verify_code_send_helper.dart';
 import '../../../../util/Log.dart';
 
 class RegisterController extends GetxController {
@@ -11,6 +14,7 @@ class RegisterController extends GetxController {
   final EditNode codeEditNode = EditNode();
   final isAgreed = true.obs;
   final selectedIndex = 0.obs;
+  late VerifyCodeSender verifyCodeSender = VerifyCodeSender(phoneEditNode: phoneEditNode);
 
   @override
   void onInit() {
@@ -37,6 +41,7 @@ class RegisterController extends GetxController {
   }
 
   void register() {
+    AppLoading.show();
     Map<String, Object> param = {};
     String username = '';
     bool inputIsOk = false;
@@ -51,12 +56,13 @@ class RegisterController extends GetxController {
     if (!inputIsOk) return;
     param["username"] = username;
     param["password"] = keyEditNode.text.value;
-    param["device_no"] = "dfasdfsadfdsfd";
+    param["device_no"] = SysUtil.deviceId;
     // 图形验证码
     param["code"] = codeEditNode.text.value;
     // 图形验证码id
     param["vid"] = "";
     dynamic ret = apiRequest.requestRegister(param);
+    AppLoading.close();
     Log.d("ret:$ret");
   }
 }

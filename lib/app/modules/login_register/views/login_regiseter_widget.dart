@@ -5,7 +5,6 @@ import 'package:flutter_comm/app/modules/register/views/register_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../../util/toast_util.dart';
 import '../../login/views/login_view.dart';
 import '../controllers/login_register_controller.dart';
 
@@ -56,7 +55,6 @@ class LoginRegisterWidget extends StatelessWidget {
                         LoginRegisterTabComponent(
                           onSelectChanged: (int index) {
                             controller.selectedIndex.value = index;
-                            controller.pageController.jumpToPage(index);
                           },
                         ),
                         Obx(() {

@@ -93,7 +93,6 @@ class RegisterWidget extends StatelessWidget {
             radius: 100.w,
             text: 'Register agora',
             onClick: () {
-              Toast.show("Entrar");
               controller.register();
             },
           ),
@@ -186,6 +185,7 @@ class EmailInputListWidget extends StatelessWidget {
             editNode: controller.codeEditNode,
             hint: 'Código de verificação',
             errText: 'Senha (4-12 letras e números)',
+            verifyCodeSender: controller.verifyCodeSender,
             isCode: true,
           ),
         ),
@@ -234,6 +234,7 @@ class PhoneInputListWidget extends StatelessWidget {
             editNode: controller.codeEditNode,
             hint: 'Código de verificação',
             errText: 'Senha (4-12 letras e números)',
+            verifyCodeSender: controller.verifyCodeSender,
             isCode: true,
           ),
         ),
