@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_comm/skin/skin_manager.dart';
 import 'package:flutter_comm/util/Log.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_comm/util/sp_util.dart';
 import 'package:get/get.dart';
 import '../env.dart';
 
@@ -103,11 +103,12 @@ class AppInitController extends GetxController with WidgetsBindingObserver {
   final BuildContext context;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     /// 强制竖屏
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
     super.onInit();
     WidgetsBinding.instance.addObserver(this);
+    await spUtil.init();
   }
 
   @override

@@ -45,9 +45,5 @@ class LoginController extends GetxController {
    // param['vid'] = userNameEditNode.text.value;
     var loginRet = await apiRequest.requestLogin(param);
     Log.d("origin:$loginRet");
-  //  cbor.decode(encoded);
-   // final encoded = cbor.decode(loginRet);
-    CborString cborString = CborString(loginRet);
-    Log.d("loginRet:${cborString.toJson()}");
   }
 }
