@@ -69,7 +69,6 @@ class DepositControllerPage extends GetxController {
 
   initChannelData() async {
     final d = await apiRequest.requestPayChannel();
-    Log.d('initChannelData $d');
     if (d != null) {
       final data = DepositData.fromJson(d);
       pageData = data;

@@ -107,7 +107,21 @@ class DepositView extends GetView<DepositController> {
               ],
             ),
             ListView(
-              children: [_buildWithdraw(controller, context)],
+              children: [
+                Obx(() {
+                  return controller.withdrawControllerPage.isFetching.isFalse ?
+                  _buildWithdraw(controller, context) :
+                  const Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 50.0),
+                      child: CupertinoActivityIndicator(
+                        radius: 14.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  );
+                })
+              ],
             ),
           ],
         ),
