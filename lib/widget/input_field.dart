@@ -78,7 +78,7 @@ class EditNode {
   initState() {
     focusNode = FocusNode();
     focusNode.addListener(_addeventHasFocus);
-    editController = TextEditingController();
+    editController = TextEditingController(text: text.value);
   }
 
   dispose() {
