@@ -1,6 +1,7 @@
 import 'package:flutter_comm/http/request.dart';
 import 'package:get/get.dart';
 
+import '../app/entity/balance.dart';
 import '../app/entity/user_info.dart';
 import '../globe_controller.dart';
 import '../util/Log.dart';
@@ -23,8 +24,11 @@ Future<void> requestUserInfo() async {
 Future<void> requestCommBalance() async {
   String loginToken = spUtil.getString(keyLoginToken) ?? "";
   if (loginToken.isNotEmpty) {
-    var balance = await apiRequest.requestBalance();
-
+    var json = await apiRequest.requestBalance();
+    BalanceEntity entity = BalanceEntity.fromJson(json);
+    GlobeController controller = Get.find<GlobeController>();
+    controller.balance.value = entity;
+    Log.d("封装后的数据是： BalanceEntity:$entity");
   } else {
     Log.d("用户还没有登陆，不请求余额信息");
   }
