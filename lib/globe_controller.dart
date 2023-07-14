@@ -5,6 +5,7 @@ import 'package:flutter_comm/skin/skin_manager.dart';
 import 'package:flutter_comm/util/Log.dart';
 import 'package:flutter_comm/util/sp_util.dart';
 import 'package:flutter_comm/util/sp_util_key.dart';
+import 'package:flutter_comm/util/system_util.dart';
 import 'package:get/get.dart';
 import 'env.dart';
 import 'app/entity/user_info.dart';
@@ -37,6 +38,7 @@ class GlobeController extends GetxController with WidgetsBindingObserver {
     super.onInit();
     WidgetsBinding.instance.addObserver(this);
     await spUtil.init();
+    await SysUtil.init();
     await requestUserInfo();
     await requestCommBalance();
   }

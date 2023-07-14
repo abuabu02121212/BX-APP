@@ -7,6 +7,7 @@ import '../../../../http/comm_request.dart';
 import '../../../../http/request.dart';
 import '../../../../util/Log.dart';
 import '../../../../util/loading_util.dart';
+import '../../../../util/system_util.dart';
 import '../../../entity/user_info.dart';
 import '../../../../globe_controller.dart';
 
@@ -43,7 +44,7 @@ class LoginController extends GetxController {
     Map<String, Object> param = {};
     param['username'] = userNameEditNode.text.value;
     param['password'] = keyEditNode.text.value;
-    param['device_no'] = "${DateTime.now().millisecondsSinceEpoch}-test";
+    param['device_no'] = SysUtil.deviceId;
     // param['code'] = userNameEditNode.text.value;
     // param['vid'] = userNameEditNode.text.value;
     var loginRet = await apiRequest.requestLogin(param);
