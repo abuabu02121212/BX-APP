@@ -4,6 +4,7 @@ import 'package:cbor/cbor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import '../util/Log.dart';
+import '../util/loading_util.dart';
 import '../util/sp_util.dart';
 import '../util/sp_util_key.dart';
 
@@ -62,6 +63,7 @@ class DioUtil {
           contentType: 'application/x-www-form-urlencoded',
           headers: {'d': 35, 't': loginToken},
         ));
+
     // 将字节数组转换为 ArrayBuffer
     Uint8List byteData = response.data;
     final responseData = cbor.decode(byteData);
@@ -99,6 +101,7 @@ class DioUtil {
           contentType: 'application/x-www-form-urlencoded',
           headers: {'d': 35, 't': loginToken},
         ));
+
     // 将字节数组转换为 ArrayBuffer
     Uint8List byteData = response.data;
     final responseData = cbor.decode(byteData);

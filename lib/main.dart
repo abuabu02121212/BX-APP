@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_comm/util/Log.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -95,14 +96,15 @@ class AppConfigurationWidget extends StatelessWidget {
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(builder: (BuildContext context) => const ErrPage());
       },
-      builder: (context, widget) {
-        return MediaQuery(
-          ///设置文字大小不随系统设置改变
-          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-          child: widget ?? const SizedBox(),
-        );
-      },
-
+      builder: EasyLoading.init(
+        builder: (context, widget) {
+          return MediaQuery(
+            ///设置文字大小不随系统设置改变
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: widget ?? const SizedBox(),
+          );
+        }
+      ),
       /// 配置页面离开和进入的监听
       navigatorObservers: [MyNavigatorObserver(), routeObserver],
       routingCallback: (Routing? routing) {

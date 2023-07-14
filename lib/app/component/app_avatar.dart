@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../http/comm_request.dart';
+import '../../util/loading_util.dart';
 import '../modules/mine/controllers/mine_controller.dart';
 import 'app_button.dart';
 
@@ -29,8 +30,10 @@ class _AppAvatarState extends State<AppAvatar> {
   }
 
   updateAvatar() async {
-    Toast.show('修改成功');
+    AppLoading.show();
     await requestUserInfo();
+    AppLoading.close();
+    Toast.show('修改成功');
     Get.back();
   }
 
