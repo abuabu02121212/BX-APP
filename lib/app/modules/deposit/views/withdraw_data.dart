@@ -73,8 +73,8 @@ class Config {
 }
 
 class MemberBankList {
-  int? id;
-  int? uid;
+  String? id;
+  String? uid;
   String? username;
   int? createdAt;
   int? state;

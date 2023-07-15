@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/http/request.dart';
+import 'package:flutter_comm/util/loading_util.dart';
 import 'package:get/get.dart';
 
 import '../../../../util/toast_util.dart';
@@ -40,7 +41,6 @@ class WithdrawControllerPage extends GetxController {
 
   initChannelData() async {
     final d = await apiRequest.requestWithdrawConfig();
-    print('123123123');
     if (d != null) {
       pageData = WithdrawData.fromJson(d);
       setWithdrawSelectData();
@@ -68,8 +68,8 @@ class WithdrawControllerPage extends GetxController {
   String? validateMinAmount() {
     if (minAmountNode.text.value.isEmpty) {
       return '请输入最小金额';
-    } else if (double.parse(minAmountNode.text.value) < double.parse(pageData.config?.fmin ?? '0')) {
-      return '最小金额为${pageData.config?.fmin}';
+    } else if (double.parse(minAmountNode.text.value) < double.parse(pageData.config?.fmin ?? '0') || double.parse(minAmountNode.text.value) > double.parse(pageData.config?.fmax ?? '0')) {
+      return 'Valor da retirada (${pageData.config?.fmin ?? '0'} - ${pageData.config?.fmax ?? '0'})';
     }
     return null;
   }
@@ -77,7 +77,7 @@ class WithdrawControllerPage extends GetxController {
   // 验证用户名
   String? validateUsername() {
     if (usernameNode.text.value.isEmpty) {
-      return '请输入用户名';
+      return 'Insira o nome do titular do cartão';
     }
     return null;
   }
@@ -85,7 +85,7 @@ class WithdrawControllerPage extends GetxController {
   // 验证pix id
   String? validateId() {
     if (idNode.text.value.isEmpty) {
-      return '请输入pix id';
+      return 'Informe o CPF no formato correto';
     }
     return null;
   }
@@ -93,7 +93,7 @@ class WithdrawControllerPage extends GetxController {
   // 验证pix account
   String? validateAccount() {
     if (accountNode.text.value.isEmpty) {
-      return '请输入pix account';
+      return 'Informe o CPF no formato correto';
     }
     return null;
   }
@@ -101,6 +101,24 @@ class WithdrawControllerPage extends GetxController {
   // 提交函数
   void submit() {
     isClickSubmit.value = true;
+
+    if (validateMinAmount() != null || validateUsername() != null || validateId() != null || validateAccount() != null) {
+      return;
+    }
+
+    AppLoading.show();
+    apiRequest.requestPayWithdraw({
+      'amount': minAmountNode.text.value,
+      'real_name': usernameNode.text.value,
+      'pix_id': idNode.text.value,
+      'pix_account': accountNode.text.value,
+      'flag': waysSelectValue.value,
+    }).then((d) {
+
+    }).catchError((e) {
+    }).whenComplete(() {
+      AppLoading.close();
+    });
   }
 
   @override

@@ -93,16 +93,16 @@ class DepositView extends GetView<DepositController> {
               children: [
                 Obx(() {
                   return controller.depositControllerPage.isFetching.isFalse ?
-                    _buildDeposit(controller, context) :
-                    const Center(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 50.0),
-                        child: CupertinoActivityIndicator(
-                          radius: 14.0,
-                          color: Colors.white,
-                        ),
+                  _buildDeposit(controller, context) :
+                  const Center(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 50.0),
+                      child: CupertinoActivityIndicator(
+                        radius: 14.0,
+                        color: Colors.white,
                       ),
-                    );
+                    ),
+                  );
                 })
               ],
             ),
@@ -157,20 +157,29 @@ class DepositView extends GetView<DepositController> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("R\$0.06", style: TextStyle(
-                          color: Colors.white, fontSize: 42.w, fontWeight: FontWeight.w700)),
+                      Obx(() {
+                        return Text("R\$${controller.balanceDetailInfo.value?.brl ?? '0'}",
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 42.w, fontWeight: FontWeight.w700)
+                        );
+                      }),
                       SizedBox(height: 17.w),
-                      Text("Fundos totais", style: TextStyle(color: Color.fromRGBO(255, 255, 255,
-                          0.7), fontSize: 24.w)),
+                      Text("Fundos totais", style: TextStyle(color: const Color.fromRGBO(255, 255,
+                          255, 0.7), fontSize: 24.w)),
                     ],
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("R\$0.06", style: TextStyle(
-                          color: Colors.white, fontSize: 42.w, fontWeight: FontWeight.w700)),
+                      Obx(() {
+                        return Text("R\$${controller.balanceDetailInfo.value?.brl_amount ?? '0'}",
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 42.w, fontWeight: FontWeight.w700)
+                        );
+                      }),
                       SizedBox(height: 17.w),
-                      Text("Retirável Total", style: TextStyle(color: Color.fromRGBO(255, 255, 255,
+                      Text("Retirável Total", style: TextStyle(color: const Color.fromRGBO(255, 255,
+                          255,
                           0.7), fontSize: 24.w)),
                     ],
                   ),
@@ -214,10 +223,15 @@ class DepositView extends GetView<DepositController> {
                         ],
                       ),
                       SizedBox(height: 16.w),
-                      Text("Balanço: 0.06", style: TextStyle(color: Colors.white, fontSize: 24.w)),
+                      Obx(() {
+                        return Text("Balanço: ${controller.balanceDetailInfo.value
+                            ?.deposit_amount ?? '0'}", style: TextStyle(
+                            color: Colors.white, fontSize: 24.w));
+                      }),
                       SizedBox(height: 16.w),
-                      Text(
-                          "Retirável: 0.06", style: TextStyle(color: Colors.white, fontSize: 24.w)),
+                      Obx(() {
+                        return Text("Retirável: ${controller.balanceDetailInfo.value?.deposit_balance ?? '0'}", style: TextStyle(color: Colors.white, fontSize: 24.w));
+                      }),
                     ],
                   ),
                 ),
@@ -227,16 +241,19 @@ class DepositView extends GetView<DepositController> {
                     SizedBox(height: 16.w),
                     Row(
                       children: [
-                        Text("Conta Promovida", style: TextStyle(color: Color.fromRGBO(255, 255,
+                        Text("Conta Promovida", style: TextStyle(color: const Color.fromRGBO(255,
+                            255,
                             255, 0.3), fontSize: 24.w)),
                         SizedBox(width: 9.w),
                         Image.asset("assets/images/i-why.webp", width: 24.w),
                       ],
                     ),
                     SizedBox(height: 16.w),
-                    Text("Balanço: 0.00", style: TextStyle(color: Colors.white, fontSize: 24.w)),
+                    Text("Balanço: ${controller.balanceDetailInfo.value?.agencyAmount ?? '0'}", style: TextStyle(color: Colors.white, fontSize: 24.w)),
                     SizedBox(height: 16.w),
-                    Text("Retirável: 0.06", style: TextStyle(color: Colors.white, fontSize: 24.w)),
+                    Obx(() {
+                      return Text("Retirável: ${controller.balanceDetailInfo.value?.agency_balance ?? '0'}", style: TextStyle(color: Colors.white, fontSize: 24.w));
+                    })
                   ],
                 )
               ],
@@ -320,8 +337,9 @@ class DepositView extends GetView<DepositController> {
           ),
           Obx(() {
             return controller.depositControllerPage.isClickSubmit.isTrue ?
-              VerifyError(error: controller.depositControllerPage.validateAmount() ?? '', mainAxis: MainAxisAlignment.start) :
-              SizedBox(height: 30.w);
+            VerifyError(error: controller.depositControllerPage.validateAmount() ?? '',
+                mainAxis: MainAxisAlignment.start) :
+            SizedBox(height: 30.w);
           }),
           _buildAmountWrap(controller),
           Container(
@@ -503,7 +521,7 @@ class DepositView extends GetView<DepositController> {
               )),
           Obx(() {
             return controller.withdrawControllerPage.isClickSubmit.isTrue ?
-            VerifyError(error: controller.withdrawControllerPage.validateMinAmount() ?? '1') :
+            VerifyError(error: controller.withdrawControllerPage.validateMinAmount() ?? '') :
             SizedBox(height: 34.w);
           }),
           Container(

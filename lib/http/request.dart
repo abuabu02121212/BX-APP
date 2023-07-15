@@ -102,8 +102,8 @@ class ApiRequest {
     return await httpUtil.get(memberRecord, {});
   }
 
-  Future requestPayWithdraw() async {
-    return await httpUtil.get(payWithdraw, {});
+  Future requestPayWithdraw(Map<String, Object> data) async {
+    return await httpUtil.get(payWithdraw, data);
   }
 
   Future requestTreasureConfig() async {

@@ -4,7 +4,9 @@ import 'package:flutter_comm/app/modules/deposit/controllers/withdraw.dart';
 import 'package:flutter_comm/app/modules/deposit/views/deposit_data.dart';
 import 'package:get/get.dart';
 
+import '../../../../globe_controller.dart';
 import '../../../../widget/input_field.dart';
+import '../../../entity/balance.dart';
 
 class DepositController extends GetxController with GetSingleTickerProviderStateMixin {
 
@@ -15,10 +17,14 @@ class DepositController extends GetxController with GetSingleTickerProviderState
   final depositControllerPage = DepositControllerPage();
   final withdrawControllerPage = WithdrawControllerPage();
 
+  final globalController = Get.find<GlobeController>();
+  late Rx<BalanceEntity?> balanceDetailInfo;
+
   @override
   void onInit() {
     super.onInit();
     int index = arguments != null ? arguments['index'] : 0;
+    balanceDetailInfo = globalController.balance;
     depositControllerPage.onInit();
     withdrawControllerPage.onInit();
     scrollViewController = ScrollController();
