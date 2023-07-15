@@ -55,6 +55,7 @@ class PromotionView extends GetView<PromotionController> {
                   return length > 0
                       ? ListView.builder(
                           itemCount: length,
+                          physics: const BouncingScrollPhysics(),
                           itemBuilder: (BuildContext context, int index) {
                             return ItemWidget(
                               entity: controller.listData[pageIndex][index],
