@@ -84,7 +84,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.VIP,
-      page: () => const VipView(),
+      page: () =>  VipView(),
       binding: VipBinding(),
     ),
     GetPage(

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../../../../util/Log.dart';
 import '../../../entity/promotion_entity.dart';
 
 class PromotionController extends GetxController {
@@ -9,5 +10,6 @@ class PromotionController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    Log.d("=======PromotionController=======onInit==============");
   }
 }

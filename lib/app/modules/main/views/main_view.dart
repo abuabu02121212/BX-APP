@@ -11,15 +11,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../globe_controller.dart';
 import '../../../../util/Log.dart';
-import '../../../../util/toast_util.dart';
 import '../../../../widget/keep_alive_page.dart';
 import '../../../app_style.dart';
 import '../../login_register/views/login_regiseter_widget.dart';
 import '../controllers/main_controller.dart';
 
 class MainView extends GetView<MainController> {
-  MainView({Key? key}) : super(key: key);
-  final List<Widget> pageList = [const HomeView(), PromotionView(), const DepositView(), const VipView(), const MineView()];
+  const MainView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +35,19 @@ class MainView extends GetView<MainController> {
                   physics: const NeverScrollableScrollPhysics(),
                   controller: controller.pageController,
                   itemBuilder: (BuildContext context, int index) {
-                    return AliveWidget(child: pageList[index]);
+                    switch (index) {
+                      case 0:
+                        return const AliveWidget(child: HomeView());
+                      case 1:
+                        return AliveWidget(child: PromotionView());
+                      case 2:
+                        return const AliveWidget(child: DepositView());
+                      case 3:
+                        return AliveWidget(child: VipView());
+                      case 4:
+                        return const AliveWidget(child: MineView());
+                    }
+                    return const AliveWidget(child: SizedBox());
                   }),
             ),
             Positioned(

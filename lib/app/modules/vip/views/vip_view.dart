@@ -11,7 +11,10 @@ import '../controllers/vip_controller.dart';
 import 'level_list_view_widget.dart';
 
 class VipView extends GetView<VipController> {
-  const VipView({Key? key}) : super(key: key);
+  VipView({Key? key}) : super(key: key);
+
+  @override
+  final VipController controller = Get.put(VipController());
 
   @override
   Widget build(BuildContext context) {
