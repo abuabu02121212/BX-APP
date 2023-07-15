@@ -13,7 +13,7 @@ class AppProgress extends StatelessWidget {
 
   final double width;
   final double height;
-  final double progress;
+  final num progress;
   final List<Color> colorList;
   final double radius;
 
