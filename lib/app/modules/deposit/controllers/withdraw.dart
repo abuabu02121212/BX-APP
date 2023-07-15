@@ -1,13 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_comm/http/request.dart';
 import 'package:flutter_comm/util/loading_util.dart';
+import 'package:flutter_comm/util/toast_util.dart';
 import 'package:get/get.dart';
-
-import '../../../../util/toast_util.dart';
+import '../../../../globe_controller.dart';
 import '../../../../widget/input_field.dart';
 import '../views/withdraw_data.dart';
 
 class WithdrawControllerPage extends GetxController {
+
+  final globalController = Get.find<GlobeController>();
 
   WithdrawData pageData = WithdrawData();
   // 最小金额
@@ -106,13 +107,18 @@ class WithdrawControllerPage extends GetxController {
       return;
     }
 
+    if (double.parse(globalController.balance.value?.brl_amount ?? '0') < double.parse(minAmountNode.text.value)) {
+      Toast.show('O valor da retirada não pode ser maior que o valor da retirada da conta');
+      return;
+    }
+
     AppLoading.show();
     apiRequest.requestPayWithdraw({
       'amount': minAmountNode.text.value,
       'real_name': usernameNode.text.value,
       'pix_id': idNode.text.value,
       'pix_account': accountNode.text.value,
-      'flag': waysSelectValue.value,
+      'flag': int.parse(waysSelectValue.value),
     }).then((d) {
 
     }).catchError((e) {

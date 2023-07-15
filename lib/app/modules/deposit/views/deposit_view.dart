@@ -275,7 +275,9 @@ class DepositView extends GetView<DepositController> {
                         Text(
                           "Conta Promovida",
                           style: TextStyle(
-                              color: const Color.fromRGBO(255, 255, 255, 0.3), fontSize: 24.w),
+                            color: const Color.fromRGBO(255, 255, 255, 0.3),
+                            fontSize: 24.w,
+                          ),
                         ),
                         SizedBox(width: 9.w),
                         Image.asset("assets/images/i-why.webp", width: 24.w),
@@ -292,7 +294,10 @@ class DepositView extends GetView<DepositController> {
                     Obx(() {
                       return Text(
                         "Retirável: ${controller.balanceDetailInfo.value?.agency_balance ?? '0'}",
-                        style: TextStyle(color: Colors.white, fontSize: 24.w),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24.w,
+                        ),
                       );
                     })
                   ],

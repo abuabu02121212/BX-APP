@@ -103,7 +103,7 @@ class ApiRequest {
   }
 
   Future requestPayWithdraw(Map<String, Object> data) async {
-    return await httpUtil.get(payWithdraw, data);
+    return await httpUtil.post(payWithdraw, data);
   }
 
   Future requestTreasureConfig() async {
