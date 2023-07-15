@@ -160,28 +160,46 @@ class DepositView extends GetView<DepositController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Obx(() {
-                        return Text("R\$${controller.balanceDetailInfo.value?.brl ?? '0'}",
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 42.w, fontWeight: FontWeight.w700));
+                        return Text(
+                          "R\$${controller.balanceDetailInfo.value?.brl ?? '0'}",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 42.w,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        );
                       }),
                       SizedBox(height: 17.w),
-                      Text("Fundos totais",
-                          style: TextStyle(
-                              color: const Color.fromRGBO(255, 255, 255, 0.7), fontSize: 24.w)),
+                      Text(
+                        "Fundos totais",
+                        style: TextStyle(
+                          color: const Color.fromRGBO(255, 255, 255, 0.7),
+                          fontSize: 24.w,
+                        ),
+                      ),
                     ],
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Obx(() {
-                        return Text("R\$${controller.balanceDetailInfo.value?.brl_amount ?? '0'}",
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 42.w, fontWeight: FontWeight.w700));
+                        return Text(
+                          "R\$${controller.balanceDetailInfo.value?.brl_amount ?? '0'}",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 42.w,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        );
                       }),
                       SizedBox(height: 17.w),
-                      Text("Retirável Total",
-                          style: TextStyle(
-                              color: const Color.fromRGBO(255, 255, 255, 0.7), fontSize: 24.w)),
+                      Text(
+                        "Retirável Total",
+                        style: TextStyle(
+                          color: const Color.fromRGBO(255, 255, 255, 0.7),
+                          fontSize: 24.w,
+                        ),
+                      ),
                     ],
                   ),
                 ],
