@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
-import '../../http/verify_code_send_helper.dart';
+import '../../http/phone_code_send_helper.dart';
 import '../../util/Log.dart';
 import '../../widget/input_field.dart';
 import '../app_style.dart';
@@ -20,7 +20,7 @@ class UserInfoInputField extends StatelessWidget {
     this.isPhone = false,
     this.isCode = false,
     this.isEmail = false,
-    this.verifyCodeSender,
+    this.codeSender,
     required this.hint,
   });
 
@@ -33,7 +33,7 @@ class UserInfoInputField extends StatelessWidget {
   final bool isPhone;
   final bool isCode;
   final bool isEmail;
-  final VerifyCodeSender? verifyCodeSender;
+  final CodeSender? codeSender;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +91,7 @@ class UserInfoInputField extends StatelessWidget {
                 editNode: editNode,
                 isCode: isCode,
                 isPassword: isPassword,
-                verifyCodeSender: verifyCodeSender,
+                verifyCodeSender: codeSender,
               ),
               onTextChanged: (text) {
                 if (isUserName) {
@@ -141,7 +141,7 @@ class SuffixImageWidget extends StatelessWidget {
   final bool isPassword;
   final bool isCode;
   final EditNode editNode;
-  final VerifyCodeSender? verifyCodeSender;
+  final CodeSender? verifyCodeSender;
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +166,10 @@ class SuffixImageWidget extends StatelessWidget {
         onPressed: () {
           var isCountDown = verifyCodeSender!.countTime.value > 0;
           if (!isCountDown) {
-            verifyCodeSender?.requestSendVerifiedCode();
+            var inputIsOk = verifyCodeSender!.checkInput();
+            if (inputIsOk) {
+              verifyCodeSender?.requestSendVerifiedCode();
+            }
           }
         },
         minSize: 0,
