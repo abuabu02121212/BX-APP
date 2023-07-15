@@ -7,37 +7,35 @@ import '../../../../widget/input_field.dart';
 import '../views/withdraw_data.dart';
 
 class WithdrawControllerPage extends GetxController {
-
   final globalController = Get.find<GlobeController>();
 
   WithdrawData pageData = WithdrawData();
+
   // 最小金额
   EditNode minAmountNode = EditNode();
+
   // 用户名
   EditNode usernameNode = EditNode();
+
   // pix id
   EditNode idNode = EditNode();
+
   // pid account
   EditNode accountNode = EditNode();
 
   final isFetching = true.obs;
 
   final ways = [
-    { 'label': 'CPF', 'value': '1' },
-    { 'label': 'E-mail', 'value': '2' },
-    { 'label': 'Telefone(+55)', 'value': '3' },
+    {'label': 'CPF', 'value': '1'},
+    {'label': 'E-mail', 'value': '2'},
+    {'label': 'Telefone(+55)', 'value': '3'},
   ];
   final waysSelectLabel = 'CPF'.obs;
   final waysSelectValue = '1'.obs;
 
-  final withdrawSelectData =[
-    {
-      'label': 'A',
-      'value': '1'
-    }, {
-      'label': 'B',
-      'value': '2'
-    }
+  final withdrawSelectData = [
+    {'label': 'A', 'value': '1'},
+    {'label': 'B', 'value': '2'}
   ].obs;
 
   initChannelData() async {
@@ -51,10 +49,7 @@ class WithdrawControllerPage extends GetxController {
 
   setWithdrawSelectData() {
     final d = (pageData.memberBankList ?? []).map((e) {
-      return {
-        'label': e.pixId.toString() ?? '',
-        'value': e.pixId.toString() ?? ''
-      };
+      return {'label': e.pixId.toString() ?? '', 'value': e.pixId.toString() ?? ''};
     }).toList();
     withdrawSelectData.value = d;
   }
@@ -65,11 +60,14 @@ class WithdrawControllerPage extends GetxController {
   }
 
   final isClickSubmit = false.obs;
+
   // 验证最小金额
   String? validateMinAmount() {
     if (minAmountNode.text.value.isEmpty) {
       return '请输入最小金额';
-    } else if (double.parse(minAmountNode.text.value) < double.parse(pageData.config?.fmin ?? '0') || double.parse(minAmountNode.text.value) > double.parse(pageData.config?.fmax ?? '0')) {
+    } else if (double.parse(minAmountNode.text.value) <
+            double.parse(pageData.config?.fmin ?? '0') ||
+        double.parse(minAmountNode.text.value) > double.parse(pageData.config?.fmax ?? '0')) {
       return 'Valor da retirada (${pageData.config?.fmin ?? '0'} - ${pageData.config?.fmax ?? '0'})';
     }
     return null;
@@ -100,33 +98,53 @@ class WithdrawControllerPage extends GetxController {
   }
 
   // 提交函数
-  void submit() {
+  void submit() async {
     isClickSubmit.value = true;
 
-    if (validateMinAmount() != null || validateUsername() != null || validateId() != null || validateAccount() != null) {
+    if (validateMinAmount() != null ||
+        validateUsername() != null ||
+        validateId() != null ||
+        validateAccount() != null) {
       return;
     }
 
-    if (double.parse(globalController.balance.value?.brl_amount ?? '0') < double.parse(minAmountNode.text.value)) {
+    if (double.parse(globalController.balance.value?.brl_amount ?? '0') <
+        double.parse(minAmountNode.text.value)) {
       Toast.show('O valor da retirada não pode ser maior que o valor da retirada da conta');
       return;
     }
 
     AppLoading.show();
-    apiRequest.requestPayWithdraw({
-      'amount': minAmountNode.text.value,
-      'real_name': usernameNode.text.value,
-      'pix_id': idNode.text.value,
-      'pix_account': accountNode.text.value,
-      'flag': int.parse(waysSelectValue.value),
-    }).then((d) {
-      print('成功 ¥$d');
-    }).catchError((e) {
+    // apiRequest.requestPayWithdraw({
+    //   'amount': minAmountNode.text.value,
+    //   'real_name': usernameNode.text.value,
+    //   'pix_id': idNode.text.value,
+    //   'pix_account': accountNode.text.value,
+    //   'flag': int.parse(waysSelectValue.value),
+    // }).then((d) {
+    //   print('成功 ¥$d');
+    // }).catchError((e) {
+    //   print('错了 ¥$e');
+    // }).whenComplete(() {
+    //   print("结束");
+    //   AppLoading.close();
+    // });
+
+    try {
+      final s = await apiRequest.requestPayWithdraw({
+        'amount': minAmountNode.text.value,
+        'real_name': usernameNode.text.value,
+        'pix_id': idNode.text.value,
+        'pix_account': accountNode.text.value,
+        'flag': int.parse(waysSelectValue.value),
+      });
+      print('sssss $s');
+    } catch (e) {
       print('错了 ¥$e');
-    }).whenComplete(() {
+    } finally {
       print("结束");
       AppLoading.close();
-    });
+    }
   }
 
   @override
