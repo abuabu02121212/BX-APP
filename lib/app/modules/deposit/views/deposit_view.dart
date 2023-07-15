@@ -230,7 +230,9 @@ class DepositView extends GetView<DepositController> {
                       }),
                       SizedBox(height: 16.w),
                       Obx(() {
-                        return Text("Retirável: ${controller.balanceDetailInfo.value?.deposit_balance ?? '0'}", style: TextStyle(color: Colors.white, fontSize: 24.w));
+                        return Text("Retirável: ${controller.balanceDetailInfo.value
+                            ?.deposit_balance ?? '0'}", style: TextStyle(
+                            color: Colors.white, fontSize: 24.w));
                       }),
                     ],
                   ),
@@ -249,10 +251,14 @@ class DepositView extends GetView<DepositController> {
                       ],
                     ),
                     SizedBox(height: 16.w),
-                    Text("Balanço: ${controller.balanceDetailInfo.value?.agencyAmount ?? '0'}", style: TextStyle(color: Colors.white, fontSize: 24.w)),
+                    Obx(() {
+                      return Text("Balanço: ${controller.balanceDetailInfo.value?.agencyAmount ?? '0'}", style: TextStyle(color: Colors.white, fontSize: 24.w));
+                    }),
                     SizedBox(height: 16.w),
                     Obx(() {
-                      return Text("Retirável: ${controller.balanceDetailInfo.value?.agency_balance ?? '0'}", style: TextStyle(color: Colors.white, fontSize: 24.w));
+                      return Text("Retirável: ${controller.balanceDetailInfo.value
+                          ?.agency_balance ?? '0'}", style: TextStyle(color: Colors.white,
+                          fontSize: 24.w));
                     })
                   ],
                 )
