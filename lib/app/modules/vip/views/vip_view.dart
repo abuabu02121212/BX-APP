@@ -56,7 +56,7 @@ class VipView extends GetView<VipController> {
               ),
               const VipProgress1CardWidget(),
               const VipProgress2CardWidget(),
-              const LevelListViewWidget(),
+              LevelListViewWidget(),
               SizedBox(height: 125.w),
             ],
           ),

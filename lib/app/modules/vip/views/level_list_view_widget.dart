@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../../app_style.dart';
+import '../../../entity/vip_level_info.dart';
+import '../controllers/vip_controller.dart';
 
 class LevelListViewWidget extends StatelessWidget {
-  const LevelListViewWidget({
+  LevelListViewWidget({
     super.key,
   });
+
+  final VipController controller = Get.put(VipController());
 
   @override
   Widget build(BuildContext context) {
@@ -39,16 +45,19 @@ class LevelListViewWidget extends StatelessWidget {
                 children: [
                   const ListTitleWidget(),
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: 30,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          width: double.infinity,
-                          height: 50.w,
-                          color: index % 2 == 0 ? const Color.fromRGBO(4, 75, 154, 0.20) : Colors.transparent,
-                          child: ListItemWidget(index: index),
+                    child: Obx(() {
+                        return ListView.builder(
+                          itemCount: controller.dataList.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              width: double.infinity,
+                              height: 50.w,
+                              color: index % 2 == 0 ? const Color.fromRGBO(4, 75, 154, 0.20) : Colors.transparent,
+                              child: ListItemWidget(index: index),
+                            );
+                          },
                         );
-                      },
+                      }
                     ),
                   )
                 ],
@@ -115,7 +124,7 @@ class ListTitleWidget extends StatelessWidget {
             alignment: Alignment.center,
             decoration: borderDec,
             child: Text(
-             //  奖励
+              //  奖励
               "Recompensa",
               style: TextStyle(
                 fontSize: 24.w,
@@ -144,15 +153,16 @@ class ListTitleWidget extends StatelessWidget {
 }
 
 class ListItemWidget extends StatelessWidget {
-  const ListItemWidget({
+   ListItemWidget({
     super.key,
     required this.index,
   });
 
   final int index;
-
+  final VipController controller = Get.put(VipController());
   @override
   Widget build(BuildContext context) {
+    VipInfoEntity item = controller.dataList[index];
     return SizedBox(
       width: double.infinity,
       height: 50.w,
@@ -166,7 +176,7 @@ class ListItemWidget extends StatelessWidget {
             alignment: Alignment.center,
             decoration: borderDec,
             child: Text(
-              "VIp 01",
+              "${item.name}",
               style: TextStyle(
                 fontSize: 24.w,
                 color: const Color(0xff0ED1F4),
@@ -179,7 +189,8 @@ class ListItemWidget extends StatelessWidget {
             alignment: Alignment.center,
             decoration: borderDec,
             child: Text(
-              "R\$3.00",
+              ///  奖项
+              "${item.amount}",
               style: TextStyle(
                 fontSize: 24.w,
                 color: const Color(0xff0ED1F4),
@@ -192,7 +203,8 @@ class ListItemWidget extends StatelessWidget {
             alignment: Alignment.center,
             decoration: borderDec,
             child: Text(
-              "0.00%",
+              /// 报酬
+              "${item.rebateRate}",
               style: TextStyle(
                 fontSize: 24.w,
                 color: const Color(0xff0ED1F4),

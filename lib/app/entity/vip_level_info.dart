@@ -27,7 +27,7 @@ class VipInfoEntity {
 
   VipInfoEntity.fromJson(Map<String, dynamic> json) {
     vip = "${json['vip']}";
-    name = "$json['name']";
+    name = "${json['name']}";
     depositAmount = "${json['deposit_amount']}";
     flow = "${json['flow']}";
     amount = "${json['amount']}";
