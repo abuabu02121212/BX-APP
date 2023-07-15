@@ -92,34 +92,34 @@ class DepositView extends GetView<DepositController> {
             ListView(
               children: [
                 Obx(() {
-                  return controller.depositControllerPage.isFetching.isFalse ?
-                  _buildDeposit(controller, context) :
-                  const Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 50.0),
-                      child: CupertinoActivityIndicator(
-                        radius: 14.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                  );
+                  return controller.depositControllerPage.isFetching.isFalse
+                      ? _buildDeposit(controller, context)
+                      : const Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 50.0),
+                            child: CupertinoActivityIndicator(
+                              radius: 14.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        );
                 })
               ],
             ),
             ListView(
               children: [
                 Obx(() {
-                  return controller.withdrawControllerPage.isFetching.isFalse ?
-                  _buildWithdraw(controller, context) :
-                  const Center(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 50.0),
-                      child: CupertinoActivityIndicator(
-                        radius: 14.0,
-                        color: Colors.white,
-                      ),
-                    ),
-                  );
+                  return controller.withdrawControllerPage.isFetching.isFalse
+                      ? _buildWithdraw(controller, context)
+                      : const Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 50.0),
+                            child: CupertinoActivityIndicator(
+                              radius: 14.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        );
                 })
               ],
             ),
@@ -133,10 +133,12 @@ class DepositView extends GetView<DepositController> {
     return Container(
       decoration: BoxDecoration(
           gradient: const LinearGradient(
-              begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
-            Color.fromRGBO(4, 75, 154, 0.3),
-            Color.fromRGBO(1, 26, 81, 0.3),
-          ]),
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color.fromRGBO(4, 75, 154, 0.3),
+                Color.fromRGBO(1, 26, 81, 0.3),
+              ]),
           borderRadius: BorderRadius.circular(20.w)),
       margin: EdgeInsets.only(top: 30.w, left: 20.w, right: 20.w),
       child: Column(
@@ -160,12 +162,12 @@ class DepositView extends GetView<DepositController> {
                       Obx(() {
                         return Text("R\$${controller.balanceDetailInfo.value?.brl ?? '0'}",
                             style: TextStyle(
-                                color: Colors.white, fontSize: 42.w, fontWeight: FontWeight.w700)
-                        );
+                                color: Colors.white, fontSize: 42.w, fontWeight: FontWeight.w700));
                       }),
                       SizedBox(height: 17.w),
-                      Text("Fundos totais", style: TextStyle(color: const Color.fromRGBO(255, 255,
-                          255, 0.7), fontSize: 24.w)),
+                      Text("Fundos totais",
+                          style: TextStyle(
+                              color: const Color.fromRGBO(255, 255, 255, 0.7), fontSize: 24.w)),
                     ],
                   ),
                   Column(
@@ -174,13 +176,12 @@ class DepositView extends GetView<DepositController> {
                       Obx(() {
                         return Text("R\$${controller.balanceDetailInfo.value?.brl_amount ?? '0'}",
                             style: TextStyle(
-                                color: Colors.white, fontSize: 42.w, fontWeight: FontWeight.w700)
-                        );
+                                color: Colors.white, fontSize: 42.w, fontWeight: FontWeight.w700));
                       }),
                       SizedBox(height: 17.w),
-                      Text("Retirável Total", style: TextStyle(color: const Color.fromRGBO(255, 255,
-                          255,
-                          0.7), fontSize: 24.w)),
+                      Text("Retirável Total",
+                          style: TextStyle(
+                              color: const Color.fromRGBO(255, 255, 255, 0.7), fontSize: 24.w)),
                     ],
                   ),
                 ],
@@ -199,8 +200,11 @@ class DepositView extends GetView<DepositController> {
                   ),
                 ),
                 alignment: Alignment.center,
-                child: Text("Total Da Conta", style: TextStyle(color: Colors.white, fontSize: 24.w),
-                    textAlign: TextAlign.center),
+                child: Text(
+                  "Total Da Conta",
+                  style: TextStyle(color: Colors.white, fontSize: 24.w),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           ]),
@@ -216,23 +220,30 @@ class DepositView extends GetView<DepositController> {
                       SizedBox(height: 16.w),
                       Row(
                         children: [
-                          Text("Depositar conta", style: TextStyle(color: Color.fromRGBO(
-                              255, 255, 255, 0.3), fontSize: 24.w)),
+                          Text(
+                            "Depositar conta",
+                            style: TextStyle(
+                              color: const Color.fromRGBO(255, 255, 255, 0.3),
+                              fontSize: 24.w,
+                            ),
+                          ),
                           SizedBox(width: 9.w),
                           Image.asset("assets/images/i-why.webp", width: 24.w),
                         ],
                       ),
                       SizedBox(height: 16.w),
                       Obx(() {
-                        return Text("Balanço: ${controller.balanceDetailInfo.value
-                            ?.deposit_amount ?? '0'}", style: TextStyle(
-                            color: Colors.white, fontSize: 24.w));
+                        return Text(
+                          "Balanço: ${controller.balanceDetailInfo.value?.deposit_amount ?? '0'}",
+                          style: TextStyle(color: Colors.white, fontSize: 24.w),
+                        );
                       }),
                       SizedBox(height: 16.w),
                       Obx(() {
-                        return Text("Retirável: ${controller.balanceDetailInfo.value
-                            ?.deposit_balance ?? '0'}", style: TextStyle(
-                            color: Colors.white, fontSize: 24.w));
+                        return Text(
+                          "Retirável: ${controller.balanceDetailInfo.value?.deposit_balance ?? '0'}",
+                          style: TextStyle(color: Colors.white, fontSize: 24.w),
+                        );
                       }),
                     ],
                   ),
@@ -243,22 +254,28 @@ class DepositView extends GetView<DepositController> {
                     SizedBox(height: 16.w),
                     Row(
                       children: [
-                        Text("Conta Promovida", style: TextStyle(color: const Color.fromRGBO(255,
-                            255,
-                            255, 0.3), fontSize: 24.w)),
+                        Text(
+                          "Conta Promovida",
+                          style: TextStyle(
+                              color: const Color.fromRGBO(255, 255, 255, 0.3), fontSize: 24.w),
+                        ),
                         SizedBox(width: 9.w),
                         Image.asset("assets/images/i-why.webp", width: 24.w),
                       ],
                     ),
                     SizedBox(height: 16.w),
                     Obx(() {
-                      return Text("Balanço: ${controller.balanceDetailInfo.value?.agencyAmount ?? '0'}", style: TextStyle(color: Colors.white, fontSize: 24.w));
+                      return Text(
+                        "Balanço: ${controller.balanceDetailInfo.value?.agencyAmount ?? '0'}",
+                        style: TextStyle(color: Colors.white, fontSize: 24.w),
+                      );
                     }),
                     SizedBox(height: 16.w),
                     Obx(() {
-                      return Text("Retirável: ${controller.balanceDetailInfo.value
-                          ?.agency_balance ?? '0'}", style: TextStyle(color: Colors.white,
-                          fontSize: 24.w));
+                      return Text(
+                        "Retirável: ${controller.balanceDetailInfo.value?.agency_balance ?? '0'}",
+                        style: TextStyle(color: Colors.white, fontSize: 24.w),
+                      );
                     })
                   ],
                 )
@@ -285,9 +302,10 @@ class DepositView extends GetView<DepositController> {
             margin: EdgeInsets.only(bottom: 16.w, top: 36.w),
             padding: EdgeInsets.only(bottom: 10.w, left: 10.w, right: 10.w),
             child: Text(
-                "Prezado usuário, quando o valor da primeira recarga for maior que 50 reais, você receberá no máximo 20% de recompensa de recarga, e quando o valor da recarga for maior que 50 reais, você receberá no máximo 10% de recompensa de recarga! 6 vezes ao dia, quanto maior o valor da recarga, maior a proporção de presentes!!",
-                style: TextStyle(color: Color(0xffF7BA17), fontSize: 24.w, height: 1.5),
-                textAlign: TextAlign.center),
+              "Prezado usuário, quando o valor da primeira recarga for maior que 50 reais, você receberá no máximo 20% de recompensa de recarga, e quando o valor da recarga for maior que 50 reais, você receberá no máximo 10% de recompensa de recarga! 6 vezes ao dia, quanto maior o valor da recarga, maior a proporção de presentes!!",
+              style: TextStyle(color: Color(0xffF7BA17), fontSize: 24.w, height: 1.5),
+              textAlign: TextAlign.center,
+            ),
           ),
           Stack(
             children: [
@@ -297,12 +315,13 @@ class DepositView extends GetView<DepositController> {
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.only(left: 24.w, right: 24.w),
                 decoration: BoxDecoration(
-                    border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
-                    image: const DecorationImage(
-                      image: AssetImage("assets/images/btn-bg-gray.webp"),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.circular(8.w)),
+                  border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/btn-bg-gray.webp"),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.circular(8.w),
+                ),
                 child: Obx(() {
                   return MyInputFiled(
                     bgColor: Colors.transparent,
@@ -312,86 +331,89 @@ class DepositView extends GetView<DepositController> {
                     editNode: controller.depositControllerPage.amountNode,
                   );
                 }),
-                // child: Text("201", style: TextStyle(color: Colors.white, fontSize: 28.w)),
               ),
               Obx(() {
                 return Visibility(
-                    visible: controller.depositControllerPage.isAmountInDepositData(),
-                    child: Positioned(
-                        right: 0,
-                        top: 0,
-                        child: Container(
-                          alignment: Alignment.center,
-                          width: 108.w,
-                          height: 30.w,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage("assets/images/i-label-bg.webp"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          child: Obx(() {
-                            return Text(controller.depositControllerPage.depositDiscount.value,
-                                style: TextStyle(color: Colors.white,
-                                    fontSize: 24.w));
-                          }),
-                        )
-                    )
+                  visible: controller.depositControllerPage.isAmountInDepositData(),
+                  child: Positioned(
+                    right: 0,
+                    top: 0,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 108.w,
+                      height: 30.w,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/i-label-bg.webp"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Obx(() {
+                        return Text(controller.depositControllerPage.depositDiscount.value,
+                            style: TextStyle(color: Colors.white, fontSize: 24.w));
+                      }),
+                    ),
+                  ),
                 );
               })
             ],
           ),
           Obx(() {
-            return controller.depositControllerPage.isClickSubmit.isTrue ?
-            VerifyError(error: controller.depositControllerPage.validateAmount() ?? '',
-                mainAxis: MainAxisAlignment.start) :
-            SizedBox(height: 30.w);
+            return controller.depositControllerPage.isClickSubmit.isTrue
+                ? VerifyError(
+                    error: controller.depositControllerPage.validateAmount() ?? '',
+                    mainAxis: MainAxisAlignment.start,
+                  )
+                : SizedBox(height: 30.w);
           }),
           _buildAmountWrap(controller),
           Container(
-              margin: EdgeInsets.only(top: 36.w, bottom: 16.w),
-              alignment: Alignment.centerLeft,
-              child: Text("Escolha o metodo de pagamento",
-                  style: TextStyle(color: const Color(0xff0ED1F4), fontSize: 32.w))),
+            margin: EdgeInsets.only(top: 36.w, bottom: 16.w),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Escolha o metodo de pagamento",
+              style: TextStyle(color: const Color(0xff0ED1F4), fontSize: 32.w),
+            ),
+          ),
           Container(
             width: double.infinity,
             height: 72.w,
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 24.w, right: 20.w),
             decoration: BoxDecoration(
-                border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/btn-bg-gray.webp"),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: BorderRadius.circular(8.w)),
+              border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
+              image: const DecorationImage(
+                image: AssetImage("assets/images/btn-bg-gray.webp"),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(8.w),
+            ),
             child: AppCupertinoButton(
               onPressed: () {
                 BottomSheetUtil.showBottomSheet(
-                    context,
-                    selectData: controller.depositControllerPage.depositSelectLabel.value,
-                    data: controller.depositControllerPage.depositSelectData,
-                    ok: (String value, String label) {
-                      controller.depositControllerPage.setDepositSelectLabelValue(value, label);
-                    }
+                  context,
+                  selectData: controller.depositControllerPage.depositSelectLabel.value,
+                  data: controller.depositControllerPage.depositSelectData,
+                  ok: (String value, String label) {
+                    controller.depositControllerPage.setDepositSelectLabelValue(value, label);
+                  },
                 );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Obx(() {
-                    return Text(controller.depositControllerPage.depositSelectLabel.value,
-                        style: TextStyle(color: Colors.white, fontSize: 28.w));
+                    return Text(
+                      controller.depositControllerPage.depositSelectLabel.value,
+                      style: TextStyle(color: Colors.white, fontSize: 28.w),
+                    );
                   }),
-                  Image(
-                      image: const AssetImage("assets/images/i-radio-active.webp"),
-                      width: 32.w),
+                  Image(image: const AssetImage("assets/images/i-radio-active.webp"), width: 32.w),
                 ],
               ),
             ),
           ),
-          SizedBox(
-              height: 40.w),
+          SizedBox(height: 40.w),
           AppButton(
             width: 580.w,
             height: 90.w,
@@ -420,8 +442,9 @@ class DepositView extends GetView<DepositController> {
                 CupertinoButton(
                   onPressed: () {
                     controller.depositControllerPage.setInputValue(
-                        controller.depositControllerPage.depositData[i]['amount'] as String,
-                        controller.depositControllerPage.depositData[i]['discount'] as String);
+                      controller.depositControllerPage.depositData[i]['amount'] as String,
+                      controller.depositControllerPage.depositData[i]['discount'] as String,
+                    );
                   },
                   padding: EdgeInsets.zero,
                   child: Obx(() {
@@ -430,41 +453,46 @@ class DepositView extends GetView<DepositController> {
                       height: 100.w,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        border: Border.all(
-                            color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
+                        border:
+                            Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
                         borderRadius: BorderRadius.circular(8.w),
                         image: DecorationImage(
                           // 激活样式图片背景改为btn-bg-active
                           image: AssetImage(
-                              controller.depositControllerPage.isSelectAmount(
-                                  controller.depositControllerPage.depositData[i]['amount']!)
-                                  ? "assets/images/btn-bg-active.webp"
-                                  : "assets/images/btn-bg-gray.webp"),
+                            controller.depositControllerPage.isSelectAmount(
+                              controller.depositControllerPage.depositData[i]['amount']!,
+                            )
+                                ? "assets/images/btn-bg-active.webp"
+                                : "assets/images/btn-bg-gray.webp",
+                          ),
                           fit: BoxFit.cover,
                         ),
                       ),
-                      child: Text("R\$ ${controller.depositControllerPage
-                          .depositData[i]['amount']}",
-                          style: TextStyle(color: Colors.white, fontSize: 28.w)),
+                      child: Text(
+                        "R\$ ${controller.depositControllerPage.depositData[i]['amount']}",
+                        style: TextStyle(color: Colors.white, fontSize: 28.w),
+                      ),
                     );
                   }),
                 ),
                 Positioned(
-                    right: 0,
-                    top: 0,
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: 108.w,
-                      height: 30.w,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/i-label-bg.webp"),
-                          fit: BoxFit.cover,
-                        ),
+                  right: 0,
+                  top: 0,
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: 108.w,
+                    height: 30.w,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/i-label-bg.webp"),
+                        fit: BoxFit.cover,
                       ),
-                      child: Text("${controller.depositControllerPage.depositData[i]['discount']}",
-                          style: TextStyle(color: Colors.white, fontSize: 24.w)),
-                    )
+                    ),
+                    child: Text(
+                      "${controller.depositControllerPage.depositData[i]['discount']}",
+                      style: TextStyle(color: Colors.white, fontSize: 24.w),
+                    ),
+                  ),
                 )
               ],
             ),
@@ -479,56 +507,65 @@ class DepositView extends GetView<DepositController> {
       child: Column(
         children: [
           Container(
-              width: double.infinity,
-              height: 72.w,
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.only(left: 24.w, right: 20.w),
-              decoration: BoxDecoration(
-                  border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/btn-bg-gray.webp"),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.circular(8.w)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Valor da retirada", style: TextStyle(color: Colors.white, fontSize: 28.w)),
-                  Expanded(
-                      child: Stack(
-                        children: [
-                          Obx(() {
-                            return Visibility(
-                              visible: controller.withdrawControllerPage.minAmountNode.text.isEmpty,
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: Text("Retirada mínima R\$0", style: TextStyle(
-                                    color: const Color.fromRGBO(255, 255, 255, 0.4),
-                                    fontSize: 28.w)),
+            width: double.infinity,
+            height: 72.w,
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: 24.w, right: 20.w),
+            decoration: BoxDecoration(
+              border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
+              image: const DecorationImage(
+                image: AssetImage("assets/images/btn-bg-gray.webp"),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(8.w),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Valor da retirada",
+                  style: TextStyle(color: Colors.white, fontSize: 28.w),
+                ),
+                Expanded(
+                  child: Stack(
+                    children: [
+                      Obx(() {
+                        return Visibility(
+                          visible: controller.withdrawControllerPage.minAmountNode.text.isEmpty,
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              "Retirada mínima R\$0",
+                              style: TextStyle(
+                                color: const Color.fromRGBO(255, 255, 255, 0.4),
+                                fontSize: 28.w,
                               ),
-                            );
-                          }),
-                          MyInputFiled(
-                            bgColor: Colors.transparent,
-                            keyboardType: TextInputType.number,
-                            width: double.infinity,
-                            textDirection: TextDirection.rtl,
-                            height: 72.w,
-                            hint: '',
-                            onTextChanged: (String value) {
-                              print('vvv $value');
-                            },
-                            editNode: controller.withdrawControllerPage.minAmountNode,
+                            ),
                           ),
-                        ],
-                      )
+                        );
+                      }),
+                      MyInputFiled(
+                        bgColor: Colors.transparent,
+                        keyboardType: TextInputType.number,
+                        width: double.infinity,
+                        textDirection: TextDirection.rtl,
+                        height: 72.w,
+                        hint: '',
+                        onTextChanged: (String value) {
+                          print('vvv $value');
+                        },
+                        editNode: controller.withdrawControllerPage.minAmountNode,
+                      ),
+                    ],
                   ),
-                ],
-              )),
+                ),
+              ],
+            ),
+          ),
           Obx(() {
-            return controller.withdrawControllerPage.isClickSubmit.isTrue ?
-            VerifyError(error: controller.withdrawControllerPage.validateMinAmount() ?? '') :
-            SizedBox(height: 34.w);
+            return controller.withdrawControllerPage.isClickSubmit.isTrue
+                ? VerifyError(error: controller.withdrawControllerPage.validateMinAmount() ?? '')
+                : SizedBox(height: 34.w);
           }),
           Container(
             decoration: const BoxDecoration(
@@ -540,126 +577,143 @@ class DepositView extends GetView<DepositController> {
             margin: EdgeInsets.only(bottom: 24.w),
             padding: EdgeInsets.only(bottom: 10.w, left: 10.w, right: 10.w),
             child: Text(
-                " Uma conta só pode ser vinculada a um número de CPF para saque, uma vez vinculada não pode ser alterada.",
-                style: TextStyle(color: Color(0xffF7BA17), fontSize: 24.w, height: 1.5),
-                textAlign: TextAlign.center),
+              " Uma conta só pode ser vinculada a um número de CPF para saque, uma vez vinculada não pode ser alterada.",
+              style: TextStyle(color: const Color(0xffF7BA17), fontSize: 24.w, height: 1.5),
+              textAlign: TextAlign.center,
+            ),
           ),
           Container(
-              width: double.infinity,
-              height: 72.w,
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.only(left: 24.w, right: 20.w),
-              decoration: BoxDecoration(
-                  border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/btn-bg-gray.webp"),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.circular(8.w)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Nome do usuário:", style: TextStyle(color: Colors.white, fontSize: 28.w)),
-                  Expanded(
-                      child: Stack(
-                        children: [
-                          Obx(() {
-                            return Visibility(
-                              visible: controller.withdrawControllerPage.usernameNode.text.isEmpty,
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: Text("Insira o nome do titular do cartão",
-                                    style: TextStyle(
-                                        color: const Color.fromRGBO(255, 255, 255, 0.4),
-                                        fontSize: 28.w)),
+            width: double.infinity,
+            height: 72.w,
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: 24.w, right: 20.w),
+            decoration: BoxDecoration(
+              border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
+              image: const DecorationImage(
+                image: AssetImage("assets/images/btn-bg-gray.webp"),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(8.w),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Nome do usuário:", style: TextStyle(color: Colors.white, fontSize: 28.w)),
+                Expanded(
+                  child: Stack(
+                    children: [
+                      Obx(() {
+                        return Visibility(
+                          visible: controller.withdrawControllerPage.usernameNode.text.isEmpty,
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              "Insira o nome do titular do cartão",
+                              style: TextStyle(
+                                color: const Color.fromRGBO(255, 255, 255, 0.4),
+                                fontSize: 28.w,
                               ),
-                            );
-                          }),
-                          MyInputFiled(
-                            bgColor: Colors.transparent,
-                            width: double.infinity,
-                            textDirection: TextDirection.rtl,
-                            height: 72.w,
-                            hint: '',
-                            editNode: controller.withdrawControllerPage.usernameNode,
-                          )
-                        ],
-                      )
-                  ),
-                ],
-              )),
-          Obx(() {
-            return controller.withdrawControllerPage.isClickSubmit.isTrue ?
-            VerifyError(error: controller.withdrawControllerPage.validateUsername() ?? '') :
-            SizedBox(height: 34.w);
-          }),
-          Container(
-              width: double.infinity,
-              height: 72.w,
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.only(left: 24.w),
-              decoration: BoxDecoration(
-                  border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/btn-bg-gray.webp"),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.circular(8.w)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Código CPF:", style: TextStyle(color: Colors.white, fontSize: 28.w)),
-                  Expanded(
-                      child: Stack(
-                        children: [
-                          Obx(() {
-                            return Visibility(
-                              visible: controller.withdrawControllerPage.idNode.text.isEmpty,
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                    "Insira o seu código CPF", style: TextStyle(color: const Color
-                                    .fromRGBO(255, 255, 255, 0.4), fontSize: 28.w)),
-                              ),
-                            );
-                          }),
-                          MyInputFiled(
-                            bgColor: Colors.transparent,
-                            width: double.infinity,
-                            keyboardType: TextInputType.number,
-                            textDirection: TextDirection.rtl,
-                            height: 72.w,
-                            hint: '',
-                            editNode: controller.withdrawControllerPage.idNode,
+                            ),
                           ),
-                        ],
+                        );
+                      }),
+                      MyInputFiled(
+                        bgColor: Colors.transparent,
+                        width: double.infinity,
+                        textDirection: TextDirection.rtl,
+                        height: 72.w,
+                        hint: '',
+                        editNode: controller.withdrawControllerPage.usernameNode,
                       )
+                    ],
                   ),
-                  AppCupertinoButton(
-                    child: Padding(
-                      padding: EdgeInsets.all(20.w),
-                      child: Image.asset("assets/images/i-arrow-white-down.webp", width: 16.w),
-                    ),
-                    onPressed: () {
-                      BottomSheetUtil.showBottomSheet(
-                          context,
-                          data: controller.withdrawControllerPage.withdrawSelectData,
-                          ok: (String value, String label) {
-                            controller.withdrawControllerPage.idNode.editController.text = value;
-                            controller.withdrawControllerPage.idNode.editController.selection =
-                                TextSelection.fromPosition(
-                                    TextPosition(offset: controller.withdrawControllerPage.idNode
-                                        .editController.text.length));
-                          }
-                      );
-                    },
-                  )
-                ],
-              )),
+                ),
+              ],
+            ),
+          ),
           Obx(() {
-            return controller.withdrawControllerPage.isClickSubmit.isTrue ?
-            VerifyError(error: controller.withdrawControllerPage.validateId() ?? '') :
-            SizedBox(height: 34.w);
+            return controller.withdrawControllerPage.isClickSubmit.isTrue
+                ? VerifyError(error: controller.withdrawControllerPage.validateUsername() ?? '')
+                : SizedBox(height: 34.w);
+          }),
+          Container(
+            width: double.infinity,
+            height: 72.w,
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: 24.w),
+            decoration: BoxDecoration(
+              border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
+              image: const DecorationImage(
+                image: AssetImage("assets/images/btn-bg-gray.webp"),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(8.w),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Código CPF:",
+                  style: TextStyle(color: Colors.white, fontSize: 28.w),
+                ),
+                Expanded(
+                  child: Stack(
+                    children: [
+                      Obx(() {
+                        return Visibility(
+                          visible: controller.withdrawControllerPage.idNode.text.isEmpty,
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              "Insira o seu código CPF",
+                              style: TextStyle(
+                                color: const Color.fromRGBO(255, 255, 255, 0.4),
+                                fontSize: 28.w,
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                      MyInputFiled(
+                        bgColor: Colors.transparent,
+                        width: double.infinity,
+                        keyboardType: TextInputType.number,
+                        textDirection: TextDirection.rtl,
+                        height: 72.w,
+                        hint: '',
+                        editNode: controller.withdrawControllerPage.idNode,
+                      ),
+                    ],
+                  ),
+                ),
+                AppCupertinoButton(
+                  child: Padding(
+                    padding: EdgeInsets.all(20.w),
+                    child: Image.asset("assets/images/i-arrow-white-down.webp", width: 16.w),
+                  ),
+                  onPressed: () {
+                    BottomSheetUtil.showBottomSheet(
+                      context,
+                      data: controller.withdrawControllerPage.withdrawSelectData,
+                      ok: (String value, String label) {
+                        controller.withdrawControllerPage.idNode.editController.text = value;
+                        controller.withdrawControllerPage.idNode.editController.selection =
+                            TextSelection.fromPosition(
+                          TextPosition(
+                              offset: controller
+                                  .withdrawControllerPage.idNode.editController.text.length),
+                        );
+                      },
+                    );
+                  },
+                )
+              ],
+            ),
+          ),
+          Obx(() {
+            return controller.withdrawControllerPage.isClickSubmit.isTrue
+                ? VerifyError(error: controller.withdrawControllerPage.validateId() ?? '')
+                : SizedBox(height: 34.w);
           }),
           Container(
               width: double.infinity,
@@ -667,12 +721,13 @@ class DepositView extends GetView<DepositController> {
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(left: 24.w, right: 20.w),
               decoration: BoxDecoration(
-                  border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/btn-bg-gray.webp"),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.circular(8.w)),
+                border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
+                image: const DecorationImage(
+                  image: AssetImage("assets/images/btn-bg-gray.webp"),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(8.w),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -681,21 +736,23 @@ class DepositView extends GetView<DepositController> {
                     child: AppCupertinoButton(
                       onPressed: () {
                         BottomSheetUtil.showBottomSheet(
-                            context,
-                            selectData: controller.withdrawControllerPage.waysSelectLabel.value,
-                            data: controller.withdrawControllerPage.ways,
-                            ok: (String value, String label) {
-                              controller.withdrawControllerPage.setWaysData(label, value);
-                            }
+                          context,
+                          selectData: controller.withdrawControllerPage.waysSelectLabel.value,
+                          data: controller.withdrawControllerPage.ways,
+                          ok: (String value, String label) {
+                            controller.withdrawControllerPage.setWaysData(label, value);
+                          },
                         );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Obx(() {
-                            return Text(controller.withdrawControllerPage.waysSelectLabel.value,
-                                style: TextStyle(
-                                    color: const Color.fromRGBO(255, 255, 255, 1), fontSize: 28.w));
+                            return Text(
+                              controller.withdrawControllerPage.waysSelectLabel.value,
+                              style: TextStyle(
+                                  color: const Color.fromRGBO(255, 255, 255, 1), fontSize: 28.w),
+                            );
                           }),
                           SizedBox(width: 19.w),
                           Image.asset("assets/images/i-arrow-white-down.webp", width: 16.w)
@@ -712,87 +769,100 @@ class DepositView extends GetView<DepositController> {
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(left: 24.w, right: 20.w),
               decoration: BoxDecoration(
-                  border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/btn-bg-gray.webp"),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.circular(8.w)),
+                border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
+                image: const DecorationImage(
+                  image: AssetImage("assets/images/btn-bg-gray.webp"),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(8.w),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Obx(() {
-                    return Text(controller.withdrawControllerPage.waysSelectLabel.value,
-                        style: TextStyle(color: Colors.white, fontSize: 28.w));
+                    return Text(
+                      controller.withdrawControllerPage.waysSelectLabel.value,
+                      style: TextStyle(color: Colors.white, fontSize: 28.w),
+                    );
                   }),
                   SizedBox(width: 10.w),
                   Expanded(
                       child: Stack(
-                        children: [
-                          Obx(() {
-                            return Visibility(
-                              visible: controller.withdrawControllerPage.accountNode.text.isEmpty,
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: Obx(() {
-                                  return Text(
-                                      controller.withdrawControllerPage.waysSelectLabel.value,
-                                      style: TextStyle(color: const Color.fromRGBO(
-                                          255, 255, 255, 0.4), fontSize: 28.w));
-                                }),
-                              ),
-                            );
-                          }),
-                          Obx(() {
-                            return MyInputFiled(
-                              bgColor: Colors.transparent,
-                              width: double.infinity,
-                              keyboardType: controller.withdrawControllerPage.waysSelectValue
-                                  .value == '2' ? TextInputType.text : TextInputType.number,
-                              textDirection: TextDirection.rtl,
-                              height: 72.w,
-                              hint: '',
-                              editNode: controller.withdrawControllerPage.accountNode,
-                            );
-                          }),
-                        ],
-                      )
-                  ),
+                    children: [
+                      Obx(() {
+                        return Visibility(
+                          visible: controller.withdrawControllerPage.accountNode.text.isEmpty,
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Obx(
+                              () {
+                                return Text(
+                                  controller.withdrawControllerPage.waysSelectLabel.value,
+                                  style: TextStyle(
+                                      color: const Color.fromRGBO(255, 255, 255, 0.4),
+                                      fontSize: 28.w),
+                                );
+                              },
+                            ),
+                          ),
+                        );
+                      }),
+                      Obx(() {
+                        return MyInputFiled(
+                          bgColor: Colors.transparent,
+                          width: double.infinity,
+                          keyboardType:
+                              controller.withdrawControllerPage.waysSelectValue.value == '2'
+                                  ? TextInputType.text
+                                  : TextInputType.number,
+                          textDirection: TextDirection.rtl,
+                          height: 72.w,
+                          hint: '',
+                          editNode: controller.withdrawControllerPage.accountNode,
+                        );
+                      }),
+                    ],
+                  )),
                 ],
               )),
           Obx(() {
-            return controller.withdrawControllerPage.isClickSubmit.isTrue ?
-            VerifyError(error: controller.withdrawControllerPage.validateAccount() ?? '') :
-            SizedBox(height: 34.w);
+            return controller.withdrawControllerPage.isClickSubmit.isTrue
+                ? VerifyError(error: controller.withdrawControllerPage.validateAccount() ?? '')
+                : SizedBox(height: 34.w);
           }),
           Container(
-              margin: EdgeInsets.only(top: 36.w, bottom: 16.w),
-              alignment: Alignment.centerLeft,
-              child: Text("Escolha o metodo de pagamento",
-                  style: TextStyle(color: const Color(0xff0ED1F4), fontSize: 32.w))),
+            margin: EdgeInsets.only(top: 36.w, bottom: 16.w),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Escolha o metodo de pagamento",
+              style: TextStyle(color: const Color(0xff0ED1F4), fontSize: 32.w),
+            ),
+          ),
           Container(
             width: double.infinity,
             height: 72.w,
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.only(left: 24.w, right: 20.w),
             decoration: BoxDecoration(
-                border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
-                image: const DecorationImage(
-                  image: AssetImage("assets/images/btn-bg-gray.webp"),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: BorderRadius.circular(8.w)),
+              border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
+              image: const DecorationImage(
+                image: AssetImage("assets/images/btn-bg-gray.webp"),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(8.w),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Canal de pagamento rápido 1",
-                    style: TextStyle(color: Colors.white, fontSize: 28.w)),
+                Text(
+                  "Canal de pagamento rápido 1",
+                  style: TextStyle(color: Colors.white, fontSize: 28.w),
+                ),
                 Image(image: const AssetImage("assets/images/i-radio-active.webp"), width: 32.w),
               ],
             ),
           ),
-          SizedBox(
-              height: 40.w),
+          SizedBox(height: 40.w),
           AppButton(
             width: 580.w,
             height: 90.w,
@@ -803,23 +873,31 @@ class DepositView extends GetView<DepositController> {
             },
           ),
           SizedBox(height: 54.w),
-          Text('Regras de retirada', style: TextStyle(
-              color: Color(0xffF7BA17), fontSize: 32.w, fontWeight: FontWeight.bold)),
+          Text(
+            'Regras de retirada',
+            style: TextStyle(
+                color: const Color(0xffF7BA17), fontSize: 32.w, fontWeight: FontWeight.bold),
+          ),
           SizedBox(height: 20.w),
           Text(
-              '1. O valor e a frequência do saque diário estão diretamente relacionados ao seu nível VIP.',
-              style: TextStyle(color: Colors.white, fontSize: 26.w)),
+            '1. O valor e a frequência do saque diário estão diretamente relacionados ao seu nível VIP.',
+            style: TextStyle(color: Colors.white, fontSize: 26.w),
+          ),
           SizedBox(height: 15.w),
           Text(
-              '2. O valor da retirada deve ser em múltiplos de 10.Por exemplo: 10, 20, 80, 120, 990, 19820…',
-              style: TextStyle(color: Colors.white, fontSize: 26.w)),
-          SizedBox(height: 15.w),
-          Text(' 3. As recompensas da promoção podem ser retiradas diretamente.',
-              style: TextStyle(color: Colors.white, fontSize: 26.w)),
+            '2. O valor da retirada deve ser em múltiplos de 10.Por exemplo: 10, 20, 80, 120, 990, 19820…',
+            style: TextStyle(color: Colors.white, fontSize: 26.w),
+          ),
           SizedBox(height: 15.w),
           Text(
-              '4. O saldo não retirável na conta de recarga (Atividade) (incluindo, entre outros, o valor da recarga, recompensas por participar de atividades e valor de ganhos e perdas do jogo, etc.).',
-              style: TextStyle(color: Colors.white, fontSize: 26.w)),
+            ' 3. As recompensas da promoção podem ser retiradas diretamente.',
+            style: TextStyle(color: Colors.white, fontSize: 26.w),
+          ),
+          SizedBox(height: 15.w),
+          Text(
+            '4. O saldo não retirável na conta de recarga (Atividade) (incluindo, entre outros, o valor da recarga, recompensas por participar de atividades e valor de ganhos e perdas do jogo, etc.).',
+            style: TextStyle(color: Colors.white, fontSize: 26.w),
+          ),
           SizedBox(height: 85.w),
         ],
       ),
@@ -840,9 +918,16 @@ class VerifyError extends StatelessWidget {
         Container(
           height: 44.w,
           padding: EdgeInsets.only(right: 20.w),
-          child: Center(child: Text(error,
-              style: TextStyle(color: const Color.fromRGBO(255, 105, 13, 1), fontSize: 22.w,),
-              textAlign: TextAlign.right)),
+          child: Center(
+            child: Text(
+              error,
+              style: TextStyle(
+                color: const Color.fromRGBO(255, 105, 13, 1),
+                fontSize: 22.w,
+              ),
+              textAlign: TextAlign.right,
+            ),
+          ),
         ),
       ],
     );
