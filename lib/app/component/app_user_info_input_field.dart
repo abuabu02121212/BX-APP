@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 import '../../http/phone_code_send_helper.dart';
-import '../../util/Log.dart';
 import '../../widget/input_field.dart';
 import '../app_style.dart';
 
@@ -43,9 +42,11 @@ class UserInfoInputField extends StatelessWidget {
     } else if (isPassword) {
       tarFormatterList = passwordFormatterList;
     } else if (isEmail) {
-      //  tarFormatterList = emailFormatterList;
+      tarFormatterList = emailFormatterList;
     } else if (isPhone) {
       tarFormatterList = phoneFormatterList;
+    } else if (isCode) {
+      tarFormatterList = codeFormatterList;
     }
     return SizedBox(
       width: double.infinity,
@@ -63,7 +64,7 @@ class UserInfoInputField extends StatelessWidget {
               hint: hint,
               obscureText: isPassword ? eyeIsOPen : false,
               inputFormatters: tarFormatterList,
-              keyboardType: isPhone || isCode ? TextInputType.number : TextInputType.text,
+              keyboardType: isEmail ? TextInputType.emailAddress : (isPhone || isCode ? TextInputType.number : TextInputType.text),
               hintStyle: TextStyle(color: const Color(0xff969799), fontSize: 26.w),
               textStyle: TextStyle(color: const Color(0xffffffff), fontSize: 26.w),
               prefix: Padding(
@@ -102,7 +103,8 @@ class UserInfoInputField extends StatelessWidget {
                   editNode.isDisplayErrHint.value = !phoneNumExp.hasMatch(text);
                 } else if (isEmail) {
                   editNode.isDisplayErrHint.value = !emailExp.hasMatch(text);
-                  Log.d("editNode.isDisplayErrHint.value:${editNode.isDisplayErrHint.value}");
+                } else if (isCode) {
+                  editNode.isDisplayErrHint.value = !codeRegExp.hasMatch(text);
                 }
               },
               editNode: editNode,

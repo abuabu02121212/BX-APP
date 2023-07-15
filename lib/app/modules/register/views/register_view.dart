@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../util/Log.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_user_info_input_field.dart';
 import '../controllers/register_controller.dart';
@@ -29,9 +30,12 @@ class RegisterView extends GetView<RegisterController> {
 }
 
 class RegisterWidget extends StatelessWidget {
-  RegisterWidget({super.key});
+  RegisterWidget({super.key}){
+    Get.create<RegisterController>(() => RegisterController());
+    controller = Get.put(RegisterController());
+  }
 
-  final RegisterController controller = Get.put(RegisterController());
+ late final RegisterController controller;
 
   @override
   Widget build(BuildContext context) {

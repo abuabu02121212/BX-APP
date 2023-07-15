@@ -76,7 +76,6 @@ class RegisterController extends GetxController {
       Log.d("==========注册成功=====register success=================");
       await requestUserInfo();
       await requestCommBalance();
-      clearInput();
       Get.back();
     } else {
       Toast.show("$ret");
@@ -86,15 +85,4 @@ class RegisterController extends GetxController {
     Log.d("注册接口请求返回： ret:$ret");
   }
 
-  void clearInput() {
-    emailEditNode.text.value = "";
-    phoneEditNode.text.value = "";
-    keyEditNode.text.value = "";
-    key2EditNode.text.value = "";
-    codeEditNode.text.value = "";
-    code2EditNode.text.value = "";
-    phoneCodeSender.clear();
-    emailCodeSender.clear();
-    selectedIndex.value = 0;
-  }
 }
