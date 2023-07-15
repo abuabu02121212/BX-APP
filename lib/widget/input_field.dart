@@ -7,11 +7,12 @@ import 'package:get/get.dart';
 //RegExp usernameRegExp = RegExp(r"^[a-zA-Z][a-zA-Z0-9]{4,13}$");
 RegExp usernameRegExp = RegExp(r"^[a-zA-Z0-9][a-zA-Z0-9]{4,13}$");
 RegExp pswRegExp = RegExp(r"^[0-9A-Za-z]{4,12}$");
-final phoneNumExp = RegExp(r"^[1-9]([0-9]{8,8})$");
+final phoneNumExp = RegExp(r"^(\d{2})?(\d{9})$");
 RegExp inviteCodeRegExp = RegExp(r"^[A-Za-z0-9]{6,9}$");
+RegExp codeRegExp = RegExp(r"^[0-9]{4}$");
 
 RegExp emailExp = RegExp("^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}\$");
-// 手机号正则表达式
+
 final upperCaseCharExp = RegExp(r"^[A-Z]$");
 
 List<TextInputFormatter>? userNameFormatterList = [
@@ -141,7 +142,7 @@ class _MyInputFiledState extends State<MyInputFiled> {
   @override
   void initState() {
     super.initState();
-    print('初始化');
+    print('============初始化==============');
     widget.editNode.initState();
     widget.editNode.editController.addListener(_addListener);
   }
@@ -150,7 +151,7 @@ class _MyInputFiledState extends State<MyInputFiled> {
   void dispose() {
     widget.editNode.editController.removeListener(_addListener);
     widget.editNode.dispose();
-    print('销毁');
+    print('==============销毁====================');
     super.dispose();
   }
 

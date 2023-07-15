@@ -58,7 +58,11 @@ class LoginRegisterWidget extends StatelessWidget {
                           },
                         ),
                         Obx(() {
-                          return pageList[controller.selectedIndex.value];
+                          return IndexedStack(
+                            index: controller.selectedIndex.value,
+                            children: pageList,
+                          );
+                        //  return pageList[controller.selectedIndex.value];
                         }),
                       ],
                     ),

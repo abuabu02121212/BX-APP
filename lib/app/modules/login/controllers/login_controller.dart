@@ -55,6 +55,7 @@ class LoginController extends GetxController {
       AppLoading.close();
       Get.back();
     } else {
+      AppLoading.close();
       Log.e("登陆失败...");
     }
   }

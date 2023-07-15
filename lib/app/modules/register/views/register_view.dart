@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
-import '../../../../util/toast_util.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_user_info_input_field.dart';
 import '../controllers/register_controller.dart';
@@ -38,6 +37,7 @@ class RegisterWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 730.w,
+      width: double.infinity,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -164,7 +164,7 @@ class EmailInputListWidget extends StatelessWidget {
             prefixIcon: 'assets/images/reg-email.webp',
             editNode: controller.emailEditNode,
             hint: 'Email',
-            errText: 'Email',
+            errText: 'Erro de e-mail',
             isEmail: true,
           ),
         ),
@@ -184,8 +184,8 @@ class EmailInputListWidget extends StatelessWidget {
             prefixIcon: 'assets/images/reg-code.webp',
             editNode: controller.codeEditNode,
             hint: 'Código de verificação',
-            errText: 'Senha (4-12 letras e números)',
-            verifyCodeSender: controller.verifyCodeSender,
+            errText: 'Erro no código de verificação',
+            codeSender: controller.emailCodeSender,
             isCode: true,
           ),
         ),
@@ -212,8 +212,8 @@ class PhoneInputListWidget extends StatelessWidget {
           child: UserInfoInputField(
             prefixIcon: 'assets/images/i-phone.webp',
             editNode: controller.phoneEditNode,
-            hint: 'Tu nùmero de celular',
-            errText: 'Tu nùmero de celular',
+            hint: 'Phone',
+            errText: 'Número de telefone errado',
             isPhone: true,
           ),
         ),
@@ -221,7 +221,7 @@ class PhoneInputListWidget extends StatelessWidget {
           width: 580.w,
           child: UserInfoInputField(
             prefixIcon: 'assets/images/key-gray.webp',
-            editNode: controller.keyEditNode,
+            editNode: controller.key2EditNode,
             hint: 'Senha (4-12 letras e números)',
             errText: 'Senha (4-12 letras e números)',
             isPassword: true,
@@ -231,10 +231,10 @@ class PhoneInputListWidget extends StatelessWidget {
           width: 580.w,
           child: UserInfoInputField(
             prefixIcon: 'assets/images/reg-code.webp',
-            editNode: controller.codeEditNode,
+            editNode: controller.code2EditNode,
             hint: 'Código de verificação',
-            errText: 'Senha (4-12 letras e números)',
-            verifyCodeSender: controller.verifyCodeSender,
+            errText: 'Erro no código de verificação',
+            codeSender: controller.phoneCodeSender,
             isCode: true,
           ),
         ),
