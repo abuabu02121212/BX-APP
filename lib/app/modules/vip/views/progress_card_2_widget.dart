@@ -38,6 +38,7 @@ class VipProgress2CardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
+                      // 投注总额
                       "Número total de apostas: ",
                       style: TextStyle(
                         fontSize: 28.w,

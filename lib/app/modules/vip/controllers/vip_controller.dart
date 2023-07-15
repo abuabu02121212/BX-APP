@@ -2,6 +2,7 @@ import 'package:flutter_comm/http/request.dart';
 import 'package:get/get.dart';
 
 import '../../../../util/Log.dart';
+import '../../../entity/vip_level_info.dart';
 
 class VipController extends GetxController {
   //TODO: Implement VipController
@@ -12,12 +13,19 @@ class VipController extends GetxController {
     Log.d("=======VipController=======onInit==============");
     super.onInit();
   }
+ final dataList = RxList<VipInfoEntity>();
 
   @override
   Future<void> onReady() async {
     super.onReady();
-    var requestVips = await apiRequest.requestVips();
-    Log.d("vip requestVips:$requestVips");
+    dynamic requestVips = await apiRequest.requestVips();
+    List<VipInfoEntity> list = [];
+    for (var element in requestVips) {
+      var item = VipInfoEntity.fromJson(element);
+      list.add(item);
+    }
+    dataList.value = list;
+    Log.d("vip requestVips:$requestVips size:${dataList.length}");
   }
 
   @override
