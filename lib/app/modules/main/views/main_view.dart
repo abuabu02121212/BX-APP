@@ -19,7 +19,7 @@ import '../controllers/main_controller.dart';
 
 class MainView extends GetView<MainController> {
   MainView({Key? key}) : super(key: key);
-  final List<Widget> pageList = [const HomeView(), const PromotionView(), const DepositView(), const VipView(), const MineView()];
+  final List<Widget> pageList = [const HomeView(), PromotionView(), const DepositView(), const VipView(), const MineView()];
 
   @override
   Widget build(BuildContext context) {
