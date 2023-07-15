@@ -32,22 +32,28 @@ class AppProgress extends StatelessWidget {
       ),
       child: Align(
         alignment: Alignment.topLeft,
-        child: Container(
-          width: width * progress / 100,
-          height: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(colors: colorList),
-            borderRadius: BorderRadius.circular(radius),
-          ),
-          alignment: Alignment.centerLeft,
-          padding: EdgeInsets.only(left: 20.w),
-          child: Text(
-            "$progress%",
-            style: TextStyle(
-              fontSize: 24.w,
-              color: const Color(0xffffffff),
+        child: Stack(
+          children: [
+            Container(
+              width: width * progress / 100,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(colors: colorList),
+                borderRadius: BorderRadius.circular(radius),
+              ),
             ),
-          ),
+            Container(
+              padding: EdgeInsets.only(left: 20.w, top: 2.w),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "$progress%",
+                style: TextStyle(
+                  fontSize: 24.w,
+                  color: const Color(0xffffffff),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

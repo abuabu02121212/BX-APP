@@ -61,7 +61,7 @@ class VipProgress1CardWidget extends StatelessWidget {
                   width: 480.w,
                   height: 30.w,
                   radius: 15.w,
-                  progress: 40,
+                  progress: 0,
                   colorList: AppProgress.colorList2,
                 ),
               ],
