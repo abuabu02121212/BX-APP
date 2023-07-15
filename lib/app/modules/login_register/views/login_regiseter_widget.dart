@@ -9,10 +9,13 @@ import '../../login/views/login_view.dart';
 import '../controllers/login_register_controller.dart';
 
 class LoginRegisterWidget extends StatelessWidget {
-  LoginRegisterWidget({super.key});
+  LoginRegisterWidget({super.key}){
+    Get.create<LoginRegisterController>(() => LoginRegisterController());
+    controller = Get.put(LoginRegisterController());
+  }
 
   final List<Widget> pageList = [LoginWidget(), RegisterWidget()];
-  final LoginRegisterController controller = Get.put(LoginRegisterController());
+  late final LoginRegisterController controller;
 
   @override
   Widget build(BuildContext context) {

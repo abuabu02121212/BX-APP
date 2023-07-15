@@ -101,6 +101,7 @@ class ListTitleWidget extends StatelessWidget {
             alignment: Alignment.center,
             decoration: borderDec,
             child: Text(
+              // 获奖情况
               "Prêmios",
               style: TextStyle(
                 fontSize: 24.w,
@@ -114,6 +115,7 @@ class ListTitleWidget extends StatelessWidget {
             alignment: Alignment.center,
             decoration: borderDec,
             child: Text(
+             //  奖励
               "Recompensa",
               style: TextStyle(
                 fontSize: 24.w,

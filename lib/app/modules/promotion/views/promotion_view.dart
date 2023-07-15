@@ -6,11 +6,16 @@ import 'package:get/get.dart';
 
 import '../../../../util/toast_util.dart';
 import '../../../component/app_button.dart';
+import '../../../component/app_empty.dart';
 import '../../../component/app_header.dart';
+import '../../../entity/promotion_entity.dart';
 import '../controllers/promotion_controller.dart';
 
 class PromotionView extends GetView<PromotionController> {
-  const PromotionView({Key? key}) : super(key: key);
+  PromotionView({Key? key}) : super(key: key);
+
+  @override
+  final PromotionController controller = Get.put(PromotionController());
 
   @override
   Widget build(BuildContext context) {
@@ -32,21 +37,39 @@ class PromotionView extends GetView<PromotionController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              PromotionTabComponent(),
+              PromotionTabComponent(
+                onSelectChanged: (int index) {
+                  controller.selectedIndex.value = index;
+                },
+              ),
               Container(
                 height: 2.w,
                 width: double.infinity,
                 color: const Color(0xff1e315f),
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ItemWidget(index: index);
-                  },
-                ),
+                child: Obx(() {
+                  var pageIndex = controller.selectedIndex.value;
+                  var pageList = controller.listData[pageIndex];
+                  var length = pageList.length;
+                  return length > 0
+                      ? ListView.builder(
+                          itemCount: length,
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index) {
+                            return ItemWidget(
+                              entity: controller.listData[pageIndex][index],
+                            );
+                          },
+                        )
+                      : const AppEmpty(
+                        width: double.infinity,
+                        height: double.infinity,
+                        alignment: Alignment.center,
+                      );
+                }),
               ),
-              SizedBox(height: 125.w),
+              SizedBox(height: 125.w + 20.w),
             ],
           ),
         ),
@@ -58,10 +81,10 @@ class PromotionView extends GetView<PromotionController> {
 class ItemWidget extends StatelessWidget {
   const ItemWidget({
     super.key,
-    required this.index,
+    required this.entity,
   });
 
-  final int index;
+  final PromotionEntity entity;
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +106,7 @@ class ItemWidget extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.vertical(top: Radius.circular(20.w)),
               child: Image.asset(
-                "assets/images/promotion-${(index % 4 + 1)}.webp",
+                "assets/images/${entity.img}.webp",
                 width: double.infinity,
                 height: 248.w,
                 fit: BoxFit.fill,
@@ -103,13 +126,13 @@ class ItemWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Primeiro depósito + bônus de 20% gjghghghhjhjh",
+                          entity.title,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: 28.w, color: Colors.white, fontWeight: FontWeight.w700),
                         ),
                         Text(
-                          "20/06/2023 - Longo prazo",
+                          entity.text,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: 24.w, color: const Color.fromRGBO(255, 255, 255, 0.70), fontWeight: FontWeight.w400),

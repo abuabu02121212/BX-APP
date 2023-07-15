@@ -11,7 +11,7 @@ final phoneNumExp = RegExp(r"^(\d{2})?(\d{9})$");
 RegExp inviteCodeRegExp = RegExp(r"^[A-Za-z0-9]{6,9}$");
 RegExp codeRegExp = RegExp(r"^[0-9]{4}$");
 
-RegExp emailExp = RegExp("^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}\$");
+RegExp emailExp = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
 
 final upperCaseCharExp = RegExp(r"^[A-Z]$");
 
@@ -39,7 +39,6 @@ List<TextInputFormatter>? codeFormatterList = [
 
 List<TextInputFormatter>? emailFormatterList = [
   LengthLimitingTextInputFormatter(64),
-  FilteringTextInputFormatter.allow(emailExp),
 ];
 
 List<TextInputFormatter>? aliaFormatterList = [
@@ -49,12 +48,10 @@ List<TextInputFormatter>? aliaFormatterList = [
 
 List<TextInputFormatter>? usdtAddressFormatterList = [
   LengthLimitingTextInputFormatter(40),
-  // FilteringTextInputFormatter.allow(RegExp(r'[1-9A-Za-z ]'))
 ];
 
 List<TextInputFormatter>? verifyCodeFormatterList = [
   LengthLimitingTextInputFormatter(4),
-  // FilteringTextInputFormatter.allow(RegExp(r'[1-9A-Za-z ]'))
 ];
 
 final FilteringTextInputFormatter pureNumFormatter = FilteringTextInputFormatter.allow(RegExp("[0-9]"));
@@ -71,6 +68,13 @@ class EditNode {
   final obscureTextEnable = true.obs;
   final isDisplayErrHint = false.obs;
   final eyeIsOPen = false.obs;
+
+  void reset(){
+    text.value = "";
+    isDisplayErrHint.value = false;
+    eyeIsOPen.value = false;
+    hasFocus.value = false;
+  }
 
   _addeventHasFocus() {
     hasFocus.value = focusNode.hasFocus;

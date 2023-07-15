@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:logger/logger.dart';
+import 'dart:developer';
 
 class Log {
   static const String tag = "LLpp:";
@@ -39,11 +40,11 @@ class Log {
 
   static void _print(Level level, dynamic msg, {int traceDepth = 1}) {
     String traceInfo = getTraceInfo(level, traceDepth: traceDepth);
-    String log = "${DateTime.now()} $traceInfo $tag$msg";
+    String text = "${DateTime.now()} $traceInfo $tag$msg";
     if (debugEnable) {
-      debugPrint(log);
+      log(text);
     } else {
-      logger.log(level, log);
+      logger.log(level, text);
     }
   }
 

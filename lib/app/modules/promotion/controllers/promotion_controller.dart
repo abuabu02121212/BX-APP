@@ -1,23 +1,15 @@
 import 'package:get/get.dart';
 
-class PromotionController extends GetxController {
-  //TODO: Implement PromotionController
+import '../../../../util/Log.dart';
+import '../../../entity/promotion_entity.dart';
 
-  final count = 0.obs;
+class PromotionController extends GetxController {
+  final List<List<PromotionEntity>> listData = PromotionEntity.getLocalData();
+  final selectedIndex = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
+    Log.d("=======PromotionController=======onInit==============");
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

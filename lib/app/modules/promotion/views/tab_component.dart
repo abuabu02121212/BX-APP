@@ -6,9 +6,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../widget/horizontal_indicator_tab.dart';
 
 class PromotionTabComponent extends StatelessWidget {
-  PromotionTabComponent({super.key});
+  PromotionTabComponent({
+    super.key,
+    required this.onSelectChanged,
+  });
 
-  static const List<String> tabNames = ["Tudo", "Depósito", "Baixar APP", "Desconto", "Classificação","Outros"];
+  static const List<String> tabNames = ["Tudo", "Depósito", "Baixar APP", "Desconto", "Classificação", "Outros"];
+  final Callback<int> onSelectChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,7 @@ class PromotionTabComponent extends StatelessWidget {
         itemBuilder: _buildIndicatorTabItemBuilder,
         height: 100.w,
         itemWidthList: List.generate(tabNames.length, (index) => getTabItemWidth(index)),
-        onSelectChanged: (pos) {},
+        onSelectChanged: onSelectChanged,
         bgColor: Colors.transparent,
         indicator: Image.asset("assets/images/indicator-1.webp", width: 90.w),
         // indicatorAttr: IndicatorAttr(color: const Color(0xff0ED1F4), height: 6.w, width: 80.w),

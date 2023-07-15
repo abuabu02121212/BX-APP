@@ -74,7 +74,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PROMOTION,
-      page: () => const PromotionView(),
+      page: () => PromotionView(),
       binding: PromotionBinding(),
     ),
     GetPage(
@@ -84,7 +84,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.VIP,
-      page: () => const VipView(),
+      page: () =>  VipView(),
       binding: VipBinding(),
     ),
     GetPage(
