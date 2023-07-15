@@ -120,9 +120,11 @@ class WithdrawControllerPage extends GetxController {
       'pix_account': accountNode.text.value,
       'flag': int.parse(waysSelectValue.value),
     }).then((d) {
-
+      print('成功 ¥$d');
     }).catchError((e) {
+      print('错了 ¥$e');
     }).whenComplete(() {
+      print("结束");
       AppLoading.close();
     });
   }

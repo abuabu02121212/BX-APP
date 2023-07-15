@@ -43,7 +43,7 @@ class DioUtil {
     setLoginToken();
   }
 
-  void setLoginToken(){
+  void setLoginToken() {
     loginToken = loginToken.isEmpty ? spUtil.getString(keyLoginToken) ?? "" : loginToken;
   }
 
@@ -54,27 +54,42 @@ class DioUtil {
   }
 
   Future get(String path, Map<String, Object> param) async {
-    Response response;
-    setLoginToken();
-    response = await dio.get(path,
-        queryParameters: param,
-        options: Options(
-          responseType: ResponseType.bytes,
-          contentType: 'application/x-www-form-urlencoded',
-          headers: {'d': 35, 't': loginToken},
-        ));
+    try {
+      Response response;
+      setLoginToken();
+      response = await dio.get(path,
+          queryParameters: param,
+          options: Options(
+            responseType: ResponseType.bytes,
+            contentType: 'application/x-www-form-urlencoded',
+            headers: {'d': 35, 't': loginToken},
+          ));
 
-    // 将字节数组转换为 ArrayBuffer
-    Uint8List byteData = response.data;
-    final responseData = cbor.decode(byteData);
-    bool status = (responseData.toJson() as Map<String, dynamic>)['status'];
-    dynamic data = (responseData.toJson() as Map<String, dynamic>)['data'];
-    Log.d('\nstatus: ${(responseData.toJson() as Map<String, dynamic>)['status']}');
-    Log.d('\ndata:${(responseData.toJson() as Map<String, dynamic>)['data']}');
-    // \n源数据: ${response.data} \n结果:${cbor.decode(byteData)}
-    print("\npath:${response.requestOptions.uri} responseData :$responseData \n${'-' * 200}");
+      // 将字节数组转换为 ArrayBuffer
+      Uint8List byteData = response.data;
+      final responseData = cbor.decode(byteData);
+      bool status = (responseData.toJson() as Map<String, dynamic>)['status'];
+      dynamic data = (responseData.toJson() as Map<String, dynamic>)['data'];
+      Log.d('\nstatus: ${(responseData.toJson() as Map<String, dynamic>)['status']}');
+      Log.d('\ndata:${(responseData.toJson() as Map<String, dynamic>)['data']}');
+      // \n源数据: ${response.data} \n结果:${cbor.decode(byteData)}
+      print("\npath:${response.requestOptions.uri} responseData :$responseData \n${'-' * 200}");
 
-    return onRequestFinish(status, data);
+      if (status == false) {
+        throw Exception('Get接口能通，status是false');
+      } else {
+        return onRequestFinish(status, data);
+      }
+    } catch (e) {
+      if (e is DioException) {
+        Log.e("Dio Get error: ${e.message}");
+      } else {
+        Log.e("Other Get error:$e");
+      }
+      AppLoading.close();
+      Toast.show("$e");
+      throw Exception(e);
+    }
   }
 
   onRequestFinish(bool status, data) {
@@ -87,40 +102,62 @@ class DioUtil {
   }
 
   Future<Object?> post(String path, Map<String, dynamic> d) async {
-    final cborValue = CborValue(d);
-    final cborBuffer = cbor.encode(cborValue);
-    Response response;
-    // 将 data 转换成Base64字符串
-    String base64Str = base64Encode(cborBuffer);
-    Log.d('\n${'-' * 200}\n \n发送数据: cborBuffer:$cborBuffer base64Str:$base64Str');
-    setLoginToken();
-    response = await dio.post(path,
+    try {
+      final cborValue = CborValue(d);
+      final cborBuffer = cbor.encode(cborValue);
+      Response response;
+      // 将 data 转换成Base64字符串
+      String base64Str = base64Encode(cborBuffer);
+      Log.d('\n${'-' * 200}\n \n发送数据: cborBuffer:$cborBuffer base64Str:$base64Str');
+      setLoginToken();
+      response = await dio.post(
+        path,
         data: base64Str,
         options: Options(
           responseType: ResponseType.bytes,
           contentType: 'application/x-www-form-urlencoded',
           headers: {'d': 35, 't': loginToken},
-        ));
+        ),
+      );
 
-    // 将字节数组转换为 ArrayBuffer
-    Uint8List byteData = response.data;
-    final responseData = cbor.decode(byteData);
-    bool status = (responseData.toJson() as Map<String, dynamic>)['status'];
-    dynamic data = (responseData.toJson() as Map<String, dynamic>)['data'];
-     // Log.d('\nstatus: ${(responseData.toJson() as Map<String, dynamic>)['status']}');
-     // Log.d('\ndata:${(responseData.toJson() as Map<String, dynamic>)['data']}');
-    // 源数据: ${response.data}
-    Map<String, List<String>> headerMap = response.headers.map;
-    List<String>? ids = headerMap['id'];
-    String id = "";
-    if (ids != null) {
-      id = ids[0];
-      bool isOk = await spUtil.setString(keyLoginToken, id);
-      loginToken = id;
-      Log.e("$path 保存登陆toKen:$id 到本地是否成功：$isOk");
+      // 如果状态码不是200，抛出异常
+      if (response.statusCode != 200) {
+        // throw Exception('statusCode=${response.statusCode}');
+      }
+
+      // 将字节数组转换为 ArrayBuffer
+      Uint8List byteData = response.data;
+      final responseData = cbor.decode(byteData);
+      bool status = (responseData.toJson() as Map<String, dynamic>)['status'];
+      dynamic data = (responseData.toJson() as Map<String, dynamic>)['data'];
+      // Log.d('\nstatus: ${(responseData.toJson() as Map<String, dynamic>)['status']}');
+      // Log.d('\ndata:${(responseData.toJson() as Map<String, dynamic>)['data']}');
+      // 源数据: ${response.data}
+      Map<String, List<String>> headerMap = response.headers.map;
+      List<String>? ids = headerMap['id'];
+      String id = "";
+      if (ids != null) {
+        id = ids[0];
+        bool isOk = await spUtil.setString(keyLoginToken, id);
+        loginToken = id;
+        Log.e("$path 保存登陆toKen:$id 到本地是否成功：$isOk");
+      }
+      Log.d("header map:$headerMap");
+      Log.d("path:${response.requestOptions.uri}  请求参数:$d 返回:${responseData.toJson()}\n${'-' * 200}");
+      if (status == false) {
+        throw Exception('Post接口能通，status是false');
+      } else {
+        return onRequestFinish(status, data);
+      }
+    } catch (e) {
+      if (e is DioException) {
+        Log.e("Dio Post error: ${e.message}");
+      } else {
+        Log.e("Other Post error:$e");
+      }
+      AppLoading.close();
+      Toast.show("$e");
+      throw Exception(e);
     }
-    Log.d("header map:$headerMap");
-    Log.d("path:${response.requestOptions.uri}  请求参数:$d 返回:${responseData.toJson()}\n${'-' * 200}");
-    return onRequestFinish(status, data);
   }
 }
