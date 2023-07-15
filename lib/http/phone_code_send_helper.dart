@@ -9,7 +9,7 @@ import 'comm_request.dart';
 
 class CodeSender {
   bool isHasSuccessSendVerifyCode = false;
-  dynamic myTimer;
+  Timer? myTimer;
   static const verifiedCodeCountDown = 300;
   final countTime = 0.obs;
   final inputCode = ''.obs;
@@ -53,5 +53,11 @@ class CodeSender {
     }
     AppLoading.close();
     return true;
+  }
+
+  void clear() {
+    if (myTimer != null) {
+      myTimer?.cancel();
+    }
   }
 }

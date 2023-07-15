@@ -37,7 +37,6 @@ class RegisterController extends GetxController {
 
   Future<void> register() async {
     Map<String, Object> param = {};
-    String username = '';
     bool inputIsOk = false;
     if (selectedIndex.value == 0) {
       inputIsOk = checkEmailRegInput();
@@ -47,7 +46,13 @@ class RegisterController extends GetxController {
     Log.d("inputIsOk:$inputIsOk");
     if (!inputIsOk) return;
     if (!phoneCodeSender.isHasSuccessSendVerifyCode) {
-      Toast.show("Please send code at first");
+      /// 请发送验证吗
+      Toast.show("Por Favor, Envie O Código De Verificação");
+      return;
+    }
+    if(!isAgreed.value){
+      /// 请阅读并同意隐私政策
+      Toast.show("Por Favor, Leia E Concorde Com A Política De Privacidade");
       return;
     }
     AppLoading.show();
@@ -88,5 +93,8 @@ class RegisterController extends GetxController {
     key2EditNode.text.value = "";
     codeEditNode.text.value = "";
     code2EditNode.text.value = "";
+    phoneCodeSender.clear();
+    emailCodeSender.clear();
+    selectedIndex.value = 0;
   }
 }
