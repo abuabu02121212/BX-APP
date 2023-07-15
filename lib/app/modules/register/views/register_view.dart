@@ -4,8 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
-import '../../../../util/Log.dart';
-import '../../../../util/toast_util.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_user_info_input_field.dart';
 import '../controllers/register_controller.dart';
@@ -187,7 +185,7 @@ class EmailInputListWidget extends StatelessWidget {
             editNode: controller.codeEditNode,
             hint: 'Código de verificação',
             errText: 'Senha (4-12 letras e números)',
-            codeSender: controller.verifyCodeSender,
+            codeSender: controller.emailCodeSender,
             isCode: true,
           ),
         ),
@@ -236,7 +234,7 @@ class PhoneInputListWidget extends StatelessWidget {
             editNode: controller.code2EditNode,
             hint: 'Código de verificação',
             errText: 'Senha (4-12 letras e números)',
-            codeSender: controller.verifyCodeSender,
+            codeSender: controller.phoneCodeSender,
             isCode: true,
           ),
         ),
