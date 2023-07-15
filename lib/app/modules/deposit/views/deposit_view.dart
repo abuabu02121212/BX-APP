@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_cupertino_button.dart';
 import 'package:flutter_comm/app/component/app_tab.dart';
+import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_comm/widget/input_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -103,7 +104,7 @@ class DepositView extends GetView<DepositController> {
                             ),
                           ),
                         );
-                })
+                }),
               ],
             ),
             ListView(
@@ -246,7 +247,37 @@ class DepositView extends GetView<DepositController> {
                             ),
                           ),
                           SizedBox(width: 9.w),
-                          Image.asset("assets/images/i-why.webp", width: 24.w),
+                          PopupMenuButton(
+                            color: const Color.fromRGBO(247, 186, 33, 1),
+                            elevation: 0.0,
+                            padding: const EdgeInsets.all(0),
+                            itemBuilder: (BuildContext context) {
+                              return <PopupMenuEntry<String>>[
+                                PopupMenuItem(
+                                  enabled: false,
+                                  padding: EdgeInsets.zero,
+                                  value: 'A',
+                                  child: Container(
+                                    constraints: BoxConstraints(minWidth: 350.w),
+                                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                    child: Text(
+                                      'Uma conta que consiste no valor da recarga, recompensas pela participação em atividades, vitórias e derrotas no jogo, etc.',
+                                      style: TextStyle(
+                                        fontSize: 24.w,
+                                        color: Colors.white,
+                                      ),
+                                      textAlign: TextAlign.left,
+                                    ),
+                                  ),
+                                ),
+                              ];
+                            },
+                            initialValue: 'B',
+                            child: Image.asset("assets/images/i-why.webp", width: 24.w),
+                            onSelected: (String value) {
+                              Toast.show(value);
+                            },
+                          ),
                         ],
                       ),
                       SizedBox(height: 16.w),
@@ -280,7 +311,37 @@ class DepositView extends GetView<DepositController> {
                           ),
                         ),
                         SizedBox(width: 9.w),
-                        Image.asset("assets/images/i-why.webp", width: 24.w),
+                        PopupMenuButton(
+                          color: const Color.fromRGBO(247, 186, 33, 1),
+                          elevation: 0.0,
+                          padding: const EdgeInsets.all(0),
+                          itemBuilder: (BuildContext context) {
+                            return <PopupMenuEntry<String>>[
+                              PopupMenuItem(
+                                enabled: false,
+                                padding: EdgeInsets.zero,
+                                value: 'A',
+                                child: Container(
+                                  constraints: BoxConstraints(minWidth: 350.w),
+                                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                  child: Text(
+                                    'Uma conta composta por recompensas por convidar amigos e retorno de comissões com base no valor da transação dos usuários convidados.',
+                                    style: TextStyle(
+                                      fontSize: 24.w,
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ),
+                              ),
+                            ];
+                          },
+                          initialValue: 'B',
+                          child: Image.asset("assets/images/i-why.webp", width: 24.w),
+                          onSelected: (String value) {
+                            Toast.show(value);
+                          },
+                        ),
                       ],
                     ),
                     SizedBox(height: 16.w),
