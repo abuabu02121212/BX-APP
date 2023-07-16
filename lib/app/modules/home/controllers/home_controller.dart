@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import '../../../../http/request.dart';
 import '../../../../util/Log.dart';
 import '../../../entity/banner.dart';
-import '../../../entity/game_type_nav.dart';
 import '../../../entity/hot_game.dart';
 
 class HomeController extends GetxController {
@@ -32,11 +31,8 @@ class HomeController extends GetxController {
 
   final count = 0.obs;
   final hotGameList = RxList<HotGameEntity>();
+  final bannerList = RxList<BannerEntity>();
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   Future<void> onReady() async {
@@ -48,8 +44,8 @@ class HomeController extends GetxController {
     Log.d("navArr 1的的数据：${navJson['1']}");
 
     var bannerJson = await apiRequest.requestBanner();
-    var bannerArr = BannerEntity.getList(bannerJson);
-    Log.d("bannerArr 的长度：${bannerArr.length}");
+    bannerList.value = BannerEntity.getList(bannerJson);
+    Log.d("bannerArr 的长度：${bannerList.length}");
   }
 
   Future<void> requestHotGameList() async {
@@ -62,10 +58,4 @@ class HomeController extends GetxController {
     Log.d("热门游戏数目：${hotGameList.length}");
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

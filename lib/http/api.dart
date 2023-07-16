@@ -32,5 +32,9 @@ const String treasureConfig = "/member/treasure/config";
 const String treasureApply = "/member/treasure/apply";
 const String promoDepositConfig = "/member/promo/deposit/config";
 const String updateAvatar = "/member/update/avatar";
+const String gameRec = "/member/game/rec";
+const String gameSearch = "/member/game/search";
+const String gameRecord = "/member/game/record";
+const String tagList = "/member/tag/list";
 
 

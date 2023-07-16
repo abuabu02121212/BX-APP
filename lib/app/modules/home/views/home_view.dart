@@ -106,7 +106,7 @@ class ItemGenerateWidget extends StatelessWidget {
                     ),
                   ],
                 )
-              : const VerticalGameTypeList();
+              : VerticalGameTypeList();
         }),
         SizedBox(height: 125.w),
       ],

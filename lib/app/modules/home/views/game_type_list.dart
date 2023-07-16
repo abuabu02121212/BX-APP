@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../util/Log.dart';
 import '../../../app_style.dart';
+import '../../../entity/hot_game.dart';
 import '../controllers/home_controller.dart';
 
 class HorizontalGameListWidget extends StatelessWidget {
@@ -31,15 +34,22 @@ class HorizontalGameListWidget extends StatelessWidget {
                 topRight: Radius.circular(30.w),
                 bottomRight: Radius.circular(30.w),
               )),
-          child: GridView.builder(
-            itemCount: 20,
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.2),
-            itemBuilder: (BuildContext context, int index) {
-              return const GameItemWidget();
-            },
-          ),
+          child: Obx(() {
+            return GridView.builder(
+              itemCount: controller.hotGameList.length,
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.2),
+              itemBuilder: (BuildContext context, int index) {
+                HotGameEntity hotGameEntity = controller.hotGameList[index];
+                return GameItemWidget(
+                  isVerticalItem: false,
+                  hotGameEntity: hotGameEntity,
+                  index: index,
+                );
+              },
+            );
+          }),
         ),
       ],
     );
@@ -47,22 +57,29 @@ class HorizontalGameListWidget extends StatelessWidget {
 }
 
 class VerticalGameTypeList extends StatelessWidget {
-  const VerticalGameTypeList({super.key});
+  VerticalGameTypeList({super.key});
+
+  final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      itemCount: 30,
-      shrinkWrap: true,
-      padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 20.w),
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1.1),
-      itemBuilder: (BuildContext context, int index) {
-        return const GameItemWidget(
-          isVerticalItem: true,
-        );
-      },
-    );
+    return Obx(() {
+      return GridView.builder(
+        itemCount: controller.hotGameList.length,
+        shrinkWrap: true,
+        padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 20.w),
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 0.92),
+        itemBuilder: (BuildContext context, int index) {
+          HotGameEntity hotGameEntity = controller.hotGameList[index];
+          return GameItemWidget(
+            isVerticalItem: true,
+            hotGameEntity: hotGameEntity,
+            index: index,
+          );
+        },
+      );
+    });
   }
 }
 
@@ -70,27 +87,32 @@ class GameItemWidget extends StatelessWidget {
   const GameItemWidget({
     super.key,
     this.isVerticalItem = false,
+    required this.hotGameEntity,
+    this.index,
   });
 
   final bool isVerticalItem;
+  final HotGameEntity hotGameEntity;
+  final int? index;
 
   @override
   Widget build(BuildContext context) {
+    var imgUrl = "https://brazil-banner-test.s3.ap-east-1.amazonaws.com${hotGameEntity.img}";
+    if (index != null && index! < 10) {}
+    Log.d("=====index:$index=========imgUrl:$imgUrl");
     return Column(
       mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Stack(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(16.w),
-              child: Image.asset(
-                "assets/images/dialog-close.webp",
+              child: CachedNetworkImage(
                 width: isVerticalItem ? 225.w : 180.w,
                 height: 180.w,
-                color: Colors.grey,
                 fit: BoxFit.fill,
-                colorBlendMode: BlendMode.src,
+                imageUrl: imgUrl,
               ),
             ),
             Positioned(
@@ -103,9 +125,12 @@ class GameItemWidget extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 6.w),
+        SizedBox(height: 10.w),
         Text(
-          "text",
+          hotGameEntity.brAlias,
+          textAlign: TextAlign.start,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
             fontSize: 24.w,
             color: const Color(0xffcccccc),

@@ -121,4 +121,20 @@ class ApiRequest {
   Future requestUpdateAvatar({Map<String, Object>? params}) async {
     return await httpUtil.get(updateAvatar, params ?? {});
   }
+
+  Future requestGameRec({Map<String, Object>? params}) async {
+    return await httpUtil.get(gameRec, params ?? {});
+  }
+
+  Future requestGameSearch({Map<String, Object>? params}) async {
+    return await httpUtil.get(gameSearch, params ?? {});
+  }
+
+  Future requestGameRecord({Map<String, Object>? params}) async {
+    return await httpUtil.get(gameRecord, params ?? {});
+  }
+
+  Future requestTagList({Map<String, Object>? params}) async {
+    return await httpUtil.get(tagList, params ?? {});
+  }
 }
