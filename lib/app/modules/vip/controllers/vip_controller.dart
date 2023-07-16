@@ -25,7 +25,7 @@ class VipController extends GetxController {
       list.add(item);
     }
     dataList.value = list;
-    Log.d("vip requestVips:$requestVips size:${dataList.length}");
+    Log.d("vip requestVips size:${dataList.length}");
   }
 
   @override

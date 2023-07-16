@@ -21,8 +21,10 @@ class UserInfoEntity {
   final String? tester;
   final String? avatar;
   final String? inviteCode;
+
   //下一级充值
   final String? nextDeposit;
+
   // 当前充值
   final String? nowDeposit;
   final String? nextValidAmount;
@@ -64,17 +66,25 @@ class UserInfoEntity {
   });
 
   /// 获取当前充值额度等级进度
-  double getCurrentDepositLevelProgress(){
+  double getCurrentDepositLevelProgress() {
     double v1 = double.tryParse("$nowDeposit") ?? 0;
     double v2 = double.tryParse("$nextDeposit") ?? 9999999999;
-    return v1 /v2;
+    if (v2 == 0) {
+      v2 = 999999999;
+      v1 = 0;
+    }
+    return v1 / v2;
   }
 
   /// 获取当前投注额度等级进度：nowValidAmount / nextValidAmount
-  double getCurrentBetLevelProgress(){
+  double getCurrentBetLevelProgress() {
     double v1 = double.tryParse("$nowValidAmount") ?? 0;
     double v2 = double.tryParse("$nextValidAmount") ?? 9999999999;
-    return v1 /v2;
+    if (v2 == 0) {
+      v2 = 999999999;
+      v1 = 0;
+    }
+    return v1 / v2;
   }
 
   factory UserInfoEntity.fromJson(Map<String, dynamic> json) {

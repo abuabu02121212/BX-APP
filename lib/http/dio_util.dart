@@ -70,10 +70,10 @@ class DioUtil {
       final responseData = cbor.decode(byteData);
       bool status = (responseData.toJson() as Map<String, dynamic>)['status'];
       dynamic data = (responseData.toJson() as Map<String, dynamic>)['data'];
-      Log.d('\nstatus: ${(responseData.toJson() as Map<String, dynamic>)['status']}');
-      Log.d('\ndata:${(responseData.toJson() as Map<String, dynamic>)['data']}');
+     // Log.d('\nstatus: ${(responseData.toJson() as Map<String, dynamic>)['status']}');
+     // Log.d('\ndata:${(responseData.toJson() as Map<String, dynamic>)['data']}');
       // \n源数据: ${response.data} \n结果:${cbor.decode(byteData)}
-      print("\npath:${response.requestOptions.uri} responseData :$responseData \n${'-' * 200}");
+      Log.d("\npath:${response.requestOptions.uri} responseData :$responseData \n${'-' * 200}");
 
       if (status == false) {
         throw Exception('Get接口能通，status是false');

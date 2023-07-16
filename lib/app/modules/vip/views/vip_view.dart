@@ -39,6 +39,7 @@ class VipView extends GetView<VipController> {
             "assets/images/vip-bg.webp",
             width: double.infinity,
           ),
+        //  NestedScrollView(headerSliverBuilder: headerSliverBuilder, body: body)
           ListView(
             children: [
               const VipLevelCard(),

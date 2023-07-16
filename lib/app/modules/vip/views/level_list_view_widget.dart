@@ -18,19 +18,19 @@ class LevelListViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      margin: EdgeInsets.only(top: 30.w, bottom: 30.w),
+      margin: EdgeInsets.only(top: 30.w, bottom: 100.w),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20.w),
         child: Container(
           width: 710.w,
-          height: 660.w,
+          padding: EdgeInsets.only(top: 20.w, bottom: 20.w),
           decoration: BoxDecoration(
             gradient: headerLinearGradient3,
           ),
           child: Center(
             child: Container(
               width: 660.w,
-              height: 600.w,
+              constraints: BoxConstraints(maxHeight: 600.w),
               padding: EdgeInsets.all(1.w),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.w),
@@ -39,26 +39,25 @@ class LevelListViewWidget extends StatelessWidget {
                     color: const Color.fromRGBO(255, 255, 255, 0.25),
                   )),
               child: Column(
-                mainAxisSize: MainAxisSize.max,
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const ListTitleWidget(),
-                  Expanded(
-                    child: Obx(() {
-                        return ListView.builder(
-                          itemCount: controller.dataList.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              width: double.infinity,
-                              height: 50.w,
-                              color: index % 2 == 0 ? const Color.fromRGBO(4, 75, 154, 0.20) : Colors.transparent,
-                              child: ListItemWidget(index: index),
-                            );
-                          },
-                        );
-                      }
-                    ),
+                  Obx(() {
+                      return ListView.builder(
+                        itemCount: controller.dataList.length,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            width: double.infinity,
+                            height: 50.w,
+                            color: index % 2 == 0 ? const Color.fromRGBO(4, 75, 154, 0.20) : Colors.transparent,
+                            child: ListItemWidget(index: index),
+                          );
+                        },
+                      );
+                    }
                   )
                 ],
               ),
