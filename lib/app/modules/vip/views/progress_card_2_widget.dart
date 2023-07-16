@@ -54,7 +54,7 @@ class VipProgress2CardWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "${entity?.nowDeposit} / ${entity?.nextDeposit}",
+                      "${entity?.nowValidAmount} / ${entity?.nextValidAmount}",
                       style: TextStyle(
                         fontSize: 27.w,
                         color: const Color(0xff0ED1F4),

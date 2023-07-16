@@ -8,12 +8,15 @@ class VipController extends GetxController {
   //TODO: Implement VipController
 
   final count = 0.obs;
+
   @override
   void onInit() {
     Log.d("=======VipController=======onInit==============");
     super.onInit();
   }
- final dataList = RxList<VipInfoEntity>();
+
+  final dataList = RxList<VipInfoEntity>();
+  final selectedCardIndex = 0.obs;
 
   @override
   Future<void> onReady() async {

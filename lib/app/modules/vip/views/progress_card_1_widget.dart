@@ -45,7 +45,7 @@ class VipProgress1CardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      // 总充值量
+                      // 充值总额
                       "Quantidade total de recarga: ",
                       style: TextStyle(
                         fontSize: 28.w,

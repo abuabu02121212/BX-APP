@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../../app_style.dart';
+import '../../../entity/vip_level_info.dart';
+import '../controllers/vip_controller.dart';
 
 class VipWithdrawCardWidget extends StatelessWidget {
-  const VipWithdrawCardWidget({
+  VipWithdrawCardWidget({
     super.key,
   });
+
+  final VipController controller = Get.put(VipController());
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +24,32 @@ class VipWithdrawCardWidget extends StatelessWidget {
           gradient: headerLinearGradient3,
           borderRadius: BorderRadius.circular(20.w),
         ),
-        child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: List.generate(3, (index) => ItemWidget(index: index))),
+        child: Obx(() {
+          List dataList = controller.dataList;
+          VipInfoEntity? item = dataList.isNotEmpty ? dataList[controller.selectedCardIndex.value] : null;
+          return Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: List.generate(3, (index) {
+                String amount = '0';
+                switch (index) {
+                  case 0:
+                    amount = "${item?.freeWithdrawNum}";
+                    break;
+                  case 1:
+                    amount = "R\$${item?.withdrawLimit}";
+                    break;
+                  case 2:
+                    amount = "R\$${item?.amount}";
+                    break;
+                }
+                return ItemWidget(
+                  index: index,
+                  text: amount,
+                );
+              }));
+        }),
       ),
     );
   }
@@ -33,11 +59,13 @@ class ItemWidget extends StatelessWidget {
   ItemWidget({
     super.key,
     required this.index,
+    required this.text,
   });
 
   final List<String> names = ["Número de saques \npor dia", "Limite diário \nde retirada", "Bônus de \natualização"];
   final List<String> imgList = ["i-withdarw", "i-bet-record", "i-vip2"];
   final int index;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +77,7 @@ class ItemWidget extends StatelessWidget {
         Image.asset("assets/images/${imgList[index]}.webp", width: 51.w),
         SizedBox(height: 20.w),
         Text(
-          "0",
+          text,
           style: TextStyle(fontSize: 36.w, color: Colors.white, fontWeight: FontWeight.w700),
         ),
         SizedBox(height: 6.w),

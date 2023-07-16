@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
+import '../../../../globe_controller.dart';
 import '../../../component/app_progress.dart';
+import '../../../entity/user_info.dart';
+import '../../../entity/vip_level_info.dart';
+import '../controllers/vip_controller.dart';
 
 class VipLevelCard extends StatelessWidget {
-  const VipLevelCard({super.key});
+  VipLevelCard({super.key});
+
+  final VipController controller = Get.put(VipController());
+  final GlobeController globeController = Get.find<GlobeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -12,59 +20,86 @@ class VipLevelCard extends StatelessWidget {
       width: double.infinity,
       height: 330.w,
       margin: EdgeInsets.only(top: 30.w),
-      child: PageView.builder(
-        itemCount: 5,
-        controller: PageController(initialPage: 0, viewportFraction: 0.93),
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (BuildContext context, int index) {
-          return SizedBox(
-            height: 120.w,
-            //  width: double.infinity,
-            child: Stack(
-              children: [
-                Image.asset("assets/images/vip/card.webp", width: double.infinity),
-                Padding(
-                  padding: EdgeInsets.only(left: 50.w, right: 50.w, top: 34.w),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset("assets/images/vip/medal-$index.webp", width: 142.w),
-                          AppProgress(
-                            width: 348.w,
-                            height: 30.w,
-                            radius: 10.w,
-                            progress: 50,
-                          ),
-                          Text(
-                            "0 / 1",
-                            style: TextStyle(fontSize: 26.w, color: const Color(0xffffffff), fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(top: 12.w, left: 20.w, right: 20.w),
-                        child: Row(
+      child: Obx(() {
+        var list = controller.dataList;
+        UserInfoEntity? entity = globeController.userInfoEntity.value;
+        return PageView.builder(
+          itemCount: list.length,
+          controller: PageController(initialPage: 0, viewportFraction: 0.93),
+          scrollDirection: Axis.horizontal,
+          onPageChanged: (pageIndex) {
+            controller.selectedCardIndex.value = pageIndex;
+          },
+          itemBuilder: (BuildContext context, int index) {
+            VipInfoEntity item = list[index];
+            bool isLast = index == list.length - 1;
+            return SizedBox(
+              height: 120.w,
+              //  width: double.infinity,
+              child: Stack(
+                children: [
+                  Image.asset("assets/images/vip/card.webp", width: double.infinity),
+                  Padding(
+                    padding: EdgeInsets.only(left: 50.w, right: 50.w, top: 34.w),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: List.generate(3, (index) => ItemWidget(index: index)),
+                          children: [
+                            Image.asset("assets/images/vip/medal-$index.webp", width: 142.w),
+                            isLast
+                                ? const SizedBox()
+                                : AppProgress(
+                                    width: 348.w,
+                                    height: 30.w,
+                                    radius: 10.w,
+                                    progress: 50,
+                                  ),
+                            isLast
+                                ? const SizedBox()
+                                : Text(
+                                    "${entity?.depositAmount} / ${item.depositAmount}",
+                                    style: TextStyle(fontSize: 26.w, color: const Color(0xffffffff), fontWeight: FontWeight.w400),
+                                  ),
+                          ],
                         ),
-                      )
-                    ],
+                        Container(
+                          padding: EdgeInsets.only(top: 12.w, left: 20.w, right: 20.w),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: List.generate(3, (pos) {
+                              String amount = '0';
+                              switch (pos) {
+                                case 0:
+                                  amount = "${item.depositAmount}";
+                                  break;
+                                case 1:
+                                  amount = "${item.flow}";
+                                  break;
+                                case 2:
+                                  amount = "${entity?.score ?? 0}";
+                                  break;
+                              }
+                              return ItemWidget(index: pos, text: amount);
+                            }),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+                ],
+              ),
+            );
+          },
+        );
+      }),
     );
   }
 }
@@ -73,10 +108,13 @@ class ItemWidget extends StatelessWidget {
   ItemWidget({
     super.key,
     required this.index,
+    required this.text,
   });
 
   final int index;
+  final String text;
 
+  /// 累计存款 流量要求 经验值
   final List<String> names = ["Depósito \ncumulativo", "Requisitos \nde fluxo", "Valor da \nexperiência"];
 
   @override
@@ -87,7 +125,7 @@ class ItemWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          "R\$0.00",
+          "R\$$text",
           style: TextStyle(
             fontSize: 42.w,
             color: Colors.white,
