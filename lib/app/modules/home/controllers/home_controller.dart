@@ -1,6 +1,10 @@
 import 'package:get/get.dart';
 
+import '../../../../http/request.dart';
 import '../../../../util/Log.dart';
+import '../../../entity/banner.dart';
+import '../../../entity/game_type_nav.dart';
+import '../../../entity/hot_game.dart';
 
 class HomeController extends GetxController {
   List<String> gameTypes = ["Quente", "Dentro \nDe Casa", "Slot", "Pesca", "Pôquer", "Esporte", "Ao Vivo", "Esports"];
@@ -27,6 +31,7 @@ class HomeController extends GetxController {
   }
 
   final count = 0.obs;
+  final hotGameList = RxList<HotGameEntity>();
 
   @override
   void onInit() {
@@ -34,8 +39,27 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onReady() {
+  Future<void> onReady() async {
     super.onReady();
+    await requestHotGameList();
+
+    var navJson = await apiRequest.requestMemberNav();
+   // var navArr = GameTypeNav.getList(navJson);
+    Log.d("navArr 1的的数据：${navJson['1']}");
+
+    var bannerJson = await apiRequest.requestBanner();
+    var bannerArr = BannerEntity.getList(bannerJson);
+    Log.d("bannerArr 的长度：${bannerArr.length}");
+  }
+
+  Future<void> requestHotGameList() async {
+    var retArr1 = await apiRequest.requestHotGameList({
+      'ty': 0,
+      'l': 9999,
+      'platform_id': 0,
+    });
+    hotGameList.value = HotGameEntity.getList(retArr1);
+    Log.d("热门游戏数目：${hotGameList.length}");
   }
 
   @override
