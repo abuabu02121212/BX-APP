@@ -1,6 +1,7 @@
 class VipInfoEntity {
   String? vip;
   String? name;
+  /// 存款要求
   String? depositAmount;
   String? flow;
   String? amount;
@@ -53,5 +54,12 @@ class VipInfoEntity {
     data['updated_at'] = updatedAt;
     data['created_at'] = createdAt;
     return data;
+  }
+
+  /// 获取当前等级进度
+  int getCurLevelProgress(String curAmount){
+    num cur = num.tryParse(curAmount) ?? 0;
+    num needAmount = num.tryParse("$depositAmount") ?? 999999999;
+    return (cur / needAmount * 100).toInt() ;
   }
 }

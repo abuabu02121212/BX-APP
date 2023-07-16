@@ -58,7 +58,7 @@ class VipLevelCard extends StatelessWidget {
                                     width: 348.w,
                                     height: 30.w,
                                     radius: 10.w,
-                                    progress: 50,
+                                    progress: item.getCurLevelProgress(entity?.depositAmount ?? "0"),
                                   ),
                             isLast
                                 ? const SizedBox()
@@ -102,6 +102,8 @@ class VipLevelCard extends StatelessWidget {
       }),
     );
   }
+
+
 }
 
 class ItemWidget extends StatelessWidget {
