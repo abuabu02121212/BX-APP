@@ -86,7 +86,12 @@ class ItemGenerateWidget extends StatelessWidget {
                       alignment: Alignment.topLeft,
                       child: HomeGameChildTypeTabComponent(),
                     ),
-                    ...List.generate(7, (index) => HorizontalGameListWidget(titleImgPath: "assets/images/index-title${index + 1}.webp")),
+                    ...List.generate(controller.recList.length, (index) {
+                      return HorizontalGameListWidget(
+                        titleImgPath: "assets/images/index-title${index + 1}.webp",
+                        list: controller.recList[index],
+                      );
+                    }),
                     WinListWidget(),
                     const BrandListWidget(),
                     Container(

@@ -9,13 +9,14 @@ import '../../../entity/hot_game.dart';
 import '../controllers/home_controller.dart';
 
 class HorizontalGameListWidget extends StatelessWidget {
-  HorizontalGameListWidget({
+  const HorizontalGameListWidget({
     super.key,
     required this.titleImgPath,
+    required this.list,
   });
 
-  final HomeController controller = Get.put(HomeController());
   final String titleImgPath;
+  final List<HotGameEntity> list;
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +37,12 @@ class HorizontalGameListWidget extends StatelessWidget {
               )),
           child: Obx(() {
             return GridView.builder(
-              itemCount: controller.hotGameList.length,
+              itemCount: list.length,
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.2),
               itemBuilder: (BuildContext context, int index) {
-                HotGameEntity hotGameEntity = controller.hotGameList[index];
+                HotGameEntity hotGameEntity = list[index];
                 return GameItemWidget(
                   isVerticalItem: false,
                   hotGameEntity: hotGameEntity,

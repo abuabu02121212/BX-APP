@@ -122,8 +122,8 @@ class ApiRequest {
     return await httpUtil.get(updateAvatar, params ?? {});
   }
 
-  Future requestGameRec({Map<String, Object>? params}) async {
-    return await httpUtil.get(gameRec, params ?? {});
+  Future requestGameRecList({Map<String, Object>? params}) async {
+    return await httpUtil.get(gameRecList,  params ?? {});
   }
 
   Future requestGameSearch({Map<String, Object>? params}) async {
