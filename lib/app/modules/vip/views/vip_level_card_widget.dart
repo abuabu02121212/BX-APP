@@ -40,7 +40,7 @@ class VipLevelCard extends StatelessWidget {
                 children: [
                   Image.asset("assets/images/vip/card.webp", width: double.infinity),
                   Padding(
-                    padding: EdgeInsets.only(left: 50.w, right: 50.w, top: 34.w),
+                    padding: EdgeInsets.only(left: 40.w, right: 30.w, top: 34.w),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
