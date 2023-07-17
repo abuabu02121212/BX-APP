@@ -42,20 +42,29 @@ class _AppListState extends State<AppList> {
   @override
   void initState() {
     super.initState();
-    _getData();
+    _onRefresh();
   }
 
   _getData() async {
     try {
       final data = await widget.getList(params: {"page": _page, "page_size": _page_size, ...widget.params ?? {}});
-      print('datadatadata: ${data['d'].runtimeType}');
-
-      print('第 $_page 页');
-      // mock data
-
+      print('_第 $_page 页');
+      if (_page == 1) {
+        _t = data['t'] ?? 0;
+      }
+      if (_page == 1 && _t == 0) {
+        _refreshController.loadNoData();
+        return;
+      }
+      _data.addAll(data['d'] ?? []);
+      if (_data.length >= _t) {
+        _refreshController.loadNoData();
+      } else {
+        _refreshController.loadComplete();
+      }
       setState(() {
-        _data.addAll(data['d'] ?? []);
       });
+
     } catch (e) {
       print('AppList Error: $e');
     }
@@ -64,12 +73,11 @@ class _AppListState extends State<AppList> {
   void _onRefresh() async {
     // monitor network fetch
     _page = 1;
-    await Future.delayed(const Duration(milliseconds: 1000));
     _data.clear();
     _refreshController.resetNoData();
     _refreshController.refreshCompleted();
-    await Future.delayed(const Duration(milliseconds: 1000));
     _getData();
+
     // if failed,use refreshFailed()
     // _refreshController.refreshCompleted();
   }
@@ -77,13 +85,7 @@ class _AppListState extends State<AppList> {
   void _onLoading() async {
     // monitor network fetch
     _page++;
-    await Future.delayed(const Duration(milliseconds: 1000));
     _getData();
-    if (_page >= 3) {
-      _refreshController.loadNoData();
-    } else {
-      _refreshController.loadComplete();
-    }
     // if failed,use loadFailed(),if no data return,use LoadNodata()
     // _refreshController.loadComplete();
   }
