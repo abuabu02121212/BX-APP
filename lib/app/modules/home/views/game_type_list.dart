@@ -100,7 +100,7 @@ class GameItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var imgUrl = "https://brazil-banner-test.s3.ap-east-1.amazonaws.com${hotGameEntity.img}";
     if (index != null && index! < 10) {}
-    Log.d("=====index:$index=========imgUrl:$imgUrl");
+  //  Log.d("=====index:$index=========imgUrl:$imgUrl");
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,

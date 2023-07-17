@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import '../../../../http/request.dart';
 import '../../../../util/Log.dart';
+import '../../../../util/double_click_exit_app.dart';
 import '../../../entity/banner.dart';
 import '../../../entity/hot_game.dart';
 
@@ -15,7 +16,7 @@ class HomeController extends GetxController {
     gameTypePressedRecordList.add(index);
     Log.d("========addPressedRecord：$gameTypePressedRecordList");
   }
-
+  DoubleClickExitApp doubleClickExitApp = DoubleClickExitApp();
   bool consumePressedRecord() {
     Log.d("========consumePressedRecord：$gameTypePressedRecordList");
     if (gameTypePressedRecordList.isNotEmpty) {
@@ -26,7 +27,8 @@ class HomeController extends GetxController {
       selectedGameTypeIndex.value = removeLast;
       return true;
     }
-    return false;
+    doubleClickExitApp.onClick();
+    return true;
   }
 
   final count = 0.obs;
