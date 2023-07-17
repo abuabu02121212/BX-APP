@@ -140,26 +140,26 @@ class ApostasView extends GetView<ApostasController> {
               ),
             ),
             Flexible(child: Container(
-              child: AppList(
-                  apiUrl: '',
-                  builder: (dynamic item) {
-                    return Container(
-                        height: 250.w,
-                        decoration: const BoxDecoration(
-                          color: Colors.green,
-                          border: Border(
-                            bottom: BorderSide(
-                              color: Color.fromRGBO(0, 0, 0, 0.10),
-                              width: 1,
-                            ),
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(item['name']),
-                        )
-                    );
-                  }
-              ),
+              // child: AppList(
+              //     apiUrl: '',
+              //     builder: (dynamic item) {
+              //       return Container(
+              //           height: 250.w,
+              //           decoration: const BoxDecoration(
+              //             color: Colors.green,
+              //             border: Border(
+              //               bottom: BorderSide(
+              //                 color: Color.fromRGBO(0, 0, 0, 0.10),
+              //                 width: 1,
+              //               ),
+              //             ),
+              //           ),
+              //           child: Center(
+              //             child: Text(item['name']),
+              //           )
+              //       );
+              //     }
+              // ),
             ))
           ],
         ),

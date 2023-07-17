@@ -102,54 +102,54 @@ class RecompensasView extends GetView<RecompensasController> {
             Flexible(child: Container(
               width: 710.w,
               margin: EdgeInsets.only(left: 20.w, right: 20.w,bottom: 30.w),
-              child: AppList(
-                  apiUrl: '',
-                  builder: (dynamic item) {
-                    return Container(
-                        height: 208.w,
-                        margin: EdgeInsets.only(top: 30.w),
-                        decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Color.fromRGBO(4, 75, 154, 0.7),
-                                  Color(0xFF011A51),
-                                ]
-                            ),
-                            borderRadius: BorderRadius.circular(20.w),
-                            border: Border.all(
-                                color: const Color.fromRGBO(14, 209, 244, 0.25),
-                                width: 1.w
-                            )
-                        ),
-                        child: Container(
-                          padding: EdgeInsets.only(left: 22.w, right: 22.w),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 20.w),
-                              Text('Check-In', style: TextStyle(
-                                  fontSize: 28.w,
-                                  color: Colors.white
-                              )),
-                              SizedBox(height: 32.w),
-                              Text('Depósito Bônus 3%', style: TextStyle(
-                                  fontSize: 32.w,
-                                  color: Color(0xff0ED1F4),
-                                  fontWeight: FontWeight.bold
-                              )),
-                              SizedBox(height: 32.w),
-                              Text('2023-06-26 01:03', style: TextStyle(
-                                  fontSize: 28.w,
-                                  color: Color.fromRGBO(255, 255, 255, 0.70),
-                              )),
-                            ],
-                          ),
-                        )
-                    );
-                  }
-              ),
+              // child: AppList(
+              //     apiUrl: '',
+              //     builder: (dynamic item) {
+              //       return Container(
+              //           height: 208.w,
+              //           margin: EdgeInsets.only(top: 30.w),
+              //           decoration: BoxDecoration(
+              //               gradient: const LinearGradient(
+              //                   begin: Alignment.topCenter,
+              //                   end: Alignment.bottomCenter,
+              //                   colors: [
+              //                     Color.fromRGBO(4, 75, 154, 0.7),
+              //                     Color(0xFF011A51),
+              //                   ]
+              //               ),
+              //               borderRadius: BorderRadius.circular(20.w),
+              //               border: Border.all(
+              //                   color: const Color.fromRGBO(14, 209, 244, 0.25),
+              //                   width: 1.w
+              //               )
+              //           ),
+              //           child: Container(
+              //             padding: EdgeInsets.only(left: 22.w, right: 22.w),
+              //             child: Column(
+              //               crossAxisAlignment: CrossAxisAlignment.start,
+              //               children: [
+              //                 SizedBox(height: 20.w),
+              //                 Text('Check-In', style: TextStyle(
+              //                     fontSize: 28.w,
+              //                     color: Colors.white
+              //                 )),
+              //                 SizedBox(height: 32.w),
+              //                 Text('Depósito Bônus 3%', style: TextStyle(
+              //                     fontSize: 32.w,
+              //                     color: Color(0xff0ED1F4),
+              //                     fontWeight: FontWeight.bold
+              //                 )),
+              //                 SizedBox(height: 32.w),
+              //                 Text('2023-06-26 01:03', style: TextStyle(
+              //                     fontSize: 28.w,
+              //                     color: Color.fromRGBO(255, 255, 255, 0.70),
+              //                 )),
+              //               ],
+              //             ),
+              //           )
+              //       );
+              //     }
+              // ),
             ))
           ],
         ),

@@ -134,16 +134,16 @@ class ComponentTestView extends GetView<ComponentTestController> {
                 Container(
                   height: 500.w,
                   color: Colors.red,
-                  child: AppList(
-                    apiUrl: '',
-                    builder: (dynamic item) {
-                      return Container(
-                        height: 130.w,
-                        color: Colors.green,
-                        child: Center(child: Text(item['name'])),
-                      );
-                    },
-                  )
+                  // child: AppList(
+                  //   apiUrl: '',
+                  //   builder: (dynamic item) {
+                  //     return Container(
+                  //       height: 130.w,
+                  //       color: Colors.green,
+                  //       child: Center(child: Text(item['name'])),
+                  //     );
+                  //   },
+                  // )
                 )
               ],
             )

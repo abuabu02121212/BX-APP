@@ -98,8 +98,8 @@ class ApiRequest {
     return await httpUtil.post(payDeposit, data);
   }
 
-  Future requestMemberRecord() async {
-    return await httpUtil.get(memberRecord, {});
+  Future requestMemberRecord({Map<String, Object>? params}) async {
+    return await httpUtil.get(memberRecord, params ?? {});
   }
 
   Future requestPayWithdraw(Map<String, Object> data) async {
