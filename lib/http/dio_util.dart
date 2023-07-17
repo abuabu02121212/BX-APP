@@ -56,6 +56,7 @@ class DioUtil {
   Future get(String path, Map<String, Object> param) async {
     try {
       Response response;
+      print('get发送数据: $param');
       setLoginToken();
       response = await dio.get(path,
           queryParameters: param,

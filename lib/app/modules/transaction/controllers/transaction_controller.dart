@@ -12,34 +12,16 @@ class TransactionController extends GetxController with GetSingleTickerProviderS
   ];
   final list = MeberRecordData().obs;
   final flag = '271'.obs;
-  int page = 1;
-  int page_size = 10;
 
   setFlag(String value) {
     flag.value = value;
   }
 
-  fetchData() async {
-    try {
-      AppLoading.show();
-      final d = await apiRequest.requestMemberRecord(params: {
-        "flag": flag.value,
-        "page": page,
-        "page_size": page_size,
-      });
-      list.value = MeberRecordData.fromJson(d);
-    } catch (e) {
-      print('member record error: $e');
-    } finally {
-      AppLoading.close();
-    }
-  }
 
   @override
   void onInit() {
     super.onInit();
     tabController = TabController(length: 2, vsync: this);
-    // fetchData();
   }
 
   @override

@@ -70,6 +70,15 @@ class _AppListState extends State<AppList> {
     }
   }
 
+  // 监听params变化,重新请求数据
+  @override
+  void didUpdateWidget(covariant AppList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.params != widget.params) {
+      _onRefresh();
+    }
+  }
+
   void _onRefresh() async {
     // monitor network fetch
     _page = 1;

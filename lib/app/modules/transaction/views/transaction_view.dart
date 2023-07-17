@@ -71,14 +71,16 @@ class TransactionView extends GetView<TransactionController> {
                   right: 20.w,
                   bottom: 30.w,
                 ),
-                child: AppList(
-                  params: const {'flag': 271},
-                  getList: apiRequest.requestMemberRecord,
-                  builder: (el) {
-                    final item = MemberRecordD.fromJson(el);
-                    return buildItem(item);
-                  },
-                ),
+                child: Obx(() {
+                  return AppList(
+                    params: {'flag': int.parse(controller.flag.value)},
+                    getList: apiRequest.requestMemberRecord,
+                    builder: (el) {
+                      final item = MemberRecordD.fromJson(el);
+                      return buildItem(item);
+                    },
+                  );
+                }),
               ),
             )
           ],
@@ -182,7 +184,7 @@ class TransactionView extends GetView<TransactionController> {
                         ),
                       ),
                       Text(
-                        'R\$ ${item.discount}',
+                        'R\$ ${(item.discount ?? '').isEmpty ? '0' : item.discount}',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 28.w,
@@ -204,7 +206,7 @@ class TransactionView extends GetView<TransactionController> {
                         ),
                       ),
                       Text(
-                        '${item.fname}',
+                        (item.fname ?? '').isEmpty ? '-' : item.fname!,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 28.w,
