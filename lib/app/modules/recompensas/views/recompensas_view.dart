@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/app/entity/recompensas_data.dart';
+import 'package:flutter_comm/http/request.dart';
 
 import 'package:get/get.dart';
 
@@ -8,13 +10,12 @@ import '../controllers/recompensas_controller.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 import '../../../component/app_header.dart';
 import '../../../component/app_list.dart';
-import '../../../component/app_tab.dart';
 
 class RecompensasView extends GetView<RecompensasController> {
   const RecompensasView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +29,10 @@ class RecompensasView extends GetView<RecompensasController> {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 8.w),
+              padding: EdgeInsets.symmetric(
+                horizontal: 22.w,
+                vertical: 8.w,
+              ),
               decoration: const BoxDecoration(
                 color: Color.fromRGBO(1, 26, 81, 0.30),
                 boxShadow: [
@@ -54,103 +58,103 @@ class RecompensasView extends GetView<RecompensasController> {
                     height: 60.w,
                     value: '1',
                     onChange: (v) {
-                      Toast.show(v.toString());
+                      controller.setFlag(v);
                     },
-                    selectDataList: const [
-                      {
-                        'label': 'Hoje',
-                        'value': '1'
-                      },
-                      {
-                        'label': 'Últimos 7 dias',
-                        'value': '2'
-                      },
-                      {
-                        'label': 'Últimos 60 dias',
-                        'value': '3'
-                      }
-                    ],
+                    selectDataList: controller.flagTabs,
                   ),
                   AppSelect(
                     width: 336.w,
                     height: 60.w,
                     onChange: (v) {
-                      Toast.show(v.toString());
+                      controller.setTy(v);
                     },
-                    selectDataList: const [
-                      {
-                        'label': 'Todos',
-                        'value': '1'
-                      },
-                      {
-                        'label': 'Depositar',
-                        'value': '2'
-                      },
-                      {
-                        'label': 'Entrar',
-                        'value': '3'
-                      },
-                      {
-                        'label': 'Sokoban',
-                        'value': '4'
-                      }
-                    ],
+                    selectDataList: controller.tyTabs,
                   )
                 ],
               ),
             ),
-            Flexible(child: Container(
-              width: 710.w,
-              margin: EdgeInsets.only(left: 20.w, right: 20.w,bottom: 30.w),
-              // child: AppList(
-              //     apiUrl: '',
-              //     builder: (dynamic item) {
-              //       return Container(
-              //           height: 208.w,
-              //           margin: EdgeInsets.only(top: 30.w),
-              //           decoration: BoxDecoration(
-              //               gradient: const LinearGradient(
-              //                   begin: Alignment.topCenter,
-              //                   end: Alignment.bottomCenter,
-              //                   colors: [
-              //                     Color.fromRGBO(4, 75, 154, 0.7),
-              //                     Color(0xFF011A51),
-              //                   ]
-              //               ),
-              //               borderRadius: BorderRadius.circular(20.w),
-              //               border: Border.all(
-              //                   color: const Color.fromRGBO(14, 209, 244, 0.25),
-              //                   width: 1.w
-              //               )
-              //           ),
-              //           child: Container(
-              //             padding: EdgeInsets.only(left: 22.w, right: 22.w),
-              //             child: Column(
-              //               crossAxisAlignment: CrossAxisAlignment.start,
-              //               children: [
-              //                 SizedBox(height: 20.w),
-              //                 Text('Check-In', style: TextStyle(
-              //                     fontSize: 28.w,
-              //                     color: Colors.white
-              //                 )),
-              //                 SizedBox(height: 32.w),
-              //                 Text('Depósito Bônus 3%', style: TextStyle(
-              //                     fontSize: 32.w,
-              //                     color: Color(0xff0ED1F4),
-              //                     fontWeight: FontWeight.bold
-              //                 )),
-              //                 SizedBox(height: 32.w),
-              //                 Text('2023-06-26 01:03', style: TextStyle(
-              //                     fontSize: 28.w,
-              //                     color: Color.fromRGBO(255, 255, 255, 0.70),
-              //                 )),
-              //               ],
-              //             ),
-              //           )
-              //       );
-              //     }
-              // ),
-            ))
+            Flexible(
+              child: Container(
+                width: 710.w,
+                margin: EdgeInsets.only(
+                  left: 20.w,
+                  right: 20.w,
+                  bottom: 30.w,
+                ),
+                child: AppList(
+                  getList: apiRequest.requestBonusRecord,
+                  builder: (dynamic el, int index) {
+                    final item = RecompensasD.fromJson(el);
+                    return _buildItem(item);
+                  },
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container _buildItem(RecompensasD item) {
+    return Container(
+      height: 208.w,
+      margin: EdgeInsets.only(
+        top: 30.w,
+      ),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color.fromRGBO(4, 75, 154, 0.7),
+            Color(0xFF011A51),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(
+          20.w,
+        ),
+        border: Border.all(
+          color: const Color.fromRGBO(14, 209, 244, 0.25),
+          width: 1.w,
+        ),
+      ),
+      child: Container(
+        padding: EdgeInsets.only(
+          left: 22.w,
+          right: 22.w,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 20.w,
+            ),
+            Text(
+              item.ty ?? '-',
+              style: TextStyle(fontSize: 28.w, color: Colors.white),
+            ),
+            SizedBox(
+              height: 32.w,
+            ),
+            Text(
+              item.remark ?? '-',
+              style: TextStyle(
+                fontSize: 32.w,
+                color: const Color(0xff0ED1F4),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 32.w,
+            ),
+            Text(
+              '${item.createdAt ?? '-'}',
+              style: TextStyle(
+                fontSize: 28.w,
+                color: const Color.fromRGBO(255, 255, 255, 0.70),
+              ),
+            ),
           ],
         ),
       ),
