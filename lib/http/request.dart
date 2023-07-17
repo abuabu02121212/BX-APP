@@ -149,4 +149,9 @@ class ApiRequest {
   Future requestFavDelete({Map<String, Object>? params}) async {
     return await httpUtil.get(favDelete, params ?? {});
   }
+
+  Future requestGameFavList({Map<String, Object>? params}) async {
+    return await httpUtil.get(gameFavList, params ?? {});
+  }
+
 }

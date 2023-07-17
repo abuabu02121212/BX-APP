@@ -1,11 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../http/api.dart';
-import '../../../../util/Log.dart';
 import '../../../app_style.dart';
 import '../../../entity/hot_game.dart';
 import '../controllers/home_controller.dart';
@@ -169,7 +167,6 @@ class GameItemWidget extends StatelessWidget {
                   //  alignment: Alignment,
                   child: Obx(() {
                     bool isFav = gameEntity.isRxFav.value;
-                    Log.d("是否收藏UI响应： isFav:$isFav");
                     String name = isFav ? "game_item_fav" : "game_item_fav_not";
                     return Image.asset(
                       "assets/images/$name.webp",
