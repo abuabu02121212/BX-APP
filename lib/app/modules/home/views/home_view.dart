@@ -66,7 +66,7 @@ class ItemGenerateWidget extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           height: 280.w,
-          child: const SwiperComponent(
+          child: SwiperComponent(
             radius: 0,
           ),
         ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../http/api.dart';
 import '../../../../util/Log.dart';
 import '../../../app_style.dart';
 import '../../../entity/hot_game.dart';
@@ -98,7 +99,7 @@ class GameItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var imgUrl = "https://brazil-banner-test.s3.ap-east-1.amazonaws.com${hotGameEntity.img}";
+    var imgUrl = "$baseImgUrl${hotGameEntity.img}";
     if (index != null && index! < 10) {}
   //  Log.d("=====index:$index=========imgUrl:$imgUrl");
     return Column(

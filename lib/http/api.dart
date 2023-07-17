@@ -2,6 +2,7 @@ import 'dio_util.dart';
 
 
 String baseUrl = "https://h5.cyestari.com";
+String baseImgUrl = "https://brazil-banner-test.s3.ap-east-1.amazonaws.com";
 const String register = "/member/reg";
 const String login = "/member/login";
 const String sms = "/sms/send";

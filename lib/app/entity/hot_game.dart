@@ -53,8 +53,11 @@ class HotGameEntity {
     );
   }
 
-  static List<HotGameEntity> getList(List jsonArr) {
+  static List<HotGameEntity> getList(List? jsonArr) {
     List<HotGameEntity> ls = [];
+    if(jsonArr == null){
+      return ls;
+    }
     for (int i = 0; i < jsonArr.length; i++) {
       var item = jsonArr[i];
       HotGameEntity hotGameEntity = HotGameEntity.fromJson(item);
