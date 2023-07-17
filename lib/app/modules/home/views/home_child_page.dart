@@ -15,7 +15,7 @@ class HomeChildTabPage extends StatelessWidget {
           width: double.infinity,
           height: 280.w,
           padding: EdgeInsets.only(top: 20.w),
-          child: const SwiperComponent(),
+          child:  SwiperComponent(),
         )
       ],
     );

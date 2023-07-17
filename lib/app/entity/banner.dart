@@ -51,6 +51,12 @@ class BannerEntity {
     return ls;
   }
 
+  String getImgPath(){
+    // h5=/1688659641887.webp&web=/1688659646535.webp
+    var imgArr = images.split("&");
+    return imgArr[0].replaceAll("h5=", "");
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;

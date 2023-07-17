@@ -1,7 +1,7 @@
 import 'dio_util.dart';
 
-
 String baseUrl = "https://h5.cyestari.com";
+String baseImgUrl = "https://brazil-banner-test.s3.ap-east-1.amazonaws.com";
 const String register = "/member/reg";
 const String login = "/member/login";
 const String sms = "/sms/send";
@@ -37,5 +37,5 @@ const String gameSearch = "/member/game/search";
 const String gameRecord = "/member/game/record";
 const String tagList = "/member/tag/list";
 const String bonusRecord = "/member/bonus/record";
-
-
+const String favInsert = "/member/fav/insert";
+const String favDelete = "/member/fav/delete";

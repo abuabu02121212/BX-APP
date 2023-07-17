@@ -123,7 +123,7 @@ class ApiRequest {
   }
 
   Future requestGameRecList({Map<String, Object>? params}) async {
-    return await httpUtil.get(gameRecList,  params ?? {});
+    return await httpUtil.get(gameRecList, params ?? {});
   }
 
   Future requestGameSearch({Map<String, Object>? params}) async {
@@ -140,5 +140,13 @@ class ApiRequest {
 
   Future requestBonusRecord({Map<String, Object>? params}) async {
     return await httpUtil.get(bonusRecord, params ?? {});
+  }
+
+  Future requestFavInsert({Map<String, Object>? params}) async {
+    return await httpUtil.get(favInsert, params ?? {});
+  }
+
+  Future requestFavDelete({Map<String, Object>? params}) async {
+    return await httpUtil.get(favDelete, params ?? {});
   }
 }

@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../../http/request.dart';
+import '../../../../http/ret_code.dart';
 import '../../../../util/Log.dart';
 import '../../../../util/double_click_exit_app.dart';
+import '../../../../util/loading_util.dart';
+import '../../../../util/toast_util.dart';
 import '../../../entity/banner.dart';
 import '../../../entity/hot_game.dart';
 
@@ -11,12 +15,15 @@ class HomeController extends GetxController {
 
   final selectedGameTypeIndex = (-1).obs;
   List<int> gameTypePressedRecordList = [-1];
+  final ScrollController scrollController = ScrollController();
 
   void addPressedRecord(int index) {
     gameTypePressedRecordList.add(index);
     Log.d("========addPressedRecord：$gameTypePressedRecordList");
   }
+
   DoubleClickExitApp doubleClickExitApp = DoubleClickExitApp();
+
   bool consumePressedRecord() {
     Log.d("========consumePressedRecord：$gameTypePressedRecordList");
     if (gameTypePressedRecordList.isNotEmpty) {
@@ -32,15 +39,15 @@ class HomeController extends GetxController {
   }
 
   final count = 0.obs;
-  final hotGameList = RxList<HotGameEntity>();
-  final recommend0GameList = RxList<HotGameEntity>();
-  final recommend1GameList = RxList<HotGameEntity>();
-  final recommend2GameList = RxList<HotGameEntity>();
-  final recommend3GameList = RxList<HotGameEntity>();
-  final recommend4GameList = RxList<HotGameEntity>();
-  final recommend5GameList = RxList<HotGameEntity>();
+  final hotGameList = RxList<GameEntity>();
+  final recommend0GameList = RxList<GameEntity>();
+  final recommend1GameList = RxList<GameEntity>();
+  final recommend2GameList = RxList<GameEntity>();
+  final recommend3GameList = RxList<GameEntity>();
+  final recommend4GameList = RxList<GameEntity>();
+  final recommend5GameList = RxList<GameEntity>();
 
-  late final recList = <RxList<HotGameEntity>>[
+  late final recList = <RxList<GameEntity>>[
     recommend0GameList,
     recommend1GameList,
     recommend2GameList,
@@ -64,8 +71,8 @@ class HomeController extends GetxController {
     bannerList.value = BannerEntity.getList(bannerJson);
     Log.d("bannerArr 的长度：${bannerList.length}");
 
-    for(int i = 0; i < recList.length; i ++){
-      RxList<HotGameEntity> item = recList[i];
+    for (int i = 0; i < recList.length; i++) {
+      RxList<GameEntity> item = recList[i];
       requestRecGameList(i, item);
     }
   }
@@ -76,18 +83,44 @@ class HomeController extends GetxController {
       'l': 9999,
       'platform_id': 0,
     });
-    hotGameList.value = HotGameEntity.getList(retArr1);
+    hotGameList.value = GameEntity.getList(retArr1);
     Log.d("热门游戏数目：${hotGameList.length}");
   }
 
-  Future<void> requestRecGameList(int ty, RxList<HotGameEntity> rx) async {
+  Future<void> requestRecGameList(int ty, RxList<GameEntity> rx) async {
     //  ?ty=3&l=18&platform_id=0
     var retArr1 = await apiRequest.requestGameRecList(params: {
       'ty': ty,
       'l': 18,
       'platform_id': 0,
     });
-    rx.value = HotGameEntity.getList(retArr1);
+    rx.value = GameEntity.getList(retArr1);
     Log.d("=======ty:$ty 推荐游戏数目：${rx.length}");
+  }
+
+  Future<void> requestAddFav(GameEntity gameEntity) async {
+    AppLoading.show();
+    var ret = await apiRequest.requestFavInsert(params: {"id": gameEntity.id});
+    if (ret == retCodeSuccess) {
+      gameEntity.switchFavState(true);
+      // Toast.show("Success");
+    } else {
+      Toast.show("Fail:$ret");
+    }
+    AppLoading.close();
+    Log.d("添加收藏结果：$ret");
+  }
+
+  Future<void> requestDelFav(GameEntity gameEntity) async {
+    AppLoading.show();
+    var ret = await apiRequest.requestFavDelete(params: {"id": gameEntity.id});
+    if (ret == retCodeSuccess) {
+      gameEntity.switchFavState(false);
+      // Toast.show("Success");
+    } else {
+      Toast.show("Fail:$ret");
+    }
+    AppLoading.close();
+    Log.d("删除收藏结果：$ret");
   }
 }

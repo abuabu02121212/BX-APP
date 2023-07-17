@@ -54,7 +54,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.HOME,
-      page: () => const HomeView(),
+      page: () =>  HomeView(),
       binding: HomeBinding(),
     ),
     GetPage(
@@ -64,7 +64,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MAIN,
-      page: () => MainView(),
+      page: () => const MainView(),
       binding: MainBinding(),
     ),
     GetPage(
