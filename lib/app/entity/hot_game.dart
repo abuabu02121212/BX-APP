@@ -1,4 +1,8 @@
-class HotGameEntity {
+import 'package:get/get.dart';
+
+import '../../util/Log.dart';
+
+class GameEntity {
   String id;
   String platformId;
   String name;
@@ -15,7 +19,9 @@ class HotGameEntity {
   String sorting;
   String createdAt;
 
-  HotGameEntity({
+  final isRxFav = false.obs;
+
+  GameEntity({
     required this.id,
     required this.platformId,
     required this.name,
@@ -33,8 +39,8 @@ class HotGameEntity {
     required this.createdAt,
   });
 
-  factory HotGameEntity.fromJson(Map<String, dynamic> json) {
-    return HotGameEntity(
+  factory GameEntity.fromJson(Map<String, dynamic> json) {
+    GameEntity entity = GameEntity(
       id: json['id'].toString(),
       platformId: json['platform_id'].toString(),
       name: json['name'].toString(),
@@ -51,16 +57,28 @@ class HotGameEntity {
       sorting: json['sorting'].toString(),
       createdAt: json['created_at'].toString(),
     );
+    entity.isRxFav.value = entity.isFav == '1';
+    return entity;
   }
 
-  static List<HotGameEntity> getList(List? jsonArr) {
-    List<HotGameEntity> ls = [];
-    if(jsonArr == null){
+  void switchFavState(bool isFavorite) {
+    if (isFavorite) {
+      isFav = '1';
+    } else {
+      isFav = '0';
+    }
+    isRxFav.value = isFav == '1';
+    Log.d("isRxFav:${isRxFav.value}  isFavorite:$isFavorite");
+  }
+
+  static List<GameEntity> getList(List? jsonArr) {
+    List<GameEntity> ls = [];
+    if (jsonArr == null) {
       return ls;
     }
     for (int i = 0; i < jsonArr.length; i++) {
       var item = jsonArr[i];
-      HotGameEntity hotGameEntity = HotGameEntity.fromJson(item);
+      GameEntity hotGameEntity = GameEntity.fromJson(item);
       ls.add(hotGameEntity);
     }
     return ls;

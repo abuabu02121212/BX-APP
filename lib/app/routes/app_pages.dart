@@ -64,7 +64,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MAIN,
-      page: () => MainView(),
+      page: () => const MainView(),
       binding: MainBinding(),
     ),
     GetPage(

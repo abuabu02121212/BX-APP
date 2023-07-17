@@ -37,5 +37,7 @@ const String gameRecList = "/member/game/rec/list";
 const String gameSearch = "/member/game/search";
 const String gameRecord = "/member/game/record";
 const String tagList = "/member/tag/list";
+const String favInsert = "/member/fav/insert";
+const String favDelete = "/member/fav/delete";
 
 

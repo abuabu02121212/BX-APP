@@ -462,11 +462,12 @@ class HomeGameTypesWidget extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return Obx(() {
                     bool isSelected = controller.selectedGameTypeIndex.value == index;
-                    Log.d("========isSelected:$isSelected========index:$index==========");
                     return CupertinoButton(
                       onPressed: () {
-                        controller.selectedGameTypeIndex.value = index;
-                        controller.addPressedRecord(index);
+                        if (controller.selectedGameTypeIndex.value != index) {
+                          controller.selectedGameTypeIndex.value = index;
+                          controller.addPressedRecord(index);
+                        }
                       },
                       minSize: 0,
                       padding: EdgeInsets.zero,

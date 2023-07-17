@@ -137,4 +137,12 @@ class ApiRequest {
   Future requestTagList({Map<String, Object>? params}) async {
     return await httpUtil.get(tagList, params ?? {});
   }
+
+  Future requestFavInsert({Map<String, Object>? params}) async {
+    return await httpUtil.get(favInsert, params ?? {});
+  }
+  Future requestFavDelete({Map<String, Object>? params}) async {
+    return await httpUtil.get(favDelete, params ?? {});
+  }
+
 }
