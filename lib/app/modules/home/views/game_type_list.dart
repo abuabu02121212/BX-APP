@@ -1,60 +1,86 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../http/api.dart';
-import '../../../../util/Log.dart';
 import '../../../app_style.dart';
 import '../../../entity/hot_game.dart';
 import '../controllers/home_controller.dart';
 
 class HorizontalGameListWidget extends StatelessWidget {
-  const HorizontalGameListWidget({
+   HorizontalGameListWidget({
     super.key,
     required this.titleImgPath,
     required this.list,
+    required this.tabIndex,
   });
-
+  final HomeController controller = Get.put(HomeController());
+  final int tabIndex;
   final String titleImgPath;
   final List<HotGameEntity> list;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: 40.w),
-        Image.asset(titleImgPath, height: 83.w),
-        Container(
-          margin: EdgeInsets.only(top: 0.w, left: 20.w, right: 20.w),
-          width: double.infinity,
-          height: 520.w,
-          decoration: BoxDecoration(
-              gradient: headerLinearGradient,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30.w),
-                topRight: Radius.circular(30.w),
-                bottomRight: Radius.circular(30.w),
-              )),
-          child: Obx(() {
-            return GridView.builder(
-              itemCount: list.length,
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.2),
-              itemBuilder: (BuildContext context, int index) {
-                HotGameEntity hotGameEntity = list[index];
-                return GameItemWidget(
-                  isVerticalItem: false,
-                  hotGameEntity: hotGameEntity,
-                  index: index,
-                );
-              },
-            );
-          }),
-        ),
-      ],
-    );
+    return Obx(() {
+      return list.isNotEmpty
+          ? Column(
+              children: [
+                SizedBox(height: 40.w),
+                Image.asset(titleImgPath, height: 83.w),
+                Padding(
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(30.w),
+                      topRight: Radius.circular(30.w),
+                      bottomRight: Radius.circular(30.w),
+                    ),
+                    child: Container(
+                      width: double.infinity,
+                      height: 540.w,
+                      decoration: BoxDecoration(gradient: headerLinearGradient),
+                      child: GridView.builder(
+                        padding: EdgeInsets.only(top: 20.w),
+                        itemCount: list.length + 1,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.2),
+                        itemBuilder: (BuildContext context, int index) {
+                          bool isLast = list.length == index;
+                          return isLast
+                              ? CupertinoButton(
+                                  onPressed: () {
+                                    controller.selectedGameTypeIndex.value = tabIndex;
+                                    controller.addPressedRecord(tabIndex);
+                                   // controller.scrollController.jumpTo(390.w);
+                                    controller.scrollController.jumpTo(0);
+                                  },
+                                  minSize: 0,
+                                  padding: EdgeInsets.zero,
+                                  child: Container(
+                                    alignment: Alignment.topLeft,
+                                    padding: EdgeInsets.only(left: 10.w),
+                                    child: Image.asset(
+                                      "assets/images/game_item_more.webp",
+                                      width: 175.w,
+                                    ),
+                                  ),
+                                )
+                              : GameItemWidget(
+                                  isVerticalItem: false,
+                                  hotGameEntity: list[index],
+                                  index: index,
+                                );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          : const SizedBox();
+    });
   }
 }
 
@@ -101,7 +127,7 @@ class GameItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var imgUrl = "$baseImgUrl${hotGameEntity.img}";
     if (index != null && index! < 10) {}
-  //  Log.d("=====index:$index=========imgUrl:$imgUrl");
+    //  Log.d("=====index:$index=========imgUrl:$imgUrl");
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -128,15 +154,19 @@ class GameItemWidget extends StatelessWidget {
           ],
         ),
         SizedBox(height: 10.w),
-        Text(
-          hotGameEntity.brAlias,
-          textAlign: TextAlign.start,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            fontSize: 24.w,
-            color: const Color(0xffcccccc),
-            fontWeight: FontWeight.w400,
+        Container(
+          padding: EdgeInsets.only(left: 20.w, right: 5.w),
+          alignment: Alignment.topLeft,
+          child: Text(
+            hotGameEntity.brAlias,
+            textAlign: TextAlign.start,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 24.w,
+              color: const Color(0xffcccccc),
+              fontWeight: FontWeight.w400,
+            ),
           ),
         ),
       ],

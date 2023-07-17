@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../../http/request.dart';
@@ -11,6 +12,7 @@ class HomeController extends GetxController {
 
   final selectedGameTypeIndex = (-1).obs;
   List<int> gameTypePressedRecordList = [-1];
+  final ScrollController scrollController = ScrollController();
 
   void addPressedRecord(int index) {
     gameTypePressedRecordList.add(index);

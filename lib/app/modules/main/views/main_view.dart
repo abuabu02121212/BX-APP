@@ -37,7 +37,7 @@ class MainView extends GetView<MainController> {
                   itemBuilder: (BuildContext context, int index) {
                     switch (index) {
                       case 0:
-                        return const AliveWidget(child: HomeView());
+                        return AliveWidget(child: HomeView());
                       case 1:
                         return AliveWidget(child: PromotionView());
                       case 2:

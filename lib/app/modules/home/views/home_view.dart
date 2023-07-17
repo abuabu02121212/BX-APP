@@ -5,6 +5,7 @@ import 'package:flutter_comm/app/modules/home/views/tab_component.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import '../../../../util/Log.dart';
 import '../../../../util/toast_util.dart';
 import '../../../../widget/auto_scroll.dart';
 import '../../../../widget/back_event_interceptor.dart';
@@ -17,7 +18,10 @@ import '../controllers/home_controller.dart';
 import 'game_type_list.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+  HomeView({Key? key}) : super(key: key);
+
+  @override
+  final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +45,7 @@ class HomeView extends GetView<HomeController> {
               height: double.infinity,
               alignment: Alignment.topLeft,
               child: SingleChildScrollView(
+                controller: controller.scrollController,
                 child: ItemGenerateWidget(),
               ),
             ),
@@ -90,6 +95,7 @@ class ItemGenerateWidget extends StatelessWidget {
                       return HorizontalGameListWidget(
                         titleImgPath: "assets/images/index-title${index + 1}.webp",
                         list: controller.recList[index],
+                        tabIndex: index,
                       );
                     }),
                     WinListWidget(),
@@ -456,6 +462,7 @@ class HomeGameTypesWidget extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return Obx(() {
                     bool isSelected = controller.selectedGameTypeIndex.value == index;
+                    Log.d("========isSelected:$isSelected========index:$index==========");
                     return CupertinoButton(
                       onPressed: () {
                         controller.selectedGameTypeIndex.value = index;
