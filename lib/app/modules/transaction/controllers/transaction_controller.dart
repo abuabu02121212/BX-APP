@@ -10,7 +10,6 @@ class TransactionController extends GetxController with GetSingleTickerProviderS
     {'label': 'Depósito', 'value': '271'},
     {'label': 'Retirar', 'value': '272'}
   ];
-  final list = MeberRecordData().obs;
   final flag = '271'.obs;
 
   setFlag(String value) {

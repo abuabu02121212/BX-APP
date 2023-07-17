@@ -137,4 +137,8 @@ class ApiRequest {
   Future requestTagList({Map<String, Object>? params}) async {
     return await httpUtil.get(tagList, params ?? {});
   }
+
+  Future requestBonusRecord({Map<String, Object>? params}) async {
+    return await httpUtil.get(bonusRecord, params ?? {});
+  }
 }

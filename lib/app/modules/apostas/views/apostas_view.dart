@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_select.dart';
+import 'package:flutter_comm/app/entity/game_record_data.dart';
+import 'package:flutter_comm/http/request.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,6 +14,7 @@ import '../controllers/apostas_controller.dart';
 
 class ApostasView extends GetView<ApostasController> {
   const ApostasView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,16 +53,15 @@ class ApostasView extends GetView<ApostasController> {
                   ),
                 ],
               ),
-              child: AppTab(tabs: const [
-                {
-                  'label': 'Todas',
-                  'value': '1'
+              child: AppTab(
+                tabs: controller.gtTabs,
+                controller: controller.tabController,
+                height: 100.w,
+                indicatorWidth: 88.w,
+                onTap: (index, value) {
+                  controller.setGt(value);
                 },
-                {
-                  'label': 'ganho',
-                  'value': '2'
-                }
-              ], height: 100.w, indicatorWidth: 88.w),
+              ),
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 8.w),
@@ -84,84 +86,116 @@ class ApostasView extends GetView<ApostasController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    child: Text('Pesquisar', style: TextStyle(
-                      color: const Color.fromRGBO(255, 255, 255, 0.70),
-                      fontSize: 24.w,
-                    )),
+                    child: Text('Pesquisar',
+                        style: TextStyle(
+                          color: const Color.fromRGBO(255, 255, 255, 0.70),
+                          fontSize: 24.w,
+                        )),
                   ),
                   AppSelect(
                     width: 282.w,
                     height: 60.w,
                     value: '1',
                     onChange: (v) {
-                      Toast.show(v.toString());
+                      controller.setFlag(v);
                     },
-                    selectDataList: const [
-                      {
-                        'label': 'Hoje',
-                        'value': '1'
-                      },
-                      {
-                        'label': 'Últimos 7 dias',
-                        'value': '2'
-                      },
-                      {
-                        'label': 'Últimos 60 dias',
-                        'value': '3'
-                      }
-                    ],
+                    selectDataList: controller.flagTabs,
                   ),
                   AppSelect(
                     width: 282.w,
                     height: 60.w,
                     onChange: (v) {
-                      Toast.show(v.toString());
+                      controller.setTy(v);
                     },
-                    selectDataList: const [
-                      {
-                        'label': 'Todos',
-                        'value': '1'
-                      },
-                      {
-                        'label': 'Depositar',
-                        'value': '2'
-                      },
-                      {
-                        'label': 'Entrar',
-                        'value': '3'
-                      },
-                      {
-                        'label': 'Sokoban',
-                        'value': '4'
-                      }
-                    ],
+                    selectDataList: controller.tyTabs,
                   )
                 ],
               ),
             ),
-            Flexible(child: Container(
-              // child: AppList(
-              //     apiUrl: '',
-              //     builder: (dynamic item) {
-              //       return Container(
-              //           height: 250.w,
-              //           decoration: const BoxDecoration(
-              //             color: Colors.green,
-              //             border: Border(
-              //               bottom: BorderSide(
-              //                 color: Color.fromRGBO(0, 0, 0, 0.10),
-              //                 width: 1,
-              //               ),
-              //             ),
-              //           ),
-              //           child: Center(
-              //             child: Text(item['name']),
-              //           )
-              //       );
-              //     }
-              // ),
-            ))
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 30.w),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    border: Border.all(color: const Color.fromRGBO(14, 209, 244, 0.25), width: 1.0),
+                    gradient: const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color.fromRGBO(4, 75, 154, 0.70),
+                        Color.fromRGBO(1, 26, 81, 0.70),
+                      ],
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      _buildItem(dataItem: ['Name\ndo jogo', 'Tempo', 'Valor\nda aposta', 'Lucro']),
+                      Flexible(
+                        child: Obx(() {
+                          return AppList(
+                            getList: apiRequest.requestGameRecord,
+                            params: {
+                              'gt': controller.gt.value,
+                              'flag': controller.flag.value,
+                              'ty': controller.ty.value,
+                            },
+                            builder: (dynamic el, int index) {
+                              final item = GameRecordD.fromJson(el);
+                              return _buildItem(
+                                isOdd: !index.isOdd,
+                                dataItem: [
+                                  item.gameName ?? '-',
+                                  (item.betTime ?? '-').toString(),
+                                  '${item.betAmount ?? '0'}',
+                                  '${item.netAmount ?? '0'}',
+                                ],
+                              );
+                            },
+                          );
+                        }),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
+        ),
+      ),
+    );
+  }
+
+  SizedBox _buildItem({isOdd = false, genLen = 4, List<String>? dataItem}) {
+    List<String> data = dataItem ?? List.generate(genLen, (index) => 'Title');
+    return SizedBox(
+      height: 94.w,
+      child: Row(
+        children: List.generate(
+          data.length,
+          (index) => Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: isOdd ? const Color.fromRGBO(217, 217, 217, 0.10) : Colors.transparent,
+                border: Border(
+                  left: BorderSide(
+                    color: const Color.fromRGBO(255, 255, 255, 0.25),
+                    width: index == 0 ? 0 : 1.w,
+                  ),
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  data[index],
+                  style: TextStyle(
+                    color: const Color.fromRGBO(255, 255, 255, 0.70),
+                    fontSize: 24.w,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );

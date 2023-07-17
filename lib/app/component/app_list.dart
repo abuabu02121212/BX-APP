@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/app/component/app_empty.dart';
+import 'package:flutter_comm/util/loading_util.dart';
+import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
@@ -14,7 +17,7 @@ class AppList extends StatefulWidget {
 
   // getList 函数 ，返回 Future<dynamic>
   final Future<dynamic> Function({Map<String, Object>? params}) getList;
-  final Widget Function(dynamic item) builder;
+  final Widget Function(dynamic item, int index) builder;
   final Map<String, Object>? params;
 
   @override
@@ -31,7 +34,9 @@ class _AppListState extends State<AppList> {
   int _page = 1;
 
   // 每页条数
-  int _page_size = 10;
+  int _page_size = 20;
+
+  bool isFetching = false;
 
   // 当前页数据
   List<Map<String, dynamic>> _d = [];
@@ -47,7 +52,10 @@ class _AppListState extends State<AppList> {
 
   _getData() async {
     try {
-      final data = await widget.getList(params: {"page": _page, "page_size": _page_size, ...widget.params ?? {}});
+      isFetching = true;
+      AppLoading.show();
+      final data = await widget
+          .getList(params: {"page": _page, "page_size": _page_size, ...widget.params ?? {}});
       print('_第 $_page 页');
       if (_page == 1) {
         _t = data['t'] ?? 0;
@@ -62,11 +70,13 @@ class _AppListState extends State<AppList> {
       } else {
         _refreshController.loadComplete();
       }
-      setState(() {
-      });
 
+      setState(() {});
     } catch (e) {
       print('AppList Error: $e');
+    } finally {
+      isFetching = false;
+      AppLoading.close();
     }
   }
 
@@ -81,87 +91,96 @@ class _AppListState extends State<AppList> {
 
   void _onRefresh() async {
     // monitor network fetch
+    if (isFetching) {
+      return;
+    }
     _page = 1;
     _data.clear();
     _refreshController.resetNoData();
     _refreshController.refreshCompleted();
     _getData();
-
-    // if failed,use refreshFailed()
-    // _refreshController.refreshCompleted();
   }
 
   void _onLoading() async {
     // monitor network fetch
+    if (isFetching) {
+      return;
+    }
     _page++;
     _getData();
-    // if failed,use loadFailed(),if no data return,use LoadNodata()
-    // _refreshController.loadComplete();
   }
 
   @override
   Widget build(BuildContext context) {
     return SmartRefresher(
-        enablePullDown: true,
-        enablePullUp: true,
-        controller: _refreshController,
-        onRefresh: _onRefresh,
-        onLoading: _onLoading,
-        header: CustomHeader(
-          builder: (BuildContext context, RefreshStatus? mode) {
-            Widget body;
-            if (mode == RefreshStatus.idle) {
-              body = const Text("下拉刷新");
-            } else if (mode == RefreshStatus.refreshing) {
-              body = const CircularProgressIndicator();
-            } else if (mode == RefreshStatus.failed) {
-              body = const Text("刷新失败！点击重试！");
-            } else if (mode == RefreshStatus.canRefresh) {
-              body = const Text("松手,刷新!");
-            } else {
-              body = const Text("刷新完成");
-            }
-            return Container(
-              height: 55.0,
-              child: DefaultTextStyle(
-                  style: TextStyle(
-                    fontSize: 25.w,
-                    color: Colors.white,
-                  ),
-                  child: Center(child: body)),
-            );
-          },
-        ),
-        footer: CustomFooter(
-          builder: (BuildContext context, LoadStatus? mode) {
-            Widget body;
-            if (mode == LoadStatus.idle) {
-              body = const Text("上拉加载");
-            } else if (mode == LoadStatus.loading) {
-              body = const CircularProgressIndicator();
-            } else if (mode == LoadStatus.failed) {
-              body = const Text("加载失败！点击重试！");
-            } else if (mode == LoadStatus.canLoading) {
-              body = const Text("松手,加载更多!");
-            } else {
-              body = const Text("没有更多数据了!");
-            }
-            return Container(
-              height: 55.0,
-              child: DefaultTextStyle(
-                  style: TextStyle(
-                    fontSize: 25.w,
-                    color: Colors.white,
-                  ),
-                  child: Center(child: body)),
-            );
-          },
-        ),
-        child: ListView.builder(
-          itemCount: _data.length,
-          itemBuilder: (BuildContext context, int index) {
-            return widget.builder(_data[index]);
-          },
-        ));
+      enablePullDown: true,
+      enablePullUp: true,
+      controller: _refreshController,
+      onRefresh: _onRefresh,
+      onLoading: _onLoading,
+      header: CustomHeader(
+        builder: (BuildContext context, RefreshStatus? mode) {
+          Widget body;
+          if (mode == RefreshStatus.idle) {
+            body = const Text("下拉刷新");
+          } else if (mode == RefreshStatus.refreshing) {
+            body = const CircularProgressIndicator();
+          } else if (mode == RefreshStatus.failed) {
+            body = const Text("刷新失败！点击重试！");
+          } else if (mode == RefreshStatus.canRefresh) {
+            body = const Text("松手,刷新!");
+          } else {
+            body = const Text("刷新完成");
+          }
+          return SizedBox(
+            height: 55.0,
+            child: DefaultTextStyle(
+              style: TextStyle(
+                fontSize: 25.w,
+                color: Colors.white,
+              ),
+              child: Center(child: body),
+            ),
+          );
+        },
+      ),
+      footer: CustomFooter(
+        builder: (BuildContext context, LoadStatus? mode) {
+          Widget body;
+          if (mode == LoadStatus.idle) {
+            body = const Text("上拉加载");
+          } else if (mode == LoadStatus.loading) {
+            body = const CircularProgressIndicator();
+          } else if (mode == LoadStatus.failed) {
+            body = const Text("加载失败！点击重试！");
+          } else if (mode == LoadStatus.canLoading) {
+            body = const Text("松手,加载更多!");
+          } else {
+            body = _data.isEmpty  ? const SizedBox() : const Text("没有更多数据了");
+          }
+          return SizedBox(
+            height: 55.0,
+            child: DefaultTextStyle(
+              style: TextStyle(
+                fontSize: 25.w,
+                color: Colors.white,
+              ),
+              child: Center(child: body),
+            ),
+          );
+        },
+      ),
+      child: _data.isEmpty
+          ? Padding(
+            padding: EdgeInsets.symmetric(vertical: 150.w),
+            child: const AppEmpty(),
+          )
+          : ListView.builder(
+              itemCount: _data.length,
+              itemBuilder: (BuildContext context, int index) {
+                return widget.builder(_data[index], index);
+              },
+            ),
+    );
   }
 }

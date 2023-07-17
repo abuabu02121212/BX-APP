@@ -75,7 +75,7 @@ class TransactionView extends GetView<TransactionController> {
                   return AppList(
                     params: {'flag': int.parse(controller.flag.value)},
                     getList: apiRequest.requestMemberRecord,
-                    builder: (el) {
+                    builder: (el, int index) {
                       final item = MemberRecordD.fromJson(el);
                       return buildItem(item);
                     },
