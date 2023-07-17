@@ -16,7 +16,6 @@ class TransactionController extends GetxController with GetSingleTickerProviderS
     flag.value = value;
   }
 
-
   @override
   void onInit() {
     super.onInit();

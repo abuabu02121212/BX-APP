@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/entity/recompensas_data.dart';
 import 'package:flutter_comm/http/request.dart';
+import 'package:flutter_comm/util/transfer.dart';
 
 import 'package:get/get.dart';
 
@@ -85,7 +86,7 @@ class RecompensasView extends GetView<RecompensasController> {
                   getList: apiRequest.requestBonusRecord,
                   builder: (dynamic el, int index) {
                     final item = RecompensasD.fromJson(el);
-                    return _buildItem(item);
+                    return _buildItem(item, controller);
                   },
                 ),
               ),
@@ -96,7 +97,7 @@ class RecompensasView extends GetView<RecompensasController> {
     );
   }
 
-  Container _buildItem(RecompensasD item) {
+  Container _buildItem(RecompensasD item, RecompensasController controller) {
     return Container(
       height: 208.w,
       margin: EdgeInsets.only(
@@ -131,7 +132,7 @@ class RecompensasView extends GetView<RecompensasController> {
               height: 20.w,
             ),
             Text(
-              item.ty ?? '-',
+              _buildState(item.ty ?? '', controller),
               style: TextStyle(fontSize: 28.w, color: Colors.white),
             ),
             SizedBox(
@@ -149,7 +150,7 @@ class RecompensasView extends GetView<RecompensasController> {
               height: 32.w,
             ),
             Text(
-              '${item.createdAt ?? '-'}',
+              AppTransfer.timestamp2Date('${item.createdAt ?? '-'}'),
               style: TextStyle(
                 fontSize: 28.w,
                 color: const Color.fromRGBO(255, 255, 255, 0.70),
@@ -159,5 +160,15 @@ class RecompensasView extends GetView<RecompensasController> {
         ),
       ),
     );
+  }
+
+  /// 6存款优惠 305邀请奖励 307宝箱奖励
+  _buildState(String ty, RecompensasController controller) {
+    final tabs = controller.tyTabs;
+    final index = tabs.indexWhere((element) => element['value'] == ty.toString());
+    if (index == -1) {
+      return '';
+    }
+    return tabs[index]['label'];
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_comm/app/component/app_header.dart';
 import 'package:flutter_comm/app/component/app_list.dart';
 import 'package:flutter_comm/app/component/app_tab.dart';
 import 'package:flutter_comm/http/request.dart';
+import 'package:flutter_comm/util/transfer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -162,7 +163,7 @@ class TransactionView extends GetView<TransactionController> {
                         ),
                       ),
                       Text(
-                        'R\$ ${item.amount}',
+                        AppTransfer.amountFormat(item.amount ?? ''),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 28.w,
@@ -184,7 +185,7 @@ class TransactionView extends GetView<TransactionController> {
                         ),
                       ),
                       Text(
-                        'R\$ ${(item.discount ?? '').isEmpty ? '0' : item.discount}',
+                        AppTransfer.amountFormat(item.discount ?? ''),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 28.w,
@@ -221,7 +222,7 @@ class TransactionView extends GetView<TransactionController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '${item.createdAt}',
+                        AppTransfer.timestamp2Date(item.createdAt ?? ''),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 28.w,
@@ -229,9 +230,9 @@ class TransactionView extends GetView<TransactionController> {
                       ),
                       // F89F03 黄色字体 Esperando
                       Text(
-                        '${item.state}',
+                        _transferState(item.state ?? 3),
                         style: TextStyle(
-                          color: Color(0xff5DDB1C),
+                          color: _buildStateColor(item.state ?? 3),
                           fontSize: 28.w,
                         ),
                       )
@@ -244,5 +245,25 @@ class TransactionView extends GetView<TransactionController> {
         ),
       ],
     );
+  }
+
+  Color _buildStateColor(int state) {
+    if (state == 1) {
+      return const Color(0xff5DDB1C);
+    } else if (state == 2) {
+      return const Color.fromRGBO(248, 159, 3, 1);
+    } else {
+      return const Color.fromRGBO(231, 11, 11, 1);
+    }
+  }
+
+  String _transferState(int state) {
+    if (state == 1) {
+      return 'Sucesso';
+    } else if (state == 2) {
+      return 'Esperando';
+    } else {
+      return 'falhar';
+    }
   }
 }

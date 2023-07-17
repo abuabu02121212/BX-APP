@@ -4,9 +4,9 @@ class RecompensasController extends GetxController {
 
   final tyTabs = [
     {'label': 'Todos', 'value': ''},
-    {'label': 'depositar', 'value': '1'},
-    {'label': 'entrar', 'value': '2'},
-    {'label': 'sokoban', 'value': '3'},
+    {'label': 'depositar', 'value': '6'},
+    {'label': 'entrar', 'value': '305'},
+    {'label': 'sokoban', 'value': '307'},
   ];
 
   final flagTabs = [
