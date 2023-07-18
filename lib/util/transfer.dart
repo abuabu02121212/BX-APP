@@ -1,16 +1,26 @@
-// export function AmountFormat(value: number | string) {
-// return new Intl.NumberFormat('pt-BR', {
-// style: 'currency',
-// currency: 'BRL',
-// }).format(Number(value))
-// }
+import 'package:intl/intl.dart';
 
 class AppTransfer {
+
   static String timestamp2Date(String value) {
-    return '时间';
+    if (value.isEmpty) {
+      return '-';
+    }
+    int timestamp = int.parse(value);
+    if (timestamp < 10000000000) {
+      timestamp *= 1000;
+    }
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    return DateFormat('yyyy-MM-dd HH:mm:ss').format(date);
   }
 
   static String amountFormat(String value) {
-    return 'R\$ 金额';
+    if (value.isEmpty) {
+      return '-';
+    }
+    double amount = double.parse(value);
+    NumberFormat currencyFormat = NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$');
+    String result = currencyFormat.format(amount);
+    return result;
   }
 }
