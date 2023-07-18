@@ -10,9 +10,9 @@ class WebviewView extends GetView<WebviewController> {
   const WebviewView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return AppWebview(
+    return controller.url.isNotEmpty ? AppWebview(
       title: controller.title,
       url: controller.url,
-    );
+    ) : const Center(child: Text("No Data"),);
   }
 }

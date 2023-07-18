@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_button.dart';
+import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_comm/util/toast_util.dart';
+import 'package:flutter_comm/util/weburl_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -154,7 +156,22 @@ class ItemType2Widget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
-      onPressed: () {},
+      onPressed: () {
+        switch (index) {
+          case 0:
+            Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_INVITE);
+            break;
+          case 1:
+            Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_REWARD_BOX);
+            break;
+          case 2:
+
+            break;
+          case 3:
+            Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.CUSTOMER_SERVICE);
+            break;
+        }
+      },
       minSize: 0,
       padding: EdgeInsets.only(left: 30.w),
       child: SizedBox(
@@ -201,7 +218,20 @@ class ItemType1Widget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoButton(
       onPressed: () {
-        Toast.show("$index");
+        switch (index) {
+          case 0:
+            Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_TELEGRAM);
+            break;
+          case 1:
+            Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_FIRST_DEPOSIT);
+            break;
+          case 2:
+            Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_DEPOSIT_BONUS);
+            break;
+          case 3:
+            Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_CHECK_IN);
+            break;
+        }
       },
       minSize: 0,
       padding: EdgeInsets.zero,

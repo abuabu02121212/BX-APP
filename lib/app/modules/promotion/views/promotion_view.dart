@@ -5,10 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../util/toast_util.dart';
+import '../../../../util/weburl_util.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_empty.dart';
 import '../../../component/app_header.dart';
 import '../../../entity/promotion_entity.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/promotion_controller.dart';
 
 class PromotionView extends GetView<PromotionController> {
@@ -150,6 +152,7 @@ class ItemWidget extends StatelessWidget {
                     text: 'Mais',
                     onClick: () {
                       Toast.show("按钮被点击");
+                      Get.toNamed(Routes.WEBVIEW, arguments: entity.url);
                     },
                   ),
                 ),
