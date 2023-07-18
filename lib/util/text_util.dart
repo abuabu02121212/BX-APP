@@ -23,3 +23,7 @@ void copyText(String link) {
 
   Toast.show('已经复制');
 }
+
+String getUrlEncodeStr(String text) {
+  return Uri.decodeComponent(text);
+}

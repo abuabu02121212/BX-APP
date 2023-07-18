@@ -7,6 +7,7 @@ import '../../../../util/Log.dart';
 import '../../../../util/double_click_exit_app.dart';
 import '../../../../util/loading_util.dart';
 import '../../../../util/pagination_helper.dart';
+import '../../../../util/text_util.dart';
 import '../../../../util/toast_util.dart';
 import '../../../entity/banner.dart';
 import '../../../entity/game_item.dart';
@@ -148,7 +149,7 @@ class HomeController extends GetxController {
     var json = await apiRequest.requestNotice();
     var noticeList = NoticeEntity.getList(json);
     if (noticeList.isNotEmpty) {
-      Log.d("=======通知返回json ：${noticeList[0]} ");
+      Log.d("=======通知返回content ：${noticeList[0].content} ");
     }
   }
 
