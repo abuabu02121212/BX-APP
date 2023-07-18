@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/entity/game_type.dart';
 import 'package:flutter_comm/app/modules/home/views/swiper_component.dart';
-import 'package:flutter_comm/app/modules/home/views/tab_component.dart';
+import 'package:flutter_comm/app/modules/home/views/tag_component.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -16,6 +16,7 @@ import '../../forget_psw/views/forget_psw_widget.dart';
 import '../../home_menu/views/home_menu_view.dart';
 import '../controllers/home_controller.dart';
 import 'game_type_list.dart';
+import 'game_type_title_bar.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({Key? key}) : super(key: key);
@@ -85,12 +86,6 @@ class ItemGenerateWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GameTitleBar(),
-                    Container(
-                      margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
-                      alignment: Alignment.topLeft,
-                      child: HomeGameChildTypeTabComponent(),
-                    ),
                     ...List.generate(controller.recList.length, (index) {
                       return HorizontalGameListWidget(
                         titleImgPath: "assets/images/index-title${index + 1}.webp",
@@ -117,7 +112,19 @@ class ItemGenerateWidget extends StatelessWidget {
                     ),
                   ],
                 )
-              : VerticalGameTypeList();
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    GameTypeTitleBar(),
+                    Container(
+                      margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
+                      alignment: Alignment.topLeft,
+                      child: HomeGameTagComponent(),
+                    ),
+                    VerticalGameTypeList(),
+                  ],
+                );
         }),
         SizedBox(height: 125.w),
       ],
@@ -342,101 +349,6 @@ class WinListWidget extends StatelessWidget {
         ],
       ),
       // child: ,
-    );
-  }
-}
-
-class GameTitleBar extends StatelessWidget {
-  GameTitleBar({super.key});
-
-  final HomeController controller = Get.put(HomeController());
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 28.w),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Obx(() {
-            int selectedIndex = controller.selectedGameTypeIndex.value;
-            return Text(
-              selectedIndex > -1 ? controller.gameTypes[selectedIndex].name.replaceAll(RegExp(r'\n+'), '') : "",
-              style: TextStyle(
-                fontSize: 32.w,
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
-            );
-          }),
-          SizedBox(
-            width: 280.w,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CupertinoButton(
-                  onPressed: () {},
-                  minSize: 0,
-                  padding: EdgeInsets.zero,
-                  child: Container(
-                      width: 60.w,
-                      height: 60.w,
-                      decoration: BoxDecoration(
-                        gradient: headerLinearGradient,
-                        borderRadius: BorderRadius.circular(16.w),
-                      ),
-                      alignment: Alignment.center,
-                      child: Image.asset("assets/images/i-filter1.webp", width: 32.w)),
-                ),
-                CupertinoButton(
-                  onPressed: () {},
-                  minSize: 0,
-                  padding: EdgeInsets.zero,
-                  child: Container(
-                      width: 60.w,
-                      height: 60.w,
-                      decoration: BoxDecoration(
-                        gradient: headerLinearGradient,
-                        borderRadius: BorderRadius.circular(16.w),
-                      ),
-                      alignment: Alignment.center,
-                      child: Image.asset("assets/images/i-filter2.webp", width: 32.w)),
-                ),
-                CupertinoButton(
-                  onPressed: () {},
-                  minSize: 0,
-                  padding: EdgeInsets.zero,
-                  child: Container(
-                      width: 60.w,
-                      height: 60.w,
-                      decoration: BoxDecoration(
-                        gradient: headerLinearGradient,
-                        borderRadius: BorderRadius.circular(16.w),
-                      ),
-                      alignment: Alignment.center,
-                      child: Image.asset("assets/images/i-filter3.webp", width: 32.w)),
-                ),
-                CupertinoButton(
-                  onPressed: () {},
-                  minSize: 0,
-                  padding: EdgeInsets.zero,
-                  child: Container(
-                      width: 60.w,
-                      height: 60.w,
-                      decoration: BoxDecoration(
-                        gradient: headerLinearGradient,
-                        borderRadius: BorderRadius.circular(16.w),
-                      ),
-                      alignment: Alignment.center,
-                      child: Image.asset("assets/images/i-filter4.webp", width: 32.w)),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
     );
   }
 }

@@ -7,7 +7,6 @@ import '../../../../util/Log.dart';
 import '../../../../util/double_click_exit_app.dart';
 import '../../../../util/loading_util.dart';
 import '../../../../util/pagination_helper.dart';
-import '../../../../util/text_util.dart';
 import '../../../../util/toast_util.dart';
 import '../../../entity/banner.dart';
 import '../../../entity/game_item.dart';
@@ -27,11 +26,13 @@ class HomeController extends GetxController {
   }
 
   void requestSubTypeListData(int index) {
-    if (index == 0) {
+    if (index == -1) {
+      requestRecommendGameList();
+    } else if (index == 0) {
       requestHotGameList(subTypeGameList);
     } else if (index == 1) {
       requestFavGameList(subTypeGameList);
-    } else{
+    } else {
       requestGameList(gameTypes[index].gameType, subTypeGameList);
     }
   }
@@ -39,7 +40,7 @@ class HomeController extends GetxController {
   final DoubleClickExitApp doubleClickExitApp = DoubleClickExitApp();
 
   bool consumePressedRecord() {
-    Log.d("========consumePressedRecord：$gameTypePressedRecordList");
+    Log.d("========consumePressedRecord：$gameTypePressedRecordList  selectedGameTypeIndex:${selectedGameTypeIndex.value}");
     if (gameTypePressedRecordList.isNotEmpty) {
       var removeLast = gameTypePressedRecordList.removeLast();
       if (removeLast == selectedGameTypeIndex.value) {
@@ -49,6 +50,13 @@ class HomeController extends GetxController {
       requestSubTypeListData(selectedGameTypeIndex.value);
       return true;
     }
+    if (gameTypePressedRecordList.isEmpty && selectedGameTypeIndex.value != -1) {
+      selectedGameTypeIndex.value = -1;
+      requestSubTypeListData(selectedGameTypeIndex.value);
+      Log.d("===222=====consumePressedRecord：$gameTypePressedRecordList  selectedGameTypeIndex:${selectedGameTypeIndex.value}");
+      return true;
+    }
+
     doubleClickExitApp.onClick();
     return true;
   }
@@ -86,6 +94,10 @@ class HomeController extends GetxController {
     Log.d("bannerArr 的长度：${bannerList.length}");
 
     /// 请求推荐游戏列表
+    requestRecommendGameList();
+  }
+
+  void requestRecommendGameList() {
     for (int i = 0; i < recList.length; i++) {
       RxList<GameEntity> item = recList[i];
       requestRecGameList(i, item);
