@@ -78,8 +78,8 @@ class ItemGenerateWidget extends StatelessWidget {
         const HomeMarquee(),
         HomeGameTypesWidget(),
         Obx(() {
-          bool isShowAll = controller.selectedGameTypeIndex.value == -1;
-          return isShowAll
+          bool isShowRecommendGamePage = controller.selectedGameTypeIndex.value == -1;
+          return isShowRecommendGamePage
               ? Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,

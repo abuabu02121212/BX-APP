@@ -1,3 +1,5 @@
+
+
 class GameTypeEntity {
   final String name;
   final String gameType;

@@ -34,8 +34,8 @@ class ApiRequest {
     return await httpUtil.get(memberNav, {});
   }
 
-  Future requestGameList() async {
-    return await httpUtil.get(gameList, {});
+  Future requestGameList({Map<String, Object>? params}) async {
+    return await httpUtil.get(gameList, params ?? {});
   }
 
   Future requestHotGameList(Map<String, Object> param) async {

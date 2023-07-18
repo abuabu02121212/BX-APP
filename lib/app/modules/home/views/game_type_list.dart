@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_comm/app/component/app_empty.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../http/api.dart';
 import '../../../app_style.dart';
-import '../../../entity/hot_game.dart';
+import '../../../entity/game_item.dart';
 import '../controllers/home_controller.dart';
 
 class HorizontalGameListWidget extends StatelessWidget {
@@ -94,22 +95,29 @@ class VerticalGameTypeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return GridView.builder(
-        itemCount: controller.hotGameList.length,
-        shrinkWrap: true,
-        padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 20.w),
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 0.92),
-        itemBuilder: (BuildContext context, int index) {
-          GameEntity hotGameEntity = controller.hotGameList[index];
-          return GameItemWidget(
-            isVerticalItem: true,
-            gameEntity: hotGameEntity,
-            index: index,
-            controller: controller,
-          );
-        },
-      );
+      bool isNotEmpty = controller.subTypeGameList.isNotEmpty;
+      return isNotEmpty
+          ? GridView.builder(
+              itemCount: controller.subTypeGameList.length,
+              shrinkWrap: true,
+              padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 20.w),
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 0.92),
+              itemBuilder: (BuildContext context, int index) {
+                GameEntity hotGameEntity = controller.subTypeGameList[index];
+                return GameItemWidget(
+                  isVerticalItem: true,
+                  gameEntity: hotGameEntity,
+                  index: index,
+                  controller: controller,
+                );
+              },
+            )
+          : AppEmpty(
+              width: double.infinity,
+              height: 500.w,
+              alignment: Alignment.center,
+            );
     });
   }
 }

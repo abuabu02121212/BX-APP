@@ -71,7 +71,7 @@ class GameEntity {
     Log.d("isRxFav:${isRxFav.value}  isFavorite:$isFavorite");
   }
 
-  static List<GameEntity> getList(List? jsonArr) {
+  static List<GameEntity> getList(dynamic jsonArr) {
     List<GameEntity> ls = [];
     if (jsonArr == null) {
       return ls;
