@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UpArrowSwitcher extends StatelessWidget {
-  UpArrowSwitcher({
+  const UpArrowSwitcher({
     super.key,
     this.size = 20,
     required this.color,
     required this.onClick,
+    required this.controller,
   });
 
-  final turns = 0.0.obs;
   final double size;
   final Color color;
   final VoidCallback onClick;
+  final UpArrowSwitcherController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +22,13 @@ class UpArrowSwitcher extends StatelessWidget {
       () {
         return CupertinoButton(
           onPressed: () {
-            turns.value = turns.value == 0 ? 0.5 : 0;
+            controller.startSwitch();
             onClick();
           },
           minSize: 0,
           padding: EdgeInsets.zero,
           child: AnimatedRotation(
-            turns: turns.value,
+            turns: controller.turns.value,
             duration: const Duration(milliseconds: 250),
             child: Icon(
               Icons.keyboard_arrow_up_outlined,
@@ -38,5 +39,13 @@ class UpArrowSwitcher extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+class UpArrowSwitcherController {
+  final turns = 0.0.obs;
+
+  void startSwitch({value = 0.5}) {
+    turns.value = turns.value == 0 ? value : 0;
   }
 }

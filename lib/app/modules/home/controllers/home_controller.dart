@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_comm/app/entity/game_tag.dart';
 import 'package:get/get.dart';
 
 import '../../../../http/request.dart';
@@ -33,11 +34,16 @@ class HomeController extends GetxController {
     } else if (index == 1) {
       requestFavGameList(subTypeGameList);
     } else {
-      var gameType = gameTypes[index].gameType;
-      requestGameList(gameType, subTypeGameList);
-      requestTagList(gameType);
+      requestGameList();
+      requestTagList();
     }
   }
+
+  String getCurGameType(){
+    return gameTypes[selectedGameTypeIndex.value].gameType;
+  }
+
+
 
   final DoubleClickExitApp doubleClickExitApp = DoubleClickExitApp();
 
@@ -64,7 +70,7 @@ class HomeController extends GetxController {
   }
 
   final subTypeGameList = RxList<GameEntity>();
-  final gameTagList = RxList<GameEntity>();
+  final gameTagList = RxList<GameTagEntity>();
   final PaginationHelper subTypeGameListPaginationHelper = PaginationHelper(15);
 
   final recommend0GameList = RxList<GameEntity>();
@@ -140,25 +146,32 @@ class HomeController extends GetxController {
     Log.d("=======ty:$ty 推荐游戏数目：${rx.length}");
   }
 
-  Future<void> requestGameList(String gameType, RxList<GameEntity> rx) async {
+  Future<void> requestGameList({tagId = 0}) async {
     AppLoading.show();
+    var curGameType = getCurGameType();
     var retArr1 = await apiRequest.requestGameList(params: {
-      'game_type': gameType,
+      'game_type': curGameType,
       'page': 1,
       'page_size': 15,
       'platform_id': 0,
-      'tag_id': 0,
+      'tag_id': tagId,
     });
-    rx.value = GameEntity.getList(retArr1['d']);
-    subTypeGameListPaginationHelper.onRequestDataOk(rx.length);
+    subTypeGameList.value = GameEntity.getList(retArr1['d']);
+    subTypeGameListPaginationHelper.onRequestDataOk(subTypeGameList.length);
     AppLoading.close();
-    Log.d("==game_type:$gameType=====游戏数目：${rx.length}");
+    Log.d("==game_type:$curGameType=====游戏数目：${subTypeGameList.length}");
   }
 
-  Future<void> requestTagList(String gameType) async {
-    /// ?game_type=1&platform_id=0
-    var json = await apiRequest.requestTagList(params: {'game_type': gameType, 'platform_id': 0});
-    Log.d("=======游戏tag列表：$json ");
+  Future<void> requestTagList() async {
+    gameTagList.clear();
+    gameTagList.add(GameTagEntity.def);
+    gameTagList.refresh();
+    var json = await apiRequest.requestTagList(params: {'game_type': getCurGameType(), 'platform_id': 0});
+    gameTagList.clear();
+    gameTagList.add(GameTagEntity.def);
+    gameTagList.addAll(GameTagEntity.getList(json));
+    gameTagList.refresh();
+    Log.d("=======游戏tag列表长度：${gameTagList.length} ");
   }
 
   Future<void> requestNotice() async {
