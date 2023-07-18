@@ -1,10 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_comm/app/modules/login_register/views/login_regiseter_widget.dart';
+import 'package:flutter_comm/http/comm_request.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-
+import 'package:get/get.dart';
+import '../routes/app_pages.dart';
 import 'app_header.dart';
 
 enum ProgressIndicatorType { circular, linear }
+
+class EventHandle {
+  static dealEvent(String url) {
+    //路由协议：brazilapp://event?type=login
+    Map<String, dynamic> params = {};
+    // 将url ？ 后面的参数转换成map
+    if (url.contains("?")) {
+      final suffixStr = url.substring(url.indexOf("?") + 1).trim();
+      final isEndEqual = suffixStr.endsWith("=") ? "1" : "0";
+      suffixStr.split("&").forEach((itemArgument) {
+        final itemArr = itemArgument.split("=");
+        if (itemArr.first.isNotEmpty) {
+          params[itemArr.first] = itemArr[1];
+        }
+      });
+      params["isEndEqual"] = isEndEqual;
+    }
+
+    switch (params["type"]) {
+      case "login":
+        {
+          // 登录
+          showLoginRegisterDialog();
+        }
+        break;
+      case "home":
+        {
+          // 去首页
+          Get.offAllNamed(Routes.HOME);
+        }
+        break;
+      case "recompensas":
+        {
+          // 奖励记录
+          Get.offAllNamed(Routes.HOME);
+        }
+        break;
+      case "deposit":
+        {
+          // 存款
+          Get.toNamed(Routes.DEPOSIT, arguments: {'index': 0})?.then((value) {
+            requestCommBalance();
+          });
+        }
+        break;
+      case "withdraw":
+        {
+          // 取款
+          Get.toNamed(Routes.DEPOSIT, arguments: {'index': 1})?.then((value) {
+            requestCommBalance();
+          });
+        }
+        break;
+      default:
+        break;
+    }
+  }
+}
 
 class AppWebview extends StatefulWidget {
   AppWebview({super.key, required this.url, required this.title});
@@ -61,7 +122,6 @@ class _AppWebviewState extends State<AppWebview> {
 
   @override
   Widget build(BuildContext context) {
-
     if (_statusBarHeight == 0.0) {
       _statusBarHeight = MediaQuery.of(context).padding.top;
       _appBarHeight += _statusBarHeight;
@@ -69,7 +129,7 @@ class _AppWebviewState extends State<AppWebview> {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(_isAppBarVisible ?  _appBarHeight : 0),
+        preferredSize: Size.fromHeight(_isAppBarVisible ? _appBarHeight : 0),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           height: _isAppBarVisible ? _appBarHeight : 0,
@@ -88,9 +148,7 @@ class _AppWebviewState extends State<AppWebview> {
                 InAppWebView(
                   key: webViewKey,
                   initialUrlRequest: URLRequest(url: WebUri(widget.url)),
-                  initialSettings: InAppWebViewSettings(
-                      allowsBackForwardNavigationGestures: true
-                  ),
+                  initialSettings: InAppWebViewSettings(allowsBackForwardNavigationGestures: true),
                   onWebViewCreated: (controller) {
                     _webViewController = controller;
                   },
@@ -99,13 +157,24 @@ class _AppWebviewState extends State<AppWebview> {
                       _progress = progress / 100;
                     });
                   },
+                  shouldOverrideUrlLoading: (controller, navigationAction) async {
+                    String url = navigationAction.request.url!.toString();
+                    // 如果是 brazilapp:// 开头的链接，就拦截
+                    if (url.startsWith('brazilapp://')) {
+                      print('blocking navigation to ${url.trim()}');
+                      EventHandle.dealEvent(url.trim());
+                      return NavigationActionPolicy.CANCEL;
+                    }
+
+                    return NavigationActionPolicy.ALLOW;
+                  },
                 ),
                 _progress < 1.0 ? getProgressIndicator(type) : Container(),
               ],
-            )
+            ),
           )
         ],
-      )
+      ),
     );
   }
 }

@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../../../../util/sp_util.dart';
+import '../../../../util/sp_util_key.dart';
 import '../../../../util/weburl_util.dart';
 
 class WebviewController extends GetxController {
@@ -11,6 +13,7 @@ class WebviewController extends GetxController {
 
   @override
   void onInit() {
+    print('加载url地址: $url, token=${spUtil.getString(keyLoginToken) ?? ""}');
     super.onInit();
   }
 
