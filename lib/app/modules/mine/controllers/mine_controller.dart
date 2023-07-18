@@ -1,8 +1,11 @@
+import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 
 import '../../../../globe_controller.dart';
+import '../../../../http/comm_request.dart';
+import '../../../../util/toast_util.dart';
 
-class MineController extends GetxController {
+class MineController extends GetxController with GetSingleTickerProviderStateMixin {
   //TODO: Implement MineController
 
   final count = 0.obs;
@@ -11,8 +14,14 @@ class MineController extends GetxController {
 
   final userInfo = {}.obs;
 
-  void initUserInfo() {
+  late AnimationController animationController;
+  late Animation<double> rotationAnimation;
 
+  void refreshBalance() async {
+    animationController.repeat();
+    await requestCommBalance();
+    animationController.forward();
+    Toast.show("Atualizado com sucesso");
   }
 
   // 获取当前进度
@@ -25,9 +34,12 @@ class MineController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    animationController = AnimationController(duration: const Duration(seconds: 1), vsync: this);
+    rotationAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(animationController);
     print('初始化MineController');
-    initUserInfo();
-    // Get.put(MineController());
   }
 
   @override
@@ -37,6 +49,7 @@ class MineController extends GetxController {
 
   @override
   void onClose() {
+    animationController.dispose();
     super.onClose();
   }
 

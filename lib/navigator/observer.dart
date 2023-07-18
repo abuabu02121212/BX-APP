@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_comm/app/routes/app_pages.dart';
 
+import '../http/comm_request.dart';
 import '../util/Log.dart';
 
 /// 页面进入和退出监听Observer
@@ -9,6 +11,11 @@ class MyNavigatorObserver extends NavigatorObserver {
   void didPop(Route cur, Route? pre) {
     super.didPop(cur, pre);
     Log.d("didPop 离开页面 cur: ${cur.settings.name}  pre: ${pre?.settings.name}");
+
+    /// 回到main首页请求余额接口
+    if (pre?.settings.name == Routes.MAIN) {
+      requestCommBalance();
+    }
   }
 
   /// 打开新页面页面入栈， 调用 didPush
