@@ -33,7 +33,9 @@ class HomeController extends GetxController {
     } else if (index == 1) {
       requestFavGameList(subTypeGameList);
     } else {
-      requestGameList(gameTypes[index].gameType, subTypeGameList);
+      var gameType = gameTypes[index].gameType;
+      requestGameList(gameType, subTypeGameList);
+      requestTagList(gameType);
     }
   }
 
@@ -62,6 +64,7 @@ class HomeController extends GetxController {
   }
 
   final subTypeGameList = RxList<GameEntity>();
+  final gameTagList = RxList<GameEntity>();
   final PaginationHelper subTypeGameListPaginationHelper = PaginationHelper(15);
 
   final recommend0GameList = RxList<GameEntity>();
@@ -153,6 +156,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> requestTagList(String gameType) async {
+    /// ?game_type=1&platform_id=0
     var json = await apiRequest.requestTagList(params: {'game_type': gameType, 'platform_id': 0});
     Log.d("=======游戏tag列表：$json ");
   }
