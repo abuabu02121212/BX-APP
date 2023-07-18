@@ -5,8 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../widget/horizontal_indicator_tab.dart';
 
-class HomeGameChildTypeTabComponent extends StatelessWidget {
-  HomeGameChildTypeTabComponent({super.key});
+class HomeGameTagComponent extends StatelessWidget {
+  HomeGameTagComponent({super.key});
 
   static const List<String> tabNames = ["Nova", "Tudo", "3 Rolos", "5 Rolos"];
 

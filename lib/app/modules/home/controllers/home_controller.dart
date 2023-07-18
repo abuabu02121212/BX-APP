@@ -6,40 +6,64 @@ import '../../../../http/ret_code.dart';
 import '../../../../util/Log.dart';
 import '../../../../util/double_click_exit_app.dart';
 import '../../../../util/loading_util.dart';
+import '../../../../util/pagination_helper.dart';
 import '../../../../util/toast_util.dart';
 import '../../../entity/banner.dart';
-import '../../../entity/hot_game.dart';
+import '../../../entity/game_item.dart';
+import '../../../entity/game_type.dart';
+import '../../../entity/notice.dart';
 
 class HomeController extends GetxController {
-  List<String> gameTypes = ["Quente", "Dentro \nDe Casa", "Slot", "Pesca", "Pôquer", "Esporte", "Ao Vivo", "Esports"];
-
+  final gameTypes = RxList<GameTypeEntity>(GameTypeEntity.getList());
   final selectedGameTypeIndex = (-1).obs;
-  List<int> gameTypePressedRecordList = [-1];
+  final List<int> gameTypePressedRecordList = [-1];
   final ScrollController scrollController = ScrollController();
 
   void addPressedRecord(int index) {
     gameTypePressedRecordList.add(index);
+    requestSubTypeListData(index);
     Log.d("========addPressedRecord：$gameTypePressedRecordList");
   }
 
-  DoubleClickExitApp doubleClickExitApp = DoubleClickExitApp();
+  void requestSubTypeListData(int index) {
+    if (index == -1) {
+      requestRecommendGameList();
+    } else if (index == 0) {
+      requestHotGameList(subTypeGameList);
+    } else if (index == 1) {
+      requestFavGameList(subTypeGameList);
+    } else {
+      requestGameList(gameTypes[index].gameType, subTypeGameList);
+    }
+  }
+
+  final DoubleClickExitApp doubleClickExitApp = DoubleClickExitApp();
 
   bool consumePressedRecord() {
-    Log.d("========consumePressedRecord：$gameTypePressedRecordList");
+    Log.d("========consumePressedRecord：$gameTypePressedRecordList  selectedGameTypeIndex:${selectedGameTypeIndex.value}");
     if (gameTypePressedRecordList.isNotEmpty) {
       var removeLast = gameTypePressedRecordList.removeLast();
       if (removeLast == selectedGameTypeIndex.value) {
         removeLast = gameTypePressedRecordList.removeLast();
       }
       selectedGameTypeIndex.value = removeLast;
+      requestSubTypeListData(selectedGameTypeIndex.value);
       return true;
     }
+    if (gameTypePressedRecordList.isEmpty && selectedGameTypeIndex.value != -1) {
+      selectedGameTypeIndex.value = -1;
+      requestSubTypeListData(selectedGameTypeIndex.value);
+      Log.d("===222=====consumePressedRecord：$gameTypePressedRecordList  selectedGameTypeIndex:${selectedGameTypeIndex.value}");
+      return true;
+    }
+
     doubleClickExitApp.onClick();
     return true;
   }
 
-  final count = 0.obs;
-  final hotGameList = RxList<GameEntity>();
+  final subTypeGameList = RxList<GameEntity>();
+  final PaginationHelper subTypeGameListPaginationHelper = PaginationHelper(15);
+
   final recommend0GameList = RxList<GameEntity>();
   final recommend1GameList = RxList<GameEntity>();
   final recommend2GameList = RxList<GameEntity>();
@@ -61,41 +85,84 @@ class HomeController extends GetxController {
   @override
   Future<void> onReady() async {
     super.onReady();
-    await requestHotGameList();
+    requestMemberNav();
+    requestNotice();
 
-    var navJson = await apiRequest.requestMemberNav();
-    // var navArr = GameTypeNav.getList(navJson);
-    Log.d("navArr 1的的数据：${navJson['1']}");
-
+    /// 请求banner列表
     var bannerJson = await apiRequest.requestBanner();
     bannerList.value = BannerEntity.getList(bannerJson);
     Log.d("bannerArr 的长度：${bannerList.length}");
 
+    /// 请求推荐游戏列表
+    requestRecommendGameList();
+  }
+
+  void requestRecommendGameList() {
     for (int i = 0; i < recList.length; i++) {
       RxList<GameEntity> item = recList[i];
       requestRecGameList(i, item);
     }
   }
 
-  Future<void> requestHotGameList() async {
-    var retArr1 = await apiRequest.requestHotGameList({
-      'ty': 0,
-      'l': 9999,
-      'platform_id': 0,
-    });
-    hotGameList.value = GameEntity.getList(retArr1);
-    Log.d("热门游戏数目：${hotGameList.length}");
+  Future<void> requestMemberNav() async {
+    Map<String, dynamic> navJson = await apiRequest.requestMemberNav();
+    var preList = GameTypeEntity.preList;
+    for (var item in preList) {
+      if (navJson.containsKey(item.gameType)) {
+        gameTypes.add(item);
+      }
+    }
+    Log.d("nav的数据是：$navJson ");
+  }
+
+  Future<void> requestHotGameList(RxList<GameEntity> rx) async {
+    AppLoading.show();
+    var retArr1 = await apiRequest.requestHotGameList({'ty': 0, 'l': 9999, 'platform_id': 0});
+    AppLoading.close();
+    rx.value = GameEntity.getList(retArr1);
+    Log.d("热门游戏数目：${rx.length}");
+  }
+
+  Future<void> requestFavGameList(RxList<GameEntity> rx) async {
+    AppLoading.show();
+    var retArr1 = await apiRequest.requestGameFavList(params: {'l': 18, 'platform_id': 0});
+    rx.value = GameEntity.getList(retArr1);
+    AppLoading.close();
+    Log.d("收藏游戏数目：${rx.length}");
   }
 
   Future<void> requestRecGameList(int ty, RxList<GameEntity> rx) async {
-    //  ?ty=3&l=18&platform_id=0
-    var retArr1 = await apiRequest.requestGameRecList(params: {
-      'ty': ty,
-      'l': 18,
-      'platform_id': 0,
-    });
+    var retArr1 = await apiRequest.requestGameRecList(params: {'ty': ty, 'l': 18, 'platform_id': 0});
     rx.value = GameEntity.getList(retArr1);
     Log.d("=======ty:$ty 推荐游戏数目：${rx.length}");
+  }
+
+  Future<void> requestGameList(String gameType, RxList<GameEntity> rx) async {
+    AppLoading.show();
+    var retArr1 = await apiRequest.requestGameList(params: {
+      'game_type': gameType,
+      'page': 1,
+      'page_size': 15,
+      'platform_id': 0,
+      'tag_id': 0,
+    });
+    rx.value = GameEntity.getList(retArr1['d']);
+    subTypeGameListPaginationHelper.onRequestDataOk(rx.length);
+    AppLoading.close();
+    Log.d("==game_type:$gameType=====游戏数目：${rx.length}");
+  }
+
+  Future<void> requestTagList(String gameType) async {
+    var json = await apiRequest.requestTagList(params: {'game_type': gameType, 'platform_id': 0});
+    Log.d("=======游戏tag列表：$json ");
+  }
+
+  Future<void> requestNotice() async {
+    var json = await apiRequest.requestNotice();
+    var noticeList = NoticeEntity.getList(json);
+    if (noticeList.isNotEmpty) {
+      Log.d("=======通知返回content ：${noticeList[0].content} ");
+    }
   }
 
   Future<void> requestAddFav(GameEntity gameEntity) async {
