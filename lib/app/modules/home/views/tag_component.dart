@@ -28,7 +28,6 @@ class MyState extends State<HomeGameTagComponent> with SingleTickerProviderState
     super.initState();
   }
 
-  final selectedTagIndex = 0.obs;
   bool isOpen = false;
   WidgetSizeHelper widgetSizeHelper = WidgetSizeHelper();
   final double oneLineHeight = 60.w;
@@ -72,7 +71,7 @@ class MyState extends State<HomeGameTagComponent> with SingleTickerProviderState
                               runSpacing: 12.w,
                               children: List.generate(
                                 gameTagList.length,
-                                (index) => _buildIndicatorTabItemBuilder(index, selectedTagIndex.value),
+                                (index) => _buildTagItemWidget(index),
                               ),
                             ),
                           ),
@@ -113,38 +112,40 @@ class MyState extends State<HomeGameTagComponent> with SingleTickerProviderState
     return textSize.width + 20.w;
   }
 
-  Widget _buildIndicatorTabItemBuilder(int index, int selectedPos) {
-    bool selected = index == selectedPos;
-    Color color = selected ? Colors.white : const Color.fromRGBO(255, 255, 255, 0.40);
-    FontWeight weight = selected ? FontWeight.w700 : FontWeight.w400;
-    GameTagEntity gameTagEntity = widget.controller.gameTagList[index];
-    return CupertinoButton(
-      onPressed: () {
-        selectedTagIndex.value = index;
-        Log.d("isOpen:$isOpen");
-        if(isOpen){
-          switchTagDrawer();
-          upArrowSwitcherController.startSwitch();
-        }
-        widget.controller.requestGameList(tagId: gameTagEntity.tid);
-      },
-      minSize: 0,
-      padding: EdgeInsets.zero,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(30.w),
-        child: Container(
-          width: getTabItemWidth(index),
-          height: 50.w,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(gradient: selected ? activeBtnLinearGradient : tabBgLinearGradient),
-          child: Center(
-            child: Text(
-              gameTagEntity.name,
-              style: TextStyle(color: color, fontSize: tabTextFontSize, fontWeight: weight),
+  Widget _buildTagItemWidget(int index) {
+    return Obx(() {
+      bool selected = widget.controller.selectedTagIndex.value == index;
+      Color color = selected ? Colors.white : const Color.fromRGBO(255, 255, 255, 0.40);
+      FontWeight weight = selected ? FontWeight.w700 : FontWeight.w400;
+      GameTagEntity gameTagEntity = widget.controller.gameTagList[index];
+      return CupertinoButton(
+        onPressed: () {
+          widget.controller.selectedTagIndex.value = index;
+          widget.controller.selectedChildTabIndex.value = 0;
+          if (isOpen) {
+            switchTagDrawer();
+            upArrowSwitcherController.startSwitch();
+          }
+          widget.controller.requestGameList(tagId: gameTagEntity.tid);
+        },
+        minSize: 0,
+        padding: EdgeInsets.zero,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(30.w),
+          child: Container(
+            width: getTabItemWidth(index),
+            height: 50.w,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(gradient: selected ? activeBtnLinearGradient : tabBgLinearGradient),
+            child: Center(
+              child: Text(
+                gameTagEntity.name,
+                style: TextStyle(color: color, fontSize: tabTextFontSize, fontWeight: weight),
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

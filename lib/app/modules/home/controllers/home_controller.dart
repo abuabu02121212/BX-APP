@@ -17,6 +17,8 @@ import '../../../entity/notice.dart';
 class HomeController extends GetxController {
   final gameTypes = RxList<GameTypeEntity>(GameTypeEntity.getList());
   final selectedGameTypeIndex = (-1).obs;
+  final selectedTagIndex = 0.obs;
+  final selectedChildTabIndex = 0.obs;
   final List<int> gameTypePressedRecordList = [-1];
   final ScrollController scrollController = ScrollController();
 
@@ -30,20 +32,21 @@ class HomeController extends GetxController {
     if (index == -1) {
       requestRecommendGameList();
     } else if (index == 0) {
-      requestHotGameList(subTypeGameList);
+      requestHotGameList();
     } else if (index == 1) {
-      requestFavGameList(subTypeGameList);
+      selectedChildTabIndex.value = 2;
+      requestFavGameList();
     } else {
+      selectedTagIndex.value = 0;
+      selectedChildTabIndex.value = 0;
       requestGameList();
       requestTagList();
     }
   }
 
-  String getCurGameType(){
+  String getCurGameType() {
     return gameTypes[selectedGameTypeIndex.value].gameType;
   }
-
-
 
   final DoubleClickExitApp doubleClickExitApp = DoubleClickExitApp();
 
@@ -124,20 +127,20 @@ class HomeController extends GetxController {
     Log.d("nav的数据是：$navJson ");
   }
 
-  Future<void> requestHotGameList(RxList<GameEntity> rx) async {
+  Future<void> requestHotGameList({ty = "0"}) async {
     AppLoading.show();
-    var retArr1 = await apiRequest.requestHotGameList({'ty': 0, 'l': 9999, 'platform_id': 0});
+    var retArr1 = await apiRequest.requestHotGameList({'ty': ty, 'l': 9999, 'platform_id': 0});
     AppLoading.close();
-    rx.value = GameEntity.getList(retArr1);
-    Log.d("热门游戏数目：${rx.length}");
+    subTypeGameList.value = GameEntity.getList(retArr1);
+    Log.d("热门游戏数目：${subTypeGameList.length}");
   }
 
-  Future<void> requestFavGameList(RxList<GameEntity> rx) async {
+  Future<void> requestFavGameList({ty = "0"}) async {
     AppLoading.show();
-    var retArr1 = await apiRequest.requestGameFavList(params: {'l': 18, 'platform_id': 0});
-    rx.value = GameEntity.getList(retArr1);
+    var retArr1 = await apiRequest.requestGameFavList(params: {'ty': ty, 'l': 18, 'platform_id': 0});
+    subTypeGameList.value = GameEntity.getList(retArr1);
     AppLoading.close();
-    Log.d("收藏游戏数目：${rx.length}");
+    Log.d("收藏游戏数目：${subTypeGameList.length}");
   }
 
   Future<void> requestRecGameList(int ty, RxList<GameEntity> rx) async {

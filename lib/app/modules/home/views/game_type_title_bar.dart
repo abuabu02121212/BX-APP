@@ -11,6 +11,7 @@ class GameTypeTitleBar extends StatelessWidget {
 
   final HomeController controller = Get.put(HomeController());
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -43,14 +44,16 @@ class GameTypeTitleBar extends StatelessWidget {
                           bool isShow = controller.selectedGameTypeIndex.value > 1;
                           return isShow
                               ? CupertinoButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    onSelected(0);
+                                  },
                                   minSize: 0,
                                   padding: EdgeInsets.zero,
                                   child: Container(
                                       width: 60.w,
                                       height: 60.w,
                                       decoration: BoxDecoration(
-                                        gradient: headerLinearGradient,
+                                        gradient: controller.selectedChildTabIndex.value == 0 ? activeBtnLinearGradient : headerLinearGradient,
                                         borderRadius: BorderRadius.circular(16.w),
                                       ),
                                       alignment: Alignment.center,
@@ -62,14 +65,16 @@ class GameTypeTitleBar extends StatelessWidget {
                           bool isShow = controller.selectedGameTypeIndex.value > 1;
                           return isShow
                               ? CupertinoButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    onSelected(1);
+                                  },
                                   minSize: 0,
                                   padding: EdgeInsets.zero,
                                   child: Container(
                                       width: 60.w,
                                       height: 60.w,
                                       decoration: BoxDecoration(
-                                        gradient: headerLinearGradient,
+                                        gradient: controller.selectedChildTabIndex.value == 1 ? activeBtnLinearGradient : headerLinearGradient,
                                         borderRadius: BorderRadius.circular(16.w),
                                       ),
                                       alignment: Alignment.center,
@@ -78,14 +83,16 @@ class GameTypeTitleBar extends StatelessWidget {
                               : const SizedBox();
                         }),
                         CupertinoButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            onSelected(2);
+                          },
                           minSize: 0,
                           padding: EdgeInsets.zero,
                           child: Container(
                               width: 60.w,
                               height: 60.w,
                               decoration: BoxDecoration(
-                                gradient: headerLinearGradient,
+                                gradient: controller.selectedChildTabIndex.value == 2 ? activeBtnLinearGradient : headerLinearGradient,
                                 borderRadius: BorderRadius.circular(16.w),
                               ),
                               alignment: Alignment.center,
@@ -95,14 +102,16 @@ class GameTypeTitleBar extends StatelessWidget {
                           bool isShow = controller.selectedGameTypeIndex.value > 1;
                           return isShow
                               ? CupertinoButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    onSelected(3);
+                                  },
                                   minSize: 0,
                                   padding: EdgeInsets.zero,
                                   child: Container(
                                       width: 60.w,
                                       height: 60.w,
                                       decoration: BoxDecoration(
-                                        gradient: headerLinearGradient,
+                                        gradient: controller.selectedChildTabIndex.value == 3 ? activeBtnLinearGradient : headerLinearGradient,
                                         borderRadius: BorderRadius.circular(16.w),
                                       ),
                                       alignment: Alignment.center,
@@ -118,5 +127,19 @@ class GameTypeTitleBar extends StatelessWidget {
             : const SizedBox();
       }),
     );
+  }
+
+  void onSelected(int index) {
+    controller.selectedTagIndex.value = 0;
+    controller.selectedChildTabIndex.value = index;
+    if (index == 0) {
+      controller.requestGameList();
+    } else if (index == 1) {
+      controller.requestHotGameList(ty: controller.getCurGameType());
+    } else if (index == 2) {
+      controller.requestFavGameList(ty: controller.getCurGameType());
+    } else if (index == 3) {
+   //   controller.requestGameList();
+    }
   }
 }
