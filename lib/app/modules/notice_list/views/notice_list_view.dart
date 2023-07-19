@@ -118,123 +118,149 @@ class _BuildItemState extends State<BuildItem> {
     super.initState();
     item = widget.item;
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 30.w),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color.fromRGBO(4, 75, 154, 0.7),
-            Color(0xFF011A51),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(20.w),
-        border: Border.all(color: const Color.fromRGBO(14, 209, 244, 0.25), width: 1.w),
-      ),
-      child: Container(
-        padding: EdgeInsets.only(left: 25.w, right: 25.w, bottom: 22.w),
-        child: Column(
-          children: [
-            AppCupertinoButton(
-              child: Column(
-                children: [
-                  SizedBox(height: 20.w),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              constraints: BoxConstraints(maxWidth: 515.w),
-                              child: Text(
-                                "${item.title ?? '-'} ${item.isExpand.toString()}",
-                                style: TextStyle(color: Colors.white, fontSize: 28.w),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            SizedBox(width: 10.w),
-                            // 红色未读
-                            Visibility(
-                              visible: item.isRead == 0,
-                              child: Image(
-                                image: const AssetImage('assets/images/i-red.webp'),
-                                width: 18.w,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      // 展开更多
-                      Container(
-                        margin: EdgeInsets.only(left: 23.w),
-                        child: CupertinoButton(
-                          padding: EdgeInsets.zero,
-                          minSize: 0,
-                          child: Image(
-                            image: AssetImage('assets/images/i-arrow-white-down.webp'),
-                            width: 26.w,
-                          ),
-                          onPressed: () {},
-                        ),
-                      )
-                    ],
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10.w),
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      AppUtil.timestamp2Date('${item.sendAt ?? ''}'),
-                      style: TextStyle(color: Colors.white, fontSize: 24.w),
-                    ),
-                  ),
-                ],
-              ),
-              onPressed: () {
-                clickHan();
-              },
-            ),
-            // 展开内容
-            Visibility(
-              visible: item.isExpand,
-              child: Container(
-                margin: EdgeInsets.only(top: 17.w),
-                padding: EdgeInsets.only(top: 13.w),
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      color: const Color.fromRGBO(255, 255, 255, 0.25),
-                      width: 1.w,
-                    ),
-                  ),
+    return Dismissible(
+      key: ValueKey(item.id),
+      background: Container(
+        padding: EdgeInsets.only(top: 30.w),
+        child: Container(
+          color: Colors.red,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                margin: EdgeInsets.only(right: 30.w),
+                child: Text(
+                  'Excluir',
+                  style: TextStyle(color: Colors.white, fontSize: 28.w),
                 ),
+              )
+            ],
+          ),
+        ),
+      ),
+      onDismissed: (direction) {
+        if (direction == DismissDirection.endToStart) {
+          controller.deleteNotice(item.id!);
+        }
+      },
+      child: Container(
+        margin: EdgeInsets.only(top: 30.w),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromRGBO(4, 75, 154, 0.7),
+              Color(0xFF011A51),
+            ],
+          ),
+          borderRadius: BorderRadius.circular(20.w),
+          border: Border.all(color: const Color.fromRGBO(14, 209, 244, 0.25), width: 1.w),
+        ),
+        child: Container(
+          padding: EdgeInsets.only(left: 25.w, right: 25.w, bottom: 22.w),
+          child: Column(
+            children: [
+              AppCupertinoButton(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start, // 主轴对齐方式调整
-                  crossAxisAlignment: CrossAxisAlignment.start, // 交叉轴对齐方式调整
                   children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.only(bottom: 0),
-                      child: Text(
-                        item.content ?? '-',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28.w,
-                          height: 1.3,
+                    SizedBox(height: 20.w),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                constraints: BoxConstraints(maxWidth: 515.w),
+                                child: Text(
+                                  "${item.title ?? '-'} ${item.isExpand.toString()}",
+                                  style: TextStyle(color: Colors.white, fontSize: 28.w),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              SizedBox(width: 10.w),
+                              // 红色未读
+                              Visibility(
+                                visible: item.isRead == 0,
+                                child: Image(
+                                  image: const AssetImage('assets/images/i-red.webp'),
+                                  width: 18.w,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
+                        // 展开更多
+                        Container(
+                          margin: EdgeInsets.only(left: 23.w),
+                          child: CupertinoButton(
+                            padding: EdgeInsets.zero,
+                            minSize: 0,
+                            child: Image(
+                              image: AssetImage('assets/images/i-arrow-white-down.webp'),
+                              width: 26.w,
+                            ),
+                            onPressed: () {},
+                          ),
+                        )
+                      ],
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 10.w),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        AppUtil.timestamp2Date('${item.sendAt ?? ''}'),
+                        style: TextStyle(color: Colors.white, fontSize: 24.w),
                       ),
                     ),
                   ],
                 ),
+                onPressed: () {
+                  clickHan();
+                },
               ),
-            ),
-          ],
+              // 展开内容
+              Visibility(
+                visible: item.isExpand,
+                child: Container(
+                  margin: EdgeInsets.only(top: 17.w),
+                  padding: EdgeInsets.only(top: 13.w),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: const Color.fromRGBO(255, 255, 255, 0.25),
+                        width: 1.w,
+                      ),
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start, // 主轴对齐方式调整
+                    crossAxisAlignment: CrossAxisAlignment.start, // 交叉轴对齐方式调整
+                    children: [
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.only(bottom: 0),
+                        child: Text(
+                          item.content ?? '-',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 28.w,
+                            height: 1.3,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

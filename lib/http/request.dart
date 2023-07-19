@@ -82,8 +82,8 @@ class ApiRequest {
     return await httpUtil.get(messageNum, {});
   }
 
-  Future requestMessageDelete() async {
-    return await httpUtil.post(messageDelete, {});
+  Future requestMessageDelete(Map<String, Object> params) async {
+    return await httpUtil.post(messageDelete, params);
   }
 
   Future requestPayChannel() async {
