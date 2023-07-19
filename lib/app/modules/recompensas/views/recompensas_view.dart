@@ -150,7 +150,7 @@ class RecompensasView extends GetView<RecompensasController> {
               height: 32.w,
             ),
             Text(
-              AppTransfer.timestamp2Date('${item.createdAt ?? '-'}'),
+              AppUtil.timestamp2Date('${item.createdAt ?? '-'}'),
               style: TextStyle(
                 fontSize: 28.w,
                 color: const Color.fromRGBO(255, 255, 255, 0.70),

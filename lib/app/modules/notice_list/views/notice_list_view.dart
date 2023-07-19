@@ -192,7 +192,7 @@ class _BuildItemState extends State<BuildItem> {
                     margin: EdgeInsets.only(top: 10.w),
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      AppTransfer.timestamp2Date('${item.sendAt ?? ''}'),
+                      AppUtil.timestamp2Date('${item.sendAt ?? ''}'),
                       style: TextStyle(color: Colors.white, fontSize: 24.w),
                     ),
                   ),

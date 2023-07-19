@@ -147,7 +147,7 @@ class ApostasView extends GetView<ApostasController> {
                                 isOdd: !index.isOdd,
                                 dataItem: [
                                   item.gameName ?? '-',
-                                  AppTransfer.timestamp2Date('${item.betTime ?? '0'}'),
+                                  AppUtil.timestamp2Date('${item.betTime ?? '0'}'),
                                   '${item.betAmount ?? '0'}',
                                   '${item.netAmount ?? '0'}',
                                 ],

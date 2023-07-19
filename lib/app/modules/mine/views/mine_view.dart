@@ -18,7 +18,6 @@ import '../../../component/app_progress.dart';
 import '../../main/controllers/main_controller.dart';
 import '../controllers/mine_controller.dart';
 
-
 class MineView extends GetView<MineController> with RouteAware {
   const MineView({Key? key}) : super(key: key);
 
@@ -130,9 +129,7 @@ class MineView extends GetView<MineController> with RouteAware {
                                       children: [
                                         Obx(() {
                                           return Text(
-                                            controller.globeController.userInfoEntity.value
-                                                    ?.username ??
-                                                "",
+                                            controller.globeController.userInfoEntity.value?.username ?? "",
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 26.w,
@@ -141,8 +138,15 @@ class MineView extends GetView<MineController> with RouteAware {
                                         }),
                                         SizedBox(width: 7.w),
                                         AppCupertinoButton(
-                                          child:
-                                              Image.asset("assets/images/i-copy.webp", width: 25.w),
+                                          onPressed: () {
+                                            AppUtil.copy(
+                                              controller.globeController.userInfoEntity.value?.username ?? "",
+                                            );
+                                          },
+                                          child: Image.asset(
+                                            "assets/images/i-copy.webp",
+                                            width: 25.w,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -153,7 +157,7 @@ class MineView extends GetView<MineController> with RouteAware {
                                 children: [
                                   Obx(() {
                                     return Text(
-                                      AppTransfer.amountFormat(
+                                      AppUtil.amountFormat(
                                         controller.globeController.balance.value?.brl_amount ?? '',
                                       ),
                                       style: TextStyle(

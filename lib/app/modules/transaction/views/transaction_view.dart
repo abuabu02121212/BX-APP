@@ -163,7 +163,7 @@ class TransactionView extends GetView<TransactionController> {
                         ),
                       ),
                       Text(
-                        AppTransfer.amountFormat(item.amount ?? ''),
+                        AppUtil.amountFormat(item.amount ?? ''),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 28.w,
@@ -185,7 +185,7 @@ class TransactionView extends GetView<TransactionController> {
                         ),
                       ),
                       Text(
-                        AppTransfer.amountFormat(item.discount ?? ''),
+                        AppUtil.amountFormat(item.discount ?? ''),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 28.w,
@@ -222,7 +222,7 @@ class TransactionView extends GetView<TransactionController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        AppTransfer.timestamp2Date(item.createdAt ?? ''),
+                        AppUtil.timestamp2Date(item.createdAt ?? ''),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 28.w,
