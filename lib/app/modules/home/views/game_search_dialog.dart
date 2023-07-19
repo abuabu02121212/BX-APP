@@ -17,7 +17,7 @@ class GameSearchWidget extends StatelessWidget {
   final selectedIndex = 0.obs;
   final HomeController controller = Get.put(HomeController());
   final EditNode editNode = EditNode();
-  final platformId = "0".obs;
+  late final platformId = dataList.isEmpty ? "0".obs : dataList[0].id.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +135,8 @@ class GameSearchWidget extends StatelessWidget {
             radius: 100.w,
             text: 'confirm',
             onClick: () {
-              controller.requestGameSearch(keyWord: editNode.text, platformId: platformId.value);
+              controller.paginationHelper.reset();
+              controller.requestGameSearch(keyWord: editNode.text.value, platformId: platformId.value);
               Get.back();
             },
           ),

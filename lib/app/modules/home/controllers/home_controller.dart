@@ -107,8 +107,9 @@ class HomeController extends GetxController {
   // 滚动监听回调
   void _scrollListener() {
     if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
-      /// 滚动到了底部
-      if (selectedGameTypeIndex.value == 0) {
+      if (selectedChildTabIndex.value == 3) {
+        requestGameSearch(keyWord: lastKeyWord, platformId: lastPlatformId);
+      } else if (selectedGameTypeIndex.value == 0) {
         requestHotGameList();
       } else if (selectedGameTypeIndex.value == 1) {
         requestFavGameList();
@@ -122,15 +123,15 @@ class HomeController extends GetxController {
   void onGameTypeTitleBarSelected(int index) {
     selectedTagIndex.value = 0;
     selectedChildTabIndex.value = index;
+    if (index != 3) {
+      paginationHelper.reset();
+    }
     if (index == 0) {
       requestGameList();
     } else if (index == 1) {
       requestHotGameList(ty: getCurGameType());
     } else if (index == 2) {
       requestFavGameList(ty: getCurGameType());
-    }
-    if (index != 3) {
-      paginationHelper.reset();
     }
   }
 
@@ -194,40 +195,50 @@ class HomeController extends GetxController {
     Log.d("nav的数据size是：${navItemList.length} ");
   }
 
-  Future<void> requestHotGameList({ty = "0"}) async {
-    AppLoading.show();
-    var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
-    var retArr1 = await apiRequest.requestHotGameList({
-      'ty': ty,
-      'page': curRequestPageIndex,
-      'page_size': paginationHelper.perPageSize,
-      //'l': 9999,
-      'platform_id': 0,
-    });
-    AppLoading.close();
-    subTypeGameList.value = GameEntity.getList(retArr1);
-    Log.d("热门游戏数目：${subTypeGameList.length}");
-  }
-
-  Future<void> requestFavGameList({ty = "0"}) async {
-    AppLoading.show();
-    var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
-    var retArr1 = await apiRequest.requestGameFavList(params: {
-      'ty': ty,
-      'page': curRequestPageIndex,
-      'page_size': paginationHelper.perPageSize,
-      // 'l': 500,
-      'platform_id': 0,
-    });
-    subTypeGameList.value = GameEntity.getList(retArr1);
-    AppLoading.close();
-    Log.d("收藏游戏数目：${subTypeGameList.length}");
-  }
-
   Future<void> requestRecGameList(int ty, RxList<GameEntity> rx) async {
     var retArr1 = await apiRequest.requestGameRecList(params: {'ty': ty, 'l': 18, 'platform_id': 0});
     rx.value = GameEntity.getList(retArr1);
     Log.d("=======ty:$ty 推荐游戏数目：${rx.length}");
+  }
+
+  Future<void> requestHotGameList({ty = "0"}) async {
+    AppLoading.show();
+    try {
+      var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
+      var retData = await apiRequest.requestHotGameList({
+        'ty': ty,
+        'page': curRequestPageIndex,
+        'page_size': paginationHelper.perPageSize,
+        // 'l': 999,
+        'platform_id': 0,
+      });
+      onPaginationRequestFinish(curRequestPageIndex, retData);
+      Log.d("热门游戏数目：${subTypeGameList.length}");
+    } catch (e, stack) {
+      subTypeGameList.value = [];
+      Log.e("$e, $stack");
+    }
+    AppLoading.close();
+  }
+
+  Future<void> requestFavGameList({ty = "0"}) async {
+    AppLoading.show();
+    try {
+      var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
+      var retData = await apiRequest.requestGameFavList(params: {
+        'ty': ty,
+        'page': curRequestPageIndex,
+        'page_size': paginationHelper.perPageSize,
+        // 'l': 500,
+        'platform_id': 0,
+      });
+      onPaginationRequestFinish(curRequestPageIndex, retData);
+    } catch (e, stack) {
+      subTypeGameList.value = [];
+      Log.e("$e, $stack");
+    }
+    AppLoading.close();
+    Log.d("收藏游戏数目：${subTypeGameList.length}");
   }
 
   Future<void> requestGameList({tagId = 0}) async {
@@ -236,21 +247,76 @@ class HomeController extends GetxController {
     }
     AppLoading.show();
     var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
-    var curGameType = getCurGameType();
-    var retData = await apiRequest.requestGameList(params: {
-      'game_type': curGameType,
-      'page': curRequestPageIndex,
-      'page_size': paginationHelper.perPageSize,
-      'platform_id': 0,
-      'tag_id': tagId,
-    });
-    onPaginationRequestFinish(curRequestPageIndex, retData);
+    try {
+      var retData = await apiRequest.requestGameList(params: {
+        'game_type': getCurGameType(),
+        'page': curRequestPageIndex,
+        'page_size': paginationHelper.perPageSize,
+        'platform_id': 0,
+        'tag_id': tagId,
+      });
+      onPaginationRequestFinish(curRequestPageIndex, retData['d']);
+    } catch (e, stack) {
+      subTypeGameList.value = [];
+      Log.e("$e, $stack");
+    }
     AppLoading.close();
-    Log.d("==game_type:$curGameType=====游戏数目：${subTypeGameList.length}");
+    Log.d("==子类=====游戏数目：${subTypeGameList.length}");
   }
 
-  void onPaginationRequestFinish(int curRequestPageIndex, retArr1) {
-    var list = GameEntity.getList(retArr1['d']);
+  String lastKeyWord = "";
+  String lastPlatformId = "";
+
+  Future<void> requestGameSearch({keyWord = '', platformId = "0"}) async {
+    if (paginationHelper.isHasRequestedAllData()) {
+      return;
+    }
+    lastKeyWord = keyWord;
+    lastPlatformId = platformId;
+    AppLoading.show();
+    var curGameType = getCurGameType();
+    var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
+    try {
+      var retData = await apiRequest.requestGameSearch(params: {
+        'ty': curGameType,
+        'page': curRequestPageIndex,
+        'page_size': paginationHelper.perPageSize,
+        'w': keyWord,
+        'platform_id': platformId,
+        'tag_id': 0,
+      });
+      onPaginationRequestFinish(curRequestPageIndex, retData['d']);
+      onGameTypeTitleBarSelected(3);
+    } catch (e, stack) {
+      subTypeGameList.value = [];
+      Log.e("$e, $stack");
+    }
+    AppLoading.close();
+    Log.d("==game_type:$curGameType=====游戏搜索结果size：${subTypeGameList.length}");
+  }
+
+  Future<void> requestTagList() async {
+    gameTagList.clear();
+    gameTagList.add(GameTagEntity.def);
+    gameTagList.refresh();
+    try {
+      var json = await apiRequest.requestTagList(params: {
+        'game_type': getCurGameType(),
+        'platform_id': 0,
+      });
+      gameTagList.clear();
+      gameTagList.add(GameTagEntity.def);
+      gameTagList.addAll(GameTagEntity.getList(json));
+      gameTagList.refresh();
+    } catch (e, stack) {
+      subTypeGameList.value = [];
+      Log.e("$e, $stack");
+    }
+    Log.d("=======游戏tag列表长度：${gameTagList.length} ");
+  }
+
+  void onPaginationRequestFinish(int curRequestPageIndex, retArr) {
+    var list = GameEntity.getList(retArr);
     if (curRequestPageIndex == 1) {
       subTypeGameList.value = list;
     } else if (curRequestPageIndex > 1) {
@@ -263,39 +329,6 @@ class HomeController extends GetxController {
       });
     }
     paginationHelper.onRequestDataOk(list.length);
-  }
-
-  Future<void> requestGameSearch({keyWord = '' ,platformId = 0}) async {
-    if (paginationHelper.isHasRequestedAllData()) {
-      return;
-    }
-    AppLoading.show();
-    var curGameType = getCurGameType();
-    var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
-    var retData = await apiRequest.requestGameSearch(params: {
-      'ty': curGameType,
-      'page': curRequestPageIndex,
-      'page_size': paginationHelper.perPageSize,
-      'w': keyWord,
-      'platform_id': platformId,
-      'tag_id': 0,
-    });
-    onPaginationRequestFinish(curRequestPageIndex, retData);
-    onGameTypeTitleBarSelected(3);
-    AppLoading.close();
-    Log.d("==game_type:$curGameType=====游戏搜索结果size：${subTypeGameList.length}");
-  }
-
-  Future<void> requestTagList() async {
-    gameTagList.clear();
-    gameTagList.add(GameTagEntity.def);
-    gameTagList.refresh();
-    var json = await apiRequest.requestTagList(params: {'game_type': getCurGameType(), 'platform_id': 0});
-    gameTagList.clear();
-    gameTagList.add(GameTagEntity.def);
-    gameTagList.addAll(GameTagEntity.getList(json));
-    gameTagList.refresh();
-    Log.d("=======游戏tag列表长度：${gameTagList.length} ");
   }
 
   Future<void> requestNotice() async {
