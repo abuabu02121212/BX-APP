@@ -142,6 +142,9 @@ class GameTypeTitleBar extends StatelessWidget {
       showSearchDialog(controller.navItemList);
       //   controller.requestGameList();
     }
+    if(index != 3){
+      controller.paginationHelper.reset();
+    }
   }
 
 }

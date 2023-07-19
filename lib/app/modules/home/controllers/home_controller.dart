@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_comm/app/entity/game_tag.dart';
 import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../http/request.dart';
@@ -34,6 +35,7 @@ class HomeController extends GetxController {
   }
 
   void requestSubTypeListData(int index) {
+    paginationHelper.reset();
     if (index == -1) {
       requestRecommendGameList();
     } else if (index == 0) {
@@ -80,8 +82,9 @@ class HomeController extends GetxController {
   }
 
   final subTypeGameList = RxList<GameEntity>();
+  final verticalListPos0ShowSize = 0.obs;
   final gameTagList = RxList<GameTagEntity>();
-  final PaginationHelper subTypeGameListPaginationHelper = PaginationHelper(15);
+  final PaginationHelper paginationHelper = PaginationHelper(15);
 
   final recommend0GameList = RxList<GameEntity>();
   final recommend1GameList = RxList<GameEntity>();
@@ -101,9 +104,38 @@ class HomeController extends GetxController {
 
   final bannerList = RxList<BannerEntity>();
 
+  // 滚动监听回调
+  void _scrollListener() {
+    if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
+      /// 滚动到了底部
+      if (selectedGameTypeIndex.value == 0) {
+        pageShowHotGameList();
+      } else if (selectedGameTypeIndex.value > 1) {
+        requestGameList();
+      }
+      Log.d("=============滚动到了底部==============");
+    }
+  }
+
+  Future<void> pageShowHotGameList() async {
+    if (verticalListPos0ShowSize.value < subTypeGameList.length) {
+      AppLoading.show();
+      // await Future.delayed(const Duration(milliseconds: 200));
+      int temSize = verticalListPos0ShowSize.value + 100;
+      if (temSize <= subTypeGameList.length) {
+        verticalListPos0ShowSize.value = temSize;
+      } else {
+        verticalListPos0ShowSize.value = subTypeGameList.length;
+      }
+      scrollController.animateTo(scrollController.offset + 30.w, duration: const Duration(milliseconds: 250), curve: Curves.ease);
+      AppLoading.close();
+    }
+  }
+
   @override
   Future<void> onReady() async {
     super.onReady();
+    scrollController.addListener(_scrollListener);
     requestMemberNav();
     requestNotice();
 
@@ -155,7 +187,7 @@ class HomeController extends GetxController {
 
   Future<void> requestFavGameList({ty = "0"}) async {
     AppLoading.show();
-    var retArr1 = await apiRequest.requestGameFavList(params: {'ty': ty, 'l': 18, 'platform_id': 0});
+    var retArr1 = await apiRequest.requestGameFavList(params: {'ty': ty, 'l': 500, 'platform_id': 0});
     subTypeGameList.value = GameEntity.getList(retArr1);
     AppLoading.close();
     Log.d("收藏游戏数目：${subTypeGameList.length}");
@@ -168,35 +200,56 @@ class HomeController extends GetxController {
   }
 
   Future<void> requestGameList({tagId = 0}) async {
+    if (paginationHelper.isHasRequestedAllData()) {
+      return;
+    }
     AppLoading.show();
+    var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
     var curGameType = getCurGameType();
-    var retArr1 = await apiRequest.requestGameList(params: {
+    var retData = await apiRequest.requestGameList(params: {
       'game_type': curGameType,
-      'page': 1,
-      'page_size': 15,
+      'page': curRequestPageIndex,
+      'page_size': paginationHelper.perPageSize,
       'platform_id': 0,
       'tag_id': tagId,
     });
-    subTypeGameList.value = GameEntity.getList(retArr1['d']);
-    subTypeGameListPaginationHelper.onRequestDataOk(subTypeGameList.length);
+    onPaginationRequestFinish(curRequestPageIndex, retData);
     AppLoading.close();
     Log.d("==game_type:$curGameType=====游戏数目：${subTypeGameList.length}");
   }
 
+  void onPaginationRequestFinish(int curRequestPageIndex, retArr1) {
+    var list = GameEntity.getList(retArr1['d']);
+    if (curRequestPageIndex == 1) {
+      subTypeGameList.value = list;
+    } else if (curRequestPageIndex > 1) {
+      subTypeGameList.addAll(list);
+      subTypeGameList.refresh();
+    }
+    if(list.length > 2){
+      Future.delayed(const Duration(milliseconds: 250), (){
+        scrollController.jumpTo(scrollController.offset + 20.w);
+      });
+    }
+    paginationHelper.onRequestDataOk(list.length);
+  }
+
   Future<void> requestGameSearch({keyWord = ''}) async {
+    if (paginationHelper.isHasRequestedAllData()) {
+      return;
+    }
     AppLoading.show();
     var curGameType = getCurGameType();
-    // ?ty=1&page=1&page_size=15&w=dd&platform_id=0&tag_id=0
-    var retArr1 = await apiRequest.requestGameSearch(params: {
+    var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
+    var retData = await apiRequest.requestGameSearch(params: {
       'ty': curGameType,
-      'page': 1,
-      'page_size': 15,
+      'page': curRequestPageIndex,
+      'page_size': paginationHelper.perPageSize,
       'w': keyWord,
       'platform_id': 0,
       'tag_id': 0,
     });
-    subTypeGameList.value = GameEntity.getList(retArr1['d']);
-    subTypeGameListPaginationHelper.onRequestDataOk(subTypeGameList.length);
+    onPaginationRequestFinish(curRequestPageIndex, retData);
     AppLoading.close();
     Log.d("==game_type:$curGameType=====游戏搜索结果size：${subTypeGameList.length}");
   }
@@ -218,7 +271,7 @@ class HomeController extends GetxController {
     var noticeList = NoticeEntity.getList(json);
     if (noticeList.isNotEmpty) {
       showingMarqueeText.value = '';
-      for(var item in noticeList){
+      for (var item in noticeList) {
         showingMarqueeText.value += '  ${item.content}';
       }
       Log.d("=======通知返回 size：${noticeList.length} ");

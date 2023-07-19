@@ -2,10 +2,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:get/get.dart';
 
+import 'Log.dart';
+
 /// 分页助手： 适用于依据页数分页的请求逻辑
 class PaginationHelper {
-  final int initPageIndex = 1;
-  late int curPageIndex = initPageIndex;
+  /// 起始页index = 1, 为了方便计算，默认defPageIndex = 0
+  final int defPageIndex = 0;
+  late int curPageIndex = defPageIndex;
 
   bool isRequestedAllData = false;
   final isAddOnLoadCall = false.obs;
@@ -32,12 +35,19 @@ class PaginationHelper {
     }
   }
 
-  int getNextPageIndex() {
+  /// 获取当前需要请求页面的index
+  int getCurRequestPageIndex() {
     return curPageIndex + 1;
   }
+  bool isHasRequestedAllData(){
+    if(isRequestedAllData){
+      Log.d("所有数据请求完毕");
+    }
+    return isRequestedAllData;
+  }
 
-  void onReset() {
-    curPageIndex = initPageIndex;
+  void reset() {
+    curPageIndex = defPageIndex;
     isRequestedAllData = false;
     isAddOnLoadCall.value = false;
   }

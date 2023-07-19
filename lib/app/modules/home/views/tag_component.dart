@@ -126,6 +126,7 @@ class MyState extends State<HomeGameTagComponent> with SingleTickerProviderState
             switchTagDrawer();
             upArrowSwitcherController.startSwitch();
           }
+          widget.controller.paginationHelper.reset();
           widget.controller.requestGameList(tagId: gameTagEntity.tid);
         },
         minSize: 0,
