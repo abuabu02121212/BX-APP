@@ -19,7 +19,7 @@ class RegisterController extends GetxController {
   final isAgreed = true.obs;
   final selectedIndex = 0.obs;
   late CodeSender phoneCodeSender = CodeSender(tarEditNode: phoneEditNode, regExp: phoneNumExp);
-  late CodeSender emailCodeSender = CodeSender(tarEditNode: emailEditNode, regExp: emailExp);
+  late CodeSender emailCodeSender = CodeSender(tarEditNode: emailEditNode, regExp: emailExp, codeType: 2);
 
   bool checkEmailRegInput() {
     emailEditNode.isDisplayErrHint.value = !emailExp.hasMatch(emailEditNode.text.value);
@@ -45,12 +45,21 @@ class RegisterController extends GetxController {
     }
     Log.d("inputIsOk:$inputIsOk");
     if (!inputIsOk) return;
-    if (!phoneCodeSender.isHasSuccessSendVerifyCode) {
-      /// 请发送验证吗
-      Toast.show("Por Favor, Envie O Código De Verificação");
-      return;
+    if (selectedIndex.value == 0) {
+      if (!emailCodeSender.isHasSuccessSendVerifyCode) {
+        /// 请发送验证吗
+        Toast.show("Por Favor, Envie O Código De Verificação");
+        return;
+      }
+    } else {
+      if (!phoneCodeSender.isHasSuccessSendVerifyCode) {
+        /// 请发送验证吗
+        Toast.show("Por Favor, Envie O Código De Verificação");
+        return;
+      }
     }
-    if(!isAgreed.value){
+
+    if (!isAgreed.value) {
       /// 请阅读并同意隐私政策
       Toast.show("Por Favor, Leia E Concorde Com A Política De Privacidade");
       return;
@@ -84,5 +93,4 @@ class RegisterController extends GetxController {
 
     Log.d("注册接口请求返回： ret:$ret");
   }
-
 }

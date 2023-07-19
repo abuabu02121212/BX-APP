@@ -38,3 +38,12 @@ Future<dynamic> requestCommPhoneVerifyCode(String tel) async {
   // ty: 1注册2忘记密码
   return await apiRequest.requestSms({'tel': tel, 'ty': 1, 'flag': 'text'});
 }
+
+Future<dynamic> requestCommSmsSendMail(String mail) async {
+  // ty: 1注册 2忘记密码
+  return await apiRequest.requestSmsSendMail(params: {
+   // 'username': '',
+    'ty': '1',
+    'mail': mail,
+  });
+}

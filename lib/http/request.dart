@@ -153,5 +153,8 @@ class ApiRequest {
   Future requestGameFavList({Map<String, Object>? params}) async {
     return await httpUtil.get(gameFavList, params ?? {});
   }
+ Future requestSmsSendMail({Map<String, Object>? params}) async {
+    return await httpUtil.post(smsSendMail, params ?? {});
+  }
 
 }
