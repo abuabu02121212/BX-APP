@@ -98,12 +98,9 @@ class VerticalGameTypeList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       bool isNotEmpty = controller.subTypeGameList.isNotEmpty;
-      if (controller.subTypeGameList.isNotEmpty && controller.verticalListPos0ShowSize.value == 0) {
-        controller.verticalListPos0ShowSize.value = min(15, controller.subTypeGameList.length);
-      }
       return isNotEmpty
           ? GridView.builder(
-              itemCount: controller.selectedGameTypeIndex.value == 0 ? controller.verticalListPos0ShowSize.value : controller.subTypeGameList.length,
+              itemCount: controller.subTypeGameList.length,
               shrinkWrap: true,
               padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 20.w),
               physics: const NeverScrollableScrollPhysics(),
