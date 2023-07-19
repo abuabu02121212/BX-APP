@@ -5,12 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../app_style.dart';
 import '../controllers/home_controller.dart';
+import 'game_search_dialog.dart';
 
 class GameTypeTitleBar extends StatelessWidget {
   GameTypeTitleBar({super.key});
 
   final HomeController controller = Get.put(HomeController());
-
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +139,9 @@ class GameTypeTitleBar extends StatelessWidget {
     } else if (index == 2) {
       controller.requestFavGameList(ty: controller.getCurGameType());
     } else if (index == 3) {
-   //   controller.requestGameList();
+      showSearchDialog();
+      //   controller.requestGameList();
     }
   }
+
 }
