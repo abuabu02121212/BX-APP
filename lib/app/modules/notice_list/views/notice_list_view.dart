@@ -76,7 +76,7 @@ class NoticeListView extends GetView<NoticeListController> {
                     params: {'is_read': controller.is_read.value},
                     builder: (dynamic el, int index) {
                       MessageListD item = MessageListD.fromJson(el);
-                      return _buildItem(item);
+                      return BuildItem(item: item);
                     },
                   );
                 }),
@@ -87,8 +87,42 @@ class NoticeListView extends GetView<NoticeListController> {
       ),
     );
   }
+}
 
-  Container _buildItem(MessageListD item) {
+class BuildItem extends StatefulWidget {
+  const BuildItem({Key? key, required this.item}) : super(key: key);
+
+  final MessageListD item;
+
+  @override
+  State<BuildItem> createState() => _BuildItemState();
+}
+
+class _BuildItemState extends State<BuildItem> {
+
+  late MessageListD item;
+  NoticeListController get controller => Get.find();
+
+  clickHan() {
+    if (item.id != null) {
+      controller.readNotice(item.id!);
+    }
+    setState(() {
+      item.isExpand = !item.isExpand;
+      item.isRead = 1;
+    });
+  }
+
+  @override
+  void initState() {
+    print('123123');
+
+    super.initState();
+    item = widget.item;
+  }
+  
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 30.w),
       decoration: BoxDecoration(
@@ -121,7 +155,7 @@ class NoticeListView extends GetView<NoticeListController> {
                             Container(
                               constraints: BoxConstraints(maxWidth: 515.w),
                               child: Text(
-                                item.title ?? '-',
+                                "${item.title ?? '-'} ${item.isExpand.toString()}",
                                 style: TextStyle(color: Colors.white, fontSize: 28.w),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -164,9 +198,13 @@ class NoticeListView extends GetView<NoticeListController> {
                   ),
                 ],
               ),
+              onPressed: () {
+                clickHan();
+              },
             ),
             // 展开内容
             Visibility(
+              visible: item.isExpand,
               child: Container(
                 margin: EdgeInsets.only(top: 17.w),
                 padding: EdgeInsets.only(top: 13.w),

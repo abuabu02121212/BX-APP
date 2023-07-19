@@ -14,15 +14,14 @@ class NoticeListController extends GetxController with SingleGetTickerProviderMi
   }
 
   /// 读取站内信
-  void readNotice(MessageListD item) async {
-    item.isExpand = !item.isExpand;
-    // try {
-    //   await apiRequest.requestMessageRead({
-    //     'id': item.id ?? 0,
-    //   });
-    // } catch (e) {
-    //   print(e);
-    // }
+  void readNotice(String id) async {
+    try {
+      await apiRequest.requestMessageRead({
+        'id': id
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
