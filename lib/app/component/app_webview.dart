@@ -4,6 +4,7 @@ import 'package:flutter_comm/app/modules/login_register/views/login_regiseter_wi
 import 'package:flutter_comm/http/comm_request.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
+import '../../globe_controller.dart';
 import '../routes/app_pages.dart';
 import 'app_header.dart';
 
@@ -26,6 +27,8 @@ class EventHandle {
       params["isEndEqual"] = isEndEqual;
     }
 
+    final globalController = Get.find<GlobeController>();
+
     switch (params["type"]) {
       case "login":
         {
@@ -41,24 +44,36 @@ class EventHandle {
         break;
       case "recompensas":
         {
-          // 奖励记录
-          Get.offAllNamed(Routes.HOME);
+          if (globalController.isLogin()) {
+            // 奖励记录
+            Get.offAllNamed(Routes.HOME);
+          } else {
+            showLoginRegisterDialog();
+          }
         }
         break;
       case "deposit":
         {
-          // 存款
-          Get.toNamed(Routes.DEPOSIT, arguments: {'index': 0})?.then((value) {
-            requestCommBalance();
-          });
+          if (globalController.isLogin()) {
+            // 存款
+            Get.toNamed(Routes.DEPOSIT, arguments: {'index': 0})?.then((value) {
+              requestCommBalance();
+            });
+          } else {
+            showLoginRegisterDialog();
+          }
         }
         break;
       case "withdraw":
         {
-          // 取款
-          Get.toNamed(Routes.DEPOSIT, arguments: {'index': 1})?.then((value) {
-            requestCommBalance();
-          });
+          if (globalController.isLogin()) {
+            // 取款
+            Get.toNamed(Routes.DEPOSIT, arguments: {'index': 1})?.then((value) {
+              requestCommBalance();
+            });
+          } else {
+            showLoginRegisterDialog();
+          }
         }
         break;
       default:
