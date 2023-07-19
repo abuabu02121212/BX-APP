@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../util/Log.dart';
+
 //RegExp usernameRegExp = RegExp(r"^[a-zA-Z][a-zA-Z0-9]{4,13}$");
 RegExp usernameRegExp = RegExp(r"^[a-zA-Z0-9][a-zA-Z0-9]{4,13}$");
 RegExp pswRegExp = RegExp(r"^[0-9A-Za-z]{4,12}$");
@@ -111,17 +113,19 @@ class MyInputFiled extends StatefulWidget {
     this.textStyle,
     this.obscureText = false,
     this.textDirection,
+    this.border,
   });
 
   final double width;
   final double height;
-  final double radius;
   final String hint;
   final TextStyle? hintStyle;
   final TextStyle? textStyle;
   final Widget? prefix;
   final Widget? suffix;
+  final double radius;
   final Color? bgColor;
+  final BoxBorder? border;
   final EditNode editNode;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
@@ -146,7 +150,7 @@ class _MyInputFiledState extends State<MyInputFiled> {
   @override
   void initState() {
     super.initState();
-    print('============初始化==============');
+    Log.d('============初始化==============');
     widget.editNode.initState();
     widget.editNode.editController.addListener(_addListener);
   }
@@ -155,18 +159,18 @@ class _MyInputFiledState extends State<MyInputFiled> {
   void dispose() {
     widget.editNode.editController.removeListener(_addListener);
     widget.editNode.dispose();
-    print('==============销毁====================');
+    Log.d('==============销毁====================');
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(widget.radius),
+     // borderRadius: BorderRadius.circular(widget.radius),
       child: Container(
         width: widget.width,
         height: widget.height,
-        color: widget.bgColor,
+        decoration: BoxDecoration(color: widget.bgColor, borderRadius: BorderRadius.circular(widget.radius) , border: widget.border),
         alignment: Alignment.center,
         padding: EdgeInsets.only(left: 8.w),
         child: CupertinoTextField(

@@ -21,6 +21,11 @@ class UserInfoInputField extends StatelessWidget {
     this.isEmail = false,
     this.codeSender,
     required this.hint,
+    this.radius = 50,
+    this.height = 50,
+    this.bgColor = Colors.black,
+    this.border,
+    this.onTextChanged,
   });
 
   final String prefixIcon;
@@ -33,6 +38,11 @@ class UserInfoInputField extends StatelessWidget {
   final bool isCode;
   final bool isEmail;
   final CodeSender? codeSender;
+  final double radius;
+  final double? height;
+  final Color? bgColor;
+  final BoxBorder? border;
+  final ValueChanged<String>? onTextChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +60,7 @@ class UserInfoInputField extends StatelessWidget {
     }
     return SizedBox(
       width: double.infinity,
-      height: 114.w,
+      height: height ?? 114.w,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -62,6 +72,9 @@ class UserInfoInputField extends StatelessWidget {
               width: double.infinity,
               height: 72.w,
               hint: hint,
+              border: border,
+              bgColor: bgColor,
+              radius: radius,
               obscureText: isPassword ? eyeIsOPen : false,
               inputFormatters: tarFormatterList,
               keyboardType: isEmail ? TextInputType.emailAddress : (isPhone || isCode ? TextInputType.number : TextInputType.text),
@@ -105,6 +118,9 @@ class UserInfoInputField extends StatelessWidget {
                   editNode.isDisplayErrHint.value = !emailExp.hasMatch(text);
                 } else if (isCode) {
                   editNode.isDisplayErrHint.value = !codeRegExp.hasMatch(text);
+                }
+                if (onTextChanged != null) {
+                  onTextChanged!(text);
                 }
               },
               editNode: editNode,
