@@ -619,7 +619,7 @@ class DepositView extends GetView<DepositController> {
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              "Retirada mínima R\$0",
+                              "Retirada mínima R\$ ${controller.withdrawControllerPage.pageData.config?.fmin ?? ''}",
                               style: TextStyle(
                                 color: const Color.fromRGBO(255, 255, 255, 0.4),
                                 fontSize: 28.w,

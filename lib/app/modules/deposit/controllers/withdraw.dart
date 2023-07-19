@@ -64,7 +64,7 @@ class WithdrawControllerPage extends GetxController {
   // 验证最小金额
   String? validateMinAmount() {
     if (minAmountNode.text.value.isEmpty) {
-      return '请输入最小金额';
+      return 'Por favor, insira';
     } else if (double.parse(minAmountNode.text.value) <
             double.parse(pageData.config?.fmin ?? '0') ||
         double.parse(minAmountNode.text.value) > double.parse(pageData.config?.fmax ?? '0')) {
