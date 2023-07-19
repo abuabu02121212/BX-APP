@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_comm/util/toast_util.dart';
+import 'package:flutter_comm/util/transfer.dart';
 
 class TextMeasureUtil {
   static Size getTextSize({
@@ -19,9 +20,7 @@ class TextMeasureUtil {
 
 /// 复制链接
 void copyText(String link) {
-  Clipboard.setData(ClipboardData(text: link));
-
-  Toast.show('已经复制');
+  AppUtil.copy(link);
 }
 
 String getUrlEncodeStr(String text) {
