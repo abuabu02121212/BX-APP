@@ -139,7 +139,7 @@ class GameTypeTitleBar extends StatelessWidget {
     } else if (index == 2) {
       controller.requestFavGameList(ty: controller.getCurGameType());
     } else if (index == 3) {
-      showSearchDialog();
+      showSearchDialog(controller.navItemList);
       //   controller.requestGameList();
     }
   }

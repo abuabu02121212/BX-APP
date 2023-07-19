@@ -8,12 +8,16 @@ import '../../../../util/toast_util.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_user_info_input_field.dart';
+import '../../../entity/game_nav.dart';
+import '../controllers/home_controller.dart';
 
 class GameSearchWidget extends StatelessWidget {
   GameSearchWidget({super.key, required this.dataList});
 
-  final List<dynamic> dataList;
+  final List<GameNavEntity> dataList;
   final selectedIndex = 0.obs;
+  final HomeController controller = Get.put(HomeController());
+  final EditNode editNode = EditNode();
 
   @override
   Widget build(BuildContext context) {
@@ -49,15 +53,13 @@ class GameSearchWidget extends StatelessWidget {
           margin: EdgeInsets.only(top: 10.w, left: 20.w, right: 20.w),
           child: UserInfoInputField(
             prefixIcon: 'assets/images/i-filter4.webp',
-            editNode: EditNode(),
+            editNode: editNode,
             height: 96.w,
             hint: 'To search for',
             bgColor: const Color(0xff000A1D),
             border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
             errText: '',
-            onTextChanged: (text){
-
-            },
+            onTextChanged: (text) {},
             isEmail: false,
           ),
         ),
@@ -106,7 +108,7 @@ class GameSearchWidget extends StatelessWidget {
                           border: isSelected ? Border.all(width: 1.w, color: const Color(0xff2A2E3E)) : null,
                         ),
                         child: Text(
-                          dataList[index],
+                          dataList[index].name,
                           maxLines: 2,
                           textAlign: TextAlign.center,
                           style: TextStyle(
@@ -125,13 +127,15 @@ class GameSearchWidget extends StatelessWidget {
         ),
         Container(
           width: double.infinity,
-          padding:  EdgeInsets.only(left: 20.w, right: 20.w, top: 10.w),
+          padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.w),
           child: AppButton(
             width: double.infinity,
             height: 90.w,
             radius: 100.w,
             text: 'confirm',
             onClick: () {
+              controller.requestGameSearch(keyWord: editNode.text);
+              Get.back();
               Toast.show("按钮被点击");
             },
           ),
@@ -141,17 +145,9 @@ class GameSearchWidget extends StatelessWidget {
   }
 }
 
-void showSearchDialog() {
+void showSearchDialog(List<GameNavEntity> list) {
   Get.dialog(
-    GameSearchWidget(
-      dataList: const [
-        "all",
-        "pocket",
-        "pocket",
-        "koker",
-        "player games",
-      ],
-    ),
+    GameSearchWidget(dataList: list),
     barrierDismissible: false,
     barrierColor: const Color.fromRGBO(0, 0, 0, 0.8),
   );

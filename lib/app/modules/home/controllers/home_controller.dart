@@ -11,6 +11,7 @@ import '../../../../util/pagination_helper.dart';
 import '../../../../util/toast_util.dart';
 import '../../../entity/banner.dart';
 import '../../../entity/game_item.dart';
+import '../../../entity/game_nav.dart';
 import '../../../entity/game_type.dart';
 import '../../../entity/notice.dart';
 
@@ -22,6 +23,7 @@ class HomeController extends GetxController {
   final List<int> gameTypePressedRecordList = [-1];
   final ScrollController scrollController = ScrollController();
 
+  final List<GameNavEntity> navItemList = [];
   void addPressedRecord(int index) {
     gameTypePressedRecordList.add(index);
     requestSubTypeListData(index);
@@ -119,12 +121,23 @@ class HomeController extends GetxController {
   Future<void> requestMemberNav() async {
     Map<String, dynamic> navJson = await apiRequest.requestMemberNav();
     var preList = GameTypeEntity.preList;
+
     for (var item in preList) {
       if (navJson.containsKey(item.gameType)) {
         gameTypes.add(item);
       }
     }
-    Log.d("nav的数据是：$navJson ");
+    var values = navJson.values;
+    List<GameNavEntity> ls = [];
+    for(var items in values){
+      for(var item in items){
+        var entity = GameNavEntity.fromJson(item);
+        ls.add(entity);
+      }
+    }
+    navItemList.clear();
+    navItemList.addAll(ls);
+    Log.d("nav的数据size是：${navItemList.length} ");
   }
 
   Future<void> requestHotGameList({ty = "0"}) async {
@@ -163,6 +176,24 @@ class HomeController extends GetxController {
     subTypeGameListPaginationHelper.onRequestDataOk(subTypeGameList.length);
     AppLoading.close();
     Log.d("==game_type:$curGameType=====游戏数目：${subTypeGameList.length}");
+  }
+
+  Future<void> requestGameSearch({keyWord = ''}) async {
+    AppLoading.show();
+    var curGameType = getCurGameType();
+    // ?ty=1&page=1&page_size=15&w=dd&platform_id=0&tag_id=0
+    var retArr1 = await apiRequest.requestGameSearch(params: {
+      'ty': curGameType,
+      'page': 1,
+      'page_size': 15,
+      'w': keyWord,
+      'platform_id': 0,
+      'tag_id': 0,
+    });
+    subTypeGameList.value = GameEntity.getList(retArr1['d']);
+    subTypeGameListPaginationHelper.onRequestDataOk(subTypeGameList.length);
+    AppLoading.close();
+    Log.d("==game_type:$curGameType=====游戏搜索结果size：${subTypeGameList.length}");
   }
 
   Future<void> requestTagList() async {
