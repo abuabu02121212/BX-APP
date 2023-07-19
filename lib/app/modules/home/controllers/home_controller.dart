@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_comm/app/entity/game_tag.dart';
+import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../../http/request.dart';
@@ -22,8 +23,10 @@ class HomeController extends GetxController {
   final selectedChildTabIndex = 0.obs;
   final List<int> gameTypePressedRecordList = [-1];
   final ScrollController scrollController = ScrollController();
+  final showingMarqueeText = "".obs;
 
   final List<GameNavEntity> navItemList = [];
+
   void addPressedRecord(int index) {
     gameTypePressedRecordList.add(index);
     requestSubTypeListData(index);
@@ -53,23 +56,25 @@ class HomeController extends GetxController {
   final DoubleClickExitApp doubleClickExitApp = DoubleClickExitApp();
 
   bool consumePressedRecord() {
-    Log.d("========consumePressedRecord：$gameTypePressedRecordList  selectedGameTypeIndex:${selectedGameTypeIndex.value}");
-    if (gameTypePressedRecordList.isNotEmpty) {
-      var removeLast = gameTypePressedRecordList.removeLast();
-      if (removeLast == selectedGameTypeIndex.value) {
-        removeLast = gameTypePressedRecordList.removeLast();
+    MainController mainController = Get.find<MainController>();
+    if (mainController.indicatorTabController.selectedIndexNotifier.value == 0) {
+      Log.d("========consumePressedRecord：$gameTypePressedRecordList  selectedGameTypeIndex:${selectedGameTypeIndex.value}");
+      if (gameTypePressedRecordList.isNotEmpty) {
+        var removeLast = gameTypePressedRecordList.removeLast();
+        if (removeLast == selectedGameTypeIndex.value) {
+          removeLast = gameTypePressedRecordList.removeLast();
+        }
+        selectedGameTypeIndex.value = removeLast;
+        requestSubTypeListData(selectedGameTypeIndex.value);
+        return true;
       }
-      selectedGameTypeIndex.value = removeLast;
-      requestSubTypeListData(selectedGameTypeIndex.value);
-      return true;
+      if (gameTypePressedRecordList.isEmpty && selectedGameTypeIndex.value != -1) {
+        selectedGameTypeIndex.value = -1;
+        requestSubTypeListData(selectedGameTypeIndex.value);
+        Log.d("===222=====consumePressedRecord：$gameTypePressedRecordList  selectedGameTypeIndex:${selectedGameTypeIndex.value}");
+        return true;
+      }
     }
-    if (gameTypePressedRecordList.isEmpty && selectedGameTypeIndex.value != -1) {
-      selectedGameTypeIndex.value = -1;
-      requestSubTypeListData(selectedGameTypeIndex.value);
-      Log.d("===222=====consumePressedRecord：$gameTypePressedRecordList  selectedGameTypeIndex:${selectedGameTypeIndex.value}");
-      return true;
-    }
-
     doubleClickExitApp.onClick();
     return true;
   }
@@ -129,8 +134,8 @@ class HomeController extends GetxController {
     }
     var values = navJson.values;
     List<GameNavEntity> ls = [];
-    for(var items in values){
-      for(var item in items){
+    for (var items in values) {
+      for (var item in items) {
         var entity = GameNavEntity.fromJson(item);
         ls.add(entity);
       }
@@ -212,6 +217,7 @@ class HomeController extends GetxController {
     var json = await apiRequest.requestNotice();
     var noticeList = NoticeEntity.getList(json);
     if (noticeList.isNotEmpty) {
+      showingMarqueeText.value = noticeList[0].content;
       Log.d("=======通知返回content ：${noticeList[0].content} ");
     }
   }
