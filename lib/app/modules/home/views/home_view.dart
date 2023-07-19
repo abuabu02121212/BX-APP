@@ -77,7 +77,7 @@ class ItemGenerateWidget extends StatelessWidget {
             radius: 0,
           ),
         ),
-        const HomeMarquee(),
+        HomeMarquee(),
         HomeGameTypesWidget(),
         Obx(() {
           bool isShowRecommendGamePage = controller.selectedGameTypeIndex.value == -1;
@@ -410,9 +410,11 @@ class HomeGameTypesWidget extends StatelessWidget {
 }
 
 class HomeMarquee extends StatelessWidget {
-  const HomeMarquee({
+  HomeMarquee({
     super.key,
   });
+
+  final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -428,10 +430,12 @@ class HomeMarquee extends StatelessWidget {
           Expanded(
               child: Container(
             padding: EdgeInsets.only(left: 20.w, right: 20.w),
-            child: SingleScrollViewMarquee(
-              text: "Bem-vindo ao paraíso dos jogos, preparamos uma variedade de jogos populares para você ter uma experiência de jogo diferente.",
-              style: TextStyle(color: const Color(0xffffffff), fontSize: 22.w),
-            ),
+            child: Obx(() {
+              return SingleScrollViewMarquee(
+                text: controller.showingMarqueeText.value,
+                style: TextStyle(color: const Color(0xffffffff), fontSize: 22.w),
+              );
+            }),
           )),
         ],
       ),

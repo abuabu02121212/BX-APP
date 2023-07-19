@@ -217,8 +217,11 @@ class HomeController extends GetxController {
     var json = await apiRequest.requestNotice();
     var noticeList = NoticeEntity.getList(json);
     if (noticeList.isNotEmpty) {
-      showingMarqueeText.value = noticeList[0].content;
-      Log.d("=======通知返回content ：${noticeList[0].content} ");
+      showingMarqueeText.value = '';
+      for(var item in noticeList){
+        showingMarqueeText.value += '  ${item.content}';
+      }
+      Log.d("=======通知返回 size：${noticeList.length} ");
     }
   }
 
