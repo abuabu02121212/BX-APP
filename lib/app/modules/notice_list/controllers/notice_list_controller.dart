@@ -7,9 +7,9 @@ import '../../../entity/message_list_data.dart';
 class NoticeListController extends GetxController with SingleGetTickerProviderMixin {
   TabController? tabController;
 
-  final is_read = 0.obs;
+  final is_read = ''.obs;
 
-  void setIsRead(int value) {
+  void setIsRead(String value) {
     is_read.value = value;
   }
 

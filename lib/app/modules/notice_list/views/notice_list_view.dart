@@ -57,11 +57,11 @@ class NoticeListView extends GetView<NoticeListController> {
               child: AppTab(
                 controller: controller.tabController,
                 tabs: const [
-                  {'label': 'Todas', 'value': '0'},
-                  {'label': 'Nao Lido', 'value': '1'}
+                  {'label': 'Todas', 'value': ''},
+                  {'label': 'Nao Lido', 'value': '0'}
                 ],
                 onTap: (int index, String value) {
-                  controller.setIsRead(int.parse(value));
+                  controller.setIsRead(value);
                 },
                 height: 100.w,
               ),
@@ -115,8 +115,6 @@ class _BuildItemState extends State<BuildItem> {
 
   @override
   void initState() {
-    print('123123');
-
     super.initState();
     item = widget.item;
   }
