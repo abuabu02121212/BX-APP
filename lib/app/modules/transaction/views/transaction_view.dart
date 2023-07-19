@@ -141,7 +141,9 @@ class TransactionView extends GetView<TransactionController> {
                           image: AssetImage('assets/images/i-transaction-copy.webp'),
                           width: 36.w,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          AppUtil.copy(item.billNo ?? '');
+                        },
                       )
                     ],
                   ),

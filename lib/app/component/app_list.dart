@@ -122,15 +122,17 @@ class _AppListState extends State<AppList> {
         builder: (BuildContext context, RefreshStatus? mode) {
           Widget body;
           if (mode == RefreshStatus.idle) {
-            body = const Text("下拉刷新");
+            body = const Text("Puxe para baixo para atualizar");
           } else if (mode == RefreshStatus.refreshing) {
-            body = const CircularProgressIndicator();
+            body = const CircularProgressIndicator(
+              color: Color.fromRGBO(14, 209, 244, 1),
+            );
           } else if (mode == RefreshStatus.failed) {
-            body = const Text("刷新失败！点击重试！");
+            body = const Text("Falha na atualização! Clique para tentar novamente!");
           } else if (mode == RefreshStatus.canRefresh) {
-            body = const Text("松手,刷新!");
+            body = const Text("Deixe ir, atualize!");
           } else {
-            body = const Text("刷新完成");
+            body = const Text("atualização completa");
           }
           return SizedBox(
             height: 55.0,
@@ -148,15 +150,17 @@ class _AppListState extends State<AppList> {
         builder: (BuildContext context, LoadStatus? mode) {
           Widget body;
           if (mode == LoadStatus.idle) {
-            body = const Text("上拉加载");
+            body = const Text("puxe a carga");
           } else if (mode == LoadStatus.loading) {
-            body = const CircularProgressIndicator();
+            body = const CircularProgressIndicator(
+              color: Color.fromRGBO(14, 209, 244, 1),
+            );
           } else if (mode == LoadStatus.failed) {
-            body = const Text("加载失败！点击重试！");
+            body = const Text("Falha ao carregar! Clique para tentar novamente!");
           } else if (mode == LoadStatus.canLoading) {
-            body = const Text("松手,加载更多!");
+            body = const Text("Solte, carregue mais!");
           } else {
-            body = _data.isEmpty  ? const SizedBox() : const Text("没有更多数据了");
+            body = _data.isEmpty  ? const SizedBox() : const Text("Não Mais");
           }
           return SizedBox(
             height: 55.0,
