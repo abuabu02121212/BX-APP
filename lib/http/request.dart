@@ -70,12 +70,12 @@ class ApiRequest {
     return await httpUtil.get(sign, {});
   }
 
-  Future requestMessageList() async {
-    return await httpUtil.get(messageList, {});
+  Future requestMessageList({Map<String, Object>? params}) async {
+    return await httpUtil.get(messageList, params ?? {});
   }
 
-  Future requestMessageRead() async {
-    return await httpUtil.post(messageRead, {});
+  Future requestMessageRead(Map<String, Object> params) async {
+    return await httpUtil.post(messageRead, params);
   }
 
   Future requestMessageNum() async {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/entity/game_type.dart';
 import 'package:flutter_comm/app/modules/home/views/swiper_component.dart';
 import 'package:flutter_comm/app/modules/home/views/tag_component.dart';
+import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -475,8 +476,9 @@ class HomeHeader extends StatelessWidget {
           SizedBox(width: 26.w),
           CupertinoButton(
             onPressed: () {
-              showForgetPswDialog();
+              // showForgetPswDialog();
               Toast.show("按钮被点击");
+              Get.toNamed(Routes.NOTICE_LIST);
             },
             minSize: 0,
             padding: EdgeInsets.all(10.w),
