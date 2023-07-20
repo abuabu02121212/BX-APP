@@ -4,10 +4,12 @@ import 'package:flutter_comm/util/app_util.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:get/get.dart';
 
+import '../../../../app_config.dart';
 import '../../../../http/request.dart';
 import '../../../../util/Log.dart';
 import '../../../../util/dialog.dart';
 import '../../../../widget/horizontal_indicator_tab.dart';
+import '../../../routes/app_pages.dart';
 import '../../mine/controllers/mine_controller.dart';
 
 class MainController extends GetxController {
@@ -18,6 +20,11 @@ class MainController extends GetxController {
     indicatorTabController.onItemSelectChanged(selectedIndex);
   }
 
+  void toHome(){
+   // Get.until((router) => router.settings.name == Routes.SPLASH);
+    Log.d("当前路由是：${appNavigatorObserver.curRouterName} list:${appNavigatorObserver.routerNameList}");
+    changeSelectedTab(0);
+  }
   getAppUpgradeInfo() async {
     try {
       final d = await apiRequest.requestAppUpdate();

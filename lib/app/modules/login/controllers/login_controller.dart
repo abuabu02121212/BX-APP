@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
+import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_comm/widget/input_field.dart';
 import 'package:get/get.dart';
 import 'package:cbor/cbor.dart';
@@ -54,6 +56,8 @@ class LoginController extends GetxController {
       await requestCommBalance();
       AppLoading.close();
       Get.back();
+      MainController mainController = Get.put(MainController());
+      mainController.toHome();
     } else {
       AppLoading.close();
       Log.e("登陆失败...");
