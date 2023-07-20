@@ -42,8 +42,8 @@ class ApiRequest {
     return await httpUtil.get(hotGameList, param);
   }
 
-  Future requestForgetPsw() async {
-    return await httpUtil.post(forgetPsw, {});
+  Future requestForgetPsw({Map<String, Object>? params}) async {
+    return await httpUtil.post(forgetPsw, params ?? {});
   }
 
   Future requestLastWin() async {

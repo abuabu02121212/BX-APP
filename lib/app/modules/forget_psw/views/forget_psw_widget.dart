@@ -4,7 +4,6 @@ import 'package:flutter_comm/app/modules/register/views/register_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../../util/toast_util.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_user_info_input_field.dart';
 import '../../login/views/login_view.dart';
@@ -12,10 +11,13 @@ import '../../register/views/email_phone_tab.dart';
 import '../controllers/forget_psw_controller.dart';
 
 class ForgetPswWidget extends StatelessWidget {
-  ForgetPswWidget({super.key});
+  ForgetPswWidget({super.key}) {
+    Get.create<ForgetPswController>(() => ForgetPswController());
+    controller = Get.put(ForgetPswController());
+  }
 
   final List<Widget> pageList = [LoginWidget(), RegisterWidget()];
-  final ForgetPswController controller = Get.put(ForgetPswController());
+  late final ForgetPswController controller;
   late final viewList = [EmailListWidget(controller: controller), PhoneListWidget(controller: controller)];
   @override
   Widget build(BuildContext context) {
@@ -90,7 +92,7 @@ class ForgetPswWidget extends StatelessWidget {
                             radius: 100.w,
                             text: 'Redefinir senha',
                             onClick: () {
-                              Toast.show("Entrar");
+                              controller.commitRequest();
                             },
                           ),
                         ),

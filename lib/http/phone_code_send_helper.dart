@@ -18,8 +18,10 @@ class CodeSender {
   final EditNode tarEditNode;
   final RegExp regExp;
   final int codeType;
+  final bool isForgetPsw;
 
-  CodeSender({required this.tarEditNode, required this.regExp, this.codeType = 1});
+
+  CodeSender({required this.tarEditNode, required this.regExp, this.codeType = 1, this.isForgetPsw = false});
 
   bool checkInput() {
     bool isOk = regExp.hasMatch(tarEditNode.text.value);
@@ -34,9 +36,9 @@ class CodeSender {
     // data: 37869799820730321:1689392074476665
     String? data;
     if (codeType == 1) {
-      data = await requestCommPhoneVerifyCode(tarEditNode.text.value);
+      data = await requestCommPhoneVerifyCode(tarEditNode.text.value, isForgetPsw: isForgetPsw);
     } else if (codeType == 2) {
-      data = await requestCommSmsSendMail(tarEditNode.text.value);
+      data = await requestCommSmsSendMail(tarEditNode.text.value, isForgetPsw: isForgetPsw);
     }
     var arr = data?.split(":");
     Log.d("验证码结果：data: $data  arr：$arr");

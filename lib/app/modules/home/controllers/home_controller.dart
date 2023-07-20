@@ -203,7 +203,7 @@ class HomeController extends GetxController {
 
   Future<void> requestRecGameList(int ty, RxList<GameEntity> rx) async {
     var retArr1 = await apiRequest.requestGameRecList(params: {'ty': ty, 'l': 18, 'platform_id': 0});
-    rx.value = GameEntity.getList(retArr1);
+    rx.value = GameEntity.getList(retArr1['d']);
     Log.d("=======ty:$ty 推荐游戏数目：${rx.length}");
   }
 
