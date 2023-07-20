@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_comm/util/toast_util.dart';
-import 'package:flutter_comm/util/transfer.dart';
+import 'package:flutter_comm/util/app_util.dart';
 
 class TextMeasureUtil {
   static Size getTextSize({

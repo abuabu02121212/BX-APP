@@ -13,7 +13,7 @@ class MyNavigatorObserver extends NavigatorObserver {
     Log.d("didPop 离开页面 cur: ${cur.settings.name}  pre: ${pre?.settings.name}");
 
     /// 回到main首页请求余额接口
-    if (pre?.settings.name == Routes.MAIN) {
+    if (pre?.settings.name == Routes.MAIN && cur.settings.name != null) {
       requestCommBalance();
     }
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/entity/recompensas_data.dart';
 import 'package:flutter_comm/http/request.dart';
-import 'package:flutter_comm/util/transfer.dart';
+import 'package:flutter_comm/util/app_util.dart';
 
 import 'package:get/get.dart';
 

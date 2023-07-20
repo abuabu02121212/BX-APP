@@ -4,7 +4,7 @@ import 'package:flutter_comm/app/component/app_header.dart';
 import 'package:flutter_comm/app/component/app_list.dart';
 import 'package:flutter_comm/app/component/app_tab.dart';
 import 'package:flutter_comm/http/request.dart';
-import 'package:flutter_comm/util/transfer.dart';
+import 'package:flutter_comm/util/app_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';

@@ -4,14 +4,11 @@ import 'package:flutter_comm/app/component/app_avatar.dart';
 import 'package:flutter_comm/app/component/app_cupertino_button.dart';
 import 'package:flutter_comm/app/modules/login_register/views/login_regiseter_widget.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
-import 'package:flutter_comm/util/toast_util.dart';
-import 'package:flutter_comm/util/transfer.dart';
+import 'package:flutter_comm/util/dialog.dart';
+import 'package:flutter_comm/util/app_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
-
 import '../../../../globe_controller.dart';
-import '../../../../http/comm_request.dart';
 import '../../../../http/request.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_progress.dart';

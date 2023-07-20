@@ -154,4 +154,7 @@ class ApiRequest {
     return await httpUtil.get(gameFavList, params ?? {});
   }
 
+  Future requestAppUpdate({Map<String, Object>? params}) async {
+    return await httpUtil.get(appUpgrade, params ?? {});
+  }
 }
