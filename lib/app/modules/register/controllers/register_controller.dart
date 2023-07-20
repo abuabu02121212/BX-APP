@@ -8,6 +8,7 @@ import '../../../../http/phone_code_send_helper.dart';
 import '../../../../http/request.dart';
 import '../../../../util/Log.dart';
 import '../../../../util/toast_util.dart';
+import '../../main/controllers/main_controller.dart';
 
 class RegisterController extends GetxController {
   final EditNode emailEditNode = EditNode();
@@ -86,6 +87,8 @@ class RegisterController extends GetxController {
       await requestUserInfo();
       await requestCommBalance();
       Get.back();
+      MainController mainController = Get.put(MainController());
+      mainController.toHome();
     } else {
       Toast.show("$ret");
     }

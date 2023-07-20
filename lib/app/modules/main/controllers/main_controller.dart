@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_comm/app/entity/app_upgrade.dart';
 import 'package:flutter_comm/util/app_util.dart';
-import 'package:flutter_comm/util/toast_util.dart';
 import 'package:get/get.dart';
 
 import '../../../../app_config.dart';
@@ -21,8 +20,12 @@ class MainController extends GetxController {
   }
 
   void toHome(){
-   // Get.until((router) => router.settings.name == Routes.SPLASH);
-    Log.d("当前路由是：${appNavigatorObserver.curRouterName} list:${appNavigatorObserver.routerNameList}");
+     Get.until((router){
+      // Log.d("当前路由是：${appNavigatorObserver.curRouterName} list:${appNavigatorObserver.routerNameList}");
+       bool isAlive = appNavigatorObserver.curRouterName == Routes.SPLASH;
+       Log.d("=============isAlive:$isAlive===========================");
+       return isAlive;
+     });
     changeSelectedTab(0);
   }
   getAppUpgradeInfo() async {

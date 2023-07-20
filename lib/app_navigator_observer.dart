@@ -10,7 +10,7 @@ class AppNavigatorObserver extends NavigatorObserver {
   void didPush(Route<dynamic> route, Route<dynamic>? previousRoute) {
     routerList.add(route);
     routerNameList.add(route.settings.name);
-    curRouterName = route.settings.name;
+    curRouterName = routerNameList.isEmpty ? "" : routerNameList.last;
     print("LLpp ========didPush========curRouterName:$curRouterName====");
     Log.d("========didPush========curRouterName:$curRouterName====");
   }
@@ -26,6 +26,7 @@ class AppNavigatorObserver extends NavigatorObserver {
     }
     routerList.removeLast();
     routerNameList.removeLast();
+    curRouterName = routerNameList.isEmpty ? "" : routerNameList.last;
     Log.d("========didPop========routeName:$routeName====");
     print("====LLpp====didPop========routeName:$routeName====");
   }
