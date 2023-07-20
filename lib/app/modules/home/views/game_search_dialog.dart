@@ -4,7 +4,6 @@ import 'package:flutter_comm/widget/input_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../../util/toast_util.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_user_info_input_field.dart';
@@ -18,6 +17,7 @@ class GameSearchWidget extends StatelessWidget {
   final selectedIndex = 0.obs;
   final HomeController controller = Get.put(HomeController());
   final EditNode editNode = EditNode();
+  late final platformId = dataList.isEmpty ? "0".obs : dataList[0].id.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +88,7 @@ class GameSearchWidget extends StatelessWidget {
               return CupertinoButton(
                 onPressed: () {
                   selectedIndex.value = index;
+                  platformId.value = dataList[index].id;
                 },
                 minSize: 0,
                 padding: EdgeInsets.zero,
@@ -134,9 +135,9 @@ class GameSearchWidget extends StatelessWidget {
             radius: 100.w,
             text: 'confirm',
             onClick: () {
-              controller.requestGameSearch(keyWord: editNode.text);
+              controller.paginationHelper.reset();
+              controller.requestGameSearch(keyWord: editNode.text.value, platformId: platformId.value);
               Get.back();
-              Toast.show("按钮被点击");
             },
           ),
         ),

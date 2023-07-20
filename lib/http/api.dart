@@ -39,3 +39,4 @@ const String favInsert = "/member/fav/insert";
 const String favDelete = "/member/fav/delete";
 const String gameFavList = "/member/game/fav/list";
 const String appUpgrade = "/member/app/upgrade";
+const String smsSendMail = "/sms/send/mail";

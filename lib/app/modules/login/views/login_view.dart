@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import '../../../../util/toast_util.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_user_info_input_field.dart';
+import '../../forget_psw/views/forget_psw_widget.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -76,7 +77,10 @@ class LoginWidget extends StatelessWidget {
           Align(
             alignment: Alignment.topLeft,
             child: CupertinoButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.back();
+                showForgetPswDialog();
+              },
               minSize: 0,
               padding: EdgeInsets.zero,
               child: Container(

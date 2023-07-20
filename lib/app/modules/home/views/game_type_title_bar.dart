@@ -45,7 +45,7 @@ class GameTypeTitleBar extends StatelessWidget {
                           return isShow
                               ? CupertinoButton(
                                   onPressed: () {
-                                    onSelected(0);
+                                    controller.onGameTypeTitleBarSelected(0);
                                   },
                                   minSize: 0,
                                   padding: EdgeInsets.zero,
@@ -66,7 +66,7 @@ class GameTypeTitleBar extends StatelessWidget {
                           return isShow
                               ? CupertinoButton(
                                   onPressed: () {
-                                    onSelected(1);
+                                    controller.onGameTypeTitleBarSelected(1);
                                   },
                                   minSize: 0,
                                   padding: EdgeInsets.zero,
@@ -84,7 +84,7 @@ class GameTypeTitleBar extends StatelessWidget {
                         }),
                         CupertinoButton(
                           onPressed: () {
-                            onSelected(2);
+                            controller.onGameTypeTitleBarSelected(2);
                           },
                           minSize: 0,
                           padding: EdgeInsets.zero,
@@ -103,7 +103,7 @@ class GameTypeTitleBar extends StatelessWidget {
                           return isShow
                               ? CupertinoButton(
                                   onPressed: () {
-                                    onSelected(3);
+                                    showSearchDialog(controller.navItemList);
                                   },
                                   minSize: 0,
                                   padding: EdgeInsets.zero,
@@ -128,20 +128,4 @@ class GameTypeTitleBar extends StatelessWidget {
       }),
     );
   }
-
-  void onSelected(int index) {
-    controller.selectedTagIndex.value = 0;
-    controller.selectedChildTabIndex.value = index;
-    if (index == 0) {
-      controller.requestGameList();
-    } else if (index == 1) {
-      controller.requestHotGameList(ty: controller.getCurGameType());
-    } else if (index == 2) {
-      controller.requestFavGameList(ty: controller.getCurGameType());
-    } else if (index == 3) {
-      showSearchDialog(controller.navItemList);
-      //   controller.requestGameList();
-    }
-  }
-
 }

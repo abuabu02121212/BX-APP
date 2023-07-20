@@ -42,8 +42,8 @@ class ApiRequest {
     return await httpUtil.get(hotGameList, param);
   }
 
-  Future requestForgetPsw() async {
-    return await httpUtil.post(forgetPsw, {});
+  Future requestForgetPsw({Map<String, Object>? params}) async {
+    return await httpUtil.post(forgetPsw, params ?? {});
   }
 
   Future requestLastWin() async {
@@ -152,6 +152,9 @@ class ApiRequest {
 
   Future requestGameFavList({Map<String, Object>? params}) async {
     return await httpUtil.get(gameFavList, params ?? {});
+  }
+ Future requestSmsSendMail({Map<String, Object>? params}) async {
+    return await httpUtil.post(smsSendMail, params ?? {});
   }
 
   Future requestAppUpdate({Map<String, Object>? params}) async {

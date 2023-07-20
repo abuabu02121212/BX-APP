@@ -34,7 +34,16 @@ Future<void> requestCommBalance() async {
   }
 }
 
-Future<dynamic> requestCommPhoneVerifyCode(String tel) async {
+Future<dynamic> requestCommPhoneVerifyCode(String tel, {isForgetPsw = false}) async {
   // ty: 1注册2忘记密码
-  return await apiRequest.requestSms({'tel': tel, 'ty': 1, 'flag': 'text'});
+  return await apiRequest.requestSms({'tel': tel, 'ty': isForgetPsw ? 2 : 1, 'flag': 'text'});
+}
+
+Future<dynamic> requestCommSmsSendMail(String mail, {isForgetPsw = false}) async {
+  // ty: 1注册 2忘记密码
+  return await apiRequest.requestSmsSendMail(params: {
+    // 'username': '',
+    'ty': isForgetPsw ? "2" : "1",
+    'mail': mail,
+  });
 }

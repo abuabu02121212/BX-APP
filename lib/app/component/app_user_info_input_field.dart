@@ -22,7 +22,7 @@ class UserInfoInputField extends StatelessWidget {
     this.codeSender,
     required this.hint,
     this.radius = 50,
-    this.height = 50,
+    this.height,
     this.bgColor = Colors.black,
     this.border,
     this.onTextChanged,

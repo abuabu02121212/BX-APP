@@ -17,8 +17,11 @@ class CodeSender {
   String sid = '';
   final EditNode tarEditNode;
   final RegExp regExp;
+  final int codeType;
+  final bool isForgetPsw;
 
-  CodeSender({required this.tarEditNode, required this.regExp});
+
+  CodeSender({required this.tarEditNode, required this.regExp, this.codeType = 1, this.isForgetPsw = false});
 
   bool checkInput() {
     bool isOk = regExp.hasMatch(tarEditNode.text.value);
@@ -31,9 +34,14 @@ class CodeSender {
     // 发送验证码
     AppLoading.show();
     // data: 37869799820730321:1689392074476665
-    String? data = await requestCommPhoneVerifyCode(tarEditNode.text.value);
+    String? data;
+    if (codeType == 1) {
+      data = await requestCommPhoneVerifyCode(tarEditNode.text.value, isForgetPsw: isForgetPsw);
+    } else if (codeType == 2) {
+      data = await requestCommSmsSendMail(tarEditNode.text.value, isForgetPsw: isForgetPsw);
+    }
     var arr = data?.split(":");
-    Log.d("手机验证码结果：data: $data  arr：$arr");
+    Log.d("验证码结果：data: $data  arr：$arr");
     if (data != null && arr?.length == 2) {
       Toast.show('send success');
       isHasSuccessSendVerifyCode = true;
