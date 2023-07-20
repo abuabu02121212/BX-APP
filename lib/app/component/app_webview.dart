@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_comm/app/modules/login_register/views/login_regiseter_widget.dart';
 import 'package:flutter_comm/http/comm_request.dart';
+import 'package:flutter_comm/util/app_util.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
 import '../../globe_controller.dart';
@@ -76,11 +77,23 @@ class EventHandle {
           }
         }
         break;
+      case "telegram":
+        {
+          if (globalController.isLogin()) {
+            if (params['url'] != null && params['url'].toString().isNotEmpty) {
+              AppUtil.launch(params['url'].toString());
+            }
+          } else {
+            showLoginRegisterDialog();
+          }
+        }
+        break;
       default:
         break;
     }
   }
 }
+
 
 class AppWebview extends StatefulWidget {
   AppWebview({super.key, required this.url, required this.title});
