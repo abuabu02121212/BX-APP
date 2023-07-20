@@ -57,4 +57,10 @@ class WebURLUtil {
     "url": "https://www.google.com",
     "title": "客服地址"
   };
+
+  /// 活动Telegram
+  static Map<String ,String> REGISTER_RULES = {
+    "url": "$_BASE_URL/privacy?is-app=1&t=${_getToken()}",
+    "title": "Privacy"
+  };
 }

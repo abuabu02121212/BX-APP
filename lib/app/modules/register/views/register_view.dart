@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
-import '../../../../util/toast_util.dart';
+import '../../../../util/weburl_util.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_user_info_input_field.dart';
 import '../controllers/register_controller.dart';
@@ -103,7 +104,7 @@ class RegisterWidget extends StatelessWidget {
                       TextSpan(
                         text: " com os termos e política de\n privacidade.",
                         recognizer: TapGestureRecognizer()..onTap = (){
-                          Toast.show("click");
+                          Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.REGISTER_RULES);
                         },
                         style: TextStyle(
                           fontSize: 24.w,
