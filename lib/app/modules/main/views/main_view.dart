@@ -41,7 +41,7 @@ class MainView extends GetView<MainController> {
                       case 1:
                         return AliveWidget(child: PromotionView());
                       case 2:
-                        return const AliveWidget(child: DepositView());
+                        return AliveWidget(child: DepositView());
                       case 3:
                         return AliveWidget(child: VipView());
                       case 4:

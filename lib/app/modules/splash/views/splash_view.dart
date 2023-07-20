@@ -26,29 +26,29 @@ class SplashView extends GetView<SplashController> {
               width: 1.sw,
               height: 1.sh,
             ),
-            Positioned(
-                right: 30.w,
-                top: 120.w,
-                child: CountdownWidget(
-                  seconds: 4,
-                  finish: () {
-                    Get.offNamed(Routes.MAIN);
-                  },
-                  childBuild: (String text, String text2) {
-                    return ClipOval(
-                      child: Container(
-                        width: 90.w,
-                        height: 90.w,
-                        color: const Color(0xff3f3f3f),
-                        alignment: Alignment.center,
-                        child: Text(
-                          text,
-                          style: TextStyle(color: Colors.white, fontSize: 30.w),
-                        ),
-                      ),
-                    );
-                  },
-                )),
+            // Positioned(
+            //     right: 30.w,
+            //     top: 120.w,
+            //     child: CountdownWidget(
+            //       seconds: 0,
+            //       finish: () {
+            //      //   Get.offNamed(Routes.MAIN);
+            //       },
+            //       childBuild: (String text, String text2) {
+            //         return ClipOval(
+            //           child: Container(
+            //             width: 90.w,
+            //             height: 90.w,
+            //             color: const Color(0xff3f3f3f),
+            //             alignment: Alignment.center,
+            //             child: Text(
+            //               text,
+            //               style: TextStyle(color: Colors.white, fontSize: 30.w),
+            //             ),
+            //           ),
+            //         );
+            //       },
+            //     )),
           ],
         ),
       ),

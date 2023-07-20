@@ -14,7 +14,9 @@ import '../../../component/app_header.dart';
 import '../controllers/deposit_controller.dart';
 
 class DepositView extends GetView<DepositController> {
-  const DepositView({Key? key}) : super(key: key);
+   DepositView({Key? key}) : super(key: key);
+  @override
+  final DepositController controller = Get.put(DepositController());
 
   @override
   Widget build(BuildContext context) {
