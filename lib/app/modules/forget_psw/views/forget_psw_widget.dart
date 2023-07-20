@@ -126,6 +126,7 @@ class InputListWidget extends StatelessWidget {
             editNode: controller.codeEditNode,
             hint: 'Código de verificação',
             errText: 'Senha (4-12 letras e números)',
+            codeSender: controller.phoneCodeSender,
             isCode: true,
           ),
         ),

@@ -4,6 +4,7 @@ import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../app_config.dart';
 import '../../../../http/request.dart';
 import '../../../../http/ret_code.dart';
 import '../../../../util/Log.dart';
@@ -16,6 +17,7 @@ import '../../../entity/game_item.dart';
 import '../../../entity/game_nav.dart';
 import '../../../entity/game_type.dart';
 import '../../../entity/notice.dart';
+import '../../../routes/app_pages.dart';
 
 class HomeController extends GetxController {
   final gameTypes = RxList<GameTypeEntity>(GameTypeEntity.getList());
@@ -58,6 +60,10 @@ class HomeController extends GetxController {
   final DoubleClickExitApp doubleClickExitApp = DoubleClickExitApp();
 
   bool consumePressedRecord() {
+    Log.d("当前路由是：${appNavigatorObserver.curRouterName} list:${appNavigatorObserver.routerNameList}");
+    if(appNavigatorObserver.curRouterName !=  Routes.SPLASH){
+      return false;
+    }
     MainController mainController = Get.find<MainController>();
     if (mainController.indicatorTabController.selectedIndexNotifier.value == 0) {
       Log.d("========consumePressedRecord：$gameTypePressedRecordList  selectedGameTypeIndex:${selectedGameTypeIndex.value}");

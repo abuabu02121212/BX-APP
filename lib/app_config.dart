@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'app_navigator_observer.dart';
 import 'globe_controller.dart';
 
 RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
-
+AppNavigatorObserver appNavigatorObserver = AppNavigatorObserver();
 /// ============== Theme 配置 ===============
 ThemeData appThemeData = ThemeData(
   /// primarySwatch 用于导航栏和floatActionButton的背景色等

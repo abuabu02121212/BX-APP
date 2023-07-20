@@ -22,10 +22,10 @@ void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   GlobeExceptionHandler().init(() => runApp(
-    const ScreenAdapterConfigurationWidget(
-      child: RefreshConfigurationWidget(),
-    ),
-  ));
+        const ScreenAdapterConfigurationWidget(
+          child: RefreshConfigurationWidget(),
+        ),
+      ));
   //FlutterChain.capture(() => runApp(buildScreenUtilInit(child: getRootWidget())));
   if (Platform.isAndroid) {
     /// 设置android状态栏为透明的沉浸。写在组件渲染之后，是为了在渲染后进行set赋值，覆盖状态栏，写在渲染之前MaterialApp组件会覆盖掉这个值。
@@ -79,6 +79,7 @@ class AppConfigurationWidget extends StatelessWidget {
 
       /// title 只对Android生效，ios种，任务视图名称取的是 Info.pList 文件中的CFBundleDisplayName或CFBundleName
       title: "app标题",
+
       /// 4. Theme.of方法可以获取当前的 ThemeData，MaterialDesign种有些样式不能自定义，比如导航栏高度
       theme: appThemeData,
       defaultTransition: Transition.native,
@@ -86,6 +87,7 @@ class AppConfigurationWidget extends StatelessWidget {
       /// routes 路由配置：对象是Map<String, WidgetBuilder>
       // routes: [], 这种方式配置路由，defaultTransition 不能生效
       getPages: AppPages.routes,
+
       /// 与 routes 中的 / 效果基本一致， 指定应用的第一个显示页面
       /// /// home 与 routes配置的 / 互斥 同时配置会抛异常
       initialRoute: AppPages.INITIAL,
@@ -95,17 +97,20 @@ class AppConfigurationWidget extends StatelessWidget {
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(builder: (BuildContext context) => const ErrPage());
       },
-      builder: EasyLoading.init(
-        builder: (context, widget) {
-          return MediaQuery(
-            ///设置文字大小不随系统设置改变
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-            child: widget ?? const SizedBox(),
-          );
-        }
-      ),
+      builder: EasyLoading.init(builder: (context, widget) {
+        return MediaQuery(
+          ///设置文字大小不随系统设置改变
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          child: widget ?? const SizedBox(),
+        );
+      }),
+
       /// 配置页面离开和进入的监听
-      navigatorObservers: [MyNavigatorObserver(), routeObserver],
+      navigatorObservers: [
+        MyNavigatorObserver(),
+        routeObserver,
+        appNavigatorObserver
+      ],
       routingCallback: (Routing? routing) {
         Log.d('cur route: ${routing?.current}  name: ${routing?.route?.settings.name}');
       },

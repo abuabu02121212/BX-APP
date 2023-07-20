@@ -32,7 +32,6 @@ class SplashView extends GetView<SplashController> {
                 child: CountdownWidget(
                   seconds: 4,
                   finish: () {
-                    Toast.show("开始去MAIN页面");
                     Get.offNamed(Routes.MAIN);
                   },
                   childBuild: (String text, String text2) {
