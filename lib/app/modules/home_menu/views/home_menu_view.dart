@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_button.dart';
+import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_comm/util/weburl_util.dart';
@@ -150,7 +151,7 @@ class ItemType2Widget extends StatelessWidget {
     "left-activity",
     "left-chest",
     "left-vip",
-    "left-down",
+    "left_message",
   ];
 
   @override
@@ -165,7 +166,9 @@ class ItemType2Widget extends StatelessWidget {
             Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_REWARD_BOX);
             break;
           case 2:
-
+              Get.back();
+              MainController mainController = Get.find<MainController>();
+              mainController.changeSelectedTab(3);
             break;
           case 3:
             Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.CUSTOMER_SERVICE);

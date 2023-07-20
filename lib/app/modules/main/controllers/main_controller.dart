@@ -14,6 +14,10 @@ class MainController extends GetxController {
   PageController pageController = PageController();
   IndicatorTabController indicatorTabController = IndicatorTabController();
 
+  void changeSelectedTab(int selectedIndex){
+    indicatorTabController.onItemSelectChanged(selectedIndex);
+  }
+
   getAppUpgradeInfo() async {
     try {
       final d = await apiRequest.requestAppUpdate();
