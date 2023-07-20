@@ -16,6 +16,7 @@ import '../../../entity/banner.dart';
 import '../../../entity/game_item.dart';
 import '../../../entity/game_nav.dart';
 import '../../../entity/game_type.dart';
+import '../../../entity/last_win.dart';
 import '../../../entity/notice.dart';
 import '../../../routes/app_pages.dart';
 
@@ -88,6 +89,7 @@ class HomeController extends GetxController {
   }
 
   final subTypeGameList = RxList<GameEntity>();
+  final lastWinListRx = RxList<LastWinEntity>();
   final verticalListPos0ShowSize = 0.obs;
   final gameTagList = RxList<GameTagEntity>();
   final PaginationHelper paginationHelper = PaginationHelper(15);
@@ -162,7 +164,7 @@ class HomeController extends GetxController {
     scrollController.addListener(_scrollListener);
     requestMemberNav();
     requestNotice();
-
+    requestLastWin();
     /// 请求banner列表
     var bannerJson = await apiRequest.requestBanner();
     bannerList.value = BannerEntity.getList(bannerJson);
@@ -373,5 +375,19 @@ class HomeController extends GetxController {
     }
     AppLoading.close();
     Log.d("删除收藏结果：$ret");
+  }
+
+  Future<void> requestLastWin() async {
+    AppLoading.show();
+    try {
+      var ret = await apiRequest.requestLastWin();
+      var listJson = ret['d'];
+      var list = LastWinEntity.getList(listJson);
+      lastWinListRx.value = list;
+      Log.d("请求最近获奖结果size：${list.length}");
+    } catch (stack) {
+      Log.d("stack: $stack");
+    }
+    AppLoading.close();
   }
 }
