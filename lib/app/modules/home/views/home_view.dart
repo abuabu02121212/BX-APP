@@ -378,7 +378,7 @@ class HomeHeader extends StatelessWidget {
                           minSize: 0,
                           padding: EdgeInsets.zero,
                           child: Padding(
-                            padding: EdgeInsets.only(left: 20.w),
+                            padding: EdgeInsets.only(left: 20.w, top: 10.w, bottom: 10.w, right: 0.w),
                             child: Obx(() {
                                 return AnimatedRotation(
                                   turns: angel.value,
