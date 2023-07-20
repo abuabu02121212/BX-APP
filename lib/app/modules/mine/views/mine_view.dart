@@ -398,8 +398,8 @@ class MineView extends GetView<MineController> with RouteAware {
               text: 'Sair',
               colorList: const [Color(0xffFFD500), Color(0xffFF9901)],
               onClick: () async {
-                var r = await apiRequest.requestSms({'tel': '5666919888', 'ty': 1, 'flag': 'text'});
-                print('5555 $r');
+             //   var r = await apiRequest.requestSms({'tel': '5666919888', 'ty': 1, 'flag': 'text'});
+             //   print('5555 $r');
 
                 var b = await apiRequest.requestBanner();
                 print('77777 $b');

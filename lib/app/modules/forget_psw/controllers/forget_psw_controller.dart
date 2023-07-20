@@ -69,14 +69,16 @@ class ForgetPswController extends GetxController {
     AppLoading.show();
     if (selectedIndex.value == 0) {
       param["email"] = emailEditNode.text.value;
+      param["phone"] = '';
       param["password"] = emailKeyEditNode.text.value;
-      param["verify_code"] = emailCodeEditNode.text.value;
+      param["code"] = emailCodeEditNode.text.value;
       param["sid"] = emailCodeSender.sid;
       param["ts"] = emailCodeSender.ts;
     } else {
+      param["email"] = '';
       param["phone"] = phoneEditNode.text.value;
       param["password"] = phoneKeyEditNode.text.value;
-      param["verify_code"] = phoneCodeEditNode.text.value;
+      param["code"] = phoneCodeEditNode.text.value;
       param["sid"] = phoneCodeSender.sid;
       param["ts"] = phoneCodeSender.ts;
     }

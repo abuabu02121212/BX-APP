@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../util/toast_util.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_user_info_input_field.dart';
 import '../controllers/register_controller.dart';
@@ -100,6 +102,9 @@ class RegisterWidget extends StatelessWidget {
                       ),
                       TextSpan(
                         text: " com os termos e política de\n privacidade.",
+                        recognizer: TapGestureRecognizer()..onTap = (){
+                          Toast.show("click");
+                        },
                         style: TextStyle(
                           fontSize: 24.w,
                           color: const Color(0xff0ED1F4),
