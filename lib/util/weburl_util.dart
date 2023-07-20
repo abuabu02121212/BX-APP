@@ -64,9 +64,10 @@ class WebURLUtil {
   };
 
   static Map<String ,String> getBannerTarPageParam(String p1){
+    String url = "$_BASE_URL/$p1?is-app=1&t=${_getToken()}";
     return {
-      "url": "$_BASE_URL/privacy?is-app=1&t=${_getToken()}&redirect_url=${p1}",
-      "title": "Privacy"
+      "url": url,
+      "title": "Promoção"
     };
   }
 }
