@@ -23,6 +23,6 @@ void copyText(String link) {
   AppUtil.copy(link);
 }
 
-String getUrlEncodeStr(String text) {
+String getUrlDecodeStr(String text) {
   return Uri.decodeComponent(text);
 }

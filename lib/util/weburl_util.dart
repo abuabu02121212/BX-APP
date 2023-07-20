@@ -1,6 +1,8 @@
 import 'package:flutter_comm/util/sp_util.dart';
 import 'package:flutter_comm/util/sp_util_key.dart';
 
+import 'Log.dart';
+
 
 class WebURLUtil {
   static const String _BASE_URL = "https://h5.cyestari.com";
@@ -64,7 +66,8 @@ class WebURLUtil {
   };
 
   static Map<String ,String> getBannerTarPageParam(String p1){
-    String url = "$_BASE_URL/$p1?is-app=1&t=${_getToken()}";
+    String url = "$_BASE_URL$p1?is-app=1&t=${_getToken()}";
+    Log.d("=======url:$url");
     return {
       "url": url,
       "title": "Promoção"

@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../http/api.dart';
+import '../../../../util/text_util.dart';
 import '../../../../util/weburl_util.dart';
 import '../../../entity/banner.dart';
 import '../../../routes/app_pages.dart';
@@ -30,7 +31,7 @@ class SwiperComponent extends StatelessWidget {
             String bannerImgUrl = "$baseImgUrl$imgPath";
             return CupertinoButton(
               onPressed: () {
-                Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.getBannerTarPageParam(entity.redirectUrl));
+                Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.getBannerTarPageParam(getUrlDecodeStr(entity.redirectUrl)));
               },
               minSize: 0,
               padding: EdgeInsets.zero,

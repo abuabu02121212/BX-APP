@@ -26,8 +26,8 @@ class NoticeEntity {
   factory NoticeEntity.fromJson(Map<String, dynamic> json) {
     return NoticeEntity(
       id: json['id'].toString(),
-      title: getUrlEncodeStr(json['title'].toString()),
-      content: getUrlEncodeStr(json['content'].toString()),
+      title: getUrlDecodeStr(json['title'].toString()),
+      content: getUrlDecodeStr(json['content'].toString()),
       redirect: json['redirect'].toString(),
       redirectUrl: json['redirect_url'].toString(),
       state: json['state'].toString(),
