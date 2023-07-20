@@ -210,6 +210,9 @@ class HomeController extends GetxController {
   }
 
   Future<void> requestHotGameList({ty = "0"}) async {
+    if (paginationHelper.isHasRequestedAllData()) {
+      return;
+    }
     AppLoading.show();
     try {
       var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
@@ -220,7 +223,7 @@ class HomeController extends GetxController {
         // 'l': 999,
         'platform_id': 0,
       });
-      onPaginationRequestFinish(curRequestPageIndex, retData);
+      onPaginationRequestFinish(curRequestPageIndex, retData['d']);
       Log.d("热门游戏数目：${subTypeGameList.length}");
     } catch (e, stack) {
       subTypeGameList.value = [];
@@ -230,6 +233,9 @@ class HomeController extends GetxController {
   }
 
   Future<void> requestFavGameList({ty = "0"}) async {
+    if (paginationHelper.isHasRequestedAllData()) {
+      return;
+    }
     AppLoading.show();
     try {
       var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
@@ -240,7 +246,7 @@ class HomeController extends GetxController {
         // 'l': 500,
         'platform_id': 0,
       });
-      onPaginationRequestFinish(curRequestPageIndex, retData);
+      onPaginationRequestFinish(curRequestPageIndex, retData['d']);
     } catch (e, stack) {
       subTypeGameList.value = [];
       Log.e("$e, $stack");
