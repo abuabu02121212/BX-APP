@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/entity/game_type.dart';
 import 'package:flutter_comm/app/modules/home/views/swiper_component.dart';
 import 'package:flutter_comm/app/modules/home/views/tag_component.dart';
+import 'package:flutter_comm/app/modules/login_register/views/login_regiseter_widget.dart';
 import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -354,8 +355,7 @@ class HomeHeader extends StatelessWidget {
                     radius: 30.w,
                     text: 'Registar Conta',
                     onClick: () {
-                      // Get.toNamed(Routes.LOGIN_REGISTER);
-                      Toast.show("按钮被点击");
+                      showLoginRegisterDialog();
                     },
                   )
                 : Container(
@@ -380,13 +380,12 @@ class HomeHeader extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.only(left: 20.w, top: 10.w, bottom: 10.w, right: 0.w),
                             child: Obx(() {
-                                return AnimatedRotation(
-                                  turns: angel.value,
-                                  duration: const Duration(milliseconds: 400),
-                                  child: Image.asset("assets/images/refresher_balance.webp", width: 36.w),
-                                );
-                              }
-                            ),
+                              return AnimatedRotation(
+                                turns: angel.value,
+                                duration: const Duration(milliseconds: 400),
+                                child: Image.asset("assets/images/refresher_balance.webp", width: 36.w),
+                              );
+                            }),
                           ),
                         ),
                         Text(
@@ -410,7 +409,11 @@ class HomeHeader extends StatelessWidget {
           SizedBox(width: 26.w),
           CupertinoButton(
             onPressed: () {
-              Get.toNamed(Routes.NOTICE_LIST);
+              if (globeController.isLogin()) {
+                Get.toNamed(Routes.NOTICE_LIST);
+              } else {
+                showLoginRegisterDialog();
+              }
             },
             minSize: 0,
             padding: EdgeInsets.all(10.w),

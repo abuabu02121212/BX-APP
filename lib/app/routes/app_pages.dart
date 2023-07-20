@@ -79,7 +79,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.DEPOSIT,
-      page: () => const DepositView(),
+      page: () => DepositView(),
       binding: DepositBinding(),
     ),
     GetPage(

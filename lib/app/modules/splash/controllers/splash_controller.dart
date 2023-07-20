@@ -3,9 +3,9 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 
 import '../../../../util/Log.dart';
+import '../../../routes/app_pages.dart';
 
 class SplashController extends GetxController {
-  final count = 0.obs;
 
   @override
   void onInit() {
@@ -16,6 +16,7 @@ class SplashController extends GetxController {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Future.delayed(const Duration(milliseconds: 500), () {
         FlutterNativeSplash.remove();
+        Get.offNamed(Routes.MAIN);
       });
     });
   }
@@ -29,6 +30,4 @@ class SplashController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
