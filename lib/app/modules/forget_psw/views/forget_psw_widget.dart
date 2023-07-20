@@ -8,6 +8,7 @@ import '../../../../util/toast_util.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_user_info_input_field.dart';
 import '../../login/views/login_view.dart';
+import '../../register/views/email_phone_tab.dart';
 import '../controllers/forget_psw_controller.dart';
 
 class ForgetPswWidget extends StatelessWidget {
@@ -15,7 +16,7 @@ class ForgetPswWidget extends StatelessWidget {
 
   final List<Widget> pageList = [LoginWidget(), RegisterWidget()];
   final ForgetPswController controller = Get.put(ForgetPswController());
-
+  late final viewList = [EmailListWidget(controller: controller), PhoneListWidget(controller: controller)];
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -46,7 +47,6 @@ class ForgetPswWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20.w),
                   child: Container(
                     width: 634.w,
-                    //  height: 752.w,
                     decoration: const BoxDecoration(color: Color(0xff011A51)),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -69,7 +69,18 @@ class ForgetPswWidget extends StatelessWidget {
                             width: 90.w,
                           ),
                         ),
-                        InputListWidget(controller: controller),
+                        EmailAndPhoneTab(
+                          onTabSelectChanged: (index) {
+                            controller.selectedIndex.value = index;
+                          },
+                        ),
+                        Obx(() {
+                            return IndexedStack(
+                              index: controller.selectedIndex.value,
+                              children: viewList,
+                            );
+                          }
+                        ),
                         Container(
                           alignment: Alignment.center,
                           height: 140.w,
@@ -96,8 +107,8 @@ class ForgetPswWidget extends StatelessWidget {
   }
 }
 
-class InputListWidget extends StatelessWidget {
-  const InputListWidget({
+class PhoneListWidget extends StatelessWidget {
+  const PhoneListWidget({
     super.key,
     required this.controller,
   });
@@ -114,8 +125,8 @@ class InputListWidget extends StatelessWidget {
           child: UserInfoInputField(
             prefixIcon: 'assets/images/i-phone.webp',
             editNode: controller.phoneEditNode,
-            hint: 'Tu nùmero de celular',
-            errText: 'Tu nùmero de celular',
+            hint: 'Phone',
+            errText: 'Número de telefone errado',
             isPhone: true,
           ),
         ),
@@ -123,7 +134,7 @@ class InputListWidget extends StatelessWidget {
           width: 580.w,
           child: UserInfoInputField(
             prefixIcon: 'assets/images/reg-code.webp',
-            editNode: controller.codeEditNode,
+            editNode: controller.phoneCodeEditNode,
             hint: 'Código de verificação',
             errText: 'Senha (4-12 letras e números)',
             codeSender: controller.phoneCodeSender,
@@ -134,7 +145,56 @@ class InputListWidget extends StatelessWidget {
           width: 580.w,
           child: UserInfoInputField(
             prefixIcon: 'assets/images/key-gray.webp',
-            editNode: controller.keyEditNode,
+            editNode: controller.phoneKeyEditNode,
+            hint: 'Senha (4-12 letras e números)',
+            errText: 'Senha (4-12 letras e números)',
+            isPassword: true,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class EmailListWidget extends StatelessWidget {
+  const EmailListWidget({
+    super.key,
+    required this.controller,
+  });
+
+  final ForgetPswController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: 580.w,
+          margin: EdgeInsets.only(top: 10.w),
+          child: UserInfoInputField(
+            prefixIcon: 'assets/images/reg-email.webp',
+            editNode: controller.emailEditNode,
+            hint: 'Email',
+            errText: 'Erro de e-mail',
+            isEmail: true,
+          ),
+        ),
+        SizedBox(
+          width: 580.w,
+          child: UserInfoInputField(
+            prefixIcon: 'assets/images/reg-code.webp',
+            editNode: controller.emailCodeEditNode,
+            hint: 'Código de verificação',
+            errText: 'Senha (4-12 letras e números)',
+            codeSender: controller.emailCodeSender,
+            isCode: true,
+          ),
+        ),
+        SizedBox(
+          width: 580.w,
+          child: UserInfoInputField(
+            prefixIcon: 'assets/images/key-gray.webp',
+            editNode: controller.emailKeyEditNode,
             hint: 'Senha (4-12 letras e números)',
             errText: 'Senha (4-12 letras e números)',
             isPassword: true,
