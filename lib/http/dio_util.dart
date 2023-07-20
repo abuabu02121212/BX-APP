@@ -2,7 +2,11 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:cbor/cbor.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
+import 'package:flutter_comm/globe_controller.dart';
 import 'package:flutter_comm/util/toast_util.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../util/Log.dart';
 import '../util/loading_util.dart';
 import '../util/sp_util.dart';
@@ -94,6 +98,12 @@ class DioUtil {
   }
 
   onRequestFinish(bool status, data) {
+    if(data != null && data is String && 'Token'.toLowerCase() == data.toString().toLowerCase()){
+      GlobeController globeController = Get.find<GlobeController>();
+      globeController.loginOut();
+      MainController mainController = Get.find<MainController>();
+      mainController.toHome();
+    }
     if (status == false) {
       Toast.show('$data');
       return data;
