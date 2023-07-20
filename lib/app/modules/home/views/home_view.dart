@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/entity/game_type.dart';
 import 'package:flutter_comm/app/modules/home/views/swiper_component.dart';
 import 'package:flutter_comm/app/modules/home/views/tag_component.dart';
+import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import '../../../../globe_controller.dart';
+import '../../../../http/comm_request.dart';
 import '../../../../util/toast_util.dart';
 import '../../../../widget/back_event_interceptor.dart';
 import '../../../../widget/single_scroll_view_marquee.dart';
@@ -31,7 +34,7 @@ class HomeView extends GetView<HomeController> {
         leadingWidth: 0,
         titleSpacing: 0,
         toolbarHeight: 110.w,
-        title: const HomeHeader(),
+        title: HomeHeader(),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -226,8 +229,6 @@ class BottomIconsWidget extends StatelessWidget {
   }
 }
 
-
-
 class HomeGameTypesWidget extends StatelessWidget {
   HomeGameTypesWidget({super.key});
 
@@ -318,9 +319,12 @@ class HomeMarquee extends StatelessWidget {
 }
 
 class HomeHeader extends StatelessWidget {
-  const HomeHeader({
+  HomeHeader({
     super.key,
   });
+
+  final GlobeController globeController = Get.find<GlobeController>();
+  final angel = 0.0.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -341,21 +345,71 @@ class HomeHeader extends StatelessWidget {
           ),
           Image.asset("assets/images/logo.webp", width: 120.w),
           SizedBox(width: 90.w),
-          AppButton(
-            width: 350.w,
-            height: 60.w,
-            radius: 30.w,
-            text: 'Registar Conta',
-            onClick: () {
-              // Get.toNamed(Routes.LOGIN_REGISTER);
-              Toast.show("按钮被点击");
-            },
-          ),
+          Obx(() {
+            var userInfo = globeController.balance.value;
+            return userInfo == null
+                ? AppButton(
+                    width: 350.w,
+                    height: 60.w,
+                    radius: 30.w,
+                    text: 'Registar Conta',
+                    onClick: () {
+                      // Get.toNamed(Routes.LOGIN_REGISTER);
+                      Toast.show("按钮被点击");
+                    },
+                  )
+                : Container(
+                    width: 350.w,
+                    height: 60.w,
+                    decoration: BoxDecoration(
+                        gradient: btnLinearBg,
+                        borderRadius: BorderRadius.circular(30.w),
+                        border: Border.all(color: const Color(0x66335a94), width: 1.w)),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CupertinoButton(
+                          onPressed: () {
+                            angel.value += 1;
+                            requestCommBalance();
+                          },
+                          minSize: 0,
+                          padding: EdgeInsets.zero,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 20.w),
+                            child: Obx(() {
+                                return AnimatedRotation(
+                                  turns: angel.value,
+                                  duration: const Duration(milliseconds: 400),
+                                  child: Image.asset("assets/images/refresher_balance.webp", width: 36.w),
+                                );
+                              }
+                            ),
+                          ),
+                        ),
+                        Text(
+                          "R\$${globeController.balance.value?.brl_amount}",
+                          style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w400),
+                        ),
+                        AppButton(
+                          width: 121.w,
+                          height: 60.w,
+                          radius: 30.w,
+                          text: 'Conta',
+                          onClick: () {
+                            MainController mainController = Get.find<MainController>();
+                            mainController.changeSelectedTab(2);
+                          },
+                        )
+                      ],
+                    ),
+                  );
+          }),
           SizedBox(width: 26.w),
           CupertinoButton(
             onPressed: () {
-              // showForgetPswDialog();
-              Toast.show("按钮被点击");
               Get.toNamed(Routes.NOTICE_LIST);
             },
             minSize: 0,

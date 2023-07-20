@@ -55,3 +55,10 @@ LinearGradient drawerItem4 = const LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
 );
+
+// #, #011A51rgba(46, 50, 69, 0), rgba(1, 26, 81, 1)
+LinearGradient btnLinearBg = const LinearGradient(
+  colors: [Color(0x99011A51), Color(0xff011A51)],
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+);
