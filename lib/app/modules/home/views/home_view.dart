@@ -304,6 +304,7 @@ class HomeMarquee extends StatelessWidget {
       decoration: BoxDecoration(color: const Color(0xff011A51), borderRadius: BorderRadius.circular(30.w)),
       child: CupertinoButton(
         onPressed: () {
+          controller.requestNotice();
           showNoticeListDialog();
         },
         minSize: 0,
@@ -317,6 +318,7 @@ class HomeMarquee extends StatelessWidget {
               padding: EdgeInsets.only(left: 20.w, right: 20.w),
               child: Obx(() {
                 return MarqueeText(
+                  alwaysScroll: true,
                   text: TextSpan(text: controller.showingMarqueeText.value),
                   style: TextStyle(
                     fontSize: 22.w,

@@ -13,6 +13,7 @@ import '../../../../util/Log.dart';
 import '../../../../util/double_click_exit_app.dart';
 import '../../../../util/loading_util.dart';
 import '../../../../util/pagination_helper.dart';
+import '../../../../util/text_util.dart';
 import '../../../../util/toast_util.dart';
 import '../../../../util/weburl_util.dart';
 import '../../../entity/banner.dart';
@@ -397,10 +398,12 @@ class HomeController extends GetxController {
     var noticeList = NoticeEntity.getList(json);
     noticeListRx.value = noticeList;
     if (noticeList.isNotEmpty) {
-      showingMarqueeText.value = '';
+      String temp = '';
       for (var item in noticeList) {
-        showingMarqueeText.value += '  ${item.content}';
+        temp += '${item.content}   ';
       }
+      temp = getUrlDecodeStr(temp);
+      showingMarqueeText.value = temp.trim();
       Log.d("=======通知返回 size：${noticeList.length} ");
     }
   }
