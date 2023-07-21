@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_cupertino_button.dart';
 import 'package:flutter_comm/app/component/app_tab.dart';
+import 'package:flutter_comm/util/app_util.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_comm/widget/input_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -164,7 +165,7 @@ class DepositView extends GetView<DepositController> {
                     children: [
                       Obx(() {
                         return Text(
-                          "R\$${controller.balanceDetailInfo.value?.brl ?? '0'}",
+                          AppUtil.amountFormat(controller.balanceDetailInfo.value?.brl ?? '0'),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 42.w,
@@ -187,7 +188,7 @@ class DepositView extends GetView<DepositController> {
                     children: [
                       Obx(() {
                         return Text(
-                          "R\$${controller.balanceDetailInfo.value?.brl_amount ?? '0'}",
+                          AppUtil.amountFormat(controller.balanceDetailInfo.value?.brl_amount ?? '0'),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 42.w,
@@ -285,14 +286,14 @@ class DepositView extends GetView<DepositController> {
                       SizedBox(height: 16.w),
                       Obx(() {
                         return Text(
-                          "Balanço: ${controller.balanceDetailInfo.value?.deposit_amount ?? '0'}",
+                          "Balanço: ${AppUtil.amountFormat(controller.balanceDetailInfo.value?.deposit_amount ?? '0')}",
                           style: TextStyle(color: Colors.white, fontSize: 24.w),
                         );
                       }),
                       SizedBox(height: 16.w),
                       Obx(() {
                         return Text(
-                          "Retirável: ${controller.balanceDetailInfo.value?.deposit_balance ?? '0'}",
+                          "Retirável: ${AppUtil.amountFormat(controller.balanceDetailInfo.value?.deposit_balance ?? '0')}",
                           style: TextStyle(color: Colors.white, fontSize: 24.w),
                         );
                       }),
@@ -349,14 +350,14 @@ class DepositView extends GetView<DepositController> {
                     SizedBox(height: 16.w),
                     Obx(() {
                       return Text(
-                        "Balanço: ${controller.balanceDetailInfo.value?.agencyAmount ?? '0'}",
+                        "Balanço: ${AppUtil.amountFormat(controller.balanceDetailInfo.value?.agencyAmount ?? '0')}",
                         style: TextStyle(color: Colors.white, fontSize: 24.w),
                       );
                     }),
                     SizedBox(height: 16.w),
                     Obx(() {
                       return Text(
-                        "Retirável: ${controller.balanceDetailInfo.value?.agency_balance ?? '0'}",
+                        "Retirável: ${AppUtil.amountFormat(controller.balanceDetailInfo.value?.agency_balance ?? '0')}",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 24.w,
