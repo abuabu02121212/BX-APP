@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/entity/game_type.dart';
 import 'package:flutter_comm/app/modules/home/views/swiper_component.dart';
+import 'package:flutter_comm/app/modules/home/views/swiper_component_notice.dart';
 import 'package:flutter_comm/app/modules/home/views/tag_component.dart';
 import 'package:flutter_comm/app/modules/login_register/views/login_regiseter_widget.dart';
 import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:marquee_text/marquee_text.dart';
 import '../../../../globe_controller.dart';
 import '../../../../http/comm_request.dart';
 import '../../../../util/app_util.dart';
@@ -300,21 +302,32 @@ class HomeMarquee extends StatelessWidget {
       margin: EdgeInsets.only(top: 40.w, left: 20.w, right: 20.w),
       height: 60.w,
       decoration: BoxDecoration(color: const Color(0xff011A51), borderRadius: BorderRadius.circular(30.w)),
-      child: Row(
-        children: [
-          SizedBox(width: 20.w),
-          Image.asset("assets/images/i-notice.webp", width: 36.w),
-          Expanded(
-              child: Container(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w),
-            child: Obx(() {
-              return SingleScrollViewMarquee(
-                text: controller.showingMarqueeText.value,
-                style: TextStyle(color: const Color(0xffffffff), fontSize: 22.w),
-              );
-            }),
-          )),
-        ],
+      child: CupertinoButton(
+        onPressed: () {
+          showNoticeListDialog();
+        },
+        minSize: 0,
+        padding: EdgeInsets.zero,
+        child: Row(
+          children: [
+            SizedBox(width: 20.w),
+            Image.asset("assets/images/i-notice.webp", width: 36.w),
+            Expanded(
+                child: Container(
+              padding: EdgeInsets.only(left: 20.w, right: 20.w),
+              child: Obx(() {
+                return MarqueeText(
+                  text: TextSpan(text: controller.showingMarqueeText.value),
+                  style: TextStyle(
+                    fontSize: 22.w,
+                    color: Colors.white,
+                  ),
+                  speed: 30,
+                );
+              }),
+            )),
+          ],
+        ),
       ),
     );
   }
@@ -362,10 +375,7 @@ class HomeHeader extends StatelessWidget {
                 : Container(
                     width: 350.w,
                     height: 60.w,
-                    decoration: BoxDecoration(
-                        gradient: btnLinearBg,
-                        borderRadius: BorderRadius.circular(30.w),
-                        border: Border.all(color: const Color(0x66335a94), width: 1.w)),
+                    decoration: BoxDecoration(gradient: btnLinearBg, borderRadius: BorderRadius.circular(30.w), border: Border.all(color: const Color(0x66335a94), width: 1.w)),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

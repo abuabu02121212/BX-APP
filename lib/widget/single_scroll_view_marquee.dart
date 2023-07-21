@@ -24,7 +24,6 @@ class SingleScrollViewMarquee extends StatefulWidget {
 
 class MyState extends State<SingleScrollViewMarquee> with TickerProviderStateMixin {
   late MarqueeHelper marqueeHelper;
-
   @override
   void initState() {
     Size size = TextMeasureUtil.getTextSize(text: widget.text, maxWidth: 9999999, style: widget.style);
@@ -51,9 +50,13 @@ class MyState extends State<SingleScrollViewMarquee> with TickerProviderStateMix
         scrollDirection: Axis.horizontal,
         controller: marqueeHelper.sc,
         child: Center(
-            child: Text(
-          widget.text,
-          style: widget.style,
+            child: Row(
+          children: [
+            Text(
+              widget.text,
+              style: widget.style,
+            ),
+          ],
         )));
   }
 }

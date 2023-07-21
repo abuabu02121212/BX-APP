@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_comm/app/entity/game_tag.dart';
+import 'package:flutter_comm/app/modules/login_register/views/login_regiseter_widget.dart';
 import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
+import 'package:flutter_comm/globe_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +14,7 @@ import '../../../../util/double_click_exit_app.dart';
 import '../../../../util/loading_util.dart';
 import '../../../../util/pagination_helper.dart';
 import '../../../../util/toast_util.dart';
+import '../../../../util/weburl_util.dart';
 import '../../../entity/banner.dart';
 import '../../../entity/game_item.dart';
 import '../../../entity/game_nav.dart';
@@ -28,6 +31,7 @@ class HomeController extends GetxController {
   final List<int> gameTypePressedRecordList = [-1];
   final ScrollController scrollController = ScrollController();
   final showingMarqueeText = "".obs;
+  final noticeListRx = RxList<NoticeEntity>();
 
   final List<GameNavEntity> navItemList = [];
 
@@ -62,7 +66,7 @@ class HomeController extends GetxController {
 
   bool consumePressedRecord() {
     Log.d("当前路由是：${appNavigatorObserver.curRouterName} list:${appNavigatorObserver.routerNameList}");
-    if(appNavigatorObserver.curRouterName !=  Routes.SPLASH){
+    if (appNavigatorObserver.curRouterName != Routes.SPLASH) {
       return false;
     }
     MainController mainController = Get.find<MainController>();
@@ -100,6 +104,7 @@ class HomeController extends GetxController {
   final recommend3GameList = RxList<GameEntity>();
   final recommend4GameList = RxList<GameEntity>();
   final recommend5GameList = RxList<GameEntity>();
+  final recommend6GameList = RxList<GameEntity>();
 
   late final recList = <RxList<GameEntity>>[
     recommend0GameList,
@@ -108,6 +113,7 @@ class HomeController extends GetxController {
     recommend3GameList,
     recommend4GameList,
     recommend5GameList,
+    recommend6GameList,
   ];
 
   final bannerList = RxList<BannerEntity>();
@@ -165,6 +171,7 @@ class HomeController extends GetxController {
     requestMemberNav();
     requestNotice();
     requestLastWin();
+
     /// 请求banner列表
     var bannerJson = await apiRequest.requestBanner();
     bannerList.value = BannerEntity.getList(bannerJson);
@@ -175,9 +182,11 @@ class HomeController extends GetxController {
   }
 
   void requestRecommendGameList() {
-    for (int i = 0; i < recList.length; i++) {
+    requestHotGameListForRec();
+    requestFavGameListForRec();
+    for (int i = 2; i < recList.length; i++) {
       RxList<GameEntity> item = recList[i];
-      requestRecGameList(i, item);
+      requestRecGameList(i - 1, item);
     }
   }
 
@@ -204,9 +213,48 @@ class HomeController extends GetxController {
   }
 
   Future<void> requestRecGameList(int ty, RxList<GameEntity> rx) async {
-    var retArr1 = await apiRequest.requestGameRecList(params: {'ty': ty, 'l': 18, 'platform_id': 0});
+    var retArr1 = await apiRequest.requestGameRecList(params: {
+      'ty': ty,
+      'page': 1,
+      'page_size': 19,
+      'platform_id': 0,
+    });
     rx.value = GameEntity.getList(retArr1['d']);
     Log.d("=======ty:$ty 推荐游戏数目：${rx.length}");
+  }
+
+  Future<void> requestHotGameListForRec() async {
+    var tarRx = recList[0];
+    try {
+      var retData = await apiRequest.requestHotGameList({
+        'ty': 0,
+        'page': 1,
+        'page_size': 19,
+        'platform_id': 0,
+      });
+      var list = GameEntity.getList(retData['d']);
+      tarRx.value = list;
+      Log.d("推荐热门游戏数目：${tarRx.length}");
+    } catch (e, stack) {
+      Log.e("$e, $stack");
+    }
+  }
+
+  Future<void> requestFavGameListForRec() async {
+    var tarRx = recList[1];
+    try {
+      var retData = await apiRequest.requestGameFavList(params: {
+        'page': 1,
+        'page_size': 19,
+        'platform_id': 0,
+      });
+      var list = GameEntity.getList(retData['d']);
+      tarRx.value = list;
+      Log.d("推荐收藏游戏数目：${tarRx.length}");
+    } catch (e, stack) {
+      Log.e("$e, $stack");
+    }
+    Log.d("推荐收藏游戏数目：${subTypeGameList.length}");
   }
 
   Future<void> requestHotGameList({ty = "0"}) async {
@@ -220,7 +268,6 @@ class HomeController extends GetxController {
         'ty': ty,
         'page': curRequestPageIndex,
         'page_size': paginationHelper.perPageSize,
-        // 'l': 999,
         'platform_id': 0,
       });
       onPaginationRequestFinish(curRequestPageIndex, retData['d']);
@@ -348,6 +395,7 @@ class HomeController extends GetxController {
   Future<void> requestNotice() async {
     var json = await apiRequest.requestNotice();
     var noticeList = NoticeEntity.getList(json);
+    noticeListRx.value = noticeList;
     if (noticeList.isNotEmpty) {
       showingMarqueeText.value = '';
       for (var item in noticeList) {
@@ -391,9 +439,29 @@ class HomeController extends GetxController {
       var list = LastWinEntity.getList(listJson);
       lastWinListRx.value = list;
       Log.d("请求最近获奖结果size：${list.length}");
-    } catch (stack) {
-      Log.d("stack: $stack");
+    } catch (e, stack) {
+      Log.e("stack: $stack");
     }
     AppLoading.close();
+  }
+
+  Future<void> requestGameLaunch(GameEntity gameEntity) async {
+    GlobeController globeController = Get.find<GlobeController>();
+    if (globeController.isLogin()) {
+      AppLoading.show();
+      try {
+        var url = await apiRequest.requestGameLaunch(params: {
+          'pid': gameEntity.platformId,
+          'code': gameEntity.gameId,
+        });
+        Get.toNamed(Routes.WEBVIEW, arguments: {"url": url, 'title': gameEntity.brAlias});
+        Log.d("请求游戏Url结果：$url");
+      } catch (e, stack) {
+        Log.e("请求游戏Url结果异常 $e == > \n $stack");
+      }
+      AppLoading.close();
+    } else {
+      showLoginRegisterDialog();
+    }
   }
 }
