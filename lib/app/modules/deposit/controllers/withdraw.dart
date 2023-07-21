@@ -138,6 +138,7 @@ class WithdrawControllerPage extends GetxController {
         'pix_account': accountNode.text.value,
         'flag': int.parse(waysSelectValue.value),
       });
+      Toast.show('Retirada bem-sucedida');
       print('sssss $s');
     } catch (e) {
       print('错了 ¥$e');
