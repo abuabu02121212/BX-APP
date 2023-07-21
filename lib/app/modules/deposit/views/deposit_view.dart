@@ -15,7 +15,10 @@ import '../../../component/app_header.dart';
 import '../controllers/deposit_controller.dart';
 
 class DepositView extends GetView<DepositController> {
-   DepositView({Key? key}) : super(key: key);
+  DepositView({Key? key, this.isShowBack = true}) : super(key: key);
+
+  bool? isShowBack;
+
   @override
   final DepositController controller = Get.put(DepositController());
 
@@ -27,8 +30,9 @@ class DepositView extends GetView<DepositController> {
         titleSpacing: 0,
         leadingWidth: 0,
         elevation: 1.0,
-        title: const AppHeader(
+        title: AppHeader(
           title: "Promoção",
+          isNeedLeftBackArrow: isShowBack == true ? true : false,
         ),
       ),
       body: NestedScrollView(
@@ -510,6 +514,7 @@ class DepositView extends GetView<DepositController> {
               controller.depositControllerPage.submit();
             },
           ),
+          SizedBox(height: 150.w),
         ],
       ),
     );

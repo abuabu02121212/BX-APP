@@ -102,8 +102,6 @@ class MineView extends GetView<MineController> with RouteAware {
                                       ),
                                     );
                                   }),
-                                  SizedBox(width: 11.w),
-                                  Image.asset("assets/images/i-edit-name.webp", width: 27.w),
                                 ],
                               ),
                               Row(
