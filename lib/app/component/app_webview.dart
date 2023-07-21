@@ -48,7 +48,7 @@ class EventHandle {
         {
           if (globalController.isLogin()) {
             // 奖励记录
-            Get.offAllNamed(Routes.HOME);
+            Get.toNamed(Routes.APOSTAS);
           } else {
             showLoginRegisterDialog();
           }
