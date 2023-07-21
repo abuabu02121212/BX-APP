@@ -4,6 +4,7 @@ import 'package:cbor/cbor.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
 import 'package:flutter_comm/globe_controller.dart';
+import 'package:flutter_comm/util/error.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:get/get.dart' as myGet;
 import '../util/Log.dart';
@@ -155,6 +156,9 @@ class DioUtil {
       Log.d("header map:$headerMap");
       Log.d("path:${response.requestOptions.uri}  请求参数:$d 返回:${responseData.toJson()}\n${'-' * 200}");
       if (status == false) {
+        if (ErrorJson['$data'] != null) {
+          Toast.show("${ErrorJson['$data']}");
+        }
         throw Exception('Post接口能通，status是false');
       } else {
         return onRequestFinish(status, data);
@@ -166,7 +170,6 @@ class DioUtil {
         Log.e("Other Post error:$e");
       }
       AppLoading.close();
-      Toast.show("$e");
       throw Exception(e);
     }
   }
