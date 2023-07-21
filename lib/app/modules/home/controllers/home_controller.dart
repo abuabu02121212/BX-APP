@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_comm/app/entity/game_tag.dart';
+import 'package:flutter_comm/app/modules/login_register/views/login_regiseter_widget.dart';
 import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
+import 'package:flutter_comm/globe_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +14,7 @@ import '../../../../util/double_click_exit_app.dart';
 import '../../../../util/loading_util.dart';
 import '../../../../util/pagination_helper.dart';
 import '../../../../util/toast_util.dart';
+import '../../../../util/weburl_util.dart';
 import '../../../entity/banner.dart';
 import '../../../entity/game_item.dart';
 import '../../../entity/game_nav.dart';
@@ -391,9 +394,30 @@ class HomeController extends GetxController {
       var list = LastWinEntity.getList(listJson);
       lastWinListRx.value = list;
       Log.d("请求最近获奖结果size：${list.length}");
-    } catch (stack) {
-      Log.d("stack: $stack");
+    } catch (e, stack) {
+      Log.e("stack: $stack");
     }
     AppLoading.close();
+  }
+
+
+  Future<void> requestGameLaunch(GameEntity gameEntity) async {
+    GlobeController globeController = Get.find<GlobeController>();
+    if(globeController.isLogin()){
+      AppLoading.show();
+      try {
+        var url = await apiRequest.requestGameLaunch(params: {
+          'pid': gameEntity.platformId,
+          'code': gameEntity.gameId,
+        });
+        Get.toNamed(Routes.WEBVIEW, arguments: {"url": url, 'title' : gameEntity.brAlias});
+        Log.d("请求游戏Url结果：$url");
+      } catch (e, stack) {
+        Log.e("请求游戏Url结果异常 $e == > \n $stack");
+      }
+      AppLoading.close();
+    }else{
+      showLoginRegisterDialog();
+    }
   }
 }

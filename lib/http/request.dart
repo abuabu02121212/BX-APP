@@ -160,4 +160,9 @@ class ApiRequest {
   Future requestAppUpdate({Map<String, Object>? params}) async {
     return await httpUtil.get(appUpgrade, params ?? {});
   }
+
+  Future requestGameLaunch({Map<String, Object>? params}) async {
+    return await httpUtil.get(gameLaunch, params ?? {});
+  }
+
 }

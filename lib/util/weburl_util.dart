@@ -73,4 +73,13 @@ class WebURLUtil {
       "title": "Promoção"
     };
   }
+
+  static Map<String ,String> getGamePageParam(String url){
+    String url = "url?is-app=1&t=${_getToken()}";
+    Log.d("=======url:$url");
+    return {
+      "url": url,
+      "title": "Promoção"
+    };
+  }
 }
