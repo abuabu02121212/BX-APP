@@ -10,6 +10,7 @@ import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:marquee_text/marquee_text.dart';
 import '../../../../globe_controller.dart';
 import '../../../../http/comm_request.dart';
 import '../../../../widget/back_event_interceptor.dart';
@@ -300,7 +301,7 @@ class HomeMarquee extends StatelessWidget {
       height: 60.w,
       decoration: BoxDecoration(color: const Color(0xff011A51), borderRadius: BorderRadius.circular(30.w)),
       child: CupertinoButton(
-        onPressed: (){
+        onPressed: () {
           showNoticeListDialog();
         },
         minSize: 0,
@@ -313,9 +314,13 @@ class HomeMarquee extends StatelessWidget {
                 child: Container(
               padding: EdgeInsets.only(left: 20.w, right: 20.w),
               child: Obx(() {
-                return SingleScrollViewMarquee(
-                  text: controller.showingMarqueeText.value,
-                  style: TextStyle(color: const Color(0xffffffff), fontSize: 22.w),
+                return MarqueeText(
+                  text: TextSpan(text: controller.showingMarqueeText.value),
+                  style: TextStyle(
+                    fontSize: 22.w,
+                    color: Colors.white,
+                  ),
+                  speed: 30,
                 );
               }),
             )),
