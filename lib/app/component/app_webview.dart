@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_comm/app/modules/login_register/views/login_regiseter_widget.dart';
 import 'package:flutter_comm/http/comm_request.dart';
 import 'package:flutter_comm/util/app_util.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
 import '../../globe_controller.dart';
+import '../modules/main/controllers/main_controller.dart';
 import '../routes/app_pages.dart';
 import 'app_header.dart';
 
@@ -40,7 +40,8 @@ class EventHandle {
       case "home":
         {
           // 去首页
-          Get.offAllNamed(Routes.HOME);
+          MainController controller = Get.find<MainController>();
+          controller.toHome();
         }
         break;
       case "recompensas":
