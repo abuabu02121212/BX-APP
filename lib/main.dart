@@ -84,7 +84,7 @@ class AppConfigurationWidget extends StatelessWidget {
 
       /// 4. Theme.of方法可以获取当前的 ThemeData，MaterialDesign种有些样式不能自定义，比如导航栏高度
       theme: appThemeData,
-      defaultTransition: Transition.native,
+      defaultTransition: Transition.noTransition,
 
       /// routes 路由配置：对象是Map<String, WidgetBuilder>
       // routes: [], 这种方式配置路由，defaultTransition 不能生效
