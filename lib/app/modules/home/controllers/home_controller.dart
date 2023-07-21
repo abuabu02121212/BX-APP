@@ -31,6 +31,7 @@ class HomeController extends GetxController {
   final List<int> gameTypePressedRecordList = [-1];
   final ScrollController scrollController = ScrollController();
   final showingMarqueeText = "".obs;
+  final noticeListRx = RxList<NoticeEntity>();
 
   final List<GameNavEntity> navItemList = [];
 
@@ -394,6 +395,7 @@ class HomeController extends GetxController {
   Future<void> requestNotice() async {
     var json = await apiRequest.requestNotice();
     var noticeList = NoticeEntity.getList(json);
+    noticeListRx.value = noticeList;
     if (noticeList.isNotEmpty) {
       showingMarqueeText.value = '';
       for (var item in noticeList) {
