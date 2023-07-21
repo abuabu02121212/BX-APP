@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_comm/util/Log.dart';
+import 'package:flutter_comm/util/loading_util.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -72,6 +73,7 @@ class AppConfigurationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLoading.initLoading();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       // showPerformanceOverlay:true, // CPU/UI性能监控
