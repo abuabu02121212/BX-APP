@@ -151,7 +151,7 @@ class GameItemWidget extends StatelessWidget {
       minSize: 0,
       padding: EdgeInsets.zero,
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Stack(
@@ -161,7 +161,7 @@ class GameItemWidget extends StatelessWidget {
                 child: CachedNetworkImage(
                   width: isVerticalItem ? 225.w : 180.w,
                   height: 180.w,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                   imageUrl: imgUrl,
                 ),
               ),
