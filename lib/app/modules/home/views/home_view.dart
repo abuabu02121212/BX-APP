@@ -11,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../globe_controller.dart';
 import '../../../../http/comm_request.dart';
+import '../../../../util/app_util.dart';
 import '../../../../util/toast_util.dart';
 import '../../../../widget/back_event_interceptor.dart';
 import '../../../../widget/single_scroll_view_marquee.dart';
@@ -389,7 +390,7 @@ class HomeHeader extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "R\$${globeController.balance.value?.brl_amount}",
+                          AppUtil.amountFormat(globeController.balance.value?.brl_amount ?? '0'),
                           style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w400),
                         ),
                         AppButton(

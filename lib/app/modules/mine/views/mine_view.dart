@@ -155,7 +155,7 @@ class MineView extends GetView<MineController> with RouteAware {
                                   Obx(() {
                                     return Text(
                                       AppUtil.amountFormat(
-                                        controller.globeController.balance.value?.brl_amount ?? '',
+                                        controller.globeController.balance.value?.brl ?? '',
                                       ),
                                       style: TextStyle(
                                         color: Colors.white,
