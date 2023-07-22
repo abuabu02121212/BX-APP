@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../http/api.dart';
+import '../../../../util/Log.dart';
 import '../../../../util/text_util.dart';
 import '../../../../util/weburl_util.dart';
 import '../../../entity/banner.dart';
@@ -31,7 +31,11 @@ class SwiperComponent extends StatelessWidget {
             String bannerImgUrl = "$baseImgUrl$imgPath";
             return CupertinoButton(
               onPressed: () {
-                Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.getBannerTarPageParam(getUrlDecodeStr(entity.redirectUrl)));
+                /// 需要两次解码才能正常跳转
+                var urlDecodeStr = getUrlDecodeStr(entity.redirectUrl);
+                var urlDecodeStr2 = getUrlDecodeStr(urlDecodeStr);
+                Log.d("entity.redirectUrl: ${entity.redirectUrl}  ${getUrlDecodeStr(urlDecodeStr)}");
+                Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.getBannerTarPageParam(urlDecodeStr2));
               },
               minSize: 0,
               padding: EdgeInsets.zero,
