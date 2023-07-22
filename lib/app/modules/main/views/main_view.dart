@@ -6,6 +6,7 @@ import 'package:flutter_comm/app/modules/main/views/tab_component.dart';
 import 'package:flutter_comm/app/modules/mine/views/mine_view.dart';
 import 'package:flutter_comm/app/modules/promotion/views/promotion_view.dart';
 import 'package:flutter_comm/app/modules/vip/views/vip_view.dart';
+import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -64,7 +65,12 @@ class MainView extends GetView<MainController> {
                       showLoginRegisterDialog();
                     } else {
                       Log.d("已经登陆");
-                      controller.pageController.jumpToPage(pos);
+                      if (pos == 2) {
+                        controller.indicatorTabController.back();
+                        Get.toNamed(Routes.DEPOSIT);
+                      } else {
+                        controller.pageController.jumpToPage(pos);
+                      }
                     }
                   } else {
                     controller.pageController.jumpToPage(pos);
