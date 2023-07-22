@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../globe_controller.dart';
+import '../../../../util/app_util.dart';
 import '../../../component/app_progress.dart';
 import '../../../entity/user_info.dart';
 import '../../../entity/vip_level_info.dart';
@@ -78,13 +79,13 @@ class VipLevelCard extends StatelessWidget {
                               String amount = '0';
                               switch (pos) {
                                 case 0:
-                                  amount = "${item.depositAmount}";
+                                  amount = AppUtil.amountFormat(item.depositAmount ?? '0');
                                   break;
                                 case 1:
-                                  amount = "${item.flow}";
+                                  amount = AppUtil.amountFormat(item.flow ?? '0');
                                   break;
                                 case 2:
-                                  amount = "${entity?.score ?? 0}";
+                                  amount = AppUtil.amountFormat(entity?.score ?? '0');
                                   break;
                               }
                               return ItemWidget(index: pos, text: amount);
@@ -127,7 +128,7 @@ class ItemWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          "R\$$text",
+          text,
           style: TextStyle(
             fontSize: 42.w,
             color: Colors.white,
