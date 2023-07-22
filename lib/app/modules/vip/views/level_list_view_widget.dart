@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../../../util/app_util.dart';
 import '../../../app_style.dart';
 import '../../../entity/vip_level_info.dart';
 import '../controllers/vip_controller.dart';
@@ -30,7 +31,7 @@ class LevelListViewWidget extends StatelessWidget {
           child: Center(
             child: Container(
               width: 660.w,
-              constraints: BoxConstraints(maxHeight: 600.w),
+              constraints: BoxConstraints(maxHeight: 500.w),
               padding: EdgeInsets.all(1.w),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.w),
@@ -45,17 +46,19 @@ class LevelListViewWidget extends StatelessWidget {
                 children: [
                   const ListTitleWidget(),
                   Obx(() {
-                      return ListView.builder(
-                        itemCount: controller.dataList.length,
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            width: double.infinity,
-                            height: 50.w,
-                            color: index % 2 == 0 ? const Color.fromRGBO(4, 75, 154, 0.20) : Colors.transparent,
-                            child: ListItemWidget(index: index),
-                          );
-                        },
+                      return Expanded(
+                        child: ListView.builder(
+                          itemCount: controller.dataList.length,
+                         // shrinkWrap: true,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                              width: double.infinity,
+                              height: 50.w,
+                              color: index % 2 == 0 ? const Color.fromRGBO(4, 75, 154, 0.20) : Colors.transparent,
+                              child: ListItemWidget(index: index),
+                            );
+                          },
+                        ),
                       );
                     }
                   )
@@ -175,7 +178,7 @@ class ListItemWidget extends StatelessWidget {
             alignment: Alignment.center,
             decoration: borderDec,
             child: Text(
-              "${item.name}",
+              "VIP ${item.vip}",
               style: TextStyle(
                 fontSize: 24.w,
                 color: const Color(0xff0ED1F4),
@@ -189,7 +192,7 @@ class ListItemWidget extends StatelessWidget {
             decoration: borderDec,
             child: Text(
               ///  奖项
-              "${item.amount}",
+              AppUtil.amountFormat(item.amount ?? '0'),
               style: TextStyle(
                 fontSize: 24.w,
                 color: const Color(0xff0ED1F4),
@@ -203,7 +206,7 @@ class ListItemWidget extends StatelessWidget {
             decoration: borderDec,
             child: Text(
               /// 报酬
-              "${item.rebateRate}",
+              "${item.rebateRate}%",
               style: TextStyle(
                 fontSize: 24.w,
                 color: const Color(0xff0ED1F4),
