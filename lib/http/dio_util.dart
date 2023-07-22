@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:cbor/cbor.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_comm/app/modules/login_register/views/login_regiseter_widget.dart';
 import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
 import 'package:flutter_comm/globe_controller.dart';
 import 'package:flutter_comm/util/error.dart';
@@ -81,7 +82,9 @@ class DioUtil {
       Log.d("\npath:${response.requestOptions.uri} responseData :$responseData \n${'-' * 200}");
 
       if (status == false) {
-        throw Exception('Get接口能通，status是false');
+        bool isInvalid = checkTokenInvalid(data);
+        String hint = isInvalid ? "token expiration" : 'Get接口能通，status是false';
+        throw Exception(hint);
       } else {
         return onRequestFinish(status, data);
       }
@@ -98,18 +101,27 @@ class DioUtil {
   }
 
   onRequestFinish(bool status, data) {
-    if(data != null && data is String && 'Token'.toLowerCase() == data.toString().toLowerCase()){
-      GlobeController globeController = myGet.Get.find<GlobeController>();
-      globeController.loginOut();
-      MainController mainController = myGet.Get.find<MainController>();
-      mainController.toHome();
-    }
+    // :{status: 20, data: token}
     if (status == false) {
       Toast.show('$data');
       return data;
     } else {
       return data;
     }
+  }
+
+  bool checkTokenInvalid(data) {
+    bool isInvalid = false;
+    if('token' == data.toString().toLowerCase()){
+      Log.d("============token 失效了==================");
+      GlobeController globeController = myGet.Get.find<GlobeController>();
+      globeController.loginOut();
+      MainController mainController = myGet.Get.find<MainController>();
+      mainController.toHome();
+      isInvalid = true;
+      showLoginRegisterDialog();
+    }
+    return isInvalid;
   }
 
   Future<Object?> post(String path, Map<String, dynamic> d) async {
@@ -156,8 +168,13 @@ class DioUtil {
       Log.d("header map:$headerMap");
       Log.d("path:${response.requestOptions.uri}  请求参数:$d 返回:${responseData.toJson()}\n${'-' * 200}");
       if (status == false) {
-        if (ErrorJson['$data'] != null) {
-          Toast.show("${ErrorJson['$data']}");
+        bool isInvalid = checkTokenInvalid(data);
+        if(isInvalid){
+          Toast.show("token expiration");
+        }else{
+          if (ErrorJson['$data'] != null) {
+            Toast.show("${ErrorJson['$data']}");
+          }
         }
         throw Exception('Post接口能通，status是false');
       } else {
