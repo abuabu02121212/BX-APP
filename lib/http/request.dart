@@ -165,4 +165,8 @@ class ApiRequest {
     return await httpUtil.get(gameLaunch, params ?? {});
   }
 
+  Future requestMemberFavList({Map<String, Object>? params}) async {
+    return await httpUtil.get(memberFavList, params ?? {});
+  }
+
 }

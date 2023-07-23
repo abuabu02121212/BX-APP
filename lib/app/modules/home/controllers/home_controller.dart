@@ -146,7 +146,7 @@ class HomeController extends GetxController {
     } else if (index == 1) {
       requestHotGameList(ty: getCurGameType());
     } else if (index == 2) {
-      requestFavGameList(ty: getCurGameType());
+      requestMemberFavList2(ty: getCurGameType());
     }
   }
 
@@ -301,6 +301,27 @@ class HomeController extends GetxController {
     }
     AppLoading.close();
     Log.d("收藏游戏数目：${subTypeGameList.length}");
+  }
+Future<void> requestMemberFavList2({ty = "0"}) async {
+    if (paginationHelper.isHasRequestedAllData()) {
+      return;
+    }
+    AppLoading.show();
+    try {
+      var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
+      var retData = await apiRequest.requestMemberFavList(params: {
+        'ty': ty,
+        'page': curRequestPageIndex,
+        'page_size': paginationHelper.perPageSize,
+        'platform_id': 0,
+      });
+      onPaginationRequestFinish(curRequestPageIndex, retData);
+    } catch (e, stack) {
+      subTypeGameList.value = [];
+      Log.e("$e, $stack");
+    }
+    AppLoading.close();
+    Log.d("收藏游戏2数目：${subTypeGameList.length}");
   }
 
   Future<void> requestGameList({tagId = 0}) async {
