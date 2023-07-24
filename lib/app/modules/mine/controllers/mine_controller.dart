@@ -30,7 +30,7 @@ class MineController extends GetxController with GetSingleTickerProviderStateMix
 
   // 获取当前进度
   double getProgress() {
-    double p = double.parse(globeController.userInfoEntity.value?.depositAmount ?? '0') / double.parse(globeController.userInfoEntity.value?.nextDeposit ?? '0');
+    double p = double.parse(globeController.userInfoEntity.value?.depositAmount ?? '0') / (double.parse(globeController.userInfoEntity.value?.nextDeposit ?? '0') / 100);
     return p;
   }
 
