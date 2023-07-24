@@ -21,6 +21,10 @@ class VipController extends GetxController {
   @override
   Future<void> onReady() async {
     super.onReady();
+    await requestVip();
+  }
+
+  Future<void> requestVip() async {
     dynamic requestVips = await apiRequest.requestVips();
     List<VipInfoEntity> list = [];
     for (var element in requestVips) {
