@@ -176,8 +176,7 @@ class _AppWebviewState extends State<AppWebview> {
               children: [
                 InAppWebView(
                   key: webViewKey,
-                  initialUrlRequest: URLRequest(url: WebUri(widget.url)),
-                  initialSettings: InAppWebViewSettings(allowsBackForwardNavigationGestures: true),
+                  initialUrlRequest: URLRequest(url: Uri.parse(widget.url)),
                   onWebViewCreated: (controller) {
                     _webViewController = controller;
                   },

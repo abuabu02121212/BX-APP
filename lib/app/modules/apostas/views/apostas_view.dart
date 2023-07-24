@@ -131,7 +131,13 @@ class ApostasView extends GetView<ApostasController> {
                   ),
                   child: Column(
                     children: [
-                      _buildItem(dataItem: ['Name\ndo jogo', 'Tempo', 'Valor\nda aposta', 'Lucro']),
+                      Obx(() {
+                        return controller.isShowHeader.isTrue
+                            ? _buildItem(
+                                dataItem: ['Name\ndo jogo', 'Tempo', 'Valor\nda aposta', 'Lucro'],
+                              )
+                            : Container();
+                      }),
                       Flexible(
                         child: Obx(() {
                           return AppList(
@@ -141,7 +147,11 @@ class ApostasView extends GetView<ApostasController> {
                               'flag': controller.flag.value,
                               'ty': controller.ty.value,
                             },
+                            noDataBuilder: () {
+                              controller.setShowHeader(false);
+                            },
                             builder: (dynamic el, int index) {
+                              controller.setShowHeader(true);
                               final item = GameRecordD.fromJson(el);
                               return _buildItem(
                                 isOdd: !index.isOdd,

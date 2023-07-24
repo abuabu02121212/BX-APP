@@ -13,12 +13,14 @@ class AppList extends StatefulWidget {
     required this.getList,
     required this.builder,
     this.params,
+    this.noDataBuilder,
   });
 
   // getList 函数 ，返回 Future<dynamic>
   final Future<dynamic> Function({Map<String, Object>? params}) getList;
   final Widget Function(dynamic item, int index) builder;
   final Map<String, Object>? params;
+  final Function? noDataBuilder;
 
   @override
   State<AppList> createState() => _AppListState();
@@ -60,7 +62,13 @@ class _AppListState extends State<AppList> {
       if (_page == 1) {
         _t = data['t'] ?? 0;
       }
+
       if (_page == 1 && _t == 0) {
+
+        if (widget.noDataBuilder != null) {
+          widget.noDataBuilder!();
+        }
+
         _refreshController.loadNoData();
         return;
       }
