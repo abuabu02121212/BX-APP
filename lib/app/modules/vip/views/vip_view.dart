@@ -3,9 +3,11 @@ import 'package:flutter_comm/app/modules/vip/views/progress_card_1_widget.dart';
 import 'package:flutter_comm/app/modules/vip/views/progress_card_2_widget.dart';
 import 'package:flutter_comm/app/modules/vip/views/vip_level_card_widget.dart';
 import 'package:flutter_comm/app/modules/vip/views/vip_withdraw_card_widget.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import '../../../../util/Log.dart';
 import '../../../component/app_header.dart';
 import '../controllers/vip_controller.dart';
 import 'level_list_view_widget.dart';
@@ -40,26 +42,33 @@ class VipView extends GetView<VipController> {
             width: double.infinity,
           ),
           //  NestedScrollView(headerSliverBuilder: headerSliverBuilder, body: body)
-          ListView(
-            children: [
-              VipLevelCard(),
-              VipWithdrawCardWidget(),
-              Padding(
-                padding: EdgeInsets.only(top: 30.w, left: 20.w),
-                child: Text(
-                  "Distância próximo nível:",
-                  style: TextStyle(
-                    fontSize: 28.w,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w400,
+          EasyRefresh(
+            header: ClassicalHeader(textColor: Colors.white),
+            onRefresh: () async{
+              controller.requestVip();
+              Log.d("=== onRefresh ===");
+            },
+            child: ListView(
+              children: [
+                VipLevelCard(),
+                VipWithdrawCardWidget(),
+                Padding(
+                  padding: EdgeInsets.only(top: 30.w, left: 20.w),
+                  child: Text(
+                    "Distância próximo nível:",
+                    style: TextStyle(
+                      fontSize: 28.w,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
-              ),
-              VipProgress1CardWidget(),
-              VipProgress2CardWidget(),
-              LevelListViewWidget(),
-              SizedBox(height: 125.w),
-            ],
+                VipProgress1CardWidget(),
+                VipProgress2CardWidget(),
+                LevelListViewWidget(),
+                SizedBox(height: 125.w),
+              ],
+            ),
           ),
         ],
       ),
