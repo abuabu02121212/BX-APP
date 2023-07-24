@@ -11,6 +11,7 @@ class UserInfoEntity {
   final String? parentName;
   final String? createdAt;
   final String? createdIp;
+  // 累计充值
   final String? depositAmount;
   final String? score;
   final String? vip;

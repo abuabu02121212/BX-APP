@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_button.dart';
 import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
+import 'package:flutter_comm/http/comm_request.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_comm/util/weburl_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -306,10 +307,17 @@ class HeaderWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Obx(() {
-                      var avatar = globeController.userInfoEntity.value?.avatar ?? "0";
-                      return Image.asset("assets/images/avatar/avatar$avatar.webp", width: 90.w);
-                    }),
+                    CupertinoButton(
+                      onPressed: () {
+                        requestUserInfo();
+                      },
+                      minSize: 0,
+                      padding: EdgeInsets.zero,
+                      child: Obx(() {
+                        var avatar = globeController.userInfoEntity.value?.avatar ?? "0";
+                        return Image.asset("assets/images/avatar/avatar$avatar.webp", width: 90.w);
+                      }),
+                    ),
                     SizedBox(height: 22.w),
                     Row(
                       mainAxisSize: MainAxisSize.min,
