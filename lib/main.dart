@@ -8,6 +8,7 @@ import 'package:flutter_comm/util/loading_util.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/observers/route_observer.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
@@ -103,7 +104,7 @@ class AppConfigurationWidget extends StatelessWidget {
         return MediaQuery(
           ///设置文字大小不随系统设置改变
           data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-          child: widget ?? const SizedBox(),
+          child:  FlutterSmartDialog.init()(context, widget),
         );
       }),
 
@@ -111,6 +112,7 @@ class AppConfigurationWidget extends StatelessWidget {
       navigatorObservers: [
         MyNavigatorObserver(),
         routeObserver,
+        FlutterSmartDialog.observer,
         appNavigatorObserver
       ],
       routingCallback: (Routing? routing) {

@@ -6,6 +6,7 @@ import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_comm/http/comm_request.dart';
 import 'package:flutter_comm/util/weburl_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 import 'package:get/get.dart';
 import '../../../../env.dart';
@@ -357,7 +358,8 @@ class HeaderWidget extends StatelessWidget {
           minSize: 0,
           padding: EdgeInsets.all(30.w),
           onPressed: () {
-            Get.back();
+           // Get.back();
+            closeHomeDrawer();
           },
           child: Image.asset(
             "assets/images/i-popup-btn.webp",
@@ -368,7 +370,18 @@ class HeaderWidget extends StatelessWidget {
     );
   }
 }
-
+String tagHomeDrawer = "tagHomeDrawer";
 void showHomeDrawer() {
-  Get.dialog(const HomeDrawerWidget(), transitionCurve: Curves.easeInOut);
+  SmartDialog.show(
+    tag: tagHomeDrawer,
+    keepSingle: true,
+    alignment: Alignment.centerLeft,
+    builder: (BuildContext context) {
+      return const SafeArea(child: HomeDrawerWidget());
+    },
+  );
+}
+
+void closeHomeDrawer(){
+  SmartDialog.dismiss(tag: tagHomeDrawer);
 }
