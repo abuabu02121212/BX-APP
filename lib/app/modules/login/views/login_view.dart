@@ -112,7 +112,6 @@ class LoginWidget extends StatelessWidget {
                 radius: 100.w,
                 text: 'Entrar',
                 onClick: () {
-                  Toast.show("Entrar");
                   controller.login();
                 },
               ),

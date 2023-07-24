@@ -9,6 +9,7 @@ import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_progress.dart';
 import '../../../entity/user_info.dart';
+import '../../main/controllers/main_controller.dart';
 
 class VipProgress1CardWidget extends StatelessWidget {
   VipProgress1CardWidget({
@@ -90,7 +91,8 @@ class VipProgress1CardWidget extends StatelessWidget {
               textColor: const Color(0xff000000),
               text: 'IR',
               onClick: () {
-                Toast.show("按钮被点击");
+                MainController mainController = Get.put(MainController());
+                mainController.toDepost();
               },
             ),
           ],

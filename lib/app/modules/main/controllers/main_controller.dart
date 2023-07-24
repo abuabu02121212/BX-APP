@@ -29,6 +29,16 @@ class MainController extends GetxController {
     changeSelectedTab(0);
   }
 
+  void toDepost(){
+    Get.until((router){
+      // Log.d("当前路由是：${appNavigatorObserver.curRouterName} list:${appNavigatorObserver.routerNameList}");
+      bool isAlive = appNavigatorObserver.curRouterName == Routes.SPLASH;
+      Log.d("=============isAlive:$isAlive===========================");
+      return isAlive;
+    });
+    changeSelectedTab(2);
+  }
+
   void toVip(){
     Get.until((router){
       // Log.d("当前路由是：${appNavigatorObserver.curRouterName} list:${appNavigatorObserver.routerNameList}");
