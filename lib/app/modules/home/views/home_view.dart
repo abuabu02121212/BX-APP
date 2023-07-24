@@ -14,9 +14,7 @@ import 'package:marquee_text/marquee_text.dart';
 import '../../../../globe_controller.dart';
 import '../../../../http/comm_request.dart';
 import '../../../../util/app_util.dart';
-import '../../../../util/toast_util.dart';
 import '../../../../widget/back_event_interceptor.dart';
-import '../../../../widget/single_scroll_view_marquee.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../../home_menu/views/home_menu_view.dart';
@@ -342,7 +340,7 @@ class HomeHeader extends StatelessWidget {
 
   final GlobeController globeController = Get.find<GlobeController>();
   final angel = 0.0.obs;
-
+  final isEnd = true.obs;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -385,8 +383,12 @@ class HomeHeader extends StatelessWidget {
                       children: [
                         CupertinoButton(
                           onPressed: () {
-                            angel.value += 1;
-                            requestCommBalance();
+                            if(isEnd.value){
+                              isEnd.value = false;
+                              angel.value += 1;
+                              requestCommBalance();
+                            }
+
                           },
                           minSize: 0,
                           padding: EdgeInsets.zero,
@@ -395,14 +397,17 @@ class HomeHeader extends StatelessWidget {
                             child: Obx(() {
                               return AnimatedRotation(
                                 turns: angel.value,
-                                duration: const Duration(milliseconds: 400),
+                                duration: const Duration(milliseconds: 600),
+                                onEnd: (){
+                                  isEnd.value = true;
+                                },
                                 child: Image.asset("assets/images/refresher_balance.webp", width: 36.w),
                               );
                             }),
                           ),
                         ),
                         Text(
-                          AppUtil.amountFormat(globeController.balance.value?.brl_amount ?? '0'),
+                          AppUtil.amountFormat(globeController.balance.value?.brl ?? '0'),
                           style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w400),
                         ),
                         AppButton(
