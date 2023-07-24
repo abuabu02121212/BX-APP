@@ -8,12 +8,15 @@ import 'package:flutter_comm/util/weburl_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import '../../../../globe_controller.dart';
 import '../../../../util/text_util.dart';
 import '../../../app_style.dart';
 import '../controllers/home_menu_controller.dart';
 
 class HomeMenuView extends GetView<HomeMenuController> {
-  const HomeMenuView({Key? key}) : super(key: key);
+   HomeMenuView({Key? key}) : super(key: key);
+
+ final GlobeController globeController = Get.find<GlobeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -271,11 +274,12 @@ class ItemType1Widget extends StatelessWidget {
 }
 
 class HeaderWidget extends StatelessWidget {
-  const HeaderWidget({
+  HeaderWidget({
     super.key,
     required this.isLogin,
   });
 
+  final GlobeController globeController = Get.find<GlobeController>();
   final bool isLogin;
 
   @override
@@ -303,15 +307,22 @@ class HeaderWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset("assets/images/user/avatar-default.webp", width: 90.w),
-                    Text(
-                      "qiaofeng88",
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 26.w,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                      ),
+                    Obx(() {
+                      var avatar = globeController.userInfoEntity.value?.avatar ?? "0";
+                        return Image.asset("assets/images/avatar/avatar$avatar.webp", width: 90.w);
+                      }
+                    ),
+                    Obx(() {
+                        return Text(
+                          globeController.userInfoEntity.value?.username ?? "",
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 26.w,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        );
+                      }
                     ),
                   ],
                 ),

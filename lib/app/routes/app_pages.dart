@@ -139,7 +139,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.HOME_MENU,
-      page: () => const HomeMenuView(),
+      page: () => HomeMenuView(),
       binding: HomeMenuBinding(),
     ),
   ];
