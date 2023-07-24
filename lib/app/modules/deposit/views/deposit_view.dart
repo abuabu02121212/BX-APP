@@ -192,7 +192,8 @@ class DepositView extends GetView<DepositController> {
                     children: [
                       Obx(() {
                         return Text(
-                          AppUtil.amountFormat(controller.balanceDetailInfo.value?.brl_amount ?? '0'),
+                          AppUtil.amountFormat(
+                              controller.balanceDetailInfo.value?.brl_amount ?? '0'),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 42.w,
@@ -440,8 +441,13 @@ class DepositView extends GetView<DepositController> {
                         ),
                       ),
                       child: Obx(() {
-                        return Text(controller.depositControllerPage.depositDiscount.value,
-                            style: TextStyle(color: Colors.white, fontSize: 24.w));
+                        return Text(
+                          controller.depositControllerPage.getDepositDiscountValue(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24.w,
+                          ),
+                        );
                       }),
                     ),
                   ),

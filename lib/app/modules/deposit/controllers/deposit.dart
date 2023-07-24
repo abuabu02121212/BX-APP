@@ -60,7 +60,14 @@ class DepositControllerPage extends GetxController {
   setInputValue(String value, String discount) {
     amountNode.editController.text = value;
     amountNode.editController.selection = TextSelection.fromPosition(TextPosition(offset: value.length));
-    depositDiscount.value = discount;
+    getDepositDiscountValue();
+  }
+
+  getDepositDiscountValue() {
+    final currentInputValue = amountNode.text.value;
+    final currentData = depositData.firstWhere((e) => e['amount'] == currentInputValue);
+    depositDiscount.value = currentData['discount']!;
+    return depositDiscount.value;
   }
 
   bool isSelectAmount(String amount) {
