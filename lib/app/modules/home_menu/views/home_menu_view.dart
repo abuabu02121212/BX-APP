@@ -4,12 +4,13 @@ import 'package:flutter_comm/app/component/app_button.dart';
 import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_comm/http/comm_request.dart';
-import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_comm/util/weburl_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import '../../../../env.dart';
 import '../../../../globe_controller.dart';
+import '../../../../util/Log.dart';
 import '../../../../util/text_util.dart';
 import '../../../app_style.dart';
 import '../controllers/home_menu_controller.dart';
@@ -308,8 +309,10 @@ class HeaderWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     CupertinoButton(
-                      onPressed: () {
+                      onPressed: () async {
                         requestUserInfo();
+                        var appInfo = await EnvironmentConfig.getAppInfo();
+                        Log.d(appInfo);
                       },
                       minSize: 0,
                       padding: EdgeInsets.zero,
