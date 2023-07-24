@@ -14,9 +14,9 @@ import '../../../app_style.dart';
 import '../controllers/home_menu_controller.dart';
 
 class HomeMenuView extends GetView<HomeMenuController> {
-   HomeMenuView({Key? key}) : super(key: key);
+  HomeMenuView({Key? key}) : super(key: key);
 
- final GlobeController globeController = Get.find<GlobeController>();
+  final GlobeController globeController = Get.find<GlobeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -169,9 +169,9 @@ class ItemType2Widget extends StatelessWidget {
             Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_REWARD_BOX);
             break;
           case 2:
-              Get.back();
-              MainController mainController = Get.find<MainController>();
-              mainController.changeSelectedTab(3);
+            Get.back();
+            MainController mainController = Get.find<MainController>();
+            mainController.changeSelectedTab(3);
             break;
           case 3:
             Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.CUSTOMER_SERVICE);
@@ -300,7 +300,6 @@ class HeaderWidget extends StatelessWidget {
             : const SizedBox(),
         isLogin
             ? Container(
-                width: 150.w,
                 padding: EdgeInsets.only(top: 95.w),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -309,21 +308,36 @@ class HeaderWidget extends StatelessWidget {
                   children: [
                     Obx(() {
                       var avatar = globeController.userInfoEntity.value?.avatar ?? "0";
-                        return Image.asset("assets/images/avatar/avatar$avatar.webp", width: 90.w);
-                      }
+                      return Image.asset("assets/images/avatar/avatar$avatar.webp", width: 90.w);
+                    }),
+                    SizedBox(height: 22.w),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Obx(() {
+                          return Text(
+                            globeController.userInfoEntity.value?.username ?? "",
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontSize: 26.w,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          );
+                        }),
+                        CupertinoButton(
+                          minSize: 0,
+                          padding: EdgeInsets.all(10.w),
+                          onPressed: () {
+                            copyText(globeController.userInfoEntity.value?.username ?? "");
+                          },
+                          child: Image.asset("assets/images/i-copy-white.webp", width: 25.w),
+                        )
+                      ],
                     ),
-                    Obx(() {
-                        return Text(
-                          globeController.userInfoEntity.value?.username ?? "",
-                          maxLines: 1,
-                          style: TextStyle(
-                            fontSize: 26.w,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        );
-                      }
-                    ),
+                    SizedBox(height: 10.w),
                   ],
                 ),
               )
