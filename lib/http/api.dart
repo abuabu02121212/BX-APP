@@ -42,3 +42,4 @@ const String appUpgrade = "/member/app/upgrade";
 const String smsSendMail = "/sms/send/mail";
 const String gameLaunch = "/game/launch";
 const String memberFavList = "/member/fav/list";
+const String memberCsList = "/member/cs/list";

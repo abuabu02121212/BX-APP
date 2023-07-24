@@ -169,4 +169,8 @@ class ApiRequest {
     return await httpUtil.get(memberFavList, params ?? {});
   }
 
+  Future requestMemberCsList({Map<String, Object>? params}) async {
+    return await httpUtil.get(memberCsList, params ?? {});
+  }
+
 }

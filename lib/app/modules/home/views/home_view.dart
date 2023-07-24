@@ -14,6 +14,7 @@ import 'package:marquee_text/marquee_text.dart';
 import '../../../../globe_controller.dart';
 import '../../../../http/comm_request.dart';
 import '../../../../util/app_util.dart';
+import '../../../../util/text_util.dart';
 import '../../../../widget/back_event_interceptor.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
@@ -52,6 +53,7 @@ class HomeView extends GetView<HomeController> {
               alignment: Alignment.topLeft,
               child: SingleChildScrollView(
                 controller: controller.scrollController,
+                physics: const BouncingScrollPhysics(),
                 child: ItemGenerateWidget(),
               ),
             ),
@@ -99,7 +101,7 @@ class ItemGenerateWidget extends StatelessWidget {
                       );
                     }),
                     WinListWidget(),
-                    const BrandListWidget(),
+                    BrandListWidget(),
                     Container(
                       width: double.infinity,
                       height: 94.w,
@@ -138,10 +140,10 @@ class ItemGenerateWidget extends StatelessWidget {
 }
 
 class BrandListWidget extends StatelessWidget {
-  const BrandListWidget({
+   BrandListWidget({
     super.key,
   });
-
+  final HomeController controller = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -162,9 +164,28 @@ class BrandListWidget extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset("assets/images/index-b-f.webp", width: 76.w),
+              CupertinoButton(
+                minSize: 0,
+                padding: EdgeInsets.zero,
+                onPressed: () {
+                  controller.requestCsData();
+                  var facebook = controller.csEntity.value?.facebook ?? "-";
+                  AppUtil.launch(facebook);
+                },
+                child: Image.asset("assets/images/index-b-f.webp", width: 76.w),
+              ),
               SizedBox(width: 30.w),
-              Image.asset("assets/images/index-b-t.webp", width: 76.w),
+              CupertinoButton(
+                minSize: 0,
+                padding: EdgeInsets.zero,
+                onPressed: () {
+                  controller.requestCsData();
+                  var telegram = controller.csEntity.value?.telegram ?? "-";
+                  telegram = getUrlDecodeStr(telegram);
+                  AppUtil.launch(telegram);
+                },
+                child: Image.asset("assets/images/index-b-t.webp", width: 76.w),
+              ),
             ],
           ),
           SizedBox(height: 24.w),
@@ -341,6 +362,7 @@ class HomeHeader extends StatelessWidget {
   final GlobeController globeController = Get.find<GlobeController>();
   final angel = 0.0.obs;
   final isEnd = true.obs;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -375,7 +397,10 @@ class HomeHeader extends StatelessWidget {
                 : Container(
                     width: 350.w,
                     height: 60.w,
-                    decoration: BoxDecoration(gradient: btnLinearBg, borderRadius: BorderRadius.circular(30.w), border: Border.all(color: const Color(0x66335a94), width: 1.w)),
+                    decoration: BoxDecoration(
+                        gradient: btnLinearBg,
+                        borderRadius: BorderRadius.circular(30.w),
+                        border: Border.all(color: const Color(0x66335a94), width: 1.w)),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -383,12 +408,11 @@ class HomeHeader extends StatelessWidget {
                       children: [
                         CupertinoButton(
                           onPressed: () {
-                            if(isEnd.value){
+                            if (isEnd.value) {
                               isEnd.value = false;
                               angel.value += 1;
                               requestCommBalance();
                             }
-
                           },
                           minSize: 0,
                           padding: EdgeInsets.zero,
@@ -398,7 +422,7 @@ class HomeHeader extends StatelessWidget {
                               return AnimatedRotation(
                                 turns: angel.value,
                                 duration: const Duration(milliseconds: 600),
-                                onEnd: (){
+                                onEnd: () {
                                   isEnd.value = true;
                                 },
                                 child: Image.asset("assets/images/refresher_balance.webp", width: 36.w),

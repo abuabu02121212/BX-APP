@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_comm/util/app_util.dart';
 
 class TextMeasureUtil {
@@ -25,4 +23,9 @@ void copyText(String link) {
 
 String getUrlDecodeStr(String text) {
   return Uri.decodeComponent(text);
+}
+
+String getUrlDoubleDecodeStr(String text) {
+  var t1 = getUrlDecodeStr(text);
+  return getUrlDecodeStr(t1);
 }

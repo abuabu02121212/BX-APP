@@ -17,6 +17,7 @@ import '../../../../util/text_util.dart';
 import '../../../../util/toast_util.dart';
 import '../../../../util/weburl_util.dart';
 import '../../../entity/banner.dart';
+import '../../../entity/cs.dart';
 import '../../../entity/game_item.dart';
 import '../../../entity/game_nav.dart';
 import '../../../entity/game_type.dart';
@@ -171,6 +172,7 @@ class HomeController extends GetxController {
     scrollController.addListener(_scrollListener);
     requestMemberNav();
     requestNotice();
+    requestCsData();
     requestLastWin();
 
     /// 请求banner列表
@@ -180,6 +182,18 @@ class HomeController extends GetxController {
 
     /// 请求推荐游戏列表
     requestRecommendGameList();
+  }
+
+  final csEntity = Rx<CsEntity?>(null);
+
+  Future<void> requestCsData() async {
+    var dictRet = {};
+    try {
+      dictRet = await apiRequest.requestMemberCsList(params: {"fields": 'telegram,facebook,onlinecs'});
+      csEntity.value = CsEntity.fromJson(dictRet);
+    } catch (e) {
+      Log.e("$dictRet  $e");
+    }
   }
 
   void requestRecommendGameList() {
@@ -302,7 +316,8 @@ class HomeController extends GetxController {
     AppLoading.close();
     Log.d("收藏游戏数目：${subTypeGameList.length}");
   }
-Future<void> requestMemberFavList2({ty = "0"}) async {
+
+  Future<void> requestMemberFavList2({ty = "0"}) async {
     if (paginationHelper.isHasRequestedAllData()) {
       return;
     }
