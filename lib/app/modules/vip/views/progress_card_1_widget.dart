@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/app/modules/vip/controllers/vip_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../globe_controller.dart';
+import '../../../../util/math_util.dart';
 import '../../../../util/toast_util.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
@@ -14,11 +16,12 @@ class VipProgress1CardWidget extends StatelessWidget {
   });
 
   final GlobeController globeController = Get.find<GlobeController>();
+  final VipController vipController = Get.put(VipController());
 
   @override
   Widget build(BuildContext context) {
     UserInfoEntity? entity = globeController.userInfoEntity.value;
-    double progress = globeController.userInfoEntity.value?.getCurrentDepositLevelProgress() ?? 0;
+    var nowDeposit = entity?.nowDeposit;
     return Center(
       child: Container(
         margin: EdgeInsets.only(top: 24.w),
@@ -53,23 +56,29 @@ class VipProgress1CardWidget extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    Text(
-                      "${entity?.nowDeposit} / ${entity?.nextDeposit}",
-                      style: TextStyle(
-                        fontSize: 27.w,
-                        color: const Color(0xff0ED1F4),
-                        fontWeight: FontWeight.w700,
-                      ),
+                    Obx(() {
+                        return Text(
+                          "$nowDeposit / ${vipController.nextLevelDeposit.value}",
+                          style: TextStyle(
+                            fontSize: 27.w,
+                            color: const Color(0xff0ED1F4),
+                            fontWeight: FontWeight.w700,
+                          ),
+                        );
+                      }
                     )
                   ],
                 ),
                 SizedBox(height: 18.w),
-                AppProgress(
-                  width: 480.w,
-                  height: 30.w,
-                  radius: 15.w,
-                  progress: double.parse("${progress * 100}").toInt(),
-                  colorList: AppProgress.colorList2,
+                Obx(() {
+                    return AppProgress(
+                      width: 480.w,
+                      height: 30.w,
+                      radius: 15.w,
+                      progress: MathU.computePercent(nowDeposit, vipController.nextLevelDeposit.value),
+                      colorList: AppProgress.colorList2,
+                    );
+                  }
                 ),
               ],
             ),

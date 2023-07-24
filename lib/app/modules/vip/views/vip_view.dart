@@ -52,19 +52,31 @@ class VipView extends GetView<VipController> {
               children: [
                 VipLevelCard(),
                 VipWithdrawCardWidget(),
-                Padding(
-                  padding: EdgeInsets.only(top: 30.w, left: 20.w),
-                  child: Text(
-                    "Distância próximo nível:",
-                    style: TextStyle(
-                      fontSize: 28.w,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
+                Obx(() {
+                  bool isHidden = controller.nextLevelDeposit.value == '-1';
+                    return isHidden ? const SizedBox() : Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: 30.w, left: 20.w),
+                          child: Text(
+                            "Distância próximo nível:",
+                            style: TextStyle(
+                              fontSize: 28.w,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        VipProgress1CardWidget(),
+                        VipProgress2CardWidget(),
+                      ],
+                    );
+                  }
                 ),
-                VipProgress1CardWidget(),
-                VipProgress2CardWidget(),
+
                 LevelListViewWidget(),
                 SizedBox(height: 125.w),
               ],

@@ -29,7 +29,7 @@ class VipLevelCard extends StatelessWidget {
           controller: PageController(initialPage: 0, viewportFraction: 0.93),
           scrollDirection: Axis.horizontal,
           onPageChanged: (pageIndex) {
-            controller.selectedCardIndex.value = pageIndex;
+            controller.onLevelCardSelectChanged(pageIndex);
           },
           itemBuilder: (BuildContext context, int index) {
             VipInfoEntity item = list[index];
@@ -55,18 +55,27 @@ class VipLevelCard extends StatelessWidget {
                             Image.asset("assets/images/vip/medal-$index.webp", width: 142.w),
                             isLast
                                 ? const SizedBox()
-                                : AppProgress(
-                                    width: 348.w,
-                                    height: 30.w,
-                                    radius: 10.w,
-                                    progress: item.getCurLevelProgress(entity?.depositAmount ?? "0"),
-                                  ),
+                                : Obx(() {
+                                    return AppProgress(
+                                      width: 348.w,
+                                      height: 30.w,
+                                      radius: 10.w,
+                                      progress: controller.curCardLevelProgress.value,
+                                    );
+                                  }),
                             isLast
                                 ? const SizedBox()
-                                : Text(
-                                    "${entity?.depositAmount} / ${item.depositAmount}",
-                                    style: TextStyle(fontSize: 26.w, color: const Color(0xffffffff), fontWeight: FontWeight.w400),
-                                  ),
+                                : Obx(() {
+                                    return Text(
+                                        "${controller.curCardLevelProgress.value} / 100",
+                                        style: TextStyle(
+                                          fontSize: 26.w,
+                                          color: const Color(0xffffffff),
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      );
+                                  }
+                                ),
                           ],
                         ),
                         Container(
@@ -103,8 +112,6 @@ class VipLevelCard extends StatelessWidget {
       }),
     );
   }
-
-
 }
 
 class ItemWidget extends StatelessWidget {
