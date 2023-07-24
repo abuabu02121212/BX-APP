@@ -4,7 +4,6 @@ import 'package:flutter_comm/app/component/app_avatar.dart';
 import 'package:flutter_comm/app/component/app_cupertino_button.dart';
 import 'package:flutter_comm/app/modules/login_register/views/login_regiseter_widget.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
-import 'package:flutter_comm/util/dialog.dart';
 import 'package:flutter_comm/util/app_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -63,21 +62,23 @@ class MineView extends GetView<MineController> with RouteAware {
                               const AppAvatar(),
                             );
                           },
-                          child: Obx(() {
-                            return Container(
-                              margin: EdgeInsets.only(top: 45.w, left: 55.w),
-                              width: 120.w,
-                              height: 120.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(60.w),
-                                border: Border.all(color: Color(0xff0ED1F4), width: 4.w),
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/avatar/avatar${int.parse(controller.globeController.userInfoEntity.value?.avatar ?? '1')}.webp"),
-                                    fit: BoxFit.cover),
-                              ),
-                            );
-                          }),
+                          child: Obx(
+                            () {
+                              return Container(
+                                margin: EdgeInsets.only(top: 45.w, left: 55.w),
+                                width: 120.w,
+                                height: 120.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(60.w),
+                                  border: Border.all(color: Color(0xff0ED1F4), width: 4.w),
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "assets/images/avatar/avatar${int.parse(controller.globeController.userInfoEntity.value?.avatar ?? '1')}.webp"),
+                                      fit: BoxFit.cover),
+                                ),
+                              );
+                            },
+                          ),
                         ),
                         Positioned(
                           top: 153.w,
@@ -92,16 +93,18 @@ class MineView extends GetView<MineController> with RouteAware {
                             children: [
                               Row(
                                 children: [
-                                  Obx(() {
-                                    return Text(
-                                      controller.globeController.userInfoEntity.value?.uid ?? "",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 28.w,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    );
-                                  }),
+                                  Obx(
+                                    () {
+                                      return Text(
+                                        controller.globeController.userInfoEntity.value?.uid ?? "",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 28.w,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ],
                               ),
                               Row(
@@ -122,17 +125,19 @@ class MineView extends GetView<MineController> with RouteAware {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Obx(() {
-                                          return Text(
-                                            controller.globeController.userInfoEntity.value
-                                                    ?.username ??
-                                                "",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 26.w,
-                                            ),
-                                          );
-                                        }),
+                                        Obx(
+                                          () {
+                                            return Text(
+                                              controller.globeController.userInfoEntity.value
+                                                      ?.username ??
+                                                  "",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 26.w,
+                                              ),
+                                            );
+                                          },
+                                        ),
                                         SizedBox(width: 7.w),
                                         AppCupertinoButton(
                                           onPressed: () {
@@ -154,18 +159,20 @@ class MineView extends GetView<MineController> with RouteAware {
                               ),
                               Row(
                                 children: [
-                                  Obx(() {
-                                    return Text(
-                                      AppUtil.amountFormat(
-                                        controller.globeController.balance.value?.brl ?? '',
-                                      ),
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 42.w,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    );
-                                  }),
+                                  Obx(
+                                    () {
+                                      return Text(
+                                        AppUtil.amountFormat(
+                                          controller.globeController.balance.value?.brl ?? '',
+                                        ),
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 42.w,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      );
+                                    },
+                                  ),
                                   SizedBox(width: 10.w),
                                   AppCupertinoButton(
                                     onPressed: controller.refreshBalance,
@@ -193,7 +200,7 @@ class MineView extends GetView<MineController> with RouteAware {
                   Container(
                     margin: EdgeInsets.only(right: 45.w),
                     child: CupertinoButton(
-                      onPressed: (){
+                      onPressed: () {
                         MainController mainController = Get.put(MainController());
                         mainController.toVip();
                       },
@@ -217,24 +224,28 @@ class MineView extends GetView<MineController> with RouteAware {
                     margin: EdgeInsets.only(left: 55.w, top: 7.w),
                     child: Row(
                       children: [
-                        Obx(() {
-                          return Flexible(
-                            child: AppProgress(
-                              width: 535.w,
-                              height: 30.w,
-                              radius: 100.w,
-                              progress: controller.getProgress(),
-                            ),
-                          );
-                        }),
+                        Obx(
+                          () {
+                            return Flexible(
+                              child: AppProgress(
+                                width: 535.w,
+                                height: 30.w,
+                                radius: 100.w,
+                                progress: controller.getProgress(),
+                              ),
+                            );
+                          },
+                        ),
                         SizedBox(width: 15.w),
-                        Obx(() {
-                          return Text(
-                            '${controller.globeController.userInfoEntity.value?.depositAmount ?? "0"} / '
-                            '${controller.globeController.userInfoEntity.value?.nextDeposit ?? "0"}',
-                            style: TextStyle(color: Colors.white, fontSize: 26.w),
-                          );
-                        }),
+                        Obx(
+                          () {
+                            return Text(
+                              '${controller.globeController.userInfoEntity.value?.depositAmount ?? "0"} / '
+                              '${controller.globeController.userInfoEntity.value?.nextDeposit ?? "0"}',
+                              style: TextStyle(color: Colors.white, fontSize: 26.w),
+                            );
+                          },
+                        ),
                         SizedBox(width: 15.w),
                       ],
                     ),
@@ -250,7 +261,10 @@ class MineView extends GetView<MineController> with RouteAware {
                           text: 'Depósito',
                           colorList: const [Color(0xffFFD500), Color(0xffFF9901)],
                           onClick: () {
-                            Get.toNamed(Routes.DEPOSIT, arguments: {'index': 0});
+                            Get.toNamed(
+                              Routes.DEPOSIT,
+                              arguments: {'index': 0},
+                            );
                           },
                         ),
                         SizedBox(width: 15.w),
@@ -260,7 +274,10 @@ class MineView extends GetView<MineController> with RouteAware {
                           radius: 100.w,
                           text: 'Retirar',
                           onClick: () {
-                            Get.toNamed(Routes.DEPOSIT, arguments: {'index': 1});
+                            Get.toNamed(
+                              Routes.DEPOSIT,
+                              arguments: {'index': 1},
+                            );
                           },
                         ),
                       ],
@@ -283,25 +300,27 @@ class MineView extends GetView<MineController> with RouteAware {
                         ' Recompensa total de check-in',
                         style: TextStyle(color: Colors.white, fontSize: 26.w),
                       ),
-                      Obx(() {
-                        return RichText(
-                          text: TextSpan(
-                            text: 'de 7 dias:',
-                            style: TextStyle(color: Colors.white, fontSize: 26.w),
-                            children: [
-                              TextSpan(
-                                text: AppUtil.amountFormat(
-                                  controller.signProBonus.value.toString(),
-                                ),
-                                style: TextStyle(
-                                    color: Color(0xff0ED1F4),
-                                    fontSize: 28.w,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        );
-                      })
+                      Obx(
+                        () {
+                          return RichText(
+                            text: TextSpan(
+                              text: 'de 7 dias:',
+                              style: TextStyle(color: Colors.white, fontSize: 26.w),
+                              children: [
+                                TextSpan(
+                                  text: AppUtil.amountFormat(
+                                    controller.signProBonus.value.toString(),
+                                  ),
+                                  style: TextStyle(
+                                      color: Color(0xff0ED1F4),
+                                      fontSize: 28.w,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                      )
                     ],
                   )
                 ],
@@ -321,89 +340,127 @@ class MineView extends GetView<MineController> with RouteAware {
                 SizedBox(
                   height: 90.w,
                   child: CupertinoButton(
-                      padding: EdgeInsets.only(left: 26.w, right: 26.w),
-                      child: Row(
-                        children: [
-                          Image(
-                              image: const AssetImage("assets/images/i-finance-record.webp"),
-                              width: 40.w),
-                          SizedBox(width: 26.w),
-                          Text(
-                            'Transação',
-                            style: TextStyle(color: Colors.white, fontSize: 28.w),
-                          ),
-                          const Expanded(
-                            child: SizedBox(),
-                          ),
-                          Image(
-                              image: const AssetImage("assets/images/i-arrow-right-bold.webp"),
-                              width: 20.w),
-                        ],
-                      ),
-                      onPressed: () {
-                        Get.toNamed(Routes.TRANSACTION);
-                      }),
+                    padding: EdgeInsets.only(left: 26.w, right: 26.w),
+                    child: Row(
+                      children: [
+                        Image(
+                          image: const AssetImage("assets/images/i-finance-record.webp"),
+                          width: 40.w,
+                        ),
+                        SizedBox(width: 26.w),
+                        Text(
+                          'Transação',
+                          style: TextStyle(color: Colors.white, fontSize: 28.w),
+                        ),
+                        const Expanded(
+                          child: SizedBox(),
+                        ),
+                        Image(
+                          image: const AssetImage("assets/images/i-arrow-right-bold.webp"),
+                          width: 20.w,
+                        ),
+                      ],
+                    ),
+                    onPressed: () {
+                      Get.toNamed(Routes.TRANSACTION);
+                    },
+                  ),
                 ),
                 Divider(color: const Color.fromRGBO(255, 255, 255, 0.25), height: 1.w),
                 CupertinoButton(
-                    padding: EdgeInsets.only(left: 26.w, right: 26.w),
-                    child: SizedBox(
-                      height: 90.w,
-                      child: Row(
-                        children: [
-                          Image(
-                              image: const AssetImage("assets/images/i-agent-record.webp"),
-                              width: 40.w),
-                          SizedBox(width: 26.w),
-                          Text(
-                            'Histórico de Apostas',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 28.w,
-                            ),
+                  padding: EdgeInsets.only(left: 26.w, right: 26.w),
+                  child: SizedBox(
+                    height: 90.w,
+                    child: Row(
+                      children: [
+                        Image(
+                          image: const AssetImage("assets/images/i-agent-record.webp"),
+                          width: 40.w,
+                        ),
+                        SizedBox(
+                          width: 26.w,
+                        ),
+                        Text(
+                          'Histórico de Apostas',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 28.w,
                           ),
-                          const Expanded(
-                            child: SizedBox(),
-                          ),
-                          Image(
-                            image: const AssetImage("assets/images/i-arrow-right-bold.webp"),
-                            width: 20.w,
-                          ),
-                        ],
-                      ),
+                        ),
+                        const Expanded(
+                          child: SizedBox(),
+                        ),
+                        Image(
+                          image: const AssetImage("assets/images/i-arrow-right-bold.webp"),
+                          width: 20.w,
+                        ),
+                      ],
                     ),
-                    onPressed: () {
-                      Get.toNamed(Routes.APOSTAS);
-                    }),
+                  ),
+                  onPressed: () {
+                    Get.toNamed(Routes.APOSTAS);
+                  },
+                ),
                 Divider(color: const Color.fromRGBO(255, 255, 255, 0.25), height: 1.w),
                 CupertinoButton(
-                    padding: EdgeInsets.only(left: 26.w, right: 26.w),
-                    child: SizedBox(
-                      height: 90.w,
-                      child: Row(
-                        children: [
-                          Image(
-                            image: AssetImage("assets/images/i-gift-record.webp"),
-                            width: 40.w,
-                          ),
-                          SizedBox(width: 26.w),
-                          Text(
-                            'Histórico de Recompensas',
-                            style: TextStyle(color: Colors.white, fontSize: 28.w),
-                          ),
-                          Expanded(
-                            child: SizedBox(),
-                          ),
-                          Image(
-                            image: AssetImage("assets/images/i-arrow-right-bold.webp"),
-                            width: 20.w,
-                          ),
-                        ],
-                      ),
+                  padding: EdgeInsets.only(left: 26.w, right: 26.w),
+                  child: SizedBox(
+                    height: 90.w,
+                    child: Row(
+                      children: [
+                        Image(
+                          image: AssetImage("assets/images/i-gift-record.webp"),
+                          width: 40.w,
+                        ),
+                        SizedBox(width: 26.w),
+                        Text(
+                          'Histórico de Recompensas',
+                          style: TextStyle(color: Colors.white, fontSize: 28.w),
+                        ),
+                        Expanded(
+                          child: SizedBox(),
+                        ),
+                        Image(
+                          image: AssetImage("assets/images/i-arrow-right-bold.webp"),
+                          width: 20.w,
+                        ),
+                      ],
                     ),
-                    onPressed: () {
-                      Get.toNamed(Routes.RECOMPENSAS);
-                    }),
+                  ),
+                  onPressed: () {
+                    Get.toNamed(Routes.RECOMPENSAS);
+                  },
+                ),
+                Divider(color: const Color.fromRGBO(255, 255, 255, 0.25), height: 1.w),
+                CupertinoButton(
+                  padding: EdgeInsets.only(left: 26.w, right: 26.w),
+                  child: SizedBox(
+                    height: 90.w,
+                    child: Row(
+                      children: [
+                        Image(
+                          image: AssetImage("assets/images/center.webp"),
+                          width: 50.w,
+                        ),
+                        SizedBox(width: 18.w),
+                        Text(
+                          'Centro de Segurança',
+                          style: TextStyle(color: Colors.white, fontSize: 28.w),
+                        ),
+                        Expanded(
+                          child: SizedBox(),
+                        ),
+                        Image(
+                          image: AssetImage("assets/images/i-arrow-right-bold.webp"),
+                          width: 20.w,
+                        ),
+                      ],
+                    ),
+                  ),
+                  onPressed: () {
+                    Get.toNamed(Routes.SECURITY_CENTER);
+                  },
+                ),
               ]),
             ),
             AppButton(
@@ -413,7 +470,7 @@ class MineView extends GetView<MineController> with RouteAware {
               text: 'Sair',
               colorList: const [Color(0xffFFD500), Color(0xffFF9901)],
               onClick: () async {
-                //   var r = await apiRequest.requestSms({'tel': '5666919888', 'ty': 1, 'flag': 'text'});
+                //   var r = await apiRequest.requestSms({'tel': '5666919888', 'ty': 1, 'flag': 'text'},);
                 //   print('5555 $r');
 
                 var b = await apiRequest.requestBanner();
@@ -430,7 +487,7 @@ class MineView extends GetView<MineController> with RouteAware {
                 //   'username': '9966666666',
                 //   'password': 'aa123123',
                 //   'device_no': 'asfdhiojiaslfskhsjd'
-                // });
+                // },);
               },
             ),
           ],

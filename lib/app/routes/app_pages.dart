@@ -2,6 +2,18 @@ import 'package:get/get.dart';
 
 import '../modules/apostas/bindings/apostas_binding.dart';
 import '../modules/apostas/views/apostas_view.dart';
+import '../modules/center_bank_list/bindings/center_bank_list_binding.dart';
+import '../modules/center_bank_list/views/center_bank_list_view.dart';
+import '../modules/center_bank_list_add/bindings/center_bank_list_add_binding.dart';
+import '../modules/center_bank_list_add/views/center_bank_list_add_view.dart';
+import '../modules/center_pay_password/bindings/center_pay_password_binding.dart';
+import '../modules/center_pay_password/views/center_pay_password_view.dart';
+import '../modules/center_phone/bindings/center_phone_binding.dart';
+import '../modules/center_phone/views/center_phone_view.dart';
+import '../modules/center_update_login_password/bindings/center_update_login_password_binding.dart';
+import '../modules/center_update_login_password/views/center_update_login_password_view.dart';
+import '../modules/center_user_info/bindings/center_user_info_binding.dart';
+import '../modules/center_user_info/views/center_user_info_view.dart';
 import '../modules/component_test/bindings/component_test_binding.dart';
 import '../modules/component_test/views/component_test_view.dart';
 import '../modules/deposit/bindings/deposit_binding.dart';
@@ -28,6 +40,8 @@ import '../modules/recompensas/bindings/recompensas_binding.dart';
 import '../modules/recompensas/views/recompensas_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
+import '../modules/security_center/bindings/security_center_binding.dart';
+import '../modules/security_center/views/security_center_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/transaction/bindings/transaction_binding.dart';
@@ -54,7 +68,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.HOME,
-      page: () =>  HomeView(),
+      page: () => HomeView(),
       binding: HomeBinding(),
     ),
     GetPage(
@@ -84,7 +98,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.VIP,
-      page: () =>  VipView(),
+      page: () => VipView(),
       binding: VipBinding(),
     ),
     GetPage(
@@ -141,6 +155,41 @@ class AppPages {
       name: _Paths.HOME_MENU,
       page: () => HomeMenuView(),
       binding: HomeMenuBinding(),
+    ),
+    GetPage(
+      name: _Paths.SECURITY_CENTER,
+      page: () => const SecurityCenterView(),
+      binding: SecurityCenterBinding(),
+    ),
+    GetPage(
+      name: _Paths.CENTER_USER_INFO,
+      page: () => const CenterUserInfoView(),
+      binding: CenterUserInfoBinding(),
+    ),
+    GetPage(
+      name: _Paths.CENTER_UPDATE_LOGIN_PASSWORD,
+      page: () => const CenterUpdateLoginPasswordView(),
+      binding: CenterUpdateLoginPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.CENTER_PAY_PASSWORD,
+      page: () => const CenterPayPasswordView(),
+      binding: CenterPayPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.CENTER_BANK_LIST,
+      page: () => const CenterBankListView(),
+      binding: CenterBankListBinding(),
+    ),
+    GetPage(
+      name: _Paths.CENTER_BANK_LIST_ADD,
+      page: () => const CenterBankListAddView(),
+      binding: CenterBankListAddBinding(),
+    ),
+    GetPage(
+      name: _Paths.CENTER_PHONE,
+      page: () => const CenterPhoneView(),
+      binding: CenterPhoneBinding(),
     ),
   ];
 }

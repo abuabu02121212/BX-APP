@@ -22,6 +22,14 @@ abstract class Routes {
   static const FORGET_PSW = _Paths.FORGET_PSW;
   static const WEBVIEW = _Paths.WEBVIEW;
   static const HOME_MENU = _Paths.HOME_MENU;
+  static const SECURITY_CENTER = _Paths.SECURITY_CENTER;
+  static const CENTER_USER_INFO = _Paths.CENTER_USER_INFO;
+  static const CENTER_UPDATE_LOGIN_PASSWORD =
+      _Paths.CENTER_UPDATE_LOGIN_PASSWORD;
+  static const CENTER_PAY_PASSWORD = _Paths.CENTER_PAY_PASSWORD;
+  static const CENTER_BANK_LIST = _Paths.CENTER_BANK_LIST;
+  static const CENTER_BANK_LIST_ADD = _Paths.CENTER_BANK_LIST_ADD;
+  static const CENTER_PHONE = _Paths.CENTER_PHONE;
 }
 
 abstract class _Paths {
@@ -45,4 +53,11 @@ abstract class _Paths {
   static const FORGET_PSW = '/forget-psw';
   static const WEBVIEW = '/webview';
   static const HOME_MENU = '/home-menu';
+  static const SECURITY_CENTER = '/security-center';
+  static const CENTER_USER_INFO = '/center-user-info';
+  static const CENTER_UPDATE_LOGIN_PASSWORD = '/center-update-login-password';
+  static const CENTER_PAY_PASSWORD = '/center-pay-password';
+  static const CENTER_BANK_LIST = '/center-bank-list';
+  static const CENTER_BANK_LIST_ADD = '/center-bank-list-add';
+  static const CENTER_PHONE = '/center-phone';
 }
