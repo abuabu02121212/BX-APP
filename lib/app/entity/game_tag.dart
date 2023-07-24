@@ -32,7 +32,7 @@ class GameTagEntity {
   factory GameTagEntity.fromJson(Map<String, dynamic> json) {
     return GameTagEntity(
       tid: json['tid'].toString(),
-      name: json['name'].toString(),
+      name: json['name'].toString().replaceAll("&nbsp;", " "),
       state: json['state'].toString(),
       createdAt: json['created_at'].toString(),
       gameType: json['game_type'].toString(),
