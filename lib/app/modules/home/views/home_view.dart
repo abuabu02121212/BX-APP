@@ -10,7 +10,7 @@ import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import 'package:marquee_text/marquee_text.dart';
+import 'package:marqueer/marqueer.dart';
 import '../../../../globe_controller.dart';
 import '../../../../http/comm_request.dart';
 import '../../../../util/app_util.dart';
@@ -334,16 +334,18 @@ class HomeMarquee extends StatelessWidget {
             Image.asset("assets/images/i-notice.webp", width: 36.w),
             Expanded(
                 child: Container(
-              padding: EdgeInsets.only(left: 20.w, right: 20.w),
+              padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 18.w),
               child: Obx(() {
-                return MarqueeText(
-                  alwaysScroll: true,
-                  text: TextSpan(text: controller.showingMarqueeText.value),
-                  style: TextStyle(
-                    fontSize: 22.w,
-                    color: Colors.white,
-                  ),
-                  speed: 30,
+                return  Marqueer(
+                    pps: 30,
+                    infinity: true,
+                    child: Text(
+                      "${controller.showingMarqueeText.value}                        ",
+                        style: TextStyle(
+                         fontSize: 22.w,
+                         color: Colors.white,
+                       ),
+                      )
                 );
               }),
             )),
