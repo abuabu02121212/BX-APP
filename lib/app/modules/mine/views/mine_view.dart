@@ -124,7 +124,9 @@ class MineView extends GetView<MineController> with RouteAware {
                                       children: [
                                         Obx(() {
                                           return Text(
-                                            controller.globeController.userInfoEntity.value?.username ?? "",
+                                            controller.globeController.userInfoEntity.value
+                                                    ?.username ??
+                                                "",
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 26.w,
@@ -135,7 +137,9 @@ class MineView extends GetView<MineController> with RouteAware {
                                         AppCupertinoButton(
                                           onPressed: () {
                                             AppUtil.copy(
-                                              controller.globeController.userInfoEntity.value?.username ?? "",
+                                              controller.globeController.userInfoEntity.value
+                                                      ?.username ??
+                                                  "",
                                             );
                                           },
                                           child: Image.asset(
@@ -271,20 +275,25 @@ class MineView extends GetView<MineController> with RouteAware {
                         ' Recompensa total de check-in',
                         style: TextStyle(color: Colors.white, fontSize: 26.w),
                       ),
-                      RichText(
-                        text: TextSpan(
+                      Obx(() {
+                        return RichText(
+                          text: TextSpan(
                             text: 'de 7 dias:',
                             style: TextStyle(color: Colors.white, fontSize: 26.w),
                             children: [
                               TextSpan(
-                                text: ' R\$ 0.42',
+                                text: AppUtil.amountFormat(
+                                  controller.signProBonus.value.toString(),
+                                ),
                                 style: TextStyle(
                                     color: Color(0xff0ED1F4),
                                     fontSize: 28.w,
                                     fontWeight: FontWeight.bold),
                               )
-                            ]),
-                      )
+                            ],
+                          ),
+                        );
+                      })
                     ],
                   )
                 ],
@@ -396,8 +405,8 @@ class MineView extends GetView<MineController> with RouteAware {
               text: 'Sair',
               colorList: const [Color(0xffFFD500), Color(0xffFF9901)],
               onClick: () async {
-             //   var r = await apiRequest.requestSms({'tel': '5666919888', 'ty': 1, 'flag': 'text'});
-             //   print('5555 $r');
+                //   var r = await apiRequest.requestSms({'tel': '5666919888', 'ty': 1, 'flag': 'text'});
+                //   print('5555 $r');
 
                 var b = await apiRequest.requestBanner();
                 print('77777 $b');

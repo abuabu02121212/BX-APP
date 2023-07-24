@@ -22,7 +22,7 @@ class AppUtil {
       return '-';
     }
     double amount = double.parse(value);
-    NumberFormat currencyFormat = NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$');
+    NumberFormat currencyFormat = NumberFormat.currency(locale: 'zh_CN', symbol: 'R\$');
     String result = currencyFormat.format(amount);
     return result;
   }
