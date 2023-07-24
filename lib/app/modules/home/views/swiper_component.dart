@@ -40,7 +40,8 @@ class SwiperComponent extends StatelessWidget {
               minSize: 0,
               padding: EdgeInsets.zero,
               child: CachedNetworkImage(
-                fit: BoxFit.fill,
+                height: 280.w,
+                fit: BoxFit.cover,
                 imageUrl: bannerImgUrl,
               ),
             );

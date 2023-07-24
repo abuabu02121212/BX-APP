@@ -52,6 +52,7 @@ class HomeView extends GetView<HomeController> {
               height: double.infinity,
               alignment: Alignment.topLeft,
               child: SingleChildScrollView(
+                padding: EdgeInsets.zero,
                 controller: controller.scrollController,
                 physics: const BouncingScrollPhysics(),
                 child: ItemGenerateWidget(),
@@ -76,7 +77,7 @@ class ItemGenerateWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(
+        Container(
           width: double.infinity,
           height: 280.w,
           child: SwiperComponent(

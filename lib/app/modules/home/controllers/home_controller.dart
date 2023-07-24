@@ -421,7 +421,7 @@ class HomeController extends GetxController {
       subTypeGameList.addAll(list);
       subTypeGameList.refresh();
     }
-    if (list.length > 2) {
+    if (list.length > 2 && curRequestPageIndex > 1) {
       Future.delayed(const Duration(milliseconds: 250), () {
         scrollController.jumpTo(scrollController.offset + 20.w);
       });
