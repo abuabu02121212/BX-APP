@@ -95,7 +95,6 @@ class EventHandle {
   }
 }
 
-
 class AppWebview extends StatefulWidget {
   AppWebview({super.key, required this.url, required this.title});
 
@@ -177,6 +176,24 @@ class _AppWebviewState extends State<AppWebview> {
                 InAppWebView(
                   key: webViewKey,
                   initialUrlRequest: URLRequest(url: Uri.parse(widget.url)),
+                  initialOptions: InAppWebViewGroupOptions(
+                    crossPlatform: InAppWebViewOptions(
+                      useShouldOverrideUrlLoading: true,
+                      useOnDownloadStart: true,
+                      mediaPlaybackRequiresUserGesture: false,
+                      javaScriptCanOpenWindowsAutomatically: true,
+                      transparentBackground: true,
+                    ),
+                    ios: IOSInAppWebViewOptions(
+                      allowsInlineMediaPlayback: true,
+                      allowsAirPlayForMediaPlayback: true,
+                      allowsPictureInPictureMediaPlayback: true,
+                      isFraudulentWebsiteWarningEnabled: false,
+                    ),
+                    android: AndroidInAppWebViewOptions(
+                      useHybridComposition: true,
+                    ),
+                  ),
                   onWebViewCreated: (controller) {
                     _webViewController = controller;
                   },
