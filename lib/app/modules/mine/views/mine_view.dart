@@ -188,17 +188,25 @@ class MineView extends GetView<MineController> with RouteAware {
                   ),
                   Container(
                     margin: EdgeInsets.only(right: 45.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Benefícios',
-                          style: TextStyle(color: Colors.white, fontSize: 24.w),
-                        ),
-                        SizedBox(width: 10.w),
-                        Image.asset("assets/images/vip-more.webp", width: 27.w),
-                      ],
+                    child: CupertinoButton(
+                      onPressed: (){
+                        MainController mainController = Get.put(MainController());
+                        mainController.toVip();
+                      },
+                      minSize: 0,
+                      padding: const EdgeInsets.all(0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Benefícios',
+                            style: TextStyle(color: Colors.white, fontSize: 24.w),
+                          ),
+                          SizedBox(width: 10.w),
+                          Image.asset("assets/images/vip-more.webp", width: 27.w),
+                        ],
+                      ),
                     ),
                   ),
                   Container(
