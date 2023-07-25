@@ -27,6 +27,16 @@ class AppUtil {
     return result;
   }
 
+  /// 获取整数部分
+  static String getIntegerPart(String num) {
+    if (num.isEmpty) {
+      return '-';
+    }
+    double amount = double.parse(num);
+    var int = amount.toInt();
+    return "R\$${int.toString()}";
+  }
+
   static void copy(String value) async {
     try {
       await Clipboard.setData(ClipboardData(text: value));

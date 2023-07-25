@@ -88,13 +88,13 @@ class VipLevelCard extends StatelessWidget {
                               String amount = '0';
                               switch (pos) {
                                 case 0:
-                                  amount = AppUtil.amountFormat(item.depositAmount ?? '0');
+                                  amount = AppUtil.getIntegerPart(item.depositAmount ?? '0');
                                   break;
                                 case 1:
-                                  amount = AppUtil.amountFormat(item.flow ?? '0');
+                                  amount = AppUtil.getIntegerPart(item.flow ?? '0');
                                   break;
                                 case 2:
-                                  amount = AppUtil.amountFormat(entity?.score ?? '0');
+                                  amount = AppUtil.getIntegerPart(entity?.nowValidAmount ?? '0');
                                   break;
                               }
                               return ItemWidget(index: pos, text: amount);
@@ -137,7 +137,7 @@ class ItemWidget extends StatelessWidget {
         Text(
           text,
           style: TextStyle(
-            fontSize: 42.w,
+            fontSize: 32.w,
             color: Colors.white,
             fontWeight: FontWeight.w700,
           ),
