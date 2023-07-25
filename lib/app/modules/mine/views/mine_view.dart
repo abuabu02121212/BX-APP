@@ -477,13 +477,13 @@ class MineView extends GetView<MineController> with RouteAware {
                           'Sair',
                           style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 28.w),
                         ),
-                        Expanded(
+                        const Expanded(
                           child: SizedBox(),
                         ),
-                        Image(
-                          image: AssetImage("assets/images/i-arrow-right-bold.webp"),
-                          width: 20.w,
-                        ),
+                        // Image(
+                        //   image: AssetImage("assets/images/i-arrow-right-bold.webp"),
+                        //   width: 20.w,
+                        // ),
                       ],
                     ),
                   ),
