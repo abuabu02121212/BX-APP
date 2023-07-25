@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 Color statusBarColor = const Color(0xff044B9A);
+Color bgColor = const Color(0xff020a1c);
+
 
 LinearGradient headerLinearGradient = const LinearGradient(
   colors: [Color(0xff044B9A), Color(0xff011A51)],

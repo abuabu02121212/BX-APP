@@ -1,9 +1,12 @@
+import 'package:flutter_comm/widget/input_field.dart';
 import 'package:get/get.dart';
 
 class CenterUserInfoController extends GetxController {
-  //TODO: Implement CenterUserInfoController
 
-  final count = 0.obs;
+  EditNode emailEditNode = EditNode();
+  EditNode usernameEditNode = EditNode();
+  EditNode telegramEditNode = EditNode();
+
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +21,4 @@ class CenterUserInfoController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
