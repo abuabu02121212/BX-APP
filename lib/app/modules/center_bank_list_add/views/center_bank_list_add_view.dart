@@ -54,15 +54,15 @@ class CenterBankListAddView extends GetView<CenterBankListAddController> {
                 ],
               ),
             ),
-            child: MyInputFiled(
-              hintText: 'Nome completo',
-              hintStyle: TextStyle(
-                color: Colors.white,
-                fontSize: 28.w,
-              ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 35.w),
-              border: InputBorder.none,
-            ),
+            // child: MyInputFiled(
+            //   hintText: 'Nome completo',
+            //   hintStyle: TextStyle(
+            //     color: Colors.white,
+            //     fontSize: 28.w,
+            //   ),
+            //   contentPadding: EdgeInsets.symmetric(horizontal: 35.w),
+            //   border: InputBorder.none,
+            // ),
           ),
         ],
       ),
