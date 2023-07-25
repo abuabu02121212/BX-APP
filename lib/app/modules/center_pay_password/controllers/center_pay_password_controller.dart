@@ -1,9 +1,12 @@
+import 'package:flutter_comm/widget/input_field.dart';
 import 'package:get/get.dart';
 
 class CenterPayPasswordController extends GetxController {
-  //TODO: Implement CenterPayPasswordController
 
-  final count = 0.obs;
+  EditNode psw1EditNode = EditNode();
+  EditNode psw2EditNode = EditNode();
+  EditNode psw3EditNode = EditNode();
+
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +22,4 @@ class CenterPayPasswordController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
 }
