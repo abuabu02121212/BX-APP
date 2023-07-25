@@ -461,34 +461,44 @@ class MineView extends GetView<MineController> with RouteAware {
                     Get.toNamed(Routes.SECURITY_CENTER);
                   },
                 ),
+                Divider(color: const Color.fromRGBO(255, 255, 255, 0.25), height: 1.w),
+                CupertinoButton(
+                  padding: EdgeInsets.only(left: 26.w, right: 26.w),
+                  child: SizedBox(
+                    height: 90.w,
+                    child: Row(
+                      children: [
+                        Image(
+                          image: AssetImage("assets/images/exit.webp"),
+                          width: 60.w,
+                        ),
+                        SizedBox(width: 10.w),
+                        Text(
+                          'Sair',
+                          style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 28.w),
+                        ),
+                        Expanded(
+                          child: SizedBox(),
+                        ),
+                        Image(
+                          image: AssetImage("assets/images/i-arrow-right-bold.webp"),
+                          width: 20.w,
+                        ),
+                      ],
+                    ),
+                  ),
+                  onPressed: () {
+                    GlobeController controller = Get.find<GlobeController>();
+                    if (controller.isLogin()) {
+                      controller.loginOut();
+                      MainController main = Get.find<MainController>();
+                      main.indicatorTabController.onItemSelectChanged(0);
+                    } else {
+                      showLoginRegisterDialog();
+                    }
+                  },
+                ),
               ]),
-            ),
-            AppButton(
-              width: 580.w,
-              height: 90.w,
-              radius: 100.w,
-              text: 'Sair',
-              colorList: const [Color(0xffFFD500), Color(0xffFF9901)],
-              onClick: () async {
-                //   var r = await apiRequest.requestSms({'tel': '5666919888', 'ty': 1, 'flag': 'text'},);
-                //   print('5555 $r');
-
-                var b = await apiRequest.requestBanner();
-                print('77777 $b');
-                GlobeController controller = Get.find<GlobeController>();
-                if (controller.isLogin()) {
-                  controller.loginOut();
-                  MainController main = Get.find<MainController>();
-                  main.indicatorTabController.onItemSelectChanged(0);
-                } else {
-                  showLoginRegisterDialog();
-                }
-                // apiRequest.requestLogin({
-                //   'username': '9966666666',
-                //   'password': 'aa123123',
-                //   'device_no': 'asfdhiojiaslfskhsjd'
-                // },);
-              },
             ),
           ],
         ),
