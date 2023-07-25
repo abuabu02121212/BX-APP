@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../util/app_util.dart';
 import '../../../app_style.dart';
 import '../../../entity/vip_level_info.dart';
 import '../controllers/vip_controller.dart';
@@ -38,10 +39,10 @@ class VipWithdrawCardWidget extends StatelessWidget {
                     amount = "${item?.freeWithdrawNum}";
                     break;
                   case 1:
-                    amount = "R\$${item?.withdrawLimit}";
+                    amount = AppUtil.amountFormat(item?.withdrawLimit ?? '0');
                     break;
                   case 2:
-                    amount = "R\$${item?.amount}";
+                    amount = AppUtil.amountFormat(item?.amount ?? '0');
                     break;
                 }
                 return ItemWidget(
