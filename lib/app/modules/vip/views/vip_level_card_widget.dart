@@ -94,7 +94,7 @@ class VipLevelCard extends StatelessWidget {
                                   amount = AppUtil.amountFormat(item.flow ?? '0');
                                   break;
                                 case 2:
-                                  amount = AppUtil.amountFormat(entity?.score ?? '0');
+                                  amount = AppUtil.amountFormat(entity?.nowValidAmount ?? '0');
                                   break;
                               }
                               return ItemWidget(index: pos, text: amount);
