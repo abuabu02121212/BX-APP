@@ -44,3 +44,7 @@ const String gameLaunch = "/game/launch";
 const String memberFavList = "/member/fav/list";
 const String memberCsList = "/member/cs/list";
 const String memberPasswordUpdate = "/member/password/update";
+const String memberBindPhone = "/member/bind/phone";
+const String memberBindEmail = "/member/bind/email";
+const String smsSendOnline = "/sms/send/online";
+const String smsSendOnlineMail = "/sms/send/online/mail";

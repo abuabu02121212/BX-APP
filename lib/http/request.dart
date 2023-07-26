@@ -177,4 +177,20 @@ class ApiRequest {
     return await httpUtil.post(memberPasswordUpdate, params ?? {});
   }
 
+  Future requestMemberBindPhone({Map<String, Object>? params}) async {
+    return await httpUtil.post(memberBindPhone, params ?? {});
+  }
+
+  Future requestMemberBindEmail({Map<String, Object>? params}) async {
+    return await httpUtil.post(memberBindEmail, params ?? {});
+  }
+
+  Future requestSmsSendOnline({Map<String, Object>? params}) async {
+    return await httpUtil.post(smsSendOnline, params ?? {});
+  }
+
+  Future requestSmsSendOnlineMail({Map<String, Object>? params}) async {
+    return await httpUtil.post(smsSendOnlineMail, params ?? {});
+  }
+
 }
