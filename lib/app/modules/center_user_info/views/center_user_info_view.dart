@@ -84,6 +84,7 @@ class CenterUserInfoView extends GetView<CenterUserInfoController> {
                   prefixIconWidth: 46.w,
                   paddingLeft: 12.w,
                   paddingRight: 2.w,
+                  editEnable: false,
                   hint: 'Por favor introduza o seu e-mail',
                   errText: '',
                   bgColor: const Color(0xff011A51),
