@@ -29,6 +29,7 @@ class UserInfoInputField extends StatelessWidget {
     this.prefixIconWidth,
     this.paddingLeft,
     this.paddingRight,
+    this.codeName = "Enviar",
   });
 
   final String prefixIcon;
@@ -48,6 +49,7 @@ class UserInfoInputField extends StatelessWidget {
   final double? prefixIconWidth;
   final Color? bgColor;
   final BoxBorder? border;
+  final String codeName;
   final ValueChanged<String>? onTextChanged;
 
   @override
@@ -112,6 +114,7 @@ class UserInfoInputField extends StatelessWidget {
                 isCode: isCode,
                 isPassword: isPassword,
                 verifyCodeSender: codeSender,
+                userInfoInputField: this,
               ),
               onTextChanged: (text) {
                 if (isUserName) {
@@ -160,12 +163,14 @@ class SuffixImageWidget extends StatelessWidget {
     this.isCode = false,
     required this.editNode,
     this.verifyCodeSender,
+    required this.userInfoInputField,
   });
 
   final bool isPassword;
   final bool isCode;
   final EditNode editNode;
   final CodeSender? verifyCodeSender;
+  final UserInfoInputField userInfoInputField;
 
   @override
   Widget build(BuildContext context) {
@@ -211,7 +216,7 @@ class SuffixImageWidget extends StatelessWidget {
           child: Obx(() {
             var isCountDown = verifyCodeSender!.countTime.value > 0;
             return Text(
-              isCountDown ? "${verifyCodeSender!.countTime.value}" : "Enviar",
+              isCountDown ? "${verifyCodeSender!.countTime.value}" : userInfoInputField.codeName,
               style: TextStyle(
                 fontSize: 26.w,
                 color: Colors.white,
