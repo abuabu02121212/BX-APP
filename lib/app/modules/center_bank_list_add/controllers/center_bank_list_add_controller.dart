@@ -1,9 +1,21 @@
+import 'package:flutter_comm/widget/input_field.dart';
 import 'package:get/get.dart';
 
 class CenterBankListAddController extends GetxController {
-  //TODO: Implement CenterBankListAddController
+  EditNode bankInputNode = EditNode();
 
-  final count = 0.obs;
+  List<Map<String, String>> bankList = [
+    {
+      "label": '建设',
+      "value": '1'
+    },
+    {
+      "label": '工商',
+      "value": '2'
+    }
+  ];
+  final selectValue = '1';
+
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +30,4 @@ class CenterBankListAddController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

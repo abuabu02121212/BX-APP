@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -112,7 +113,8 @@ class LoginWidget extends StatelessWidget {
                 radius: 100.w,
                 text: 'Entrar',
                 onClick: () {
-                  controller.login();
+                  // controller.login();
+                  Get.toNamed(Routes.CENTER_BANK_LIST_ADD);
                 },
               ),
             ),

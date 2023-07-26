@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_comm/util/bottom_sheet_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AppSelect extends StatefulWidget {
+class
+AppSelect extends StatefulWidget {
   const AppSelect({
     super.key,
     this.width,
