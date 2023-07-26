@@ -105,7 +105,7 @@ class CenterUpdateLoginPasswordView
                   radius: 100.w,
                   text: 'Enviar',
                   onClick: () {
-                    Toast.show("按钮被点击");
+                    controller.requestMemberPasswordUpdate();
                   },
                 ),
               )

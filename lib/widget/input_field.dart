@@ -114,6 +114,7 @@ class MyInputFiled extends StatefulWidget {
     this.obscureText = false,
     this.textDirection,
     this.border,
+    this.editEnable = true,
   });
 
   final double width;
@@ -132,6 +133,7 @@ class MyInputFiled extends StatefulWidget {
   final ValueChanged<String>? onTextChanged;
   final bool obscureText;
   final TextDirection? textDirection;
+  final bool editEnable;
 
   @override
   State<MyInputFiled> createState() => _MyInputFiledState();
@@ -167,34 +169,40 @@ class _MyInputFiledState extends State<MyInputFiled> {
   Widget build(BuildContext context) {
     return ClipRRect(
      // borderRadius: BorderRadius.circular(widget.radius),
-      child: Container(
-        width: widget.width,
-        height: widget.height,
-        decoration: BoxDecoration(color: widget.bgColor, borderRadius: BorderRadius.circular(widget.radius) , border: widget.border),
-        alignment: Alignment.center,
-        padding: EdgeInsets.only(left: 8.w),
-        child: CupertinoTextField(
-          controller: widget.editNode.editController,
-          focusNode: widget.editNode.focusNode,
-          textDirection: widget.textDirection,
-          style: widget.textStyle ?? TextStyle(color: Colors.white, fontSize: 28.w),
-          keyboardType: widget.keyboardType,
-          decoration: const BoxDecoration(color: Colors.transparent),
-          placeholder: widget.hint,
-          textAlignVertical: TextAlignVertical.center,
-          textAlign: TextAlign.start,
-          placeholderStyle: widget.hintStyle ?? TextStyle(color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w),
-          cursorColor: Colors.white,
-          cursorHeight: 32.w,
-          maxLines: 1,
-          obscureText: widget.obscureText,
-          maxLength: 32,
-          prefix: widget.prefix,
-          suffix: widget.suffix,
-          padding: EdgeInsets.only(left: 10.w),
-          // suffix: delView(),
-          inputFormatters: widget.inputFormatters,
-        ),
+      child: Stack(
+        children: [
+          Container(
+            width: widget.width,
+            height: widget.height,
+            decoration: BoxDecoration(color: widget.bgColor, borderRadius: BorderRadius.circular(widget.radius) , border: widget.border),
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(left: 8.w),
+            child: CupertinoTextField(
+              controller: widget.editNode.editController,
+              focusNode: widget.editNode.focusNode,
+              textDirection: widget.textDirection,
+              style: widget.textStyle ?? TextStyle(color: Colors.white, fontSize: 28.w),
+              keyboardType: widget.keyboardType,
+              decoration: const BoxDecoration(color: Colors.transparent),
+              placeholder: widget.hint,
+              textAlignVertical: TextAlignVertical.center,
+              textAlign: TextAlign.start,
+              placeholderStyle: widget.hintStyle ?? TextStyle(color: const Color.fromRGBO(255, 255, 255, 0.4), fontSize: 28.w),
+              cursorColor: Colors.white,
+              cursorHeight: 32.w,
+              maxLines: 1,
+              obscureText: widget.obscureText,
+              maxLength: 32,
+              prefix: widget.prefix,
+              suffix: widget.suffix,
+              padding: EdgeInsets.only(left: 10.w),
+              // suffix: delView(),
+              inputFormatters: widget.inputFormatters,
+            ),
+          ),
+          if(!widget.editEnable)
+            Container(width: widget.width, height: widget.height, color:  Colors.transparent,),
+        ],
       ),
     );
   }

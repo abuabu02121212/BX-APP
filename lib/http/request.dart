@@ -173,4 +173,8 @@ class ApiRequest {
     return await httpUtil.get(memberCsList, params ?? {});
   }
 
+  Future requestMemberPasswordUpdate({Map<String, Object>? params}) async {
+    return await httpUtil.get(memberPasswordUpdate, params ?? {});
+  }
+
 }
