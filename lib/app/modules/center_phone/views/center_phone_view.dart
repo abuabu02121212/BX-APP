@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/globe_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -8,12 +9,19 @@ import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_header.dart';
 import '../../../component/app_user_info_input_field.dart';
+import '../../../entity/user_info.dart';
 import '../controllers/center_phone_controller.dart';
 
 class CenterPhoneView extends GetView<CenterPhoneController> {
-  const CenterPhoneView({Key? key}) : super(key: key);
+  CenterPhoneView({Key? key}) : super(key: key);
+
+  final GlobeController globeController = Get.find<GlobeController>();
+
   @override
   Widget build(BuildContext context) {
+    UserInfoEntity? userInfoEntity = globeController.userInfoEntity.value;
+    var isEmailNotExit = userInfoEntity != null && "${userInfoEntity.email}".isEmpty;
+    var isPhoneNotExit = userInfoEntity != null && "${userInfoEntity.phone}".isEmpty;
     return Scaffold(
       backgroundColor: bgColor,
       appBar: AppBar(
@@ -28,6 +36,25 @@ class CenterPhoneView extends GetView<CenterPhoneController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              if(isEmailNotExit)
+              Container(
+                width: double.infinity.w,
+                margin: EdgeInsets.only(top: 10.w),
+                child: UserInfoInputField(
+                  height: 106.w,
+                  prefixIcon: 'assets/images/reg-email.webp',
+                  editNode: controller.emailEditNode,
+                  hint: 'Por favor introduza o seu e-mail',
+                  errText: '',
+                  bgColor: const Color(0xff011A51),
+                  border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
+                  radius: 8.w,
+                  editEnable: true,
+                  isEmail: true,
+                ),
+              ),
+
+              if(isPhoneNotExit)
               Container(
                 width: double.infinity.w,
                 margin: EdgeInsets.only(top: 10.w),

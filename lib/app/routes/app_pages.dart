@@ -188,7 +188,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.CENTER_PHONE,
-      page: () => const CenterPhoneView(),
+      page: () => CenterPhoneView(),
       binding: CenterPhoneBinding(),
     ),
   ];
