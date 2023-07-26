@@ -49,6 +49,7 @@ class CenterUserInfoView extends GetView<CenterUserInfoController> {
                   bgColor: const Color(0xff011A51),
                   border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
                   radius: 8.w,
+                  editEnable: false,
                   isEmail: true,
                 ),
               ),
@@ -68,6 +69,7 @@ class CenterUserInfoView extends GetView<CenterUserInfoController> {
                   bgColor:bgColor,
                   border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
                   radius: 8.w,
+                  editEnable: false,
                   isUserName: true,
                 ),
               ),
@@ -87,7 +89,6 @@ class CenterUserInfoView extends GetView<CenterUserInfoController> {
                   bgColor: const Color(0xff011A51),
                   border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
                   radius: 8.w,
-                  isEmail: true,
                 ),
               ),
 

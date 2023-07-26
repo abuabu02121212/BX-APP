@@ -30,6 +30,7 @@ class UserInfoInputField extends StatelessWidget {
     this.paddingLeft,
     this.paddingRight,
     this.codeName = "Enviar",
+    this.editEnable = true,
   });
 
   final String prefixIcon;
@@ -51,6 +52,7 @@ class UserInfoInputField extends StatelessWidget {
   final BoxBorder? border;
   final String codeName;
   final ValueChanged<String>? onTextChanged;
+  final bool editEnable;
 
   @override
   Widget build(BuildContext context) {
