@@ -43,8 +43,8 @@ class DioUtil {
   void init() {
     BaseOptions options = dio.options;
     options.baseUrl = baseUrl;
-    options.connectTimeout = const Duration(seconds: 10);
-    options.receiveTimeout = const Duration(seconds: 10);
+    options.connectTimeout = const Duration(seconds: 15);
+    options.receiveTimeout = const Duration(seconds: 15);
     setLoginToken();
   }
 

@@ -1,6 +1,9 @@
 import 'package:flutter_comm/http/request.dart';
 import 'package:get/get.dart';
 
+import '../../../../http/ret_code.dart';
+import '../../../../util/Log.dart';
+import '../../../../util/loading_util.dart';
 import '../../../../widget/input_field.dart';
 
 class CenterUpdateLoginPasswordController extends GetxController {
@@ -27,18 +30,30 @@ class CenterUpdateLoginPasswordController extends GetxController {
     psw1EditNode.isDisplayErrHint.value = !pswRegExp.hasMatch(psw1EditNode.text.value);
     psw2EditNode.isDisplayErrHint.value = !pswRegExp.hasMatch(psw2EditNode.text.value);
     psw3EditNode.isDisplayErrHint.value = !pswRegExp.hasMatch(psw3EditNode.text.value);
+    Log.d("psw1EditNode.isDisplayErrHint.value:${psw1EditNode.isDisplayErrHint.value}");
     bool isSame = psw2EditNode.text.value == psw3EditNode.text.value;
     return !psw1EditNode.isDisplayErrHint.value && !psw2EditNode.isDisplayErrHint.value && !psw3EditNode.isDisplayErrHint.value && isSame;
   }
 
-  void requestMemberPasswordUpdate() {
+  Future<void> requestMemberPasswordUpdate() async {
     if (!checkInput()) {
+      Log.d("输入校验失败...");
       return;
     }
-    apiRequest.requestMemberPasswordUpdate(params: {
-      "old_password": psw1EditNode.text,
-      "password": psw2EditNode.text,
-      "confirm_password": psw3EditNode.text,
-    });
+    AppLoading.show();
+    try {
+      var ret = await apiRequest.requestMemberPasswordUpdate(params: {
+        "old_password": psw1EditNode.text.value,
+        "password": psw2EditNode.text.value,
+        "confirm_password": psw3EditNode.text.value,
+      });
+      if (ret == retCodeSuccess) {
+        Get.back();
+      }
+      Log.d("ret: $ret");
+    } catch (e) {
+      Log.e(e);
+    }
+    AppLoading.close();
   }
 }

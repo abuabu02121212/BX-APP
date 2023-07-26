@@ -174,7 +174,7 @@ class ApiRequest {
   }
 
   Future requestMemberPasswordUpdate({Map<String, Object>? params}) async {
-    return await httpUtil.get(memberPasswordUpdate, params ?? {});
+    return await httpUtil.post(memberPasswordUpdate, params ?? {});
   }
 
 }
