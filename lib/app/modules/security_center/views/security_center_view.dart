@@ -88,7 +88,7 @@ class ItemWidget extends StatelessWidget {
             if (index == 0) {
               Get.toNamed(Routes.CENTER_USER_INFO);
             } else if (index == 1) {
-              Get.toNamed(Routes.CENTER_PAY_PASSWORD);
+              Get.toNamed(Routes.CENTER_UPDATE_LOGIN_PASSWORD);
             } else if (index == 2) {
               Get.toNamed(Routes.CENTER_BANK_LIST);
             } else if (index == 3) {

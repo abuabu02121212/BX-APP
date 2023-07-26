@@ -1,9 +1,12 @@
 import 'package:get/get.dart';
 
-class CenterUpdateLoginPasswordController extends GetxController {
-  //TODO: Implement CenterUpdateLoginPasswordController
+import '../../../../widget/input_field.dart';
 
-  final count = 0.obs;
+class CenterUpdateLoginPasswordController extends GetxController {
+  EditNode psw1EditNode = EditNode();
+  EditNode psw2EditNode = EditNode();
+  EditNode psw3EditNode = EditNode();
+
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +22,4 @@ class CenterUpdateLoginPasswordController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
 }

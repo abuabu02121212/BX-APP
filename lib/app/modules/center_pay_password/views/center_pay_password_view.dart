@@ -22,7 +22,7 @@ class CenterPayPasswordView extends GetView<CenterPayPasswordController> {
         titleSpacing: 0,
         leadingWidth: 0,
         toolbarHeight: 110.w,
-        title: const AppHeader(title: "Minha conta"),
+        title: const AppHeader(title: "Senha de pagamento"),
       ),
       body: SafeArea(
         child: Container(
