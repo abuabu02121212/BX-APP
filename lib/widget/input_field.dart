@@ -201,7 +201,7 @@ class _MyInputFiledState extends State<MyInputFiled> {
             ),
           ),
           if(!widget.editEnable)
-            Container(width: widget.width, height: widget.height, color: Colors.transparent,),
+            Container(width: widget.width, height: widget.height, color:  Colors.transparent,),
         ],
       ),
     );

@@ -85,6 +85,7 @@ class UserInfoInputField extends StatelessWidget {
               border: border,
               bgColor: bgColor,
               radius: radius,
+              editEnable: editEnable,
               obscureText: isPassword ? eyeIsOPen : false,
               inputFormatters: tarFormatterList,
               keyboardType: isEmail ? TextInputType.emailAddress : (isPhone || isCode ? TextInputType.number : TextInputType.text),
