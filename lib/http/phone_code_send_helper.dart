@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter_comm/http/request.dart';
 import 'package:flutter_comm/util/loading_util.dart';
 import 'package:flutter_comm/widget/input_field.dart';
 import 'package:get/get.dart';
@@ -39,6 +40,10 @@ class CodeSender {
       data = await requestCommPhoneVerifyCode(tarEditNode.text.value, isForgetPsw: isForgetPsw);
     } else if (codeType == 2) {
       data = await requestCommSmsSendMail(tarEditNode.text.value, isForgetPsw: isForgetPsw);
+    }else if(codeType == 3){
+      data = await apiRequest.requestSmsSendOnline(params: {'ty': 5, 'tel' : tarEditNode.text.value});
+    }else if(codeType == 4){
+      data = await apiRequest.requestSmsSendOnlineMail(params: {'ty': 2, 'mail' : tarEditNode.text.value});
     }
     var arr = data?.split(":");
     Log.d("验证码结果：data: $data  arr：$arr");

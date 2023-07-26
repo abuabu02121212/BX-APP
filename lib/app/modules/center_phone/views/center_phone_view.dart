@@ -15,13 +15,10 @@ import '../controllers/center_phone_controller.dart';
 class CenterPhoneView extends GetView<CenterPhoneController> {
   CenterPhoneView({Key? key}) : super(key: key);
 
-  final GlobeController globeController = Get.find<GlobeController>();
 
   @override
   Widget build(BuildContext context) {
-    UserInfoEntity? userInfoEntity = globeController.userInfoEntity.value;
-    var isEmailNotExit = userInfoEntity != null && "${userInfoEntity.email}".isEmpty;
-    var isPhoneNotExit = userInfoEntity != null && "${userInfoEntity.phone}".isEmpty;
+
     return Scaffold(
       backgroundColor: bgColor,
       appBar: AppBar(
@@ -36,7 +33,7 @@ class CenterPhoneView extends GetView<CenterPhoneController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if(isEmailNotExit)
+              if(controller.isEmailNotExit)
               Container(
                 width: double.infinity.w,
                 margin: EdgeInsets.only(top: 10.w),
@@ -54,7 +51,7 @@ class CenterPhoneView extends GetView<CenterPhoneController> {
                 ),
               ),
 
-              if(isPhoneNotExit)
+              if(controller.isPhoneNotExit)
               Container(
                 width: double.infinity.w,
                 margin: EdgeInsets.only(top: 10.w),
@@ -98,7 +95,7 @@ class CenterPhoneView extends GetView<CenterPhoneController> {
                   radius: 100.w,
                   text: 'Enviar',
                   onClick: () {
-                    Toast.show("按钮被点击");
+                    controller.commit();
                   },
                 ),
               )
