@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../../../http/ret_code.dart';
 import '../../../../util/Log.dart';
 import '../../../../util/loading_util.dart';
-import '../../../../util/toast_util.dart';
 import '../../../../widget/input_field.dart';
 
 class CenterUpdateLoginPasswordController extends GetxController {
@@ -17,15 +16,6 @@ class CenterUpdateLoginPasswordController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   bool checkInput() {
     psw1EditNode.isDisplayErrHint.value = !pswRegExp.hasMatch(psw1EditNode.text.value);
@@ -34,7 +24,7 @@ class CenterUpdateLoginPasswordController extends GetxController {
     bool isSame = psw2EditNode.text.value == psw3EditNode.text.value;
     bool isOk = !psw1EditNode.isDisplayErrHint.value && !psw2EditNode.isDisplayErrHint.value && !psw3EditNode.isDisplayErrHint.value && isSame;
     if (!isOk) {
-      Toast.show("senha incorreta");
+    //  Toast.show("senha incorreta");
     }
     return isOk;
   }

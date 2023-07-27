@@ -29,12 +29,12 @@ class LoginView extends GetView<LoginController> {
 }
 
 class LoginWidget extends StatelessWidget {
-  LoginWidget({super.key}){
+  LoginWidget({super.key}) {
     Get.create<LoginController>(() => LoginController());
     controller = Get.put(LoginController());
   }
 
- late final LoginController controller;
+  late final LoginController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +104,7 @@ class LoginWidget extends StatelessWidget {
               ),
             ),
           ),
-        //  SizedBox(height: 50.w),
+          //  SizedBox(height: 50.w),
           Expanded(
             child: Center(
               child: AppButton(

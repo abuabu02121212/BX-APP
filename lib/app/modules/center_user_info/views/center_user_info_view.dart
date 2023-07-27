@@ -100,7 +100,7 @@ class CenterUserInfoView extends GetView<CenterUserInfoController> {
                   radius: 100.w,
                   text: 'Enviar',
                   onClick: () {
-                    Toast.show("按钮被点击");
+                    // Toast.show("按钮被点击");
                   },
                 ),
               )

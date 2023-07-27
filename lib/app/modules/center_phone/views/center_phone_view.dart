@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
-import '../../../../util/toast_util.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_header.dart';
@@ -11,7 +10,9 @@ import '../../../component/app_user_info_input_field.dart';
 import '../controllers/center_phone_controller.dart';
 
 class CenterPhoneView extends GetView<CenterPhoneController> {
-  const CenterPhoneView({Key? key}) : super(key: key);
+  CenterPhoneView({Key? key}) : super(key: key);
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,22 +29,40 @@ class CenterPhoneView extends GetView<CenterPhoneController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: double.infinity.w,
-                margin: EdgeInsets.only(top: 10.w),
-                child: UserInfoInputField(
-                  height: 106.w,
-                  prefixIcon: 'assets/images/i-phone.webp',
-                  editNode: controller.phoneEditNode,
-                  prefixIconWidth: 28.w,
-                  hint: 'Phone',
-                  errText: '',
-                  bgColor: const Color(0xff011A51),
-                  border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
-                  radius: 8.w,
-                  isPhone: true,
+
+              if(controller.isShowBindPhone)
+                Container(
+                  width: double.infinity.w,
+                  margin: EdgeInsets.only(top: 10.w),
+                  child: UserInfoInputField(
+                    height: 106.w,
+                    prefixIcon: 'assets/images/i-phone.webp',
+                    editNode: controller.phoneEditNode,
+                    prefixIconWidth: 28.w,
+                    hint: 'Phone',
+                    errText: 'Número de telefone errado',
+                    bgColor: const Color(0xff011A51),
+                    border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
+                    radius: 8.w,
+                    isPhone: true,
+                  ),
+                ) else
+                Container(
+                  width: double.infinity.w,
+                  margin: EdgeInsets.only(top: 10.w),
+                  child: UserInfoInputField(
+                    height: 106.w,
+                    prefixIcon: 'assets/images/reg-email.webp',
+                    editNode: controller.emailEditNode,
+                    hint: 'Por favor introduza o seu e-mail',
+                    errText: 'Erro de e-mail',
+                    bgColor: const Color(0xff011A51),
+                    border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
+                    radius: 8.w,
+                    editEnable: true,
+                    isEmail: true,
+                  ),
                 ),
-              ),
 
               Container(
                 width: double.infinity.w,
@@ -54,12 +73,12 @@ class CenterPhoneView extends GetView<CenterPhoneController> {
                   editNode: controller.codeEditNode,
                   prefixIconWidth: 28.w,
                   hint: 'Código de verificação',
-                  errText: '',
+                  errText: 'Erro no código de verificação',
                   bgColor: const Color(0xff011A51),
                   border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
                   radius: 8.w,
                   codeName: "Mandar",
-                  codeSender: controller.phoneCodeSender,
+                  codeSender: controller.isShowBindPhone ? controller.phoneCodeSender : controller.emailCodeSender,
                   isCode: true,
                 ),
               ),
@@ -71,7 +90,7 @@ class CenterPhoneView extends GetView<CenterPhoneController> {
                   radius: 100.w,
                   text: 'Enviar',
                   onClick: () {
-                    Toast.show("按钮被点击");
+                    controller.commit();
                   },
                 ),
               )

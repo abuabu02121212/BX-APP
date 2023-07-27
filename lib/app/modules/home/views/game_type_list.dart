@@ -141,8 +141,9 @@ class GameItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var imgUrl = "$baseImgUrl${gameEntity.img}";
-    if (index != null && index! < 10) {}
-    //  Log.d("=====index:$index=========imgUrl:$imgUrl");
+    if(gameEntity.img.contains("https://")){
+       imgUrl = gameEntity.img;
+    }
     return CupertinoButton(
       onPressed: () {
         Log.d("gameEntity:${gameEntity.toJson()}");

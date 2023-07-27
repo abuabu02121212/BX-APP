@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 import '../../http/phone_code_send_helper.dart';
+import '../../util/Log.dart';
 import '../../widget/input_field.dart';
 import '../app_style.dart';
 
@@ -31,6 +32,7 @@ class UserInfoInputField extends StatelessWidget {
     this.paddingRight,
     this.codeName = "Enviar",
     this.editEnable = true,
+    this.showErrHeight,
   });
 
   final String prefixIcon;
@@ -45,6 +47,7 @@ class UserInfoInputField extends StatelessWidget {
   final CodeSender? codeSender;
   final double radius;
   final double? height;
+  final double? showErrHeight;
   final double? paddingLeft;
   final double? paddingRight;
   final double? prefixIconWidth;
@@ -68,93 +71,98 @@ class UserInfoInputField extends StatelessWidget {
     } else if (isCode) {
       tarFormatterList = codeFormatterList;
     }
-    return SizedBox(
-      width: double.infinity,
-      height: height ?? 114.w,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Obx(() {
-            var eyeIsOPen = !editNode.eyeIsOPen.value;
-            return MyInputFiled(
-              width: double.infinity,
-              height: 72.w,
-              hint: hint,
-              border: border,
-              bgColor: bgColor,
-              radius: radius,
-              editEnable: editEnable,
-              obscureText: isPassword ? eyeIsOPen : false,
-              inputFormatters: tarFormatterList,
-              keyboardType: isEmail ? TextInputType.emailAddress : (isPhone || isCode ? TextInputType.number : TextInputType.text),
-              hintStyle: TextStyle(color: const Color(0xff969799), fontSize: 26.w),
-              textStyle: TextStyle(color: const Color(0xffffffff), fontSize: 26.w),
-              prefix: Padding(
-                padding: EdgeInsets.only(left: paddingLeft ?? 20.w, right: paddingRight ?? 10.w),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset(prefixIcon, width: prefixIconWidth ?? 28.w),
-                    if (isPhone)
-                      Padding(
-                        padding: EdgeInsets.only(left: 20.w),
+    return Obx(() {
+      double defHeight = 114.w;
+      double showHeight = editNode.isDisplayErrHint.value ? showErrHeight ?? defHeight : height ?? defHeight;
+        return SizedBox(
+          width: double.infinity,
+          height: showHeight,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Obx(() {
+                var eyeIsOPen = !editNode.eyeIsOPen.value;
+                return MyInputFiled(
+                  width: double.infinity,
+                  height: 72.w,
+                  hint: hint,
+                  border: border,
+                  bgColor: bgColor,
+                  radius: radius,
+                  editEnable: editEnable,
+                  obscureText: isPassword ? eyeIsOPen : false,
+                  inputFormatters: tarFormatterList,
+                  keyboardType: isEmail ? TextInputType.emailAddress : (isPhone || isCode ? TextInputType.number : TextInputType.text),
+                  hintStyle: TextStyle(color: const Color(0xff969799), fontSize: 26.w),
+                  textStyle: TextStyle(color: const Color(0xffffffff), fontSize: 26.w),
+                  prefix: Padding(
+                    padding: EdgeInsets.only(left: paddingLeft ?? 20.w, right: paddingRight ?? 10.w),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(prefixIcon, width: prefixIconWidth ?? 28.w),
+                        if (isPhone)
+                          Padding(
+                            padding: EdgeInsets.only(left: 20.w),
+                            child: Text(
+                              "+55",
+                              style: TextStyle(
+                                fontSize: 26.w,
+                                color: const Color(0xff0ED1F4),
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          )
+                      ],
+                    ),
+                  ),
+                  suffix: SuffixImageWidget(
+                    editNode: editNode,
+                    isCode: isCode,
+                    isPassword: isPassword,
+                    verifyCodeSender: codeSender,
+                    userInfoInputField: this,
+                  ),
+                  onTextChanged: (text) {
+                    if (isUserName) {
+                      editNode.isDisplayErrHint.value = !usernameRegExp.hasMatch(text);
+                    } else if (isPassword) {
+                      editNode.isDisplayErrHint.value = !pswRegExp.hasMatch(text);
+                    } else if (isPhone) {
+                      editNode.isDisplayErrHint.value = !phoneNumExp.hasMatch(text);
+                    } else if (isEmail) {
+                      editNode.isDisplayErrHint.value = !emailExp.hasMatch(text);
+                    } else if (isCode) {
+                      editNode.isDisplayErrHint.value = !codeRegExp.hasMatch(text);
+                    }
+                    if (onTextChanged != null) {
+                      onTextChanged!(text);
+                    }
+                  },
+                  editNode: editNode,
+                );
+              }),
+              Obx(() {
+                return editNode.isDisplayErrHint.value
+                    ? Padding(
+                        padding: EdgeInsets.only(left: 76.w, top: 6.w),
                         child: Text(
-                          "+55",
+                          errText,
                           style: TextStyle(
-                            fontSize: 26.w,
-                            color: const Color(0xff0ED1F4),
+                            fontSize: 24.w,
+                            color: const Color(0xffFF690D),
                             fontWeight: FontWeight.w400,
                           ),
                         ),
                       )
-                  ],
-                ),
-              ),
-              suffix: SuffixImageWidget(
-                editNode: editNode,
-                isCode: isCode,
-                isPassword: isPassword,
-                verifyCodeSender: codeSender,
-                userInfoInputField: this,
-              ),
-              onTextChanged: (text) {
-                if (isUserName) {
-                  editNode.isDisplayErrHint.value = !usernameRegExp.hasMatch(text);
-                } else if (isPassword) {
-                  editNode.isDisplayErrHint.value = !pswRegExp.hasMatch(text);
-                } else if (isPhone) {
-                  editNode.isDisplayErrHint.value = !phoneNumExp.hasMatch(text);
-                } else if (isEmail) {
-                  editNode.isDisplayErrHint.value = !emailExp.hasMatch(text);
-                } else if (isCode) {
-                  editNode.isDisplayErrHint.value = !codeRegExp.hasMatch(text);
-                }
-                if (onTextChanged != null) {
-                  onTextChanged!(text);
-                }
-              },
-              editNode: editNode,
-            );
-          }),
-          Obx(() {
-            return editNode.isDisplayErrHint.value
-                ? Padding(
-                    padding: EdgeInsets.only(left: 76.w, top: 6.w),
-                    child: Text(
-                      errText,
-                      style: TextStyle(
-                        fontSize: 24.w,
-                        color: const Color(0xffFF690D),
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  )
-                : const SizedBox();
-          })
-        ],
-      ),
+                    : const SizedBox();
+              })
+            ],
+          ),
+        );
+      }
     );
   }
 }
@@ -201,6 +209,8 @@ class SuffixImageWidget extends StatelessWidget {
             var inputIsOk = verifyCodeSender!.checkInput();
             if (inputIsOk) {
               verifyCodeSender?.requestSendVerifiedCode();
+            }else{
+              Log.e("=======输入不合法=========");
             }
           }
         },
