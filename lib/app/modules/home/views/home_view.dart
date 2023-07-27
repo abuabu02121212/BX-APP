@@ -96,7 +96,6 @@ class ItemGenerateWidget extends StatelessWidget {
                   children: [
                     ...List.generate(controller.recList.length, (index) {
                       return HorizontalGameListWidget(
-                        titleImgPath: "assets/images/index-title${index + 1}.webp",
                         list: controller.recList[index],
                         tabIndex: index,
                       );
