@@ -39,7 +39,6 @@ class LoginController extends GetxController {
   }
 
   Future<void> login() async {
-    AppLoading.show();
     var inputIsOk = checkInput();
     Log.d("inputIsOk:$inputIsOk");
     if (!inputIsOk) return;
@@ -49,6 +48,7 @@ class LoginController extends GetxController {
     param['device_no'] = SysUtil.deviceId;
     // param['code'] = userNameEditNode.text.value;
     // param['vid'] = userNameEditNode.text.value;
+    AppLoading.show();
     var loginRet = await apiRequest.requestLogin(param);
     if (loginRet == '1000') {
       Log.d("登陆成功...");
