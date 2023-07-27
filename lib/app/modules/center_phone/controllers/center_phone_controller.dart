@@ -64,36 +64,42 @@ class CenterPhoneController extends GetxController {
     }
     if (!isShowBindPhone) {
       AppLoading.show();
-      var ret = await apiRequest.requestMemberBindEmail(
-        params: {
-          "sid": emailCodeSender.sid,
-          "ts": emailCodeSender.ts,
-          "code": codeEditNode.text.value,
-          "email": emailEditNode.text.value,
-        },
-      );
-      Log.d("ret$ret");
-      AppLoading.close();
-      if (ret == retCodeSuccess) {
-        requestUserInfo();
-        Get.back();
+      try {
+        var ret = await apiRequest.requestMemberBindEmail(
+          params: {
+            "sid": emailCodeSender.sid,
+            "ts": emailCodeSender.ts,
+            "code": codeEditNode.text.value,
+            "email": emailEditNode.text.value,
+          },
+        );
+        if (ret == retCodeSuccess) {
+          requestUserInfo();
+          Get.back();
+        }
+      } catch (e) {
+        Log.e(e);
       }
+      AppLoading.close();
     } else {
       AppLoading.show();
-      var ret = await apiRequest.requestMemberBindPhone(
-        params: {
-          "sid": phoneCodeSender.sid,
-          "ts": phoneCodeSender.ts,
-          "code": codeEditNode.text.value,
-          "phone": phoneEditNode.text.value,
-        },
-      );
-      Log.d("ret$ret");
-      AppLoading.close();
-      if (ret == retCodeSuccess) {
-        requestUserInfo();
-        Get.back();
+      try {
+        var ret = await apiRequest.requestMemberBindPhone(
+          params: {
+            "sid": phoneCodeSender.sid,
+            "ts": phoneCodeSender.ts,
+            "code": codeEditNode.text.value,
+            "phone": phoneEditNode.text.value,
+          },
+        );
+        if (ret == retCodeSuccess) {
+          requestUserInfo();
+          Get.back();
+        }
+      } catch (e) {
+        Log.e(e);
       }
+      AppLoading.close();
     }
   }
 }
