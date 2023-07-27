@@ -193,4 +193,15 @@ class ApiRequest {
     return await httpUtil.post(smsSendOnlineMail, params ?? {});
   }
 
+  Future requestBankCardInsert({Map<String, Object>? params}) async {
+    return await httpUtil.post(bankCardInsert, params ?? {});
+  }
+
+  Future requestBankCardList({Map<String, Object>? params}) async {
+    return await httpUtil.get(bankCardList, params ?? {});
+  }
+
+  Future requestBankTypeList({Map<String, Object>? params}) async {
+    return await httpUtil.get(bankTypeList, params ?? {});
+  }
 }

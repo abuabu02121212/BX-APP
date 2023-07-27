@@ -113,8 +113,7 @@ class LoginWidget extends StatelessWidget {
                 radius: 100.w,
                 text: 'Entrar',
                 onClick: () {
-                  // controller.login();
-                  Get.toNamed(Routes.CENTER_BANK_LIST_ADD);
+                  controller.login();
                 },
               ),
             ),

@@ -34,59 +34,68 @@ class CenterBankListAddView extends GetView<CenterBankListAddController> {
               height: 94.w,
               alignment: Alignment.centerLeft,
               child: Text(
-                'Nome completo: 0***** ',
+                'Nome completo: 0*****1 ',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 28.w,
                 ),
               ),
             ),
-            AppCupertinoButton(
-              child: Container(
-                height: 72.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.w),
-                  border: Border.all(
-                    color: const Color.fromRGBO(255, 255, 255, 0.10),
-                    width: 1.w,
+            Obx(() {
+              return AppCupertinoButton(
+                child: Container(
+                  height: 72.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.w),
+                    border: Border.all(
+                      color: const Color.fromRGBO(255, 255, 255, 0.10),
+                      width: 1.w,
+                    ),
+                    gradient: const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color.fromRGBO(1, 26, 81, 1),
+                        Color.fromRGBO(1, 26, 81, 1),
+                      ],
+                    ),
                   ),
-                  gradient: const LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color.fromRGBO(1, 26, 81, 1),
-                      Color.fromRGBO(1, 26, 81, 1),
+                  padding: EdgeInsets.symmetric(horizontal: 25.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        controller.bankTypeLabel.value.isEmpty
+                            ? '＊ Escolha um banco'
+                            : controller.bankTypeLabel.value,
+                        style: TextStyle(
+                          color: Colors.white
+                              .withOpacity(controller.bankTypeLabel.value.isEmpty ? 0.4 : 1),
+                          fontSize: 28.w,
+                        ),
+                      ),
+                      Image.asset(
+                        'assets/images/input-down.webp',
+                        width: 24.w,
+                        height: 24.w,
+                      ),
                     ],
                   ),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 25.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '＊ Escolha um banco',
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.4),
-                        fontSize: 28.w,
-                      ),
-                    ),
-                    Image.asset(
-                      'assets/images/input-down.webp',
-                      width: 24.w,
-                      height: 24.w,
-                    ),
-                  ],
-                ),
-              ),
-              onPressed: () {
-                BottomSheetUtil.showBottomSheet(
-                  context,
-                  data: controller.bankList,
-                  selectData: controller.selectValue,
-                  ok: (String value, String label) {},
-                );
-              },
-            ),
+                onPressed: () {
+                  print(
+                      'selectValue.value ${controller.bankTypeList} ${controller.bankTypeValue.value}');
+                  BottomSheetUtil.showBottomSheet(
+                    context,
+                    data: controller.bankTypeList,
+                    selectData: controller.bankTypeLabel.value,
+                    ok: (String value, String label) {
+                      controller.setBankTypeValue(label, value);
+                    },
+                  );
+                },
+              );
+            }),
             SizedBox(height: 34.w),
             Container(
               height: 72.w,
@@ -121,6 +130,7 @@ class CenterBankListAddView extends GetView<CenterBankListAddController> {
                       height: 72.w,
                       hint: 'Por favor, preencha o número da conta bancária',
                       editNode: controller.bankInputNode,
+                      keyboardType: TextInputType.number,
                     ),
                   ),
                 ],
@@ -159,14 +169,23 @@ class CenterBankListAddView extends GetView<CenterBankListAddController> {
                       width: double.infinity,
                       height: 72.w,
                       hint: 'Escolha um banco',
-                      editNode: controller.bankInputNode,
+                      editNode: controller.payPasswordInputNode,
+                      keyboardType: TextInputType.number,
                     ),
                   ),
                 ],
               ),
             ),
             SizedBox(height: 34.w),
-            AppButton(width: 580.w, height: 90.w, text: 'Enviar', onClick: () {}, radius: 100.w)
+            AppButton(
+              width: 580.w,
+              height: 90.w,
+              text: 'Enviar',
+              onClick: () {
+                controller.submit();
+              },
+              radius: 100.w,
+            )
           ],
         ),
       ),

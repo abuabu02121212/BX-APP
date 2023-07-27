@@ -48,3 +48,6 @@ const String memberBindPhone = "/member/bind/phone";
 const String memberBindEmail = "/member/bind/email";
 const String smsSendOnline = "/sms/send/online";
 const String smsSendOnlineMail = "/sms/send/online/mail";
+const String bankTypeList = "/member/banktype/list";
+const String bankCardList = "/member/bankcard/list";
+const String bankCardInsert = "/member/bankcard/insert";

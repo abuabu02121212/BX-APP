@@ -176,7 +176,7 @@ class DioUtil {
             Toast.show("${ErrorJson['$data']}");
           }
         }
-        throw Exception('Post接口能通，status是false');
+        throw Exception({'status': status, 'data': data});
       } else {
         return onRequestFinish(status, data);
       }
