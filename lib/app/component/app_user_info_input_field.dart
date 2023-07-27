@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 import '../../http/phone_code_send_helper.dart';
+import '../../util/Log.dart';
 import '../../widget/input_field.dart';
 import '../app_style.dart';
 
@@ -201,6 +202,8 @@ class SuffixImageWidget extends StatelessWidget {
             var inputIsOk = verifyCodeSender!.checkInput();
             if (inputIsOk) {
               verifyCodeSender?.requestSendVerifiedCode();
+            }else{
+              Log.e("=======输入不合法=========");
             }
           }
         },
