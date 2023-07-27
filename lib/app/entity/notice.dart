@@ -27,7 +27,7 @@ class NoticeEntity {
     return NoticeEntity(
       id: json['id'].toString(),
       title: getUrlDecodeStr(json['title'].toString()),
-      content: getUrlDecodeStr(json['content'].toString()),
+      content: json['content'].toString(),
       redirect: json['redirect'].toString(),
       redirectUrl: json['redirect_url'].toString(),
       state: json['state'].toString(),

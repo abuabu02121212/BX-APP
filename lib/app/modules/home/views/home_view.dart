@@ -270,6 +270,7 @@ class HomeGameTypesWidget extends StatelessWidget {
             child: Obx(() {
               return GridView.builder(
                   itemCount: controller.gameTypes.length,
+                  physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 2.4),
                   itemBuilder: (BuildContext context, int index) {
                     return Obx(() {
