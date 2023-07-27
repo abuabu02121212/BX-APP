@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../globe_controller.dart';
 import '../../../../util/math_util.dart';
-import '../../../../util/toast_util.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_progress.dart';
@@ -21,7 +20,7 @@ class VipProgress2CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserInfoEntity? entity = globeController.userInfoEntity.value;
-    var nowValidAmount = entity?.nowValidAmount;
+    var nowValidAmount = MathU.getStr2D(entity?.nowValidAmount ?? "0");
     return Center(
       child: Container(
         margin: EdgeInsets.only(top: 30.w),

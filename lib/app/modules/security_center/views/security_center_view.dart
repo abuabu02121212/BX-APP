@@ -81,6 +81,11 @@ class ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var imgPath = "assets/images/securiy_center_left_${index + 1}.webp";
+    SecurityCenterController controller = Get.put(SecurityCenterController());
+    if(index == 4 && !controller.isShowBindPhone){
+      imgPath = "assets/images/securiy_center_left_5_mail.webp";
+    }
     return Column(
       children: [
         CupertinoButton(
@@ -107,7 +112,7 @@ class ItemWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/images/securiy_center_left_${index + 1}.webp",
+                  imgPath,
                   width: 90.w,
                 ),
                 SizedBox(width: 10.w),
@@ -135,27 +140,21 @@ class ItemWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    CupertinoButton(
-                      onPressed: () {},
-                      minSize: 0,
+                    Padding(
                       padding: EdgeInsets.all(10.w),
                       child: Image.asset(
                         "assets/images/security_center_right_ok.webp",
                         width: 32.w,
                       ),
                     ),
-                    CupertinoButton(
-                      onPressed: () {},
-                      minSize: 0,
+                    Padding(
                       padding: EdgeInsets.all(10.w),
                       child: Image.asset(
                         "assets/images/edit-1.webp",
                         width: 32.w,
                       ),
                     ),
-                    CupertinoButton(
-                      onPressed: () {},
-                      minSize: 0,
+                    Padding(
                       padding: EdgeInsets.all(10.w),
                       child: Image.asset(
                         "assets/images/back_white.webp",

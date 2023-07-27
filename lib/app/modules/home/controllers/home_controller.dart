@@ -199,9 +199,10 @@ class HomeController extends GetxController {
   void requestRecommendGameList() {
     requestHotGameListForRec();
     requestFavGameListForRec();
+    List<int> tyList = [3, 2, 5, 4, 1];
     for (int i = 2; i < recList.length; i++) {
       RxList<GameEntity> item = recList[i];
-      requestRecGameList(i - 1, item);
+      requestRecGameList(tyList[i - 2], item);
     }
   }
 
@@ -438,7 +439,6 @@ class HomeController extends GetxController {
       for (var item in noticeList) {
         temp += '${item.content}   ';
       }
-      temp = getUrlDecodeStr(temp);
       showingMarqueeText.value = temp.trim();
       Log.d("=======通知返回 size：${noticeList.length} ");
     }

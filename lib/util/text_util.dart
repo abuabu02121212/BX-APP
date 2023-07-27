@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_comm/util/app_util.dart';
 
+import 'Log.dart';
+
 class TextMeasureUtil {
   static Size getTextSize({
     required String text,
@@ -26,6 +28,11 @@ String getUrlDecodeStr(String text) {
 }
 
 String getUrlDoubleDecodeStr(String text) {
-  var t1 = getUrlDecodeStr(text);
-  return getUrlDecodeStr(t1);
+  try {
+    var t1 = getUrlDecodeStr(text);
+    text =  getUrlDecodeStr(t1);
+  } catch (e, stack) {
+    Log.e("$e \n $stack");
+  }
+  return text;
 }

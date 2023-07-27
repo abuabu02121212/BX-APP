@@ -36,7 +36,7 @@ class VipController extends GetxController {
       var nowValidAmount = entity?.nowValidAmount;
       int depositProgress = MathU.computePercent(nowDeposit, nextLevelDeposit.value);
       int flowProgress = MathU.computePercent(nowValidAmount, nextLevelFlow.value);
-      curCardLevelProgress.value = ((depositProgress + flowProgress) / 2) as int;
+      curCardLevelProgress.value = (depositProgress + flowProgress) ~/ 2;
     } else if (selectedIndex == dataList.length - 1) {
       nextLevelDeposit.value = "-1";
       nextLevelFlow.value = "-1";

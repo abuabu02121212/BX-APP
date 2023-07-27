@@ -96,7 +96,6 @@ class ItemGenerateWidget extends StatelessWidget {
                   children: [
                     ...List.generate(controller.recList.length, (index) {
                       return HorizontalGameListWidget(
-                        titleImgPath: "assets/images/index-title${index + 1}.webp",
                         list: controller.recList[index],
                         tabIndex: index,
                       );
@@ -271,6 +270,7 @@ class HomeGameTypesWidget extends StatelessWidget {
             child: Obx(() {
               return GridView.builder(
                   itemCount: controller.gameTypes.length,
+                  physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 2.4),
                   itemBuilder: (BuildContext context, int index) {
                     return Obx(() {

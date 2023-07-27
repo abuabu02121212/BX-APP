@@ -172,9 +172,9 @@ class ItemType2Widget extends StatelessWidget {
             Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_REWARD_BOX);
             break;
           case 2:
-            Get.back();
+            closeHomeDrawer();
             MainController mainController = Get.find<MainController>();
-            mainController.changeSelectedTab(3);
+            mainController.toVip();
             break;
           case 3:
             Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.CUSTOMER_SERVICE);
@@ -358,7 +358,6 @@ class HeaderWidget extends StatelessWidget {
           minSize: 0,
           padding: EdgeInsets.all(30.w),
           onPressed: () {
-           // Get.back();
             closeHomeDrawer();
           },
           child: Image.asset(

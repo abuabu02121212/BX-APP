@@ -47,6 +47,7 @@ class WinListWidget extends StatelessWidget {
                 return ListView.builder(
                   itemCount: controller.lastWinListRx.length,
                   controller: autoScrollUtil.sc,
+                  physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
                     LastWinEntity item = controller.lastWinListRx[index];
                     return Container(

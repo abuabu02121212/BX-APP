@@ -3,6 +3,7 @@ import 'package:flutter_comm/app/modules/vip/controllers/vip_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../globe_controller.dart';
+import '../../../../util/Log.dart';
 import '../../../../util/math_util.dart';
 import '../../../../util/toast_util.dart';
 import '../../../app_style.dart';
@@ -22,7 +23,8 @@ class VipProgress1CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserInfoEntity? entity = globeController.userInfoEntity.value;
-    var nowDeposit = entity?.nowDeposit;
+    var nowDeposit = MathU.getStr2D(entity?.nowDeposit ?? "0");
+    Log.d("=============nowDeposit:$nowDeposit======================");
     return Center(
       child: Container(
         margin: EdgeInsets.only(top: 24.w),

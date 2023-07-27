@@ -1,6 +1,6 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_empty.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,15 +14,23 @@ import '../controllers/home_controller.dart';
 class HorizontalGameListWidget extends StatelessWidget {
   HorizontalGameListWidget({
     super.key,
-    required this.titleImgPath,
     required this.list,
     required this.tabIndex,
   });
 
   final HomeController controller = Get.put(HomeController());
   final int tabIndex;
-  final String titleImgPath;
   final List<GameEntity> list;
+  final List<String> titles = ["QUENTE", "DENTRO DE CASA", "SLOT", "PESCA", "PÔQUER", "ESPORTE", "AO VIVO"];
+  final List<Color> colors = [
+    const Color(0xffd4316c),
+    const Color(0xff619e36),
+    const Color(0xff3b7cf6),
+    const Color(0xffef8633),
+    const Color(0xff9b3cf6),
+    const Color(0xfff9d548),
+    const Color(0xff6ff2fc),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +39,35 @@ class HorizontalGameListWidget extends StatelessWidget {
           ? Column(
               children: [
                 SizedBox(height: 40.w),
-                Image.asset(titleImgPath, height: 83.w),
+                Stack(
+                  children: [
+                    Image.asset("assets/images/index-title-home.webp", height: 83.w),
+                    Padding(
+                      padding: EdgeInsets.only(left: 32.w, top: 10.w),
+                      child: Text(
+                        "RECOMENDAÇÕES",
+                        style: TextStyle(
+                          fontSize: 26.w,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontStyle: FontStyle.italic
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 32.w, top: 38.w),
+                      child: Text(
+                        titles[tabIndex],
+                        style: TextStyle(
+                          fontSize: 26.w,
+                          color: colors[tabIndex],
+                          fontWeight: FontWeight.w700,
+                            fontStyle: FontStyle.italic
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 Padding(
                   padding: EdgeInsets.only(left: 20.w, right: 20.w),
                   child: ClipRRect(
@@ -141,8 +177,8 @@ class GameItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var imgUrl = "$baseImgUrl${gameEntity.img}";
-    if(gameEntity.img.contains("https://")){
-       imgUrl = gameEntity.img;
+    if (gameEntity.img.contains("https://")) {
+      imgUrl = gameEntity.img;
     }
     return CupertinoButton(
       onPressed: () {

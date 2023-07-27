@@ -1,3 +1,4 @@
+
 class MathU {
   static String to2D(double value) {
     return value.toStringAsPrecision(2);
@@ -23,7 +24,7 @@ class MathU {
   }
 
   static num abs(num v) {
-    if(v < 0) return -v;
+    if (v < 0) return -v;
     return v;
   }
 
@@ -37,5 +38,23 @@ class MathU {
       return 0;
     }
     return (v1 / v2 * 100).toInt();
+  }
+
+  /// 显示小数点后两位
+  static String getStr2D(String value) {
+    if (value.isEmpty) {
+      return value;
+    }
+    int end = value.length;
+    int dotIndex = value.indexOf(".");
+    if (dotIndex < 0) {
+      end = value.length;
+    } else {
+      end = dotIndex + 3;
+      if (end > value.length) {
+        end = value.length;
+      }
+    }
+    return value.substring(0, end);
   }
 }
