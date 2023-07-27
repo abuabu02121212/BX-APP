@@ -13,6 +13,8 @@ final phoneNumExp = RegExp(r"^(\d{2})?(\d{9})$");
 RegExp inviteCodeRegExp = RegExp(r"^[A-Za-z0-9]{6,9}$");
 RegExp codeRegExp = RegExp(r"^[0-9]{4}$");
 
+RegExp telegramUsernameRegExp = RegExp(r"^@[a-zA-Z][a-zA-Z0-9_]{3,30}$");
+
 RegExp emailExp = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
 
 final upperCaseCharExp = RegExp(r"^[A-Z]$");
