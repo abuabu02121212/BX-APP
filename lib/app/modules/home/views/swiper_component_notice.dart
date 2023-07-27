@@ -51,6 +51,7 @@ class SwiperNoticeComponent extends StatelessWidget {
               },
               itemCount: list.length,
               autoplay: false,
+              loop: false,
               pagination: SwiperPagination(
                 margin: EdgeInsets.all(20.w),
                 builder: SwiperCustomPagination(builder: (BuildContext context, SwiperPluginConfig config) {

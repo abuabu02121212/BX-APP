@@ -439,7 +439,6 @@ class HomeController extends GetxController {
       for (var item in noticeList) {
         temp += '${item.content}   ';
       }
-      temp = getUrlDoubleDecodeStr(temp);
       showingMarqueeText.value = temp.trim();
       Log.d("=======通知返回 size：${noticeList.length} ");
     }
