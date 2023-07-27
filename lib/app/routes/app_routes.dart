@@ -30,6 +30,7 @@ abstract class Routes {
   static const CENTER_BANK_LIST = _Paths.CENTER_BANK_LIST;
   static const CENTER_BANK_LIST_ADD = _Paths.CENTER_BANK_LIST_ADD;
   static const CENTER_PHONE = _Paths.CENTER_PHONE;
+  static const CENTER_PAY_PASSWORD_SMS = _Paths.CENTER_PAY_PASSWORD_SMS;
 }
 
 abstract class _Paths {
@@ -60,4 +61,5 @@ abstract class _Paths {
   static const CENTER_BANK_LIST = '/center-bank-list';
   static const CENTER_BANK_LIST_ADD = '/center-bank-list-add';
   static const CENTER_PHONE = '/center-phone';
+  static const CENTER_PAY_PASSWORD_SMS = '/center-pay-password-sms';
 }

@@ -8,6 +8,8 @@ import '../modules/center_bank_list_add/bindings/center_bank_list_add_binding.da
 import '../modules/center_bank_list_add/views/center_bank_list_add_view.dart';
 import '../modules/center_pay_password/bindings/center_pay_password_binding.dart';
 import '../modules/center_pay_password/views/center_pay_password_view.dart';
+import '../modules/center_pay_password_sms/bindings/center_pay_password_sms_binding.dart';
+import '../modules/center_pay_password_sms/views/center_pay_password_sms_view.dart';
 import '../modules/center_phone/bindings/center_phone_binding.dart';
 import '../modules/center_phone/views/center_phone_view.dart';
 import '../modules/center_update_login_password/bindings/center_update_login_password_binding.dart';
@@ -190,6 +192,11 @@ class AppPages {
       name: _Paths.CENTER_PHONE,
       page: () => CenterPhoneView(),
       binding: CenterPhoneBinding(),
+    ),
+    GetPage(
+      name: _Paths.CENTER_PAY_PASSWORD_SMS,
+      page: () => const CenterPayPasswordSmsView(),
+      binding: CenterPayPasswordSmsBinding(),
     ),
   ];
 }

@@ -10,7 +10,6 @@ import '../../../component/app_header.dart';
 import '../../../component/app_user_info_input_field.dart';
 import '../controllers/center_pay_password_controller.dart';
 
-
 class CenterPayPasswordView extends GetView<CenterPayPasswordController> {
   const CenterPayPasswordView({Key? key}) : super(key: key);
 
@@ -30,25 +29,29 @@ class CenterPayPasswordView extends GetView<CenterPayPasswordController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: double.infinity.w,
-                margin: EdgeInsets.only(top: 10.w),
-                child: UserInfoInputField(
-                  height: 106.w,
-                  prefixIcon: 'assets/images/modify-key-1.webp',
-                  editNode: controller.psw1EditNode,
-                  prefixIconWidth: 38.w,
-                  paddingLeft: 12.w,
-                  paddingRight: 2.w,
-                  hint: 'Digite sua senha atual.',
-                  errText: '',
-                  bgColor: const Color(0xff011A51),
-                  border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
-                  radius: 8.w,
-                  isPassword: true,
-                ),
-              ),
-
+              Obx(() {
+                return Visibility(
+                  visible: controller.getPayPasswordStatus(),
+                  child: Container(
+                    width: double.infinity.w,
+                    margin: EdgeInsets.only(top: 10.w),
+                    child: UserInfoInputField(
+                      height: 106.w,
+                      prefixIcon: 'assets/images/modify-key-1.webp',
+                      editNode: controller.psw1EditNode,
+                      prefixIconWidth: 38.w,
+                      paddingLeft: 12.w,
+                      paddingRight: 2.w,
+                      hint: 'Digite sua senha atual.',
+                      errText: '',
+                      bgColor: const Color(0xff011A51),
+                      border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
+                      radius: 8.w,
+                      isPassword: true,
+                    ),
+                  ),
+                );
+              }),
               Container(
                 width: double.infinity.w,
                 margin: EdgeInsets.only(top: 0.w),
@@ -67,7 +70,6 @@ class CenterPayPasswordView extends GetView<CenterPayPasswordController> {
                   isPassword: true,
                 ),
               ),
-
               Container(
                 width: double.infinity.w,
                 margin: EdgeInsets.only(top: 0.w),
@@ -87,7 +89,7 @@ class CenterPayPasswordView extends GetView<CenterPayPasswordController> {
                 ),
               ),
               Padding(
-                padding:  EdgeInsets.only(left: 10.w, right: 10.w),
+                padding: EdgeInsets.only(left: 10.w, right: 10.w),
                 child: Text(
                   "* Insira 6 - 12 caracteres alfanuméricos. não diferencia maiúsculas de minúsculas. (caracteres chineses não permitidos)",
                   style: TextStyle(
@@ -105,7 +107,7 @@ class CenterPayPasswordView extends GetView<CenterPayPasswordController> {
                   radius: 100.w,
                   text: 'Enviar',
                   onClick: () {
-                    Toast.show("按钮被点击");
+                    controller.submit();
                   },
                 ),
               )
