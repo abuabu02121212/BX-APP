@@ -1,23 +1,12 @@
 import 'package:get/get.dart';
 
+import '../../../../globe_controller.dart';
+
 class SecurityCenterController extends GetxController {
-  //TODO: Implement SecurityCenterController
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  final GlobeController globeController = Get.find<GlobeController>();
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  late var isShowBindPhone = globeController.isShowingBindPhone();
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
-  void increment() => count.value++;
 }

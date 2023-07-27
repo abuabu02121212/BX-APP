@@ -32,6 +32,13 @@ class GlobeController extends GetxController with WidgetsBindingObserver {
      Log.d("已经退出登陆...");
   }
 
+  bool isShowingBindPhone(){
+    var isEmailNotExit = (userInfoEntity.value?.email ?? "").isEmpty;
+    var isPhoneNotExit = (userInfoEntity.value?.phone ?? "").isEmpty;
+    var isShowBindPhone = isPhoneNotExit || !isEmailNotExit; // 手机不存在，或者邮箱存在
+    return isShowBindPhone;
+  }
+
   @override
   Future<void> onInit() async {
     /// 强制竖屏

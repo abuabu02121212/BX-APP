@@ -20,11 +20,8 @@ class CenterPhoneController extends GetxController {
   late CodeSender emailCodeSender = CodeSender(tarEditNode: emailEditNode, regExp: emailExp, codeType: 4);
 
   final GlobeController globeController = Get.find<GlobeController>();
-  late UserInfoEntity? userInfoEntity = globeController.userInfoEntity.value;
-  late var isEmailNotExit = userInfoEntity != null && (userInfoEntity?.email ?? "").isEmpty;
-  late var isPhoneNotExit = userInfoEntity != null && (userInfoEntity?.phone ?? "").isEmpty;
 
-  late var isShowBindPhone = isPhoneNotExit || !isEmailNotExit; // 手机不存在，或者邮箱存在
+  late var isShowBindPhone = globeController.isShowingBindPhone();
 
   bool checkInput() {
     codeEditNode.isDisplayErrHint.value = !codeRegExp.hasMatch(codeEditNode.text.value);
