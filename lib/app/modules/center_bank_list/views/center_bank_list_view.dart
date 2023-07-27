@@ -29,30 +29,50 @@ class CenterBankListView extends GetView<CenterBankListController> {
             height: 94.w,
             padding: EdgeInsets.symmetric(horizontal: 35.w),
             alignment: Alignment.centerLeft,
-            child: Text(
-              'Carteira digital(0/5)',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 28.w,
-              ),
-            ),
+            child: Obx(() {
+              return Text(
+                'Carteira digital(${controller.bankList.length}/5)',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 28.w,
+                ),
+              );
+            }),
           ),
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 35.w),
               child: ListView(
                 children: [
-                  _buildNoData(),
-                  _buildBankItem('564* **** **** *888', true),
-                  _buildBankItem('564* **** **** *888', true),
-                  _buildBankItem('564* **** **** *888', false),
+                  Obx(() {
+                    return Visibility(
+                      visible: controller.bankList.isEmpty,
+                      child: _buildNoData(),
+                    );
+                  }),
+                  Obx(() {
+                    return Visibility(
+                      visible: controller.bankList.isNotEmpty,
+                      child: Column(
+                        children: List.generate(
+                          controller.bankList.length,
+                          (index) => _buildBankItem(
+                            controller.bankList[index].pixAccount ?? '-',
+                            index != controller.bankList.length - 1,
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
                   SizedBox(height: 60.w),
                   AppButton(
                     width: 580.w,
                     height: 90.w,
                     text: '+ Número da conta bancária',
                     onClick: () {
-                      Get.toNamed(Routes.CENTER_BANK_LIST_ADD);
+                      Get.toNamed(Routes.CENTER_BANK_LIST_ADD)?.then((value) {
+                        controller.getBankList();
+                      });
                     },
                     radius: 100.w,
                   ),
@@ -79,6 +99,7 @@ class CenterBankListView extends GetView<CenterBankListController> {
   _buildBankItem(String text, bool isLast) {
     return Container(
       height: 300.w,
+      width: double.infinity,
       margin: EdgeInsets.only(bottom: isLast ? 30.w : 0),
       decoration: const BoxDecoration(
         image: DecorationImage(

@@ -1,11 +1,30 @@
+import 'package:flutter_comm/http/request.dart';
+import 'package:flutter_comm/util/loading_util.dart';
 import 'package:get/get.dart';
 
-class CenterBankListController extends GetxController {
-  //TODO: Implement CenterBankListController
+import '../../../entity/bank_list_data.dart';
 
-  final count = 0.obs;
+class CenterBankListController extends GetxController {
+  final bankList = <BankListDataD>[].obs;
+
+  void getBankList() async {
+    try {
+      AppLoading.show();
+      final data = await apiRequest.requestBankCardList();
+      BankListData bankListData = BankListData.fromJson(data);
+      if (bankListData.d != null) {
+        bankList.value = bankListData.d!;
+      }
+    } catch (e) {
+      print(e);
+    } finally {
+      AppLoading.close();
+    }
+  }
+
   @override
   void onInit() {
+    getBankList();
     super.onInit();
   }
 
@@ -18,6 +37,4 @@ class CenterBankListController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

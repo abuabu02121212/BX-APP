@@ -92,7 +92,7 @@ class ItemWidget extends StatelessWidget {
             } else if (index == 2) {
               Get.toNamed(Routes.CENTER_PAY_PASSWORD);
             } else if (index == 3) {
-              Get.toNamed(Routes.CENTER_BANK_LIST_ADD);
+              Get.toNamed(Routes.CENTER_BANK_LIST);
             } else if (index == 4) {
               Get.toNamed(Routes.CENTER_PHONE);
             }
