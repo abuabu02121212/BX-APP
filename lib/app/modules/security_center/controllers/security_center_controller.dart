@@ -9,7 +9,7 @@ import '../../../routes/app_pages.dart';
 class SecurityCenterController extends GetxController {
   final GlobeController globeController = Get.find<GlobeController>();
 
-  List<RxBool> isShowList1 = [false.obs, false.obs, false.obs, false.obs, false.obs, false.obs];
+  List<RxBool> isShowList1 = [false.obs, true.obs, false.obs, false.obs, false.obs, false.obs];
   List<RxBool> isShowList2 = [true.obs, true.obs, true.obs, true.obs, true.obs, true.obs];
   List<RxBool> isShowList3 = [true.obs, true.obs, true.obs, true.obs, true.obs, true.obs];
 
@@ -19,8 +19,12 @@ class SecurityCenterController extends GetxController {
   }
 
   void setupData() {
+    /// 更新用户信息UI显示状态
     isShowList1[0].value = globeController.isUserKeyInfoAllSetup();
     isShowList2[0].value = !isShowList1[0].value;
+
+    /// 更新支付密码UI显示状态
+    isShowList1[2].value = !globeController.isNeedSetPayPsw();
 
     /// 更新手机UI显示状态
     isShowList1[4].value = !globeController.isNeedBindPhone();

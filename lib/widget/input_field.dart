@@ -9,10 +9,10 @@ import '../util/Log.dart';
 //RegExp usernameRegExp = RegExp(r"^[a-zA-Z][a-zA-Z0-9]{4,13}$");
 RegExp usernameRegExp = RegExp(r"^[a-zA-Z0-9!#$@%&'*+/=?^_`{|}~.-]{4,64}$");
 RegExp pswRegExp = RegExp(r"^[0-9A-Za-z]{4,12}$");
-final phoneNumExp = RegExp(r"^(\d{2})?(\d{9})$");
+final phoneNumExp = RegExp(r"^[0-9]{8,20}$");
 RegExp inviteCodeRegExp = RegExp(r"^[A-Za-z0-9]{6,9}$");
 RegExp codeRegExp = RegExp(r"^[0-9]{4}$");
-RegExp telegramUsernameRegExp = RegExp(r"^[a-zA-Z][a-zA-Z0-9_]{3,30}$");
+RegExp telegramUsernameRegExp = RegExp(r"^@[a-zA-Z][a-zA-Z0-9_]{3,30}$");
 RegExp emailExp = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
 final upperCaseCharExp = RegExp(r"^[A-Z]$");
 
@@ -32,7 +32,7 @@ List<TextInputFormatter>? passwordFormatterList = [
 ];
 
 List<TextInputFormatter>? phoneFormatterList = [
-  LengthLimitingTextInputFormatter(11),
+  LengthLimitingTextInputFormatter(20),
 
   /// 手机号输入格式化后带有空格，故正则限制中加入空格，如果不加入空格，光标位置会忽略空格
   FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),

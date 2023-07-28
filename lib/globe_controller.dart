@@ -48,6 +48,14 @@ class GlobeController extends GetxController with WidgetsBindingObserver {
     return entity.emailVerify != '1';
   }
 
+  bool isNeedSetPayPsw(){
+    UserInfoEntity? entity = userInfoEntity.value;
+    if(entity == null){
+      return false;
+    }
+    return entity.payPassword != '1';
+  }
+
   bool isUserKeyInfoAllSetup() {
     UserInfoEntity? entity = userInfoEntity.value;
     if(entity == null){
