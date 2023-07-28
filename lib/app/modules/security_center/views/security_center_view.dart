@@ -134,14 +134,14 @@ class ItemWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Obx(() {
-                        return Opacity(
-                          opacity: controller.isSetupList[index].value ? 1 : 0,
+                Obx(() {
+                    return Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Opacity(
+                          opacity: controller.isShowList1[index].value ? 1 : 0,
                           child: Padding(
                             padding: EdgeInsets.all(10.w),
                             child: Image.asset(
@@ -149,24 +149,30 @@ class ItemWidget extends StatelessWidget {
                               width: 32.w,
                             ),
                           ),
-                        );
-                      }
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(10.w),
-                      child: Image.asset(
-                        "assets/images/edit-1.webp",
-                        width: 32.w,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(10.w),
-                      child: Image.asset(
-                        "assets/images/back_white.webp",
-                        width: 20.w,
-                      ),
-                    ),
-                  ],
+                        ),
+                        Opacity(
+                          opacity: controller.isShowList2[index].value ? 1 : 0,
+                          child: Padding(
+                            padding: EdgeInsets.all(10.w),
+                            child: Image.asset(
+                              "assets/images/edit-1.webp",
+                              width: 32.w,
+                            ),
+                          ),
+                        ),
+                        Opacity(
+                          opacity: controller.isShowList3[index].value ? 1 : 0,
+                          child: Padding(
+                            padding: EdgeInsets.all(10.w),
+                            child: Image.asset(
+                              "assets/images/back_white.webp",
+                              width: 20.w,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  }
                 )
               ],
             ),
