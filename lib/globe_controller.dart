@@ -37,7 +37,7 @@ class GlobeController extends GetxController with WidgetsBindingObserver {
     if(entity == null){
       return false;
     }
-    return entity.phone_verify != '1';
+    return entity.phoneVerify != '1';
   }
 
   bool isNeedBindEmail(){
@@ -45,7 +45,7 @@ class GlobeController extends GetxController with WidgetsBindingObserver {
     if(entity == null){
       return false;
     }
-    return entity.email_verify != '1';
+    return entity.emailVerify != '1';
   }
 
   bool isUserKeyInfoAllSetup() {
