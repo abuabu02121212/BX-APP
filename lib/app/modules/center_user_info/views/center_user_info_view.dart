@@ -86,6 +86,7 @@ class CenterUserInfoView extends GetView<CenterUserInfoController> {
                   bgColor: const Color(0xff011A51),
                   border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
                   radius: 8.w,
+                  isTelegram: true,
                 ),
               ),
               controller.isAllFieldHasSetup()

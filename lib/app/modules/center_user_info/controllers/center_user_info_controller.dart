@@ -9,9 +9,9 @@ import '../../../../util/Log.dart';
 import '../../../entity/user_info.dart';
 
 class CenterUserInfoController extends GetxController {
-  EditNode emailEditNode = EditNode();
-  EditNode phoneEditNode = EditNode();
-  EditNode telegramEditNode = EditNode();
+  EditNode emailEditNode = EditNode(regExp: emailExp);
+  EditNode phoneEditNode = EditNode(regExp: phoneNumExp);
+  EditNode telegramEditNode = EditNode(regExp: telegramUsernameRegExp);
   GlobeController globeController = Get.find<GlobeController>();
   late UserInfoEntity userInfoEntity = globeController.userInfoEntity.value!;
 
@@ -28,10 +28,7 @@ class CenterUserInfoController extends GetxController {
   }
 
   bool check() {
-    emailEditNode.isDisplayErrHint.value = !emailExp.hasMatch(emailEditNode.text.value);
-    phoneEditNode.isDisplayErrHint.value = !phoneNumExp.hasMatch(phoneEditNode.text.value);
-    telegramEditNode.isDisplayErrHint.value = !telegramUsernameRegExp.hasMatch(telegramEditNode.text.value);
-    return !emailEditNode.isDisplayErrHint.value && !phoneEditNode.isDisplayErrHint.value && !telegramEditNode.isDisplayErrHint.value;
+    return emailEditNode.checkInput() && phoneEditNode.checkInput() && telegramEditNode.checkInput();
   }
 
   Future<void> requestMemberUpdateInfo() async {

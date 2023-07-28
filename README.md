@@ -38,13 +38,15 @@ UI地址：
 https://www.figma.com/file/VQCM9LAoTTvkuqvdWgtiX9/LB88-%E7%A7%BB%E5%8A%A8%E7%AB%AF?node-id=665%3A14552&mode=dev
 账号密码： 自己注册，然后找后端相关人员，添加权限。
 henry常用密码：aa123456
-测试账号： 8888-99999
+测试账号： 8888-99999  henry01@163.com  aa123@163.com
 H5地址： https://h5.cyestari.com/
 后端配置地址： http://admin.cyestari.com/ 注意是http协议
 8412501205
 aa123456
 jiar： 
 http://jira.p3nu.com/browse/BXBW-120?jql=project%20%3D%20BXBW%20AND%20status%20in%20(Open%2C%20%E5%BC%80%E5%8F%91%E5%BE%85%E5%A4%84%E7%90%86%2C%20%E4%BF%AE%E5%A4%8D%E5%8D%95%E5%BE%85%E5%A4%84%E7%90%86)%20ORDER%20BY%20created%20DESC
+
+
 
 code 码对照：
 {

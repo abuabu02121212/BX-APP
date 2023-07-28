@@ -12,16 +12,18 @@ RegExp pswRegExp = RegExp(r"^[0-9A-Za-z]{4,12}$");
 final phoneNumExp = RegExp(r"^(\d{2})?(\d{9})$");
 RegExp inviteCodeRegExp = RegExp(r"^[A-Za-z0-9]{6,9}$");
 RegExp codeRegExp = RegExp(r"^[0-9]{4}$");
-
-RegExp telegramUsernameRegExp = RegExp(r"^@[a-zA-Z][a-zA-Z0-9_]{3,30}$");
-
+RegExp telegramUsernameRegExp = RegExp(r"^[a-zA-Z][a-zA-Z0-9_]{3,30}$");
 RegExp emailExp = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-
 final upperCaseCharExp = RegExp(r"^[A-Z]$");
 
 List<TextInputFormatter>? userNameFormatterList = [
   LengthLimitingTextInputFormatter(64),
- // FilteringTextInputFormatter.allow(RegExp(r'[0-9a-zA-Z]')),
+  // FilteringTextInputFormatter.allow(RegExp(r'[0-9a-zA-Z]')),
+];
+
+List<TextInputFormatter>? telegramUsernameFormatterList = [
+  LengthLimitingTextInputFormatter(32),
+  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9_@]')),
 ];
 
 List<TextInputFormatter>? passwordFormatterList = [
@@ -72,8 +74,19 @@ class EditNode {
   final obscureTextEnable = true.obs;
   final isDisplayErrHint = false.obs;
   final eyeIsOPen = false.obs;
+  RegExp? regExp;
 
-  void reset(){
+  EditNode({this.regExp});
+
+  /// 返回输入是否OK
+  bool checkInput(){
+    if(regExp!=null){
+      isDisplayErrHint.value = !regExp!.hasMatch(text.value);
+    }
+   return !isDisplayErrHint.value;
+  }
+
+  void reset() {
     text.value = "";
     isDisplayErrHint.value = false;
     eyeIsOPen.value = false;
@@ -142,11 +155,10 @@ class MyInputFiled extends StatefulWidget {
 }
 
 class _MyInputFiledState extends State<MyInputFiled> {
-
   _addListener() {
     widget.editNode.text.value = widget.editNode.editController.text;
 
-    if (widget.onTextChanged != null){
+    if (widget.onTextChanged != null) {
       widget.onTextChanged!(widget.editNode.text.value);
     }
   }
@@ -170,13 +182,13 @@ class _MyInputFiledState extends State<MyInputFiled> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-     // borderRadius: BorderRadius.circular(widget.radius),
+      // borderRadius: BorderRadius.circular(widget.radius),
       child: Stack(
         children: [
           Container(
             width: widget.width,
             height: widget.height,
-            decoration: BoxDecoration(color: widget.bgColor, borderRadius: BorderRadius.circular(widget.radius) , border: widget.border),
+            decoration: BoxDecoration(color: widget.bgColor, borderRadius: BorderRadius.circular(widget.radius), border: widget.border),
             alignment: Alignment.center,
             padding: EdgeInsets.only(left: 8.w),
             child: CupertinoTextField(
@@ -202,12 +214,14 @@ class _MyInputFiledState extends State<MyInputFiled> {
               inputFormatters: widget.inputFormatters,
             ),
           ),
-          if(!widget.editEnable)
-            Container(width: widget.width, height: widget.height, color:  Colors.transparent,),
+          if (!widget.editEnable)
+            Container(
+              width: widget.width,
+              height: widget.height,
+              color: Colors.transparent,
+            ),
         ],
       ),
     );
   }
 }
-
-
