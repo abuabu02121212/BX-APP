@@ -56,6 +56,14 @@ class GlobeController extends GetxController with WidgetsBindingObserver {
     return entity.payPassword != '1';
   }
 
+  int getAddedBankCardSize(){
+    UserInfoEntity? entity = userInfoEntity.value;
+    if(entity == null){
+      return 0;
+    }
+    return int.tryParse("${entity.score}") ?? 0;
+  }
+
   bool isUserKeyInfoAllSetup() {
     UserInfoEntity? entity = userInfoEntity.value;
     if(entity == null){

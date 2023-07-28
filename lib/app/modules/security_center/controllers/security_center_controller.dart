@@ -26,6 +26,10 @@ class SecurityCenterController extends GetxController {
     /// 更新支付密码UI显示状态
     isShowList1[2].value = !globeController.isNeedSetPayPsw();
 
+    /// 更新银行卡UI显示状态
+    isShowList1[3].value = globeController.getAddedBankCardSize() > 0;
+    isShowList2[3].value = globeController.getAddedBankCardSize()  < 5;
+
     /// 更新手机UI显示状态
     isShowList1[4].value = !globeController.isNeedBindPhone();
     isShowList2[4].value = !isShowList1[4].value;
