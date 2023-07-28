@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-
-import '../../../../util/toast_util.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_header.dart';
@@ -45,35 +43,33 @@ class CenterUserInfoView extends GetView<CenterUserInfoController> {
                   prefixIcon: 'assets/images/reg-email.webp',
                   editNode: controller.emailEditNode,
                   hint: 'Por favor introduza o seu e-mail',
-                  errText: '',
+                  errText: 'Erro de e-mail',
                   bgColor: const Color(0xff011A51),
                   border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
                   radius: 8.w,
-                  editEnable: false,
+                  editEnable: controller.emailEditNode.text.value.isEmpty,
                   isEmail: true,
                 ),
               ),
-
               Container(
                 width: double.infinity.w,
                 margin: EdgeInsets.only(top: 0.w),
                 child: UserInfoInputField(
                   height: 106.w,
                   prefixIcon: 'assets/images/user_info_username.webp',
-                  editNode: controller.usernameEditNode,
+                  editNode: controller.phoneEditNode,
                   prefixIconWidth: 46.w,
                   paddingLeft: 12.w,
                   paddingRight: 2.w,
-                  hint: '',
-                  errText: '',
-                  bgColor:bgColor,
+                  hint: 'Phone',
+                  errText: 'Número de telefone errado',
+                  bgColor: bgColor,
                   border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
                   radius: 8.w,
-                  editEnable: false,
-                  isUserName: true,
+                  editEnable: controller.phoneEditNode.text.value.isEmpty,
+                  isPhone: true,
                 ),
               ),
-
               Container(
                 width: double.infinity.w,
                 margin: EdgeInsets.only(top: 0.w),
@@ -84,26 +80,28 @@ class CenterUserInfoView extends GetView<CenterUserInfoController> {
                   prefixIconWidth: 46.w,
                   paddingLeft: 12.w,
                   paddingRight: 2.w,
-                  editEnable: false,
-                  hint: 'Por favor introduza o seu e-mail',
-                  errText: '',
+                  editEnable: controller.telegramEditNode.text.value.isEmpty,
+                  hint: 'Por favor, preencha o seu Telegram',
+                  errText: 'Por favor, preencha o seu Telegram',
                   bgColor: const Color(0xff011A51),
                   border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
                   radius: 8.w,
+                  isTelegram: true,
                 ),
               ),
-
-              Center(
-                child: AppButton(
-                  width: 580.w,
-                  height: 90.w,
-                  radius: 100.w,
-                  text: 'Enviar',
-                  onClick: () {
-                    // Toast.show("按钮被点击");
-                  },
-                ),
-              )
+              controller.globeController.isUserKeyInfoAllSetup()
+                  ? const SizedBox()
+                  : Center(
+                      child: AppButton(
+                        width: 580.w,
+                        height: 90.w,
+                        radius: 100.w,
+                        text: 'Enviar',
+                        onClick: () {
+                          controller.requestMemberUpdateInfo();
+                        },
+                      ),
+                    )
             ],
           ),
         ),

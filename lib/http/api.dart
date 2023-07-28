@@ -52,3 +52,4 @@ const String bankTypeList = "/member/banktype/list";
 const String bankCardList = "/member/bankcard/list";
 const String bankCardInsert = "/member/bankcard/insert";
 const String passwordUpdate = "/member/pay/password/update";
+const String memberUpdateInfo = "/member/update/info";

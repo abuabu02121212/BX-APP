@@ -20,6 +20,7 @@ class UserInfoInputField extends StatelessWidget {
     this.isPhone = false,
     this.isCode = false,
     this.isEmail = false,
+    this.isTelegram = false,
     this.codeSender,
     required this.hint,
     this.radius = 50,
@@ -44,6 +45,7 @@ class UserInfoInputField extends StatelessWidget {
   final bool isPhone;
   final bool isCode;
   final bool isEmail;
+  final bool isTelegram;
   final CodeSender? codeSender;
   final double radius;
   final double? height;
@@ -70,6 +72,8 @@ class UserInfoInputField extends StatelessWidget {
       tarFormatterList = phoneFormatterList;
     } else if (isCode) {
       tarFormatterList = codeFormatterList;
+    }else if (isTelegram) {
+      tarFormatterList = telegramUsernameFormatterList;
     }
     return Obx(() {
       double defHeight = 114.w;
@@ -136,6 +140,8 @@ class UserInfoInputField extends StatelessWidget {
                       editNode.isDisplayErrHint.value = !emailExp.hasMatch(text);
                     } else if (isCode) {
                       editNode.isDisplayErrHint.value = !codeRegExp.hasMatch(text);
+                    } else if (isTelegram) {
+                      editNode.isDisplayErrHint.value = !telegramUsernameRegExp.hasMatch(text);
                     }
                     if (onTextChanged != null) {
                       onTextChanged!(text);
