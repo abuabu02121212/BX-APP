@@ -11,7 +11,7 @@ import 'comm_request.dart';
 class CodeSender {
   bool isHasSuccessSendVerifyCode = false;
   Timer? myTimer;
-  static const verifiedCodeCountDown = 300;
+  static const verifiedCodeCountDown = 60;
   final countTime = 0.obs;
   final inputCode = ''.obs;
   String ts = '';

@@ -10,7 +10,7 @@ class SecurityCenterController extends GetxController {
   final GlobeController globeController = Get.find<GlobeController>();
 
   late var isShowBindPhone = globeController.isShowingBindPhone();
-  List<RxBool> isSetupList = [false.obs, false.obs, false.obs, false.obs, false.obs];
+  List<RxBool> isSetupList = [false.obs, false.obs, false.obs, false.obs, false.obs, false.obs];
 
   Future<void> refreshData() async {
     await requestUserInfo();

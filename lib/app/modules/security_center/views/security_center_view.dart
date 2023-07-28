@@ -28,10 +28,10 @@ class SecurityCenterView extends GetView<SecurityCenterController> {
           child: ListView(
             shrinkWrap: true,
             children: List.generate(
-                5,
+                6,
                 (index) => ItemWidget(
                       index: index,
-                      isLast: index == 4,
+                      isLast: index == 5,
                     )),
           ),
         ),
@@ -70,6 +70,7 @@ class ItemWidget extends StatelessWidget {
     "Senha de pagamento",
     "Número da conta bancária",
     "Verificação de telefone",
+    "Verificação de email",
   ];
   final List<String> textList = [
     "Informações pessoais completas.",
@@ -77,15 +78,13 @@ class ItemWidget extends StatelessWidget {
     "Definir a senha de pagamento para melhorar a segurança da sua conta",
     "Adicionar número de conta bancária",
     "Verificação de telefone",
+    "Verificação de email",
   ];
 
   @override
   Widget build(BuildContext context) {
     var imgPath = "assets/images/securiy_center_left_${index + 1}.webp";
     SecurityCenterController controller = Get.put(SecurityCenterController());
-    if (index == 4 && !controller.isShowBindPhone) {
-      imgPath = "assets/images/securiy_center_left_5_mail.webp";
-    }
     return Column(
       children: [
         CupertinoButton(
@@ -98,7 +97,7 @@ class ItemWidget extends StatelessWidget {
               Get.toNamed(Routes.CENTER_PAY_PASSWORD);
             } else if (index == 3) {
               Get.toNamed(Routes.CENTER_BANK_LIST);
-            } else if (index == 4) {
+            } else if (index == 4 || index == 5) {
               Get.toNamed(Routes.CENTER_PHONE);
             }
           },
