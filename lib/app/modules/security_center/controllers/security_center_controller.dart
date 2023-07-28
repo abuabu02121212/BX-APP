@@ -19,6 +19,10 @@ class SecurityCenterController extends GetxController {
 
   void setupData() {
     isSetupList[0] = globeController.isUserKeyInfoAllSetup().obs;
+    for (var element in isSetupList) {
+      element.refresh();
+      Log.d("element:${element.value}");
+    }
   }
 
   late var popLister = (route, previousRoute) {
