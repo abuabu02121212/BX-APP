@@ -58,7 +58,7 @@ class CenterBankListView extends GetView<CenterBankListController> {
                           controller.bankList.length,
                               (index) =>
                               _buildBankItem(
-                                controller.bankList[index].pixAccount ?? '-',
+                                controller.bankList[index].pixId ?? '-',
                                 index != controller.bankList.length - 1,
                               ),
                         ),
