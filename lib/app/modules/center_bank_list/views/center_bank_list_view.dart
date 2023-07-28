@@ -56,26 +56,30 @@ class CenterBankListView extends GetView<CenterBankListController> {
                       child: Column(
                         children: List.generate(
                           controller.bankList.length,
-                          (index) => _buildBankItem(
-                            controller.bankList[index].pixAccount ?? '-',
-                            index != controller.bankList.length - 1,
-                          ),
+                              (index) =>
+                              _buildBankItem(
+                                controller.bankList[index].pixAccount ?? '-',
+                                index != controller.bankList.length - 1,
+                              ),
                         ),
                       ),
                     );
                   }),
                   SizedBox(height: 60.w),
-                  AppButton(
-                    width: 580.w,
-                    height: 90.w,
-                    text: '+ Número da conta bancária',
-                    onClick: () {
-                      Get.toNamed(Routes.CENTER_BANK_LIST_ADD)?.then((value) {
-                        controller.getBankList();
-                      });
-                    },
-                    radius: 100.w,
-                  ),
+                  Obx(() {
+                    return AppButton(
+                      width: 580.w,
+                      height: 90.w,
+                      disable: controller.bankList.length >= 5,
+                      text: '+ Número da conta bancária',
+                      onClick: () {
+                        Get.toNamed(Routes.CENTER_BANK_LIST_ADD)?.then((value) {
+                          controller.getBankList();
+                        });
+                      },
+                      radius: 100.w,
+                    );
+                  }),
                   Container(
                     padding: EdgeInsets.symmetric(vertical: 20.w),
                     alignment: Alignment.center,
