@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_comm/http/request.dart';
 import 'package:flutter_comm/util/loading_util.dart';
 import 'package:flutter_comm/util/sp_util.dart';
@@ -23,6 +25,7 @@ class CenterPayPasswordSmsController extends GetxController {
   final countDown = 0.obs;
   final isSending = false.obs;
   final isSendOk = false.obs;
+  Timer? _timer;
 
   // 是否验证了手机
   bool isVerifyPhone() {
@@ -49,11 +52,16 @@ class CenterPayPasswordSmsController extends GetxController {
     int countDownTime = spUtil.getInt(spUtilsCoundownKey) ?? 0;
     countDown.value = countDownTime > 0 ? countDownTime : (60 * 5);
 
-    Future.doWhile(() async {
-      await Future.delayed(const Duration(seconds: 1));
+    //   await Future.delayed(const Duration(seconds: 1));
+    //   countDown.value--;
+    //   await spUtil.setInt(spUtilsCoundownKey, countDown.value);
+    //   return countDown.value > 0;
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
       countDown.value--;
       await spUtil.setInt(spUtilsCoundownKey, countDown.value);
-      return countDown.value > 0;
+      if (countDown.value <= 0) {
+        _timer?.cancel();
+      }
     });
   }
 
@@ -156,9 +164,7 @@ class CenterPayPasswordSmsController extends GetxController {
       AppLoading.show();
       final data = await apiRequest.requestPasswordUpdate(params: params);
       Toast.show('设置成功');
-      // q：为什么我设置了0，上面的倒计时还在运行
-      // a：因为倒计时是异步的， 你设置的时候，倒计时还在运行，所以你设置的0，会被倒计时的值覆盖
-      // 所以，你要在设置0的时候，把倒计时停止
+      _timer?.cancel();
       countDown.value = 0;
       await spUtil.setInt(spUtilsCoundownKey, 0);
       // 2秒后关闭
