@@ -39,6 +39,14 @@ class GlobeController extends GetxController with WidgetsBindingObserver {
     return isShowBindPhone;
   }
 
+  bool isUserKeyInfoAllSetup() {
+    UserInfoEntity? entity = userInfoEntity.value;
+    if(entity == null){
+      return false;
+    }
+    return entity.phone!.isNotEmpty && entity.email!.isNotEmpty && entity.telegram!.isNotEmpty;
+  }
+
   @override
   Future<void> onInit() async {
     /// 强制竖屏

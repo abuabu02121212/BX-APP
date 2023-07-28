@@ -23,10 +23,6 @@ class CenterUserInfoController extends GetxController {
     telegramEditNode.text.value = userInfoEntity.telegram ?? "";
   }
 
-  bool isAllFieldHasSetup() {
-    return userInfoEntity.phone!.isNotEmpty && userInfoEntity.email!.isNotEmpty && userInfoEntity.telegram!.isNotEmpty;
-  }
-
   bool check() {
     return emailEditNode.checkInput() && phoneEditNode.checkInput() && telegramEditNode.checkInput();
   }

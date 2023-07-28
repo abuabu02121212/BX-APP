@@ -83,7 +83,7 @@ class ItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var imgPath = "assets/images/securiy_center_left_${index + 1}.webp";
     SecurityCenterController controller = Get.put(SecurityCenterController());
-    if(index == 4 && !controller.isShowBindPhone){
+    if (index == 4 && !controller.isShowBindPhone) {
       imgPath = "assets/images/securiy_center_left_5_mail.webp";
     }
     return Column(
@@ -140,12 +140,18 @@ class ItemWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.all(10.w),
-                      child: Image.asset(
-                        "assets/images/security_center_right_ok.webp",
-                        width: 32.w,
-                      ),
+                    Obx(() {
+                        return Opacity(
+                          opacity: controller.isSetupList[index].value ? 1 : 0,
+                          child: Padding(
+                            padding: EdgeInsets.all(10.w),
+                            child: Image.asset(
+                              "assets/images/security_center_right_ok.webp",
+                              width: 32.w,
+                            ),
+                          ),
+                        );
+                      }
                     ),
                     Padding(
                       padding: EdgeInsets.all(10.w),

@@ -89,7 +89,7 @@ class CenterUserInfoView extends GetView<CenterUserInfoController> {
                   isTelegram: true,
                 ),
               ),
-              controller.isAllFieldHasSetup()
+              controller.globeController.isUserKeyInfoAllSetup()
                   ? const SizedBox()
                   : Center(
                       child: AppButton(
