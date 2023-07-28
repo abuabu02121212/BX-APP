@@ -51,3 +51,4 @@ const String smsSendOnlineMail = "/sms/send/online/mail";
 const String bankTypeList = "/member/banktype/list";
 const String bankCardList = "/member/bankcard/list";
 const String bankCardInsert = "/member/bankcard/insert";
+const String memberUpdateInfo = "/member/update/info";
