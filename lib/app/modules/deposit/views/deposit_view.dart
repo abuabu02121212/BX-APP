@@ -35,6 +35,7 @@ class DepositView extends GetView<DepositController> {
           isNeedLeftBackArrow: isShowBack == true ? true : false,
         ),
       ),
+      resizeToAvoidBottomInset: true,
       body: NestedScrollView(
         controller: controller.scrollViewController,
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -961,6 +962,48 @@ class DepositView extends GetView<DepositController> {
             ),
           ),
           SizedBox(height: 40.w),
+          Container(
+            width: double.infinity,
+            height: 72.w,
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: 24.w, right: 20.w),
+            decoration: BoxDecoration(
+              border: Border.all(color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
+              image: const DecorationImage(
+                image: AssetImage("assets/images/btn-bg-gray.webp"),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(8.w),
+            ),
+            child: Obx(() {
+              return MyInputFiled(
+                bgColor: Colors.transparent,
+                width: double.infinity,
+                height: 72.w,
+                hint: 'Digite a senha do fundo111',
+                keyboardType: TextInputType.number,
+                editNode: controller.withdrawControllerPage.payPasswordNode,
+                obscureText: controller.withdrawControllerPage.payPasswordObscureText.value,
+                suffix: GestureDetector(
+                  onTap: () {
+                    controller.withdrawControllerPage.payPasswordObscureText.value =
+                        !controller.withdrawControllerPage.payPasswordObscureText.value;
+                  },
+                  child: Image.asset(
+                    !controller.withdrawControllerPage.payPasswordObscureText.value
+                        ? "assets/images/eye-open.webp"
+                        : "assets/images/eye-close.webp",
+                    width: 28.w,
+                  ),
+                ),
+              );
+            }),
+          ),
+          Obx(() {
+            return controller.withdrawControllerPage.isClickSubmit.isTrue
+                ? VerifyError(error: controller.withdrawControllerPage.validatePayPassword() ?? '')
+                : SizedBox(height: 34.w);
+          }),
           AppButton(
             width: 580.w,
             height: 90.w,

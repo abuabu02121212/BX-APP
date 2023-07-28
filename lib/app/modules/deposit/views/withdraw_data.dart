@@ -81,7 +81,7 @@ class MemberBankList {
   String? pixAccount;
   int? flag;
   String? realName;
-  int? pixId;
+  String? pixId;
 
   MemberBankList(
       {this.id,

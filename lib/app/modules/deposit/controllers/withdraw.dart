@@ -23,6 +23,9 @@ class WithdrawControllerPage extends GetxController {
   // pid account
   EditNode accountNode = EditNode();
 
+  // pay password
+  EditNode payPasswordNode = EditNode();
+
   final isFetching = true.obs;
 
   final ways = [
@@ -32,6 +35,8 @@ class WithdrawControllerPage extends GetxController {
   ];
   final waysSelectLabel = 'CPF'.obs;
   final waysSelectValue = '1'.obs;
+
+  final payPasswordObscureText = true.obs;
 
   final withdrawSelectData = [
     {'label': 'A', 'value': '1'},
@@ -97,6 +102,22 @@ class WithdrawControllerPage extends GetxController {
     return null;
   }
 
+  // 验证pay password
+  String? validatePayPassword() {
+    if (payPasswordNode.text.value.isEmpty) {
+      return 'Digite a senha do fundo';
+    }
+    return null;
+  }
+
+  reset() {
+    minAmountNode.text.value = '';
+    usernameNode.text.value = '';
+    idNode.text.value = '';
+    accountNode.text.value = '';
+    payPasswordNode.text.value = '';
+  }
+
   // 提交函数
   void submit() async {
     isClickSubmit.value = true;
@@ -104,7 +125,8 @@ class WithdrawControllerPage extends GetxController {
     if (validateMinAmount() != null ||
         validateUsername() != null ||
         validateId() != null ||
-        validateAccount() != null) {
+        validateAccount() != null ||
+        validatePayPassword() != null) {
       return;
     }
 
@@ -115,21 +137,6 @@ class WithdrawControllerPage extends GetxController {
     }
 
     AppLoading.show();
-    // apiRequest.requestPayWithdraw({
-    //   'amount': minAmountNode.text.value,
-    //   'real_name': usernameNode.text.value,
-    //   'pix_id': idNode.text.value,
-    //   'pix_account': accountNode.text.value,
-    //   'flag': int.parse(waysSelectValue.value),
-    // }).then((d) {
-    //   print('成功 ¥$d');
-    // }).catchError((e) {
-    //   print('错了 ¥$e');
-    // }).whenComplete(() {
-    //   print("结束");
-    //   AppLoading.close();
-    // });
-
     try {
       final s = await apiRequest.requestPayWithdraw({
         'amount': minAmountNode.text.value,
@@ -137,9 +144,10 @@ class WithdrawControllerPage extends GetxController {
         'pix_id': idNode.text.value,
         'pix_account': accountNode.text.value,
         'flag': int.parse(waysSelectValue.value),
+        'pay_password': payPasswordNode.text.value,
       });
       Toast.show('Retirada bem-sucedida');
-      print('sssss $s');
+      reset();
     } catch (e) {
       print('错了 ¥$e');
     } finally {
