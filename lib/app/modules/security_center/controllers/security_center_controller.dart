@@ -18,7 +18,7 @@ class SecurityCenterController extends GetxController {
   }
 
   void setupData() {
-    isSetupList[0] = globeController.isUserKeyInfoAllSetup().obs;
+    isSetupList[0].value = globeController.isUserKeyInfoAllSetup();
     for (var element in isSetupList) {
       element.refresh();
       Log.d("element:${element.value}");

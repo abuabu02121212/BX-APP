@@ -39,6 +39,7 @@ https://www.figma.com/file/VQCM9LAoTTvkuqvdWgtiX9/LB88-%E7%A7%BB%E5%8A%A8%E7%AB%
 账号密码： 自己注册，然后找后端相关人员，添加权限。
 henry常用密码：aa123456
 测试账号： 8888-99999  henry01@163.com  aa123@163.com
+         666123456 666111111
 H5地址： https://h5.cyestari.com/
 后端配置地址： http://admin.cyestari.com/ 注意是http协议
 8412501205
