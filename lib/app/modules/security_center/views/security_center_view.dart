@@ -89,6 +89,9 @@ class ItemWidget extends StatelessWidget {
       children: [
         CupertinoButton(
           onPressed: () {
+            if(!controller.isShowList3[index].value){
+              return;
+            }
             if (index == 0) {
               Get.toNamed(Routes.CENTER_USER_INFO);
             } else if (index == 1) {

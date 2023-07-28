@@ -21,7 +21,16 @@ class CenterPhoneController extends GetxController {
 
   final GlobeController globeController = Get.find<GlobeController>();
 
-  late var isShowBindPhone = globeController.isShowingBindPhone();
+  late var isShowBindPhone = globeController.isNeedBindPhone();
+
+  late UserInfoEntity userInfoEntity = globeController.userInfoEntity.value!;
+
+  @override
+  void onInit() {
+    super.onInit();
+    emailEditNode.text.value = userInfoEntity.email ?? "";
+    phoneEditNode.text.value = userInfoEntity.phone ?? "";
+  }
 
   bool checkInput() {
     codeEditNode.isDisplayErrHint.value = !codeRegExp.hasMatch(codeEditNode.text.value);

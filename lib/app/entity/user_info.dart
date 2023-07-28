@@ -22,8 +22,11 @@ class UserInfoEntity {
   final String? tester;
   final String? avatar;
   final String? inviteCode;
+  // 安全密码 0就是没有 1是有绑定
   final String? payPassword;
+  // 手机是否验证 1是0否
   final String? phoneVerify;
+  // 邮箱是否验证 1是0否
   final String? emailVerify;
 
   //下一级充值
