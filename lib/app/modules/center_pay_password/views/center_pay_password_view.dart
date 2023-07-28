@@ -36,7 +36,7 @@ class CenterPayPasswordView extends GetView<CenterPayPasswordController> {
                     width: double.infinity.w,
                     margin: EdgeInsets.only(top: 10.w),
                     child: UserInfoInputField(
-                      height: 106.w,
+                      height: 114.w,
                       prefixIcon: 'assets/images/modify-key-1.webp',
                       editNode: controller.psw1EditNode,
                       prefixIconWidth: 38.w,
@@ -56,7 +56,7 @@ class CenterPayPasswordView extends GetView<CenterPayPasswordController> {
                 width: double.infinity.w,
                 margin: EdgeInsets.only(top: 0.w),
                 child: UserInfoInputField(
-                  height: 106.w,
+                  height: 114.w,
                   prefixIcon: 'assets/images/modify-key-2.webp',
                   editNode: controller.psw2EditNode,
                   prefixIconWidth: 38.w,
@@ -74,7 +74,7 @@ class CenterPayPasswordView extends GetView<CenterPayPasswordController> {
                 width: double.infinity.w,
                 margin: EdgeInsets.only(top: 0.w),
                 child: UserInfoInputField(
-                  height: 106.w,
+                  height: 114.w,
                   prefixIcon: 'assets/images/modify-key-3.webp',
                   editNode: controller.psw3EditNode,
                   prefixIconWidth: 38.w,

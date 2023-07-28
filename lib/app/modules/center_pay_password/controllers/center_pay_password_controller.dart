@@ -51,7 +51,14 @@ class CenterPayPasswordController extends GetxController {
       return;
     }
     
-    Get.toNamed(Routes.CENTER_PAY_PASSWORD_SMS);
+    Get.toNamed(Routes.CENTER_PAY_PASSWORD_SMS, arguments: {
+      'password': psw2EditNode.text.value,
+      'oldPassword': psw1EditNode.text.value.isEmpty ? null : psw1EditNode.text.value,
+    })?.then((value) {
+      if (value == true) {
+        Get.back();
+      }
+    });
   }
 
   @override

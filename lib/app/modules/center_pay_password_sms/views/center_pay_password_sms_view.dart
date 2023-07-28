@@ -21,7 +21,7 @@ class CenterPayPasswordSmsView extends GetView<CenterPayPasswordSmsController> {
         titleSpacing: 0,
         leadingWidth: 0,
         toolbarHeight: 110.w,
-        title: const AppHeader(title: "发送验证吗"),
+        title: const AppHeader(title: "Código de verificação"),
       ),
       body: SafeArea(
         child: Container(
@@ -30,16 +30,20 @@ class CenterPayPasswordSmsView extends GetView<CenterPayPasswordSmsController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 95.w,
-                padding: EdgeInsets.only(left: 20.w),
+                padding: EdgeInsets.only(left: 20.w, top: 20.w, bottom: 20.w),
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  'O código de verificação foi enviado para xxx',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 26.w,
-                  ),
-                ),
+                child: Obx(() {
+                  return Visibility(
+                    visible: controller.isSendOk.value,
+                    child: Text(
+                      'O código de verificação foi enviado para ${controller.isVerifyPhone() ? controller.globeController.userInfoEntity.value?.phone : controller.globeController.userInfoEntity.value?.email}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 26.w,
+                      ),
+                    ),
+                  );
+                }),
               ),
               Container(
                 width: double.infinity.w,
@@ -76,16 +80,29 @@ class CenterPayPasswordSmsView extends GetView<CenterPayPasswordSmsController> {
                         editNode: controller.codeEditNode,
                       ),
                     ),
-                    AppButton(
-                      width: 150.w,
-                      height: 54.w,
-                      radius: 100.w,
-                      colorList: const [Color(0xffFFD500), Color(0xffFF9901)],
-                      text: 'Retirar',
-                      onClick: () {
-
-                      },
-                    ),
+                    Obx(() {
+                      return AppButton(
+                        width: 150.w,
+                        height: 54.w,
+                        radius: 100.w,
+                        colorList: [
+                          const Color(0xffFFD500).withOpacity(
+                              (controller.countDown.value == 0 && controller.isSending.isFalse)
+                                  ? 1
+                                  : 0.5),
+                          const Color(0xffFF9901).withOpacity(
+                              (controller.countDown.value == 0 && controller.isSending.isFalse)
+                                  ? 1
+                                  : 0.5)
+                        ],
+                        text: controller.getSendButtonText(),
+                        onClick: () {
+                          if (controller.countDown.value == 0 && controller.isSending.isFalse) {
+                            controller.sendSms();
+                          }
+                        },
+                      );
+                    }),
                     SizedBox(width: 25.w),
                   ],
                 ),
@@ -97,7 +114,9 @@ class CenterPayPasswordSmsView extends GetView<CenterPayPasswordSmsController> {
                   height: 90.w,
                   radius: 100.w,
                   text: 'Enviar',
-                  onClick: () {},
+                  onClick: () {
+                    controller.submit();
+                  },
                 ),
               )
             ],

@@ -23,6 +23,8 @@ class UserInfoEntity {
   final String? avatar;
   final String? inviteCode;
   final String? payPassword;
+  final String? phoneVerify;
+  final String? emailVerify;
 
   //下一级充值
   final String? nextDeposit;
@@ -65,7 +67,9 @@ class UserInfoEntity {
     this.rate,
     this.nextLevel,
     this.contate,
-    this.payPassword
+    this.payPassword,
+    this.phoneVerify,
+    this.emailVerify,
   });
 
   /// 获取当前充值额度等级进度
@@ -122,6 +126,8 @@ class UserInfoEntity {
       nextLevel: json['next_level']?.toString(),
       contate: json['contate']?.toString(),
       payPassword: json['pay_password']?.toString(),
+      phoneVerify: json['phone_verify']?.toString(),
+      emailVerify: json['email_verify']?.toString(),
     );
   }
 }

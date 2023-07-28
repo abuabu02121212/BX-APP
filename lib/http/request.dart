@@ -204,4 +204,8 @@ class ApiRequest {
   Future requestBankTypeList({Map<String, Object>? params}) async {
     return await httpUtil.get(bankTypeList, params ?? {});
   }
+
+  Future requestPasswordUpdate({Map<String, Object>? params}) async {
+    return await httpUtil.post(passwordUpdate, params ?? {});
+  }
 }
