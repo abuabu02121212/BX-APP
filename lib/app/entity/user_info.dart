@@ -33,6 +33,7 @@ class UserInfoEntity {
   final String? rate;
   final String? nextLevel;
   final String? contate;
+  final String? telegram;
 
   UserInfoEntity({
     this.uid,
@@ -64,6 +65,7 @@ class UserInfoEntity {
     this.rate,
     this.nextLevel,
     this.contate,
+    this.telegram,
   });
 
   /// 获取当前充值额度等级进度
@@ -119,6 +121,7 @@ class UserInfoEntity {
       rate: json['rate']?.toString(),
       nextLevel: json['next_level']?.toString(),
       contate: json['contate']?.toString(),
+      telegram: json['telegram']?.toString(),
     );
   }
 }

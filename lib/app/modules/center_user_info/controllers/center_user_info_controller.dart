@@ -18,7 +18,7 @@ class CenterUserInfoController extends GetxController {
     if(userInfoEntity != null){
       emailEditNode.text.value = userInfoEntity.email ?? "";
       usernameEditNode.text.value = userInfoEntity.username ?? "";
-      //telegramEditNode.text.value = userInfoEntity.username ?? "";
+      telegramEditNode.text.value = userInfoEntity.telegram ?? "";
 
     }
 
