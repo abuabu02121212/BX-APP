@@ -37,12 +37,6 @@ class UserInfoEntity {
   final String? nextLevel;
   final String? contate;
   final String? telegram;
-  // 安全密码 0就是没有 1是有绑定
-  final String? pay_password;
-  // 手机是否验证 1是0否
-  final String? phone_verify;
-  // 邮箱是否验证 1是0否
-  final String? email_verify;
 
   UserInfoEntity({
     this.uid,
