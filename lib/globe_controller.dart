@@ -32,11 +32,20 @@ class GlobeController extends GetxController with WidgetsBindingObserver {
      Log.d("已经退出登陆...");
   }
 
-  bool isShowingBindPhone(){
-    var isEmailNotExit = (userInfoEntity.value?.email ?? "").isEmpty;
-    var isPhoneNotExit = (userInfoEntity.value?.phone ?? "").isEmpty;
-    var isShowBindPhone = isPhoneNotExit || !isEmailNotExit; // 手机不存在，或者邮箱存在
-    return isShowBindPhone;
+  bool isNeedBindPhone(){
+    UserInfoEntity? entity = userInfoEntity.value;
+    if(entity == null){
+      return false;
+    }
+    return entity.phone_verify != '1';
+  }
+
+  bool isNeedBindEmail(){
+    UserInfoEntity? entity = userInfoEntity.value;
+    if(entity == null){
+      return false;
+    }
+    return entity.email_verify != '1';
   }
 
   bool isUserKeyInfoAllSetup() {
