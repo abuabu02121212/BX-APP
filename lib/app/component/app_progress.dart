@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../util/math_util.dart';
+
 class AppProgress extends StatelessWidget {
   const AppProgress({
     super.key,
@@ -46,7 +48,7 @@ class AppProgress extends StatelessWidget {
               padding: EdgeInsets.only(left: 20.w, top: 2.w),
               alignment: Alignment.centerLeft,
               child: Text(
-                "$progress%",
+                "${MathU.getStr2DForce(progress.toString())}%",
                 style: TextStyle(
                   fontSize: 24.w,
                   color: const Color(0xffffffff),
