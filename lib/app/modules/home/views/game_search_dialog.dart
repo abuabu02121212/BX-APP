@@ -146,7 +146,7 @@ class GameSearchWidget extends StatelessWidget {
                 controller.requestGameSearch(keyWord: editNode.text.value, platformId: platformId.value);
               }else{
                 controller.paginationHelper.reset();
-                controller.requestGameList();
+                controller.onGameTypeTitleBarSelected(0);
               }
               Get.back();
             },
