@@ -14,13 +14,19 @@ class GameSearchWidget extends StatelessWidget {
   GameSearchWidget({super.key, required this.dataList});
 
   final List<GameNavEntity> dataList;
-  final selectedIndex = 0.obs;
+
   final HomeController controller = Get.put(HomeController());
   final EditNode editNode = EditNode();
-  late final platformId = dataList.isEmpty ? "0".obs : dataList[0].id.obs;
+  final platformId = '0'.obs;
+  static final lastSelectedGameType = ''.obs;
 
   @override
   Widget build(BuildContext context) {
+    if(controller.getCurGameType() != lastSelectedGameType.value){
+      controller.selectedSearchItemIndex.value = 0;
+    }
+    lastSelectedGameType.value = controller.getCurGameType();
+    platformId.value =  dataList[controller.selectedSearchItemIndex.value].id;
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -87,7 +93,7 @@ class GameSearchWidget extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return CupertinoButton(
                 onPressed: () {
-                  selectedIndex.value = index;
+                  controller.selectedSearchItemIndex.value = index;
                   platformId.value = dataList[index].id;
                 },
                 minSize: 0,
@@ -97,7 +103,7 @@ class GameSearchWidget extends StatelessWidget {
                   height: double.infinity,
                   child: Center(
                     child: Obx(() {
-                      bool isSelected = selectedIndex.value == index;
+                      bool isSelected = controller.selectedSearchItemIndex.value == index;
                       Color textColor = isSelected ? Colors.white : const Color.fromRGBO(255, 255, 255, 0.40);
                       return Container(
                         width: 220.w,
@@ -135,7 +141,7 @@ class GameSearchWidget extends StatelessWidget {
             radius: 100.w,
             text: 'confirm',
             onClick: () {
-              if(editNode.text.value.isNotEmpty){
+              if(editNode.text.value.isNotEmpty || controller.selectedSearchItemIndex.value != 0){
                 controller.paginationHelper.reset();
                 controller.requestGameSearch(keyWord: editNode.text.value, platformId: platformId.value);
               }else{

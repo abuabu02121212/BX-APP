@@ -30,6 +30,7 @@ class HomeController extends GetxController {
   final selectedGameTypeIndex = (-1).obs;
   final selectedTagIndex = 0.obs;
   final selectedChildTabIndex = 0.obs;
+  final selectedSearchItemIndex = 0.obs;
   final List<int> gameTypePressedRecordList = [-1];
   final ScrollController scrollController = ScrollController();
   final showingMarqueeText = "".obs;
