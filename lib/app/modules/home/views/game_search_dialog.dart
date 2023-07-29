@@ -135,8 +135,13 @@ class GameSearchWidget extends StatelessWidget {
             radius: 100.w,
             text: 'confirm',
             onClick: () {
-              controller.paginationHelper.reset();
-              controller.requestGameSearch(keyWord: editNode.text.value, platformId: platformId.value);
+              if(editNode.text.value.isNotEmpty){
+                controller.paginationHelper.reset();
+                controller.requestGameSearch(keyWord: editNode.text.value, platformId: platformId.value);
+              }else{
+                controller.paginationHelper.reset();
+                controller.requestGameList();
+              }
               Get.back();
             },
           ),

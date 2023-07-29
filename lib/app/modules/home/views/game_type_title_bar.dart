@@ -105,6 +105,7 @@ class GameTypeTitleBar extends StatelessWidget {
                               ? CupertinoButton(
                                   onPressed: () {
                                     List<GameNavEntity> tarList = controller.navItemList.where((element) => element.gameType == controller.getCurGameType()).toList();
+                                    tarList.insert(0, GameNavEntity.def);
                                     showSearchDialog(tarList);
                                   },
                                   minSize: 0,
