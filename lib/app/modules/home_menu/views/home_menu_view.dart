@@ -264,10 +264,13 @@ class ItemType1Widget extends StatelessWidget {
               ),
             ),
             index == 0
-                ? Image.asset(
-                    "assets/images/telegram-2.webp",
-                    height: double.infinity,
-                  )
+                ? Padding(
+                  padding: EdgeInsets.only(right: 16.w),
+                  child: Image.asset(
+                      "assets/images/telegram-2.webp",
+                      height: 50.w,
+                    ),
+                )
                 : const SizedBox(),
           ],
         ),
