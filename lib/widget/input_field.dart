@@ -75,15 +75,21 @@ class EditNode {
   final isDisplayErrHint = false.obs;
   final eyeIsOPen = false.obs;
   RegExp? regExp;
+  /// 当错误的时候 不再主动校验，确认密码需要设置，因为这两个校验有连带关系，这里简化了校验规则, 否则确认密码和密码不一致也会通过
+  final bool isNotVerifyOnErr;
 
-  EditNode({this.regExp});
+  EditNode({this.regExp, this.isNotVerifyOnErr = false});
 
   /// 返回输入是否OK
-  bool checkInput(){
-    if(regExp!=null){
+  bool checkInput() {
+    /// 如果已经是错误状态，则不再主动校验
+    if (isNotVerifyOnErr && isDisplayErrHint.value) {
+      return false;
+    }
+    if (regExp != null) {
       isDisplayErrHint.value = !regExp!.hasMatch(text.value);
     }
-   return !isDisplayErrHint.value;
+    return !isDisplayErrHint.value;
   }
 
   void reset() {
@@ -166,7 +172,7 @@ class _MyInputFiledState extends State<MyInputFiled> {
   @override
   void initState() {
     super.initState();
-  //  Log.d('============初始化==============');
+    //  Log.d('============初始化==============');
     widget.editNode.initState();
     widget.editNode.editController.addListener(_addListener);
   }
@@ -175,7 +181,7 @@ class _MyInputFiledState extends State<MyInputFiled> {
   void dispose() {
     widget.editNode.editController.removeListener(_addListener);
     widget.editNode.dispose();
-   // Log.d('==============销毁====================');
+    // Log.d('==============销毁====================');
     super.dispose();
   }
 

@@ -7,25 +7,13 @@ import '../../../../util/loading_util.dart';
 import '../../../../widget/input_field.dart';
 
 class CenterUpdateLoginPasswordController extends GetxController {
-  EditNode psw1EditNode = EditNode();
-  EditNode psw2EditNode = EditNode();
-  EditNode psw3EditNode = EditNode();
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
+  EditNode psw1EditNode = EditNode(regExp: pswRegExp);
+  EditNode psw2EditNode = EditNode(regExp: pswRegExp);
+  EditNode psw3EditNode = EditNode(regExp: pswRegExp, isNotVerifyOnErr: true);
 
   bool checkInput() {
-    psw1EditNode.isDisplayErrHint.value = !pswRegExp.hasMatch(psw1EditNode.text.value);
-    psw2EditNode.isDisplayErrHint.value = !pswRegExp.hasMatch(psw2EditNode.text.value);
-    psw3EditNode.isDisplayErrHint.value = !pswRegExp.hasMatch(psw3EditNode.text.value);
     bool isSame = psw2EditNode.text.value == psw3EditNode.text.value;
-    bool isOk = !psw1EditNode.isDisplayErrHint.value && !psw2EditNode.isDisplayErrHint.value && !psw3EditNode.isDisplayErrHint.value && isSame;
-    if (!isOk) {
-    //  Toast.show("senha incorreta");
-    }
+    bool isOk = !psw1EditNode.checkInput() && !psw2EditNode.checkInput() && !psw3EditNode.checkInput() && isSame;
     return isOk;
   }
 
