@@ -61,7 +61,7 @@ class DioUtil {
   Future get(String path, Map<String, Object> param) async {
     try {
       Response response;
-      print('get发送数据: $param');
+     // print('get发送数据: $param');
       setLoginToken();
       response = await dio.get(path,
           queryParameters: param,
@@ -82,11 +82,10 @@ class DioUtil {
       Log.d("\npath:${response.requestOptions.uri} responseData :$responseData \n${'-' * 200}");
 
       if (status == false) {
-        bool isInvalid = checkTokenInvalid(data);
-        String hint = isInvalid ? "token expiration" : 'Get接口能通，status是false';
-        throw Exception(hint);
+        onStatusFalse(data);
+        throw Exception({'status': status, 'data': data});
       } else {
-        return onRequestFinish(status, data);
+        return data;
       }
     } catch (e) {
       if (e is DioException) {
@@ -95,20 +94,10 @@ class DioUtil {
         Log.e("Other Get error:$e");
       }
       AppLoading.close();
-      Toast.show("$e");
       throw Exception(e);
     }
   }
 
-  onRequestFinish(bool status, data) {
-    // :{status: 20, data: token}
-    if (status == false) {
-      Toast.show('$data');
-      return data;
-    } else {
-      return data;
-    }
-  }
 
   bool checkTokenInvalid(data) {
     bool isInvalid = false;
@@ -168,17 +157,10 @@ class DioUtil {
       Log.d("header map:$headerMap");
       Log.d("path:${response.requestOptions.uri}  请求参数:$d 返回:${responseData.toJson()}\n${'-' * 200}");
       if (status == false) {
-        bool isInvalid = checkTokenInvalid(data);
-        if(isInvalid){
-          Toast.show("token expiration");
-        }else{
-          if (ErrorJson['$data'] != null) {
-            Toast.show("${ErrorJson['$data']}");
-          }
-        }
+        onStatusFalse(data);
         throw Exception({'status': status, 'data': data});
       } else {
-        return onRequestFinish(status, data);
+        return data;
       }
     } catch (e) {
       if (e is DioException) {
@@ -190,4 +172,18 @@ class DioUtil {
       throw Exception(e);
     }
   }
+
+  void onStatusFalse(data) {
+    bool isInvalid = checkTokenInvalid(data);
+    if(isInvalid){
+      Toast.show("Token expirado");
+    }else{
+      var errorMsg = ErrorJson['$data'];
+      if (errorMsg != null) {
+        Toast.show(errorMsg);
+      }
+      Log.d("status 为false 显示本地code-映射值code=$data: errorMsg:$errorMsg");
+    }
+  }
+
 }
