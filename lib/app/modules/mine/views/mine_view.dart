@@ -116,7 +116,7 @@ class MineView extends GetView<MineController> with RouteAware {
                                   ),
                                   SizedBox(width: 7.w),
                                   Container(
-                                    width: 208.w,
+                                    constraints: BoxConstraints(minWidth: 208.w, maxWidth: 238.w),
                                     height: 46.w,
                                     decoration: BoxDecoration(
                                       color: const Color.fromRGBO(0, 0, 0, 0.25),
@@ -127,13 +127,18 @@ class MineView extends GetView<MineController> with RouteAware {
                                       children: [
                                         Obx(
                                           () {
-                                            return Text(
-                                              controller.globeController.userInfoEntity.value
-                                                      ?.username ??
-                                                  "",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 26.w,
+                                            return Container(
+                                              padding: EdgeInsets.only(left: 6.w),
+                                              width: 180.w,
+                                              child: Text(
+                                                controller.globeController.userInfoEntity.value
+                                                        ?.username ??
+                                                    "",
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 26.w,
+                                                ),
                                               ),
                                             );
                                           },
