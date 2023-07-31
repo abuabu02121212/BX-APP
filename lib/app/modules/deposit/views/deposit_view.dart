@@ -427,7 +427,7 @@ class DepositView extends GetView<DepositController> {
               ),
               Obx(() {
                 return Visibility(
-                  visible: controller.depositControllerPage.isAmountInDepositData(),
+                  visible: controller.depositControllerPage.getDepositDiscountValue() > 0,
                   child: Positioned(
                     right: 0,
                     top: 0,
@@ -443,7 +443,7 @@ class DepositView extends GetView<DepositController> {
                       ),
                       child: Obx(() {
                         return Text(
-                          controller.depositControllerPage.getDepositDiscountValue(),
+                          controller.depositControllerPage.getDepositDiscountValue().toString(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 24.w,

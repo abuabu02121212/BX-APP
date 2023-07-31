@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/app/entity/deposit_config_data.dart';
 import 'package:flutter_comm/app/entity/pay_deposit_data.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_comm/util/Log.dart';
@@ -17,25 +18,13 @@ class DepositControllerPage extends GetxController {
   late DepositData pageData = DepositData();
 
   final depositData = <Map<String, String>>[
-    {
-      'amount': '50',
-      'discount': '1'
-    }, {
-      'amount': '80',
-      'discount': '2'
-    }, {
-      'amount': '100',
-      'discount': '3'
-    }
+    {'amount': '50', 'discount': '1'},
+    {'amount': '80', 'discount': '2'},
+    {'amount': '100', 'discount': '3'}
   ].obs;
   final depositSelectData = <Map<String, String>>[
-    {
-      'label': 'A',
-      'value': '1'
-    },{
-      'label': 'B',
-      'value': '2'
-    }
+    {'label': 'A', 'value': '1'},
+    {'label': 'B', 'value': '2'}
   ].obs;
   final depositSelectValue = '1'.obs;
   final depositSelectLabel = 'A'.obs;
@@ -44,6 +33,8 @@ class DepositControllerPage extends GetxController {
   final fmin = '0'.obs;
   final fmax = '0'.obs;
   final isClickSubmit = false.obs;
+
+  final configList = <DepositConfigData>[].obs;
 
   setDepositSelectLabelValue(String value, String label) {
     depositSelectValue.value = value;
@@ -59,15 +50,25 @@ class DepositControllerPage extends GetxController {
 
   setInputValue(String value, String discount) {
     amountNode.editController.text = value;
-    amountNode.editController.selection = TextSelection.fromPosition(TextPosition(offset: value.length));
+    amountNode.editController.selection =
+        TextSelection.fromPosition(TextPosition(offset: value.length));
     getDepositDiscountValue();
   }
 
   getDepositDiscountValue() {
     final currentInputValue = amountNode.text.value;
-    final currentData = depositData.firstWhere((e) => e['amount'] == currentInputValue);
-    depositDiscount.value = currentData['discount']!;
-    return depositDiscount.value;
+    double a = 0.00;
+    if (currentInputValue.isEmpty) {
+      return a;
+    }
+    for (var i = 0; i < configList.length; i++) {
+      final item = configList[i];
+      if (double.parse(currentInputValue) >= item.minAmount! &&
+          double.parse(currentInputValue) <= item.maxAmount!) {
+        a = (double.parse(currentInputValue) * item.bonus! / 100);
+      }
+    }
+    return a;
   }
 
   bool isSelectAmount(String amount) {
@@ -80,7 +81,8 @@ class DepositControllerPage extends GetxController {
       final data = DepositData.fromJson(d);
       pageData = data;
       // 设置下拉选项
-      depositSelectData.value = pageData.d!.map((e) => {'label': e.showName ?? '', 'value': e.fid ?? ''}).toList();
+      depositSelectData.value =
+          pageData.d!.map((e) => {'label': e.showName ?? '', 'value': e.fid ?? ''}).toList();
       setDepositSelectLabelValue(depositSelectData[0]['value']!, depositSelectData[0]['label']!);
     }
     isFetching.value = false;
@@ -92,7 +94,8 @@ class DepositControllerPage extends GetxController {
     final kList = currentData.amountArray ?? [];
     fmin.value = (currentData.fmin ?? '0').toString();
     fmax.value = (currentData.fmax ?? '0').toString();
-    depositData.value = kList.map((e) => {'amount': e.amount ?? '', 'discount': e.discount ?? ''}).toList();
+    depositData.value =
+        kList.map((e) => {'amount': e.amount ?? '', 'discount': e.discount ?? ''}).toList();
   }
 
   String getDepositInputPlaceholder() {
@@ -103,10 +106,25 @@ class DepositControllerPage extends GetxController {
     if (amountNode.text.value.isEmpty) {
       return 'Por favor, insira o valor';
     }
-    if (double.parse(amountNode.text.value) < double.parse(fmin.value) || double.parse(amountNode.text.value) > double.parse(fmax.value)) {
+    if (double.parse(amountNode.text.value) < double.parse(fmin.value) ||
+        double.parse(amountNode.text.value) > double.parse(fmax.value)) {
       return 'Insira um valor que atenda ao intervalo';
     }
     return null;
+  }
+
+  getDepositConfig() async {
+    try {
+      final d = await apiRequest.requestPromoDepositConfig();
+      if (d != null && d is List) {
+        for (int i = 0; i < d.length; i++) {
+          DepositConfigData data = DepositConfigData.fromJson(d[i]);
+          configList.add(data);
+        }
+      }
+    } catch (e) {
+      print('eeeeee $e');
+    }
   }
 
   void submit() async {
@@ -132,6 +150,7 @@ class DepositControllerPage extends GetxController {
   void onInit() {
     super.onInit();
     initChannelData();
+    getDepositConfig();
   }
 
   @override
