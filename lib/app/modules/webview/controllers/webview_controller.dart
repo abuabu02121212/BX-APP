@@ -1,3 +1,4 @@
+import 'package:flutter_comm/util/extensions.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:get/get.dart';
 
@@ -10,11 +11,10 @@ class WebviewController extends GetxController {
   RxBool isAppBarVisible = true.obs;
 
   String title = Get.arguments['title'] ?? '';
-  String url = Get.arguments['url'] ?? '';
+  String url = (Get.arguments['url'] ?? '').toString().addToken();
 
   @override
   void onInit() {
-    Toast.show('加载url地址: $url, token=${spUtil.getString(keyLoginToken) ?? "空"}');
     print('加载url地址: $url, token=${spUtil.getString(keyLoginToken) ?? ""}');
     super.onInit();
   }
