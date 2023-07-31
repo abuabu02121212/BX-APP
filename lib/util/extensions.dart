@@ -7,9 +7,9 @@ extension StringExtension on String {
     String token = spUtil.getString(keyLoginToken) ?? "";
     if (token.isNotEmpty) {
       if (contains("?")) {
-        return "$this&token=$token";
+        return "$this&t=$token";
       } else {
-        return "$this?token=$token";
+        return "$this?t=$token";
       }
     }
     return this;
