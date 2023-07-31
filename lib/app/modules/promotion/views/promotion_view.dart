@@ -151,7 +151,6 @@ class ItemWidget extends StatelessWidget {
                     radius: 27.w,
                     text: 'Mais',
                     onClick: () {
-                      Toast.show("按钮被点击");
                       Get.toNamed(Routes.WEBVIEW, arguments: entity.url);
                     },
                   ),

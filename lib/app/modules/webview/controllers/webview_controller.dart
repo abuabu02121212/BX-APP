@@ -1,3 +1,4 @@
+import 'package:flutter_comm/util/toast_util.dart';
 import 'package:get/get.dart';
 
 import '../../../../util/sp_util.dart';
@@ -13,6 +14,7 @@ class WebviewController extends GetxController {
 
   @override
   void onInit() {
+    Toast.show('加载url地址: $url, token=${spUtil.getString(keyLoginToken) ?? "空"}');
     print('加载url地址: $url, token=${spUtil.getString(keyLoginToken) ?? ""}');
     super.onInit();
   }

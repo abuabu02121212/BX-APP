@@ -41,7 +41,7 @@ class ComponentTestView extends GetView<ComponentTestController> {
                 radius: 40.w,
                 text: 'Button示例',
                 onClick: () {
-                  Toast.show("按钮被点击");
+                  // Toast.show("按钮被点击");
                 },
               ),
             ),
