@@ -1,4 +1,3 @@
-
 class MathU {
   static String to2D(double value) {
     return value.toStringAsPrecision(2);
@@ -40,7 +39,7 @@ class MathU {
     return (v1 / v2 * 100).toInt();
   }
 
-  /// 显示小数点后两位
+  /// 如果小数位大于2位  则只显示小数点后两位
   static String getStr2D(String value) {
     if (value.isEmpty) {
       return value;
@@ -54,6 +53,25 @@ class MathU {
       if (end > value.length) {
         end = value.length;
       }
+    }
+    return value.substring(0, end);
+  }
+
+  /// 无论是否是小数  都需要显示小数点后两位
+  static String getStr2DForce(String value) {
+    if (value.isEmpty) {
+      return value;
+    }
+    int end = value.length;
+    if (!value.contains(".")) {
+      value = "$value.000";
+    } else {
+      value = "${value}000";
+    }
+    int dotIndex = value.indexOf(".");
+    end = dotIndex + 3;
+    if (end > value.length) {
+      end = value.length;
     }
     return value.substring(0, end);
   }

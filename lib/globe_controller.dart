@@ -61,7 +61,7 @@ class GlobeController extends GetxController with WidgetsBindingObserver {
     if(entity == null){
       return 0;
     }
-    return int.tryParse("${entity.score}") ?? 0;
+    return int.tryParse("${entity.bankcardTotal}") ?? 0;
   }
 
   bool isUserKeyInfoAllSetup() {

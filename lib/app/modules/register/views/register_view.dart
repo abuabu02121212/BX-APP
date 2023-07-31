@@ -73,51 +73,58 @@ class RegisterWidget extends StatelessWidget {
               controller.register();
             },
           ),
-          SizedBox(height: 34.w),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Obx(() {
-                bool isAgreed = controller.isAgreed.value;
-                return CupertinoButton(
-                  onPressed: () {
-                    controller.isAgreed.value = !controller.isAgreed.value;
-                  },
-                  minSize: 0,
-                  padding: EdgeInsets.only(left: 15.w, right: 8.w, top: 15.w, bottom: 15.w),
-                  child: Image.asset(
-                    isAgreed ? "assets/images/i-radio-active.webp" : "assets/images/i-radio-no.webp",
-                    width: 40.w,
-                  ),
-                );
-              }),
-              Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(children: [
-                      TextSpan(
-                        text: "Eu concordo",
-                        style: TextStyle(fontSize: 24.w, color: Colors.white, fontWeight: FontWeight.w400),
+          SizedBox(height: 30.w),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Container(
+              margin: EdgeInsets.only(left: 50.w),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Obx(() {
+                    bool isAgreed = controller.isAgreed.value;
+                    return CupertinoButton(
+                      onPressed: () {
+                        controller.isAgreed.value = !controller.isAgreed.value;
+                      },
+                      minSize: 0,
+                      padding: EdgeInsets.only(left: 15.w, right: 8.w, top: 15.w, bottom: 15.w),
+                      child: Image.asset(
+                        isAgreed ? "assets/images/i-radio-active.webp" : "assets/images/i-radio-no.webp",
+                        width: 40.w,
                       ),
-                      TextSpan(
-                        text: " com os termos e política de\n privacidade.",
-                        recognizer: TapGestureRecognizer()..onTap = (){
-                          Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.REGISTER_RULES);
-                        },
-                        style: TextStyle(
-                          fontSize: 24.w,
-                          color: const Color(0xff0ED1F4),
-                          fontWeight: FontWeight.w400,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ])
-                  ],
-                ),
-              )
-            ],
+                    );
+                  }),
+                  SizedBox(width: 10.w,),
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(children: [
+                          TextSpan(
+                            text: "Eu concordo \n",
+                            style: TextStyle(fontSize: 24.w, color: Colors.white, fontWeight: FontWeight.w400),
+                          ),
+                          TextSpan(
+                            text: "com os termos e política de privacidade.",
+                            recognizer: TapGestureRecognizer()..onTap = (){
+                              Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.REGISTER_RULES);
+                            },
+                            style: TextStyle(
+                              fontSize: 24.w,
+                              color: const Color(0xff0ED1F4),
+                              fontWeight: FontWeight.w400,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ])
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
           )
         ],
       ),

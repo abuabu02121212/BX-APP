@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import '../../../app_style.dart';
+import '../../../entity/game_nav.dart';
 import '../controllers/home_controller.dart';
 import 'game_search_dialog.dart';
 
@@ -103,7 +104,9 @@ class GameTypeTitleBar extends StatelessWidget {
                           return isShow
                               ? CupertinoButton(
                                   onPressed: () {
-                                    showSearchDialog(controller.navItemList);
+                                    List<GameNavEntity> tarList = controller.navItemList.where((element) => element.gameType == controller.getCurGameType()).toList();
+                                    tarList.insert(0, GameNavEntity.def);
+                                    showSearchDialog(tarList);
                                   },
                                   minSize: 0,
                                   padding: EdgeInsets.zero,

@@ -21,6 +21,7 @@ class UserInfoInputField extends StatelessWidget {
     this.isCode = false,
     this.isEmail = false,
     this.isTelegram = false,
+    this.isConfirmsPassword = false,
     this.codeSender,
     required this.hint,
     this.radius = 50,
@@ -34,14 +35,21 @@ class UserInfoInputField extends StatelessWidget {
     this.codeName = "Enviar",
     this.editEnable = true,
     this.showErrHeight,
+    this.pswEditNode,
+    this.confirmPswEditNode,
   });
 
   final String prefixIcon;
   final EditNode editNode;
+  /// 只有确认密码需要配置
+  final EditNode? pswEditNode;
+  /// 只有密码需要配置
+  final EditNode? confirmPswEditNode;
   final String errText;
   final String hint;
   final bool isUserName;
   final bool isPassword;
+  final bool isConfirmsPassword;
   final bool isPhone;
   final bool isCode;
   final bool isEmail;
@@ -64,7 +72,7 @@ class UserInfoInputField extends StatelessWidget {
     List<TextInputFormatter>? tarFormatterList = [];
     if (isUserName) {
       tarFormatterList = userNameFormatterList;
-    } else if (isPassword) {
+    } else if (isPassword || isConfirmsPassword) {
       tarFormatterList = passwordFormatterList;
     } else if (isEmail) {
       tarFormatterList = emailFormatterList;
@@ -96,7 +104,7 @@ class UserInfoInputField extends StatelessWidget {
                   bgColor: bgColor,
                   radius: radius,
                   editEnable: editEnable,
-                  obscureText: isPassword ? eyeIsOPen : false,
+                  obscureText: isPassword || isConfirmsPassword ? eyeIsOPen : false,
                   inputFormatters: tarFormatterList,
                   keyboardType: isEmail ? TextInputType.emailAddress : (isPhone || isCode ? TextInputType.number : TextInputType.text),
                   hintStyle: TextStyle(color: const Color(0xff969799), fontSize: 26.w),
@@ -125,15 +133,21 @@ class UserInfoInputField extends StatelessWidget {
                   suffix: SuffixImageWidget(
                     editNode: editNode,
                     isCode: isCode,
-                    isPassword: isPassword,
+                    isPassword: isPassword || isConfirmsPassword,
                     verifyCodeSender: codeSender,
                     userInfoInputField: this,
                   ),
                   onTextChanged: (text) {
                     if (isUserName) {
                       editNode.isDisplayErrHint.value = !usernameRegExp.hasMatch(text);
-                    } else if (isPassword) {
+                    } else if (isPassword || isConfirmsPassword) {
                       editNode.isDisplayErrHint.value = !pswRegExp.hasMatch(text);
+                      if(isPassword && confirmPswEditNode != null && confirmPswEditNode!.text.value.isNotEmpty){
+                        confirmPswEditNode!.isDisplayErrHint.value = confirmPswEditNode!.text.value != text;
+                      }
+                      if(isConfirmsPassword && pswEditNode != null){
+                        editNode.isDisplayErrHint.value = pswEditNode!.text.value != text;
+                      }
                     } else if (isPhone) {
                       editNode.isDisplayErrHint.value = !phoneNumExp.hasMatch(text);
                     } else if (isEmail) {

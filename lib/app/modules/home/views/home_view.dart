@@ -167,8 +167,10 @@ class BrandListWidget extends StatelessWidget {
               CupertinoButton(
                 minSize: 0,
                 padding: EdgeInsets.zero,
-                onPressed: () {
-                  controller.requestCsData();
+                onPressed: () async {
+                  if(controller.csEntity.value == null){
+                    await controller.requestCsData();
+                  }
                   var facebook = controller.csEntity.value?.facebook ?? "-";
                   AppUtil.launch(facebook);
                 },
@@ -178,10 +180,11 @@ class BrandListWidget extends StatelessWidget {
               CupertinoButton(
                 minSize: 0,
                 padding: EdgeInsets.zero,
-                onPressed: () {
-                  controller.requestCsData();
+                onPressed: () async {
+                  if(controller.csEntity.value == null){
+                    await controller.requestCsData();
+                  }
                   var telegram = controller.csEntity.value?.telegram ?? "-";
-                  telegram = getUrlDecodeStr(telegram);
                   AppUtil.launch(telegram);
                 },
                 child: Image.asset("assets/images/index-b-t.webp", width: 76.w),

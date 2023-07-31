@@ -31,11 +31,7 @@ class SwiperComponent extends StatelessWidget {
             String bannerImgUrl = "$baseImgUrl$imgPath";
             return CupertinoButton(
               onPressed: () {
-                /// 需要两次解码才能正常跳转
-                var urlDecodeStr = getUrlDecodeStr(entity.redirectUrl);
-                var urlDecodeStr2 = getUrlDecodeStr(urlDecodeStr);
-                Log.d("entity.redirectUrl: ${entity.redirectUrl}  ${getUrlDecodeStr(urlDecodeStr)}");
-                Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.getBannerTarPageParam(urlDecodeStr2));
+                Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.getBannerTarPageParam(entity.redirectUrl));
               },
               minSize: 0,
               padding: EdgeInsets.zero,

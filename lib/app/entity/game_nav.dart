@@ -17,6 +17,7 @@ class GameNavEntity {
     required this.logo,
   });
 
+  static GameNavEntity def = GameNavEntity(id: '0', name: 'All', gameType: '', state: '', maintained: '', seq: '', logo: '');
   factory GameNavEntity.fromJson(Map<String, dynamic> json) {
     return GameNavEntity(
       id: json['id'].toString(),

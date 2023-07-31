@@ -40,6 +40,7 @@ class UserInfoEntity {
   final String? nextLevel;
   final String? contate;
   final String? telegram;
+  final String? bankcardTotal;
 
   UserInfoEntity({
     this.uid,
@@ -75,6 +76,7 @@ class UserInfoEntity {
     this.phoneVerify,
     this.emailVerify,
     this.telegram,
+    this.bankcardTotal,
   });
 
   /// 获取当前充值额度等级进度
@@ -134,6 +136,7 @@ class UserInfoEntity {
       phoneVerify: json['phone_verify']?.toString(),
       emailVerify: json['email_verify']?.toString(),
       telegram: json['telegram']?.toString(),
+      bankcardTotal: json['bankcard_total']?.toString(),
     );
   }
 }

@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
-import '../../../../util/toast_util.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_header.dart';
@@ -64,6 +63,7 @@ class CenterUpdateLoginPasswordView
                   bgColor: const Color(0xff011A51),
                   border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
                   radius: 8.w,
+                  confirmPswEditNode: controller.psw3EditNode,
                   isPassword: true,
                 ),
               ),
@@ -83,7 +83,8 @@ class CenterUpdateLoginPasswordView
                   bgColor: const Color(0xff011A51),
                   border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
                   radius: 8.w,
-                  isPassword: true,
+                  pswEditNode: controller.psw2EditNode,
+                  isConfirmsPassword: true,
                 ),
               ),
               Padding(
