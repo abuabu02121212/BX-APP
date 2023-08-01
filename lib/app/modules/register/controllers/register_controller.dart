@@ -17,7 +17,7 @@ class RegisterController extends GetxController {
   final EditNode key2EditNode = EditNode();
   final EditNode codeEditNode = EditNode();
   final EditNode code2EditNode = EditNode();
-  final isAgreed = false.obs;
+  final isAgreed = true.obs;
   final selectedIndex = 0.obs;
   late CodeSender phoneCodeSender = CodeSender(tarEditNode: phoneEditNode, regExp: phoneNumExp);
   late CodeSender emailCodeSender = CodeSender(tarEditNode: emailEditNode, regExp: emailExp, codeType: 2);
