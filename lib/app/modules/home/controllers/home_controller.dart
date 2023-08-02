@@ -13,9 +13,7 @@ import '../../../../util/Log.dart';
 import '../../../../util/double_click_exit_app.dart';
 import '../../../../util/loading_util.dart';
 import '../../../../util/pagination_helper.dart';
-import '../../../../util/text_util.dart';
 import '../../../../util/toast_util.dart';
-import '../../../../util/weburl_util.dart';
 import '../../../entity/banner.dart';
 import '../../../entity/cs.dart';
 import '../../../entity/game_item.dart';
@@ -29,7 +27,7 @@ class HomeController extends GetxController {
   final gameTypes = RxList<GameTypeEntity>(GameTypeEntity.getList());
   final selectedGameTypeIndex = (-1).obs;
   final selectedTagIndex = 0.obs;
-  final selectedChildTabIndex = 0.obs;
+
   final selectedSearchItemIndex = 0.obs;
   final List<int> gameTypePressedRecordList = [-1];
   final ScrollController scrollController = ScrollController();
@@ -38,7 +36,25 @@ class HomeController extends GetxController {
 
   final List<GameNavEntity> navItemList = [];
 
+ // final selectedChildTabIndex = 0.obs;
+  final Map<int, Rx<int>?> _childTabSelectedIndexMap ={};
+
+  Rx<int> getChildTabSelectIndexRx(int listItemIndex){
+    var posRx = _childTabSelectedIndexMap[listItemIndex];
+    Log.d2("posRx:$posRx  ===============listItemIndex:$listItemIndex");
+    if(posRx == null){
+      posRx = 0.obs;
+      _childTabSelectedIndexMap[listItemIndex] = posRx;
+    }
+    return posRx;
+  }
+
+  void resetChildTabSelectIndexRx(int listItemIndex){
+    _childTabSelectedIndexMap[listItemIndex] = null;
+  }
+
   void addPressedRecord(int index) {
+    selectedGameTypeIndex.value = index;
     gameTypePressedRecordList.add(index);
     requestSubTypeListData(index);
     Log.d("========addPressedRecord：$gameTypePressedRecordList");
@@ -51,11 +67,9 @@ class HomeController extends GetxController {
     } else if (index == 0) {
       requestHotGameList();
     } else if (index == 1) {
-      selectedChildTabIndex.value = 2;
       requestFavGameList();
     } else {
       selectedTagIndex.value = 0;
-      selectedChildTabIndex.value = 0;
       requestGameList();
       requestTagList();
     }
@@ -122,24 +136,24 @@ class HomeController extends GetxController {
   final bannerList = RxList<BannerEntity>();
 
   // 滚动监听回调
-  void _scrollListener() {
-    if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
-      if (selectedChildTabIndex.value == 3) {
-        requestGameSearch(keyWord: lastKeyWord, platformId: lastPlatformId);
-      } else if (selectedGameTypeIndex.value == 0) {
-        requestHotGameList();
-      } else if (selectedGameTypeIndex.value == 1) {
-        requestFavGameList();
-      } else if (selectedGameTypeIndex.value > 1) {
-        requestGameList();
-      }
-      Log.d("=============滚动到了底部==============");
-    }
-  }
+  // void _scrollListener() {
+  //   if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
+  //     if (selectedChildTabIndex.value == 3) {
+  //       requestGameSearch(keyWord: lastKeyWord, platformId: lastPlatformId);
+  //     } else if (selectedGameTypeIndex.value == 0) {
+  //       requestHotGameList();
+  //     } else if (selectedGameTypeIndex.value == 1) {
+  //       requestFavGameList();
+  //     } else if (selectedGameTypeIndex.value > 1) {
+  //       requestGameList();
+  //     }
+  //     Log.d("=============滚动到了底部==============");
+  //   }
+  // }
 
-  void onGameTypeTitleBarSelected(int index) {
+  void onGameTypeTitleBarSelected(int index, {required listItemIndex}) {
     selectedTagIndex.value = 0;
-    selectedChildTabIndex.value = index;
+    getChildTabSelectIndexRx(listItemIndex).value = index;
     if (index != 3) {
       paginationHelper.reset();
     }
@@ -170,7 +184,7 @@ class HomeController extends GetxController {
   @override
   Future<void> onReady() async {
     super.onReady();
-    scrollController.addListener(_scrollListener);
+  //  scrollController.addListener(_scrollListener);
     requestMemberNav();
     requestNotice();
     requestCsData();
@@ -367,7 +381,7 @@ class HomeController extends GetxController {
   String lastKeyWord = "";
   String lastPlatformId = "";
 
-  Future<void> requestGameSearch({keyWord = '', platformId = "0"}) async {
+  Future<void> requestGameSearch({keyWord = '', platformId = "0", onSuccess}) async {
     if (paginationHelper.isHasRequestedAllData()) {
       return;
     }
@@ -386,7 +400,7 @@ class HomeController extends GetxController {
         'tag_id': 0,
       });
       onPaginationRequestFinish(curRequestPageIndex, retData['d']);
-      onGameTypeTitleBarSelected(3);
+      onSuccess();
     } catch (e, stack) {
       subTypeGameList.value = [];
       Log.e("$e, $stack");

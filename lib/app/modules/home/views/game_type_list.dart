@@ -91,7 +91,6 @@ class HorizontalGameListWidget extends StatelessWidget {
                           return isLast
                               ? CupertinoButton(
                                   onPressed: () {
-                                    controller.selectedGameTypeIndex.value = tabIndex;
                                     controller.addPressedRecord(tabIndex);
                                     // controller.scrollController.jumpTo(390.w);
                                     controller.scrollController.jumpTo(0);

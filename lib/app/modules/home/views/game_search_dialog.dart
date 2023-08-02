@@ -11,7 +11,7 @@ import '../../../entity/game_nav.dart';
 import '../controllers/home_controller.dart';
 
 class GameSearchWidget extends StatelessWidget {
-  GameSearchWidget({super.key, required this.dataList});
+  GameSearchWidget({super.key, required this.dataList, required this.listItemIndex});
 
   final List<GameNavEntity> dataList;
 
@@ -19,6 +19,7 @@ class GameSearchWidget extends StatelessWidget {
   final EditNode editNode = EditNode();
   final platformId = '0'.obs;
   static final lastSelectedGameType = ''.obs;
+  final int listItemIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -143,10 +144,12 @@ class GameSearchWidget extends StatelessWidget {
             onClick: () {
               if(editNode.text.value.isNotEmpty || controller.selectedSearchItemIndex.value != 0){
                 controller.paginationHelper.reset();
-                controller.requestGameSearch(keyWord: editNode.text.value, platformId: platformId.value);
+                controller.requestGameSearch(keyWord: editNode.text.value, platformId: platformId.value, onSuccess: (){
+                  controller.onGameTypeTitleBarSelected(3, listItemIndex: listItemIndex);
+                });
               }else{
                 controller.paginationHelper.reset();
-                controller.onGameTypeTitleBarSelected(0);
+                controller.onGameTypeTitleBarSelected(0, listItemIndex: listItemIndex);
               }
               Get.back();
             },
@@ -157,9 +160,9 @@ class GameSearchWidget extends StatelessWidget {
   }
 }
 
-void showSearchDialog(List<GameNavEntity> list) {
+void showSearchDialog(List<GameNavEntity> list, {listItemIndex = 0}) {
   Get.dialog(
-    GameSearchWidget(dataList: list),
+    GameSearchWidget(dataList: list, listItemIndex: listItemIndex,),
     barrierDismissible: false,
     barrierColor: const Color.fromRGBO(0, 0, 0, 0.8),
   );

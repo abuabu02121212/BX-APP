@@ -35,6 +35,7 @@ samples, guidance on mobile development, and a full API reference.
    依赖关系，lib下的app模块依赖依赖其他模块，但是其他模块不能依赖app模块
    以后其他模块会作为通用项目框架，以后搭建项目只需要删除app模块，其他模块稍微配置修改下就行了。
 
+项目地址：https://github.com/frontbrazil/brazil-app
 接口文档地址：http://rap2.cyestari.com/organization/repository/editor?id=17&mod=55
 UI地址：
 https://www.figma.com/file/VQCM9LAoTTvkuqvdWgtiX9/LB88-%E7%A7%BB%E5%8A%A8%E7%AB%AF?node-id=665%3A14552&mode=dev

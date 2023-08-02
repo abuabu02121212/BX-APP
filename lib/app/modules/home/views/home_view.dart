@@ -14,7 +14,6 @@ import 'package:marqueer/marqueer.dart';
 import '../../../../globe_controller.dart';
 import '../../../../http/comm_request.dart';
 import '../../../../util/app_util.dart';
-import '../../../../util/text_util.dart';
 import '../../../../widget/back_event_interceptor.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
@@ -77,7 +76,7 @@ class ItemGenerateWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
+        SizedBox(
           width: double.infinity,
           height: 280.w,
           child: SwiperComponent(
@@ -127,7 +126,7 @@ class ItemGenerateWidget extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
                       alignment: Alignment.topLeft,
-                      child: HomeGameTagComponent(),
+                      child: HomeGameTagComponent(listItemIndex: 0,),
                     ),
                     VerticalGameTypeList(),
                   ],
@@ -282,7 +281,6 @@ class HomeGameTypesWidget extends StatelessWidget {
                       return CupertinoButton(
                         onPressed: () {
                           if (controller.selectedGameTypeIndex.value != index) {
-                            controller.selectedGameTypeIndex.value = index;
                             controller.addPressedRecord(index);
                           }
                         },

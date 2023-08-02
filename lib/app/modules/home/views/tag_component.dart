@@ -12,9 +12,10 @@ import '../../../entity/game_tag.dart';
 import '../controllers/home_controller.dart';
 
 class HomeGameTagComponent extends StatefulWidget {
-  HomeGameTagComponent({super.key});
+  HomeGameTagComponent({super.key, required this.listItemIndex});
 
   final HomeController controller = Get.put(HomeController());
+  final int listItemIndex;
 
   @override
   State<StatefulWidget> createState() {
@@ -71,7 +72,7 @@ class MyState extends State<HomeGameTagComponent> with SingleTickerProviderState
                               runSpacing: 12.w,
                               children: List.generate(
                                 gameTagList.length,
-                                (index) => _buildTagItemWidget(index),
+                                (index) => _buildTagItemWidget(index, widget.listItemIndex),
                               ),
                             ),
                           ),
@@ -112,7 +113,7 @@ class MyState extends State<HomeGameTagComponent> with SingleTickerProviderState
     return textSize.width + 20.w;
   }
 
-  Widget _buildTagItemWidget(int index) {
+  Widget _buildTagItemWidget(int index, int listItemIndex) {
     return Obx(() {
       bool selected = widget.controller.selectedTagIndex.value == index;
       Color color = selected ? Colors.white : const Color.fromRGBO(255, 255, 255, 0.40);
@@ -121,7 +122,7 @@ class MyState extends State<HomeGameTagComponent> with SingleTickerProviderState
       return CupertinoButton(
         onPressed: () {
           widget.controller.selectedTagIndex.value = index;
-          widget.controller.selectedChildTabIndex.value = 0;
+          widget.controller.getChildTabSelectIndexRx(listItemIndex).value = 0;
           if (isOpen) {
             switchTagDrawer();
             upArrowSwitcherController.startSwitch();
