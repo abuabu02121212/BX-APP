@@ -54,7 +54,7 @@ class MyState extends State<HomeGameTagComponent> with SingleTickerProviderState
                       var gameTagList = widget.controller.gameTagList;
                       widgetSizeHelper.addListener((size) {
                         totalHeight = size.height;
-                        Log.d("tag collapse 的大小是：$size");
+                      //  Log.d("tag collapse 的大小是：$size");
                       });
                       return AnimatedContainer(
                         height: curHeight.value,
@@ -128,7 +128,8 @@ class MyState extends State<HomeGameTagComponent> with SingleTickerProviderState
             upArrowSwitcherController.startSwitch();
           }
           widget.controller.paginationHelper.reset();
-          widget.controller.requestGameList(tagId: gameTagEntity.tid);
+          /// TODO
+        //  widget.controller.requestGameList(tagId: gameTagEntity.tid);
         },
         minSize: 0,
         padding: EdgeInsets.zero,

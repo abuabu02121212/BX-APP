@@ -13,10 +13,12 @@ import 'package:get/get.dart';
 import 'package:marqueer/marqueer.dart';
 import '../../../../globe_controller.dart';
 import '../../../../http/comm_request.dart';
+import '../../../../util/Log.dart';
 import '../../../../util/app_util.dart';
 import '../../../../widget/back_event_interceptor.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
+import '../../../entity/game_item.dart';
 import '../../home_menu/views/home_menu_view.dart';
 import '../controllers/home_controller.dart';
 import 'game_type_list.dart';
@@ -86,51 +88,26 @@ class ItemGenerateWidget extends StatelessWidget {
         HomeMarquee(),
         HomeGameTypesWidget(),
         Obx(() {
-          bool isShowRecommendGamePage = controller.selectedGameTypeIndex.value == -1;
-          return isShowRecommendGamePage
-              ? Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ...List.generate(controller.recList.length, (index) {
-                      return HorizontalGameListWidget(
-                        list: controller.recList[index],
-                        tabIndex: index,
-                      );
-                    }),
-                    WinListWidget(),
-                    BrandListWidget(),
-                    Container(
-                      width: double.infinity,
-                      height: 94.w,
-                      decoration: const BoxDecoration(color: Color(0xff011A51)),
-                      margin: EdgeInsets.only(bottom: 110.w),
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Copyright © All Rights Reserved by Luckyking",
-                        style: TextStyle(
-                          fontSize: 24.w,
-                          color: const Color.fromRGBO(255, 255, 255, 0.60),
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              : Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    GameTypeTitleBar(),
-                    Container(
-                      margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
-                      alignment: Alignment.topLeft,
-                      child: HomeGameTagComponent(listItemIndex: 0,),
-                    ),
-                    VerticalGameTypeList(),
-                  ],
-                );
+          var tabIndex = controller.selectedGameTypeIndex.value;
+          if (tabIndex == 0) {
+            return RecPageWidget(controller: controller);
+          } else if (tabIndex == 1) {
+            return FavPageWidget(controller: controller);
+          }
+          return Obx(() {
+              return ListView.builder(
+                  itemCount: controller.tab2List.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return HorizontalGameListItemWidget(
+                      controller: controller,
+                      list: controller.tab2List[index],
+                      listItemIndex: index,
+                    );
+                  });
+            }
+          );
         }),
         SizedBox(height: 125.w),
       ],
@@ -138,11 +115,133 @@ class ItemGenerateWidget extends StatelessWidget {
   }
 }
 
+class RecPageWidget extends StatelessWidget {
+  const RecPageWidget({
+    super.key,
+    required this.controller,
+  });
+
+  final HomeController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ...List.generate(controller.recList.length, (index) {
+          return HorizontalGameListWidget(
+            list: controller.recList[index],
+            tabIndex: index,
+          );
+        }),
+        WinListWidget(),
+        BrandListWidget(),
+        Container(
+          width: double.infinity,
+          height: 94.w,
+          decoration: const BoxDecoration(color: Color(0xff011A51)),
+          margin: EdgeInsets.only(bottom: 110.w),
+          alignment: Alignment.center,
+          child: Text(
+            "Copyright © All Rights Reserved by Luckyking",
+            style: TextStyle(
+              fontSize: 24.w,
+              color: const Color.fromRGBO(255, 255, 255, 0.60),
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class FavPageWidget extends StatelessWidget {
+  const FavPageWidget({
+    super.key,
+    required this.controller,
+  });
+
+  final HomeController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ...List.generate(controller.tab1List.length, (index) {
+          return HorizontalGameListWidget(
+            list: controller.tab1List[index],
+            tabIndex: index,
+          );
+        }),
+      ],
+    );
+  }
+}
+
+class HorizontalGameListItemWidget extends StatelessWidget {
+  const HorizontalGameListItemWidget({
+    super.key,
+    required this.controller,
+    required this.list,
+    required this.listItemIndex,
+  });
+
+  final HomeController controller;
+  final List<GameEntity> list;
+  final int listItemIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        GameTypeTitleBar(listItemIndex: listItemIndex,),
+        Container(
+          margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
+          alignment: Alignment.topLeft,
+          child: HomeGameTagComponent(
+            listItemIndex: listItemIndex,
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          height: list.length > 1 ? 540.w : 270.w,
+          child: GridView.builder(
+            padding: EdgeInsets.only(top: 20.w),
+            itemCount: list.length,
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: list.length > 1 ? 2 : 1, childAspectRatio:
+            1.2),
+            itemBuilder: (BuildContext context, int index) {
+              return GameItemWidget(
+                isVerticalItem: false,
+                gameEntity: list[index],
+                index: index,
+                controller: controller,
+              );
+            },
+          ),
+        )
+      ],
+    );
+  }
+}
+
 class BrandListWidget extends StatelessWidget {
-   BrandListWidget({
+  BrandListWidget({
     super.key,
   });
+
   final HomeController controller = Get.put(HomeController());
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -167,7 +266,7 @@ class BrandListWidget extends StatelessWidget {
                 minSize: 0,
                 padding: EdgeInsets.zero,
                 onPressed: () async {
-                  if(controller.csEntity.value == null){
+                  if (controller.csEntity.value == null) {
                     await controller.requestCsData();
                   }
                   var facebook = controller.csEntity.value?.facebook ?? "-";
@@ -180,7 +279,7 @@ class BrandListWidget extends StatelessWidget {
                 minSize: 0,
                 padding: EdgeInsets.zero,
                 onPressed: () async {
-                  if(controller.csEntity.value == null){
+                  if (controller.csEntity.value == null) {
                     await controller.requestCsData();
                   }
                   var telegram = controller.csEntity.value?.telegram ?? "-";
@@ -338,17 +437,16 @@ class HomeMarquee extends StatelessWidget {
                 child: Container(
               padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 18.w),
               child: Obx(() {
-                return  Marqueer(
+                return Marqueer(
                     pps: 30,
                     infinity: true,
                     child: Text(
                       "${controller.showingMarqueeText.value}                        ",
-                        style: TextStyle(
-                         fontSize: 22.w,
-                         color: Colors.white,
-                       ),
-                      )
-                );
+                      style: TextStyle(
+                        fontSize: 22.w,
+                        color: Colors.white,
+                      ),
+                    ));
               }),
             )),
           ],

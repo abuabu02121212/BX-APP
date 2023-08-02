@@ -3,7 +3,6 @@ import 'package:flutter_comm/app/entity/game_tag.dart';
 import 'package:flutter_comm/app/modules/login_register/views/login_regiseter_widget.dart';
 import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
 import 'package:flutter_comm/globe_controller.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../app_config.dart';
@@ -25,31 +24,31 @@ import '../../../routes/app_pages.dart';
 
 class HomeController extends GetxController {
   final gameTypes = RxList<GameTypeEntity>(GameTypeEntity.getList());
-  final selectedGameTypeIndex = (-1).obs;
+  final selectedGameTypeIndex = 0.obs;
   final selectedTagIndex = 0.obs;
 
   final selectedSearchItemIndex = 0.obs;
-  final List<int> gameTypePressedRecordList = [-1];
+  final List<int> gameTypePressedRecordList = [0];
   final ScrollController scrollController = ScrollController();
   final showingMarqueeText = "".obs;
   final noticeListRx = RxList<NoticeEntity>();
 
   final List<GameNavEntity> navItemList = [];
 
- // final selectedChildTabIndex = 0.obs;
-  final Map<int, Rx<int>?> _childTabSelectedIndexMap ={};
+  // final selectedChildTabIndex = 0.obs;
+  final Map<int, Rx<int>?> _childTabSelectedIndexMap = {};
 
-  Rx<int> getChildTabSelectIndexRx(int listItemIndex){
+  Rx<int> getChildTabSelectIndexRx(int listItemIndex) {
     var posRx = _childTabSelectedIndexMap[listItemIndex];
-    Log.d2("posRx:$posRx  ===============listItemIndex:$listItemIndex");
-    if(posRx == null){
+    // Log.d2("posRx:$posRx  ===============listItemIndex:$listItemIndex");
+    if (posRx == null) {
       posRx = 0.obs;
       _childTabSelectedIndexMap[listItemIndex] = posRx;
     }
     return posRx;
   }
 
-  void resetChildTabSelectIndexRx(int listItemIndex){
+  void resetChildTabSelectIndexRx(int listItemIndex) {
     _childTabSelectedIndexMap[listItemIndex] = null;
   }
 
@@ -62,15 +61,13 @@ class HomeController extends GetxController {
 
   void requestSubTypeListData(int index) {
     paginationHelper.reset();
-    if (index == -1) {
+    if (index == 0) {
       requestRecommendGameList();
-    } else if (index == 0) {
-      requestHotGameList();
     } else if (index == 1) {
-      requestFavGameList();
+      requestTab1FavGameList();
     } else {
       selectedTagIndex.value = 0;
-      requestGameList();
+      requestTab2GameList();
       requestTagList();
     }
   }
@@ -98,40 +95,21 @@ class HomeController extends GetxController {
         requestSubTypeListData(selectedGameTypeIndex.value);
         return true;
       }
-      if (gameTypePressedRecordList.isEmpty && selectedGameTypeIndex.value != -1) {
-        selectedGameTypeIndex.value = -1;
-        requestSubTypeListData(selectedGameTypeIndex.value);
-        Log.d("===222=====consumePressedRecord：$gameTypePressedRecordList  selectedGameTypeIndex:${selectedGameTypeIndex.value}");
-        return true;
-      }
     }
     doubleClickExitApp.onClick();
     return true;
   }
 
-  final subTypeGameList = RxList<GameEntity>();
+//  final subTypeGameList = RxList<List<GameEntity>>();
   final lastWinListRx = RxList<LastWinEntity>();
   final verticalListPos0ShowSize = 0.obs;
   final gameTagList = RxList<GameTagEntity>();
   final PaginationHelper paginationHelper = PaginationHelper(15);
 
-  final recommend0GameList = RxList<GameEntity>();
-  final recommend1GameList = RxList<GameEntity>();
-  final recommend2GameList = RxList<GameEntity>();
-  final recommend3GameList = RxList<GameEntity>();
-  final recommend4GameList = RxList<GameEntity>();
-  final recommend5GameList = RxList<GameEntity>();
-  final recommend6GameList = RxList<GameEntity>();
+  late List<RxList<GameEntity>> recList = List.generate(7, (index) => RxList<GameEntity>());
 
-  late final recList = <RxList<GameEntity>>[
-    recommend0GameList,
-    recommend1GameList,
-    recommend2GameList,
-    recommend3GameList,
-    recommend4GameList,
-    recommend5GameList,
-    recommend6GameList,
-  ];
+  late List<RxList<GameEntity>> tab1List = List.generate(7, (index) => RxList<GameEntity>());
+  late final tab2List = RxList<List<GameEntity>>();
 
   final bannerList = RxList<BannerEntity>();
 
@@ -158,33 +136,19 @@ class HomeController extends GetxController {
       paginationHelper.reset();
     }
     if (index == 0) {
-      requestGameList();
+      requestTab2GameList();
     } else if (index == 1) {
-      requestHotGameList(ty: getCurGameType());
+      /// TODO
+      //  requestHotGameList(ty: getCurGameType());
     } else if (index == 2) {
       requestMemberFavList2(ty: getCurGameType());
-    }
-  }
-
-  Future<void> pageShowHotGameList() async {
-    if (verticalListPos0ShowSize.value < subTypeGameList.length) {
-      AppLoading.show();
-      // await Future.delayed(const Duration(milliseconds: 200));
-      int temSize = verticalListPos0ShowSize.value + 100;
-      if (temSize <= subTypeGameList.length) {
-        verticalListPos0ShowSize.value = temSize;
-      } else {
-        verticalListPos0ShowSize.value = subTypeGameList.length;
-      }
-      scrollController.animateTo(scrollController.offset + 30.w, duration: const Duration(milliseconds: 250), curve: Curves.ease);
-      AppLoading.close();
     }
   }
 
   @override
   Future<void> onReady() async {
     super.onReady();
-  //  scrollController.addListener(_scrollListener);
+    //  scrollController.addListener(_scrollListener);
     requestMemberNav();
     requestNotice();
     requestCsData();
@@ -211,6 +175,7 @@ class HomeController extends GetxController {
     }
   }
 
+  /// tab 0
   void requestRecommendGameList() {
     requestHotGameListForRec();
     requestFavGameListForRec();
@@ -219,6 +184,31 @@ class HomeController extends GetxController {
       RxList<GameEntity> item = recList[i];
       requestRecGameList(tyList[i - 2], item);
     }
+  }
+
+  /// tab 1
+  Future<void> requestTab1FavGameList() async {
+    List<int> tyList = [3, 2, 5, 4, 1];
+    AppLoading.show();
+    for (int i = 2; i < 7; i++) {
+      RxList<GameEntity> item = tab1List[i];
+      await requestFavGameList(item, ty: tyList[i - 2].toString());
+    }
+    AppLoading.close();
+  }
+
+  /// tab 2
+  Future<void> requestTab2GameList() async {
+    AppLoading.show();
+    tab2List.clear();
+    List<GameNavEntity> filterList = navItemList.where((element) => getCurGameType() == element.gameType).toList();
+    for (var item in filterList) {
+      var tarList = <GameEntity>[];
+      tab2List.add(tarList);
+      await requestGameList(tarList, platformId: item.id);
+    }
+    tab2List.refresh();
+    AppLoading.close();
   }
 
   Future<void> requestMemberNav() async {
@@ -243,6 +233,7 @@ class HomeController extends GetxController {
     Log.d("nav的数据size是：${navItemList.length} ");
   }
 
+  /// 0. 推荐游戏列表
   Future<void> requestRecGameList(int ty, RxList<GameEntity> rx) async {
     var retArr1 = await apiRequest.requestGameRecList(params: {
       'ty': ty,
@@ -254,6 +245,7 @@ class HomeController extends GetxController {
     Log.d("=======ty:$ty 推荐游戏数目：${rx.length}");
   }
 
+  /// 0. 推荐游戏列表 - 热门游戏
   Future<void> requestHotGameListForRec() async {
     var tarRx = recList[0];
     try {
@@ -271,6 +263,7 @@ class HomeController extends GetxController {
     }
   }
 
+  /// 0. 推荐游戏列表 - Fav游戏
   Future<void> requestFavGameListForRec() async {
     var tarRx = recList[1];
     try {
@@ -285,52 +278,45 @@ class HomeController extends GetxController {
     } catch (e, stack) {
       Log.e("$e, $stack");
     }
-    Log.d("推荐收藏游戏数目：${subTypeGameList.length}");
   }
 
-  Future<void> requestHotGameList({ty = "0"}) async {
-    if (paginationHelper.isHasRequestedAllData()) {
-      return;
-    }
-    AppLoading.show();
-    try {
-      var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
-      var retData = await apiRequest.requestHotGameList({
-        'ty': ty,
-        'page': curRequestPageIndex,
-        'page_size': paginationHelper.perPageSize,
-        'platform_id': 0,
-      });
-      onPaginationRequestFinish(curRequestPageIndex, retData['d']);
-      Log.d("热门游戏数目：${subTypeGameList.length}");
-    } catch (e, stack) {
-      subTypeGameList.value = [];
-      Log.e("$e, $stack");
-    }
-    AppLoading.close();
-  }
+  // Future<void> requestHotGameList({ty = "0"}) async {
+  //   if (paginationHelper.isHasRequestedAllData()) {
+  //     return;
+  //   }
+  //   AppLoading.show();
+  //   try {
+  //     var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
+  //     var retData = await apiRequest.requestHotGameList({
+  //       'ty': ty,
+  //       'page': curRequestPageIndex,
+  //       'page_size': 999,
+  //       'platform_id': 0,
+  //     });
+  //     List list = retData['d'];
+  //     Log.d("热门游戏数目：${list.length}");
+  //   } catch (e, stack) {
+  //   //  subTypeGameList.value = [];
+  //     Log.e("$e, $stack");
+  //   }
+  //   AppLoading.close();
+  // }
 
-  Future<void> requestFavGameList({ty = "0"}) async {
-    if (paginationHelper.isHasRequestedAllData()) {
-      return;
-    }
-    AppLoading.show();
+  /// TAB1 收藏游戏
+  Future<void> requestFavGameList(RxList<GameEntity> rx, {ty = "0"}) async {
     try {
-      var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
       var retData = await apiRequest.requestGameFavList(params: {
         'ty': ty,
-        'page': curRequestPageIndex,
-        'page_size': paginationHelper.perPageSize,
-        // 'l': 500,
+        'page': 1,
+        'page_size': 15,
         'platform_id': 0,
       });
-      onPaginationRequestFinish(curRequestPageIndex, retData['d']);
+      List<GameEntity> list = GameEntity.getList(retData['d']);
+      rx.value = list;
+      Log.d("tab1-收藏游戏数目：${list.length}");
     } catch (e, stack) {
-      subTypeGameList.value = [];
       Log.e("$e, $stack");
     }
-    AppLoading.close();
-    Log.d("收藏游戏数目：${subTypeGameList.length}");
   }
 
   Future<void> requestMemberFavList2({ty = "0"}) async {
@@ -346,36 +332,36 @@ class HomeController extends GetxController {
         'page_size': paginationHelper.perPageSize,
         'platform_id': 0,
       });
-      onPaginationRequestFinish(curRequestPageIndex, retData);
+      List list = retData['d'];
+      Log.d("收藏游戏2数目：${list.length}");
     } catch (e, stack) {
-      subTypeGameList.value = [];
+      //subTypeGameList.value = [];
       Log.e("$e, $stack");
     }
     AppLoading.close();
-    Log.d("收藏游戏2数目：${subTypeGameList.length}");
+    Log.d("收藏游戏2数目：");
   }
 
-  Future<void> requestGameList({tagId = 0}) async {
+  Future<void> requestGameList(List<GameEntity> tarList, {tagId = 0, platformId=0}) async {
     if (paginationHelper.isHasRequestedAllData()) {
       return;
     }
-    AppLoading.show();
     var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
     try {
       var retData = await apiRequest.requestGameList(params: {
         'game_type': getCurGameType(),
         'page': curRequestPageIndex,
         'page_size': paginationHelper.perPageSize,
-        'platform_id': 0,
+        'platform_id': platformId,
         'tag_id': tagId,
       });
-      onPaginationRequestFinish(curRequestPageIndex, retData['d']);
+      List<GameEntity> list = GameEntity.getList(retData['d']);
+      tarList.addAll(list);
+      Log.d("子类游戏数目：${list.length}");
     } catch (e, stack) {
-      subTypeGameList.value = [];
+      // subTypeGameList.value = [];
       Log.e("$e, $stack");
     }
-    AppLoading.close();
-    Log.d("==子类=====游戏数目：${subTypeGameList.length}");
   }
 
   String lastKeyWord = "";
@@ -399,15 +385,16 @@ class HomeController extends GetxController {
         'platform_id': platformId,
         'tag_id': 0,
       });
-      onPaginationRequestFinish(curRequestPageIndex, retData['d']);
+      List list = retData['d'];
+      Log.d("游戏搜索结果数目：${list.length}");
       onSuccess();
     } catch (e, stack) {
-      subTypeGameList.value = [];
+      //  subTypeGameList.value = [];
       Log.e("$e, $stack");
     }
     AppLoading.close();
-    Log.d("==game_type:$curGameType=====游戏搜索结果size：${subTypeGameList.length}");
   }
+
 
   Future<void> requestTagList() async {
     gameTagList.clear();
@@ -423,26 +410,9 @@ class HomeController extends GetxController {
       gameTagList.addAll(GameTagEntity.getList(json));
       gameTagList.refresh();
     } catch (e, stack) {
-      subTypeGameList.value = [];
       Log.e("$e, $stack");
     }
     Log.d("=======游戏tag列表长度：${gameTagList.length} ");
-  }
-
-  void onPaginationRequestFinish(int curRequestPageIndex, retArr) {
-    var list = GameEntity.getList(retArr);
-    if (curRequestPageIndex == 1) {
-      subTypeGameList.value = list;
-    } else if (curRequestPageIndex > 1) {
-      subTypeGameList.addAll(list);
-      subTypeGameList.refresh();
-    }
-    if (list.length > 2 && curRequestPageIndex > 1) {
-      Future.delayed(const Duration(milliseconds: 250), () {
-        scrollController.jumpTo(scrollController.offset + 20.w);
-      });
-    }
-    paginationHelper.onRequestDataOk(list.length);
   }
 
   Future<void> requestNotice() async {
