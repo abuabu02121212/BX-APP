@@ -18,6 +18,7 @@ import '../../../../util/app_util.dart';
 import '../../../../widget/back_event_interceptor.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
+import '../../../component/app_empty.dart';
 import '../../../entity/game_item.dart';
 import '../../home_menu/views/home_menu_view.dart';
 import '../controllers/home_controller.dart';
@@ -129,9 +130,10 @@ class Tab2PageWidget extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
+            RxList<GameEntity> gameRxList = controller.tab2List[index];
             return HorizontalGameListItemWidget(
               controller: controller,
-              list: controller.tab2List[index],
+              list: gameRxList,
               listItemIndex: index,
             );
           });
@@ -235,34 +237,41 @@ class HorizontalGameListItemWidget extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
           alignment: Alignment.topLeft,
-          child: HomeGameTagComponent(
-            listItemIndex: listItemIndex,
-            gameTagList: controller.tab2TagList[listItemIndex],
-          ),
+          child: Obx(() {
+            return HomeGameTagComponent(
+              listItemIndex: listItemIndex,
+              gameTagList: controller.tab2TagList[listItemIndex],
+            );
+          }),
         ),
         Obx(() {
-            return SizedBox(
-              width: double.infinity,
-              height: list.length > 1 ? 540.w : 270.w,
-              child: GridView.builder(
-                padding: EdgeInsets.only(top: 20.w),
-                itemCount: list.length,
-                physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: list.length > 1 ? 2 : 1, childAspectRatio: 1.2),
-                itemBuilder: (BuildContext context, int index) {
-                  return GameItemWidget(
-                    isVerticalItem: false,
-                    gameEntity: list[index],
-                    index: index,
-                    controller: controller,
-                  );
-                },
-              ),
-            );
-          }
-        )
+          return list.isNotEmpty
+              ? SizedBox(
+                  width: double.infinity,
+                  height: list.length > 1 ? 540.w : 270.w,
+                  child: GridView.builder(
+                    padding: EdgeInsets.only(top: 20.w),
+                    itemCount: list.length,
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: list.length > 1 ? 2 : 1, childAspectRatio: 1.2),
+                    itemBuilder: (BuildContext context, int index) {
+                      return GameItemWidget(
+                        isVerticalItem: false,
+                        gameEntity: list[index],
+                        index: index,
+                        controller: controller,
+                      );
+                    },
+                  ),
+                )
+              : AppEmpty(
+                  width: double.infinity,
+                  height: 400.w,
+                  alignment: Alignment.center,
+                );
+        })
       ],
     );
   }

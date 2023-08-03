@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../util/Log.dart';
+import '../../../../util/loading_util.dart';
 import '../../../../util/measure_util.dart';
 import '../../../../util/text_util.dart';
 import '../../../../widget/up_arrow_switcher.dart';
 import '../../../app_style.dart';
 import '../../../entity/game_tag.dart';
+import '../controllers/game_list_requests.dart';
 import '../controllers/home_controller.dart';
 
 class HomeGameTagComponent extends StatefulWidget {
@@ -15,7 +18,9 @@ class HomeGameTagComponent extends StatefulWidget {
     super.key,
     required this.listItemIndex,
     required this.gameTagList,
-  });
+  }){
+    controller.tagTabSelectedIndexMap.resetByPos(listItemIndex);
+  }
 
   final HomeController controller = Get.put(HomeController());
   final int listItemIndex;
@@ -119,22 +124,23 @@ class MyState extends State<HomeGameTagComponent> with SingleTickerProviderState
 
   Widget _buildTagItemWidget(int index, int listItemIndex) {
     return Obx(() {
-      bool selected = widget.controller.selectedTagIndex.value == index;
+      bool selected = widget.controller.tagTabSelectedIndexMap.getIndexRxByPos(listItemIndex).value == index;
       Color color = selected ? Colors.white : const Color.fromRGBO(255, 255, 255, 0.40);
       FontWeight weight = selected ? FontWeight.w700 : FontWeight.w400;
       GameTagEntity gameTagEntity = widget.gameTagList[index];
       return CupertinoButton(
-        onPressed: () {
-          widget.controller.selectedTagIndex.value = index;
-          widget.controller.getChildTabSelectIndexRx(listItemIndex).value = 0;
+        onPressed: () async {
+          widget.controller.tagTabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = index;
+          widget.controller.childTabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = 0;
           if (isOpen) {
             switchTagDrawer();
             upArrowSwitcherController.startSwitch();
           }
-          widget.controller.paginationHelper.reset();
-
-          /// TODO
-          //  widget.controller.requestGameList(tagId: gameTagEntity.tid);
+          Log.d("======gameTagEntity.name :${gameTagEntity.name}==============");
+          AppLoading.show();
+          await requestGameList(widget.controller.tab2List[listItemIndex], widget.controller.getCurGameType(), platformId:
+          widget.controller.curTab2GameNavEntityList[listItemIndex].id, tagId: gameTagEntity.tid);
+          AppLoading.close();
         },
         minSize: 0,
         padding: EdgeInsets.zero,

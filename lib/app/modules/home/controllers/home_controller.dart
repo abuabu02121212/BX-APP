@@ -7,8 +7,8 @@ import '../../../../app_config.dart';
 import '../../../../http/request.dart';
 import '../../../../util/Log.dart';
 import '../../../../util/double_click_exit_app.dart';
+import '../../../../util/dynamic_index_rx.dart';
 import '../../../../util/loading_util.dart';
-import '../../../../util/pagination_helper.dart';
 import '../../../entity/banner.dart';
 import '../../../entity/cs.dart';
 import '../../../entity/game_item.dart';
@@ -23,7 +23,6 @@ import 'home_requests.dart';
 class HomeController extends GetxController {
   final gameTypes = RxList<GameTypeEntity>(GameTypeEntity.getList());
   final selectedGameTypeIndex = 0.obs;
-  final selectedTagIndex = 0.obs;
 
   final selectedSearchItemIndex = 0.obs;
   final List<int> gameTypePressedRecordList = [0];
@@ -39,7 +38,7 @@ class HomeController extends GetxController {
 
   final lastWinListRx = RxList<LastWinEntity>();
   final verticalListPos0ShowSize = 0.obs;
-  final PaginationHelper paginationHelper = PaginationHelper(15);
+ // final PaginationHelper paginationHelper = PaginationHelper(15);
 
   late final recList = RxList<RxList<GameEntity>>(List.generate(7, (index) => RxList<GameEntity>()));
   late final tab1List = RxList<RxList<GameEntity>>(List.generate(7, (index) => RxList<GameEntity>()));
@@ -47,22 +46,9 @@ class HomeController extends GetxController {
   late final tab2TagList = RxList<RxList<GameTagEntity>>();
 
   final bannerList = RxList<BannerEntity>();
+  final IndexRxMap childTabSelectedIndexMap = IndexRxMap();
+  final IndexRxMap tagTabSelectedIndexMap = IndexRxMap();
 
-  final Map<int, Rx<int>?> _childTabSelectedIndexMap = {};
-
-  Rx<int> getChildTabSelectIndexRx(int listItemIndex) {
-    var posRx = _childTabSelectedIndexMap[listItemIndex];
-    // Log.d2("posRx:$posRx  ===============listItemIndex:$listItemIndex");
-    if (posRx == null) {
-      posRx = 0.obs;
-      _childTabSelectedIndexMap[listItemIndex] = posRx;
-    }
-    return posRx;
-  }
-
-  void resetChildTabSelectIndexRx(int listItemIndex) {
-    _childTabSelectedIndexMap[listItemIndex] = null;
-  }
 
   void addPressedRecord(int index) {
     selectedGameTypeIndex.value = index;
@@ -72,13 +58,13 @@ class HomeController extends GetxController {
   }
 
   void requestTabPageData(int tabIndex) {
-    paginationHelper.reset();
+  //  paginationHelper.reset();
     if (tabIndex == 0) {
       requestTab0GameList();
     } else if (tabIndex == 1) {
       requestTab1FavGameList();
     } else {
-      selectedTagIndex.value = 0;
+      tagTabSelectedIndexMap.clear();
       requestTab2GameList();
     }
   }
@@ -128,15 +114,17 @@ class HomeController extends GetxController {
   // }
 
   /// 小按钮请求
-  void onGameTypeTitleBarSelected(int index, {required listItemIndex}) {
+  Future<void> onGameTypeTitleBarSelected(int index, {required listItemIndex}) async {
     Log.d2("onGameTypeTitleBarSelected=================index:$index============");
-    selectedTagIndex.value = 0;
-    getChildTabSelectIndexRx(listItemIndex).value = index;
+    tagTabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = 0;
+    childTabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = index;
     if (index != 3) {
-      paginationHelper.reset();
+    //  paginationHelper.reset();
     }
     if (index == 0) {
-      requestGameList(tab2List[listItemIndex], getCurGameType(), platformId: curTab2GameNavEntityList[listItemIndex].id);
+      AppLoading.show();
+      await requestGameList(tab2List[listItemIndex], getCurGameType(), platformId: curTab2GameNavEntityList[listItemIndex].id);
+      AppLoading.close();
     } else if (index == 1) {
       requestHotGameList(tab2List[listItemIndex], getCurGameType(), platformId: curTab2GameNavEntityList[listItemIndex].id);
     } else if (index == 2) {
@@ -196,15 +184,18 @@ class HomeController extends GetxController {
       tempTab2List.add(tarList);
       tempTab2TagList.add(tarTagList);
       await requestGameList(tarList, getCurGameType(), platformId: item.id);
-      await requestTagList(tarTagList, getCurGameType(), platformId: item.id);
+      await requestTagList(tarTagList, getCurGameType(), platformId: 0);
     }
-    tab2List.clear();
-    tab2List.addAll(tempTab2List);
-    tab2List.refresh();
-
     tab2TagList.clear();
     tab2TagList.addAll(tempTab2TagList);
+
+    tab2List.clear();
+    tab2List.addAll(tempTab2List);
+
+    tab2List.refresh();
     tab2TagList.refresh();
+
+
     AppLoading.close();
   }
 }
