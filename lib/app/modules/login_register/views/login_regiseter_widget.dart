@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/modules/login_register/views/tab_component.dart';
 import 'package:flutter_comm/app/modules/register/views/register_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 
 import '../../login/views/login_view.dart';
 import '../controllers/login_register_controller.dart';
 
 class LoginRegisterWidget extends StatelessWidget {
-  LoginRegisterWidget({super.key}){
+  LoginRegisterWidget({super.key}) {
     Get.create<LoginRegisterController>(() => LoginRegisterController());
     controller = Get.put(LoginRegisterController());
   }
@@ -34,7 +35,8 @@ class LoginRegisterWidget extends StatelessWidget {
                     minSize: 0,
                     padding: EdgeInsets.all(10.w),
                     onPressed: () {
-                      Get.back();
+                      // Get.back();
+                      closeLoginRegisterDialog();
                     },
                     child: Image.asset(
                       "assets/images/dialog-close.webp",
@@ -65,7 +67,7 @@ class LoginRegisterWidget extends StatelessWidget {
                             index: controller.selectedIndex.value,
                             children: pageList,
                           );
-                        //  return pageList[controller.selectedIndex.value];
+                          //  return pageList[controller.selectedIndex.value];
                         }),
                       ],
                     ),
@@ -80,10 +82,22 @@ class LoginRegisterWidget extends StatelessWidget {
   }
 }
 
+var loginRegisterDialog = "loginRegisterDialog";
+var isLoinRegisterShowing = false;
+
 void showLoginRegisterDialog() {
-  Get.dialog(
-    LoginRegisterWidget(),
-    barrierDismissible: false
-    //  barrierColor: const Color.fromRGBO(0, 0, 0, 0.7),
-  );
+  SmartDialog.show(
+      tag: loginRegisterDialog,
+      keepSingle: true,
+      clickMaskDismiss: false,
+      alignment: Alignment.center,
+      builder: (BuildContext context) {
+        return LoginRegisterWidget();
+      });
+  isLoinRegisterShowing = true;
+}
+
+void closeLoginRegisterDialog() {
+  SmartDialog.dismiss(tag: loginRegisterDialog);
+  isLoinRegisterShowing = false;
 }

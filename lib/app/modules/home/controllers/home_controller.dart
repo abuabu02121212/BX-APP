@@ -17,6 +17,8 @@ import '../../../entity/game_type.dart';
 import '../../../entity/last_win.dart';
 import '../../../entity/notice.dart';
 import '../../../routes/app_pages.dart';
+import '../../home_menu/views/home_menu_view.dart';
+import '../../login_register/views/login_regiseter_widget.dart';
 import 'game_list_requests.dart';
 import 'home_requests.dart';
 
@@ -79,6 +81,14 @@ class HomeController extends GetxController {
     Log.d("当前路由是：${appNavigatorObserver.curRouterName} list:${appNavigatorObserver.routerNameList}");
     if (appNavigatorObserver.curRouterName != Routes.SPLASH) {
       return false;
+    }
+    if(isLoinRegisterShowing){
+      closeLoginRegisterDialog();
+      return true;
+    }
+    if(isHomeDrawerShowing){
+      closeHomeDrawer();
+      return true;
     }
     MainController mainController = Get.find<MainController>();
     if (mainController.indicatorTabController.selectedIndexNotifier.value == 0) {

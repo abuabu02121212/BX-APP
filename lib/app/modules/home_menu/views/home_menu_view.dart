@@ -373,6 +373,7 @@ class HeaderWidget extends StatelessWidget {
   }
 }
 String tagHomeDrawer = "tagHomeDrawer";
+bool isHomeDrawerShowing = false;
 void showHomeDrawer() {
   SmartDialog.show(
     tag: tagHomeDrawer,
@@ -382,8 +383,10 @@ void showHomeDrawer() {
       return const SafeArea(child: HomeDrawerWidget());
     },
   );
+  isHomeDrawerShowing = true;
 }
 
 void closeHomeDrawer(){
   SmartDialog.dismiss(tag: tagHomeDrawer);
+  isHomeDrawerShowing = false;
 }

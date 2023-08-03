@@ -50,7 +50,7 @@ aa123456
 jiar： 
 http://jira.p3nu.com/browse/BXBW-120?jql=project%20%3D%20BXBW%20AND%20status%20in%20(Open%2C%20%E5%BC%80%E5%8F%91%E5%BE%85%E5%A4%84%E7%90%86%2C%20%E4%BF%AE%E5%A4%8D%E5%8D%95%E5%BE%85%E5%A4%84%E7%90%86)%20ORDER%20BY%20created%20DESC
 
-
+// 待开发： 加载更多， 最近获奖， 底部颜色， 顶部标题栏颜色
 
 code 码对照：
 {
