@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../../util/Log.dart';
 import '../../../../util/measure_util.dart';
 import '../../../../util/text_util.dart';
 import '../../../../widget/up_arrow_switcher.dart';
@@ -12,10 +11,15 @@ import '../../../entity/game_tag.dart';
 import '../controllers/home_controller.dart';
 
 class HomeGameTagComponent extends StatefulWidget {
-  HomeGameTagComponent({super.key, required this.listItemIndex});
+  HomeGameTagComponent({
+    super.key,
+    required this.listItemIndex,
+    required this.gameTagList,
+  });
 
   final HomeController controller = Get.put(HomeController());
   final int listItemIndex;
+  final List<GameTagEntity> gameTagList;
 
   @override
   State<StatefulWidget> createState() {
@@ -51,10 +55,10 @@ class MyState extends State<HomeGameTagComponent> with SingleTickerProviderState
                 children: [
                   Expanded(
                     child: Obx(() {
-                      var gameTagList = widget.controller.gameTagList;
+                      var gameTagList = widget.gameTagList;
                       widgetSizeHelper.addListener((size) {
                         totalHeight = size.height;
-                      //  Log.d("tag collapse 的大小是：$size");
+                        //  Log.d("tag collapse 的大小是：$size");
                       });
                       return AnimatedContainer(
                         height: curHeight.value,
@@ -108,7 +112,7 @@ class MyState extends State<HomeGameTagComponent> with SingleTickerProviderState
   final TextStyle textStyle = TextStyle(fontSize: 24.w);
 
   double getTabItemWidth(int pos) {
-    var tabName = widget.controller.gameTagList[pos].name.toString();
+    var tabName = widget.gameTagList[pos].name.toString();
     var textSize = TextMeasureUtil.getTextSize(text: tabName, maxWidth: 1000000, style: textStyle);
     return textSize.width + 20.w;
   }
@@ -118,7 +122,7 @@ class MyState extends State<HomeGameTagComponent> with SingleTickerProviderState
       bool selected = widget.controller.selectedTagIndex.value == index;
       Color color = selected ? Colors.white : const Color.fromRGBO(255, 255, 255, 0.40);
       FontWeight weight = selected ? FontWeight.w700 : FontWeight.w400;
-      GameTagEntity gameTagEntity = widget.controller.gameTagList[index];
+      GameTagEntity gameTagEntity = widget.gameTagList[index];
       return CupertinoButton(
         onPressed: () {
           widget.controller.selectedTagIndex.value = index;
@@ -128,8 +132,9 @@ class MyState extends State<HomeGameTagComponent> with SingleTickerProviderState
             upArrowSwitcherController.startSwitch();
           }
           widget.controller.paginationHelper.reset();
+
           /// TODO
-        //  widget.controller.requestGameList(tagId: gameTagEntity.tid);
+          //  widget.controller.requestGameList(tagId: gameTagEntity.tid);
         },
         minSize: 0,
         padding: EdgeInsets.zero,

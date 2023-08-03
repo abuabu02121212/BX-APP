@@ -21,6 +21,7 @@ import '../../../component/app_button.dart';
 import '../../../entity/game_item.dart';
 import '../../home_menu/views/home_menu_view.dart';
 import '../controllers/home_controller.dart';
+import '../controllers/home_requests.dart';
 import 'game_type_list.dart';
 import 'game_type_title_bar.dart';
 import 'last_win_widget.dart';
@@ -193,21 +194,20 @@ class FavPageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ...List.generate(controller.tab1List.length, (index) {
-              return HorizontalGameListWidget(
-                list: controller.tab1List[index],
-                tabIndex: index,
-              );
-            }),
-          ],
-        );
-      }
-    );
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ...List.generate(controller.tab1List.length, (index) {
+            return HorizontalGameListWidget(
+              list: controller.tab1List[index],
+              tabIndex: index,
+            );
+          }),
+        ],
+      );
+    });
   }
 }
 
@@ -237,6 +237,7 @@ class HorizontalGameListItemWidget extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: HomeGameTagComponent(
             listItemIndex: listItemIndex,
+            gameTagList: controller.tab2TagList[listItemIndex],
           ),
         ),
         SizedBox(
@@ -296,7 +297,7 @@ class BrandListWidget extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 onPressed: () async {
                   if (controller.csEntity.value == null) {
-                    await controller.requestCsData();
+                    await requestCsData(controller.csEntity);
                   }
                   var facebook = controller.csEntity.value?.facebook ?? "-";
                   AppUtil.launch(facebook);
@@ -309,7 +310,7 @@ class BrandListWidget extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 onPressed: () async {
                   if (controller.csEntity.value == null) {
-                    await controller.requestCsData();
+                    await requestCsData(controller.csEntity);
                   }
                   var telegram = controller.csEntity.value?.telegram ?? "-";
                   AppUtil.launch(telegram);
@@ -453,7 +454,7 @@ class HomeMarquee extends StatelessWidget {
       decoration: BoxDecoration(color: const Color(0xff011A51), borderRadius: BorderRadius.circular(30.w)),
       child: CupertinoButton(
         onPressed: () {
-          controller.requestNotice();
+          requestNotice(controller.noticeListRx, controller.showingMarqueeText);
           showNoticeListDialog();
         },
         minSize: 0,

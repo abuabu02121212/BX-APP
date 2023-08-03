@@ -8,6 +8,7 @@ import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_user_info_input_field.dart';
 import '../../../entity/game_nav.dart';
+import '../controllers/game_list_requests.dart';
 import '../controllers/home_controller.dart';
 
 class GameSearchWidget extends StatelessWidget {
@@ -144,7 +145,7 @@ class GameSearchWidget extends StatelessWidget {
             onClick: () {
               if(editNode.text.value.isNotEmpty || controller.selectedSearchItemIndex.value != 0){
                 controller.paginationHelper.reset();
-                controller.requestGameSearch(keyWord: editNode.text.value, platformId: platformId.value, onSuccess: (){
+                requestGameSearch(controller.getCurGameType(), keyWord: editNode.text.value, platformId: platformId.value, onSuccess: (){
                   controller.onGameTypeTitleBarSelected(3, listItemIndex: listItemIndex);
                 });
               }else{

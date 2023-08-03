@@ -8,6 +8,7 @@ import '../../../../http/api.dart';
 import '../../../../util/Log.dart';
 import '../../../app_style.dart';
 import '../../../entity/game_item.dart';
+import '../controllers/game_list_requests.dart';
 import '../controllers/home_controller.dart';
 
 class HorizontalGameListWidget extends StatelessWidget {
@@ -146,7 +147,7 @@ class GameItemWidget extends StatelessWidget {
     return CupertinoButton(
       onPressed: () {
         Log.d("gameEntity:${gameEntity.toJson()}");
-        controller.requestGameLaunch(gameEntity);
+        requestGameLaunch(gameEntity);
       },
       minSize: 0,
       padding: EdgeInsets.zero,
@@ -172,9 +173,9 @@ class GameItemWidget extends StatelessWidget {
                   onPressed: () {
                     bool isFav = gameEntity.isRxFav.value;
                     if (isFav) {
-                      controller.requestDelFav(gameEntity);
+                      requestDelFav(gameEntity);
                     } else {
-                      controller.requestAddFav(gameEntity);
+                      requestAddFav(gameEntity);
                     }
                   },
                   minSize: 0,
