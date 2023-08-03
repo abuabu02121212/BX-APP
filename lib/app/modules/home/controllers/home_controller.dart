@@ -33,6 +33,10 @@ class HomeController extends GetxController {
   final showingMarqueeText = "".obs;
   final noticeListRx = RxList<NoticeEntity>();
 
+  final PageStorageBucket pageStorageBucket = PageStorageBucket();
+  final PageStorageBucket pageStorageBucket2 = PageStorageBucket();
+  final PageStorageBucket pageStorageBucket3 = PageStorageBucket();
+
   final List<GameNavEntity> navItemList = [];
 
   // final selectedChildTabIndex = 0.obs;
@@ -106,9 +110,8 @@ class HomeController extends GetxController {
   final gameTagList = RxList<GameTagEntity>();
   final PaginationHelper paginationHelper = PaginationHelper(15);
 
-  late List<RxList<GameEntity>> recList = List.generate(7, (index) => RxList<GameEntity>());
-
-  late List<RxList<GameEntity>> tab1List = List.generate(7, (index) => RxList<GameEntity>());
+  late final recList = RxList<RxList<GameEntity>>(List.generate(7, (index) => RxList<GameEntity>()));
+  late final tab1List = RxList<RxList<GameEntity>>(List.generate(7, (index) => RxList<GameEntity>()));
   late final tab2List = RxList<List<GameEntity>>();
 
   final bannerList = RxList<BannerEntity>();
@@ -177,8 +180,8 @@ class HomeController extends GetxController {
 
   /// tab 0
   void requestRecommendGameList() {
-    requestHotGameListForRec();
-    requestFavGameListForRec();
+    requestHotGameListForRec(recList[0]);
+    requestFavGameListForRec(recList[1]);
     List<int> tyList = [3, 2, 5, 4, 1];
     for (int i = 2; i < recList.length; i++) {
       RxList<GameEntity> item = recList[i];
@@ -200,13 +203,15 @@ class HomeController extends GetxController {
   /// tab 2
   Future<void> requestTab2GameList() async {
     AppLoading.show();
-    tab2List.clear();
+    var tempTab2List = <List<GameEntity>>[];
     List<GameNavEntity> filterList = navItemList.where((element) => getCurGameType() == element.gameType).toList();
     for (var item in filterList) {
       var tarList = <GameEntity>[];
-      tab2List.add(tarList);
+      tempTab2List.add(tarList);
       await requestGameList(tarList, platformId: item.id);
     }
+    tab2List.clear();
+    tab2List.addAll(tempTab2List);
     tab2List.refresh();
     AppLoading.close();
   }
@@ -246,8 +251,7 @@ class HomeController extends GetxController {
   }
 
   /// 0. 推荐游戏列表 - 热门游戏
-  Future<void> requestHotGameListForRec() async {
-    var tarRx = recList[0];
+  Future<void> requestHotGameListForRec(RxList<GameEntity> tarRx) async {
     try {
       var retData = await apiRequest.requestHotGameList({
         'ty': 0,
@@ -264,8 +268,7 @@ class HomeController extends GetxController {
   }
 
   /// 0. 推荐游戏列表 - Fav游戏
-  Future<void> requestFavGameListForRec() async {
-    var tarRx = recList[1];
+  Future<void> requestFavGameListForRec(RxList<GameEntity> tarRx) async {
     try {
       var retData = await apiRequest.requestGameFavList(params: {
         'page': 1,

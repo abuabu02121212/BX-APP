@@ -87,6 +87,16 @@ class ItemGenerateWidget extends StatelessWidget {
         ),
         HomeMarquee(),
         HomeGameTypesWidget(),
+
+        // Obx(() {
+        //   var tabIndex = controller.selectedGameTypeIndex.value;
+        //   if (tabIndex == 0) {
+        //     return PageStorage(bucket: controller.pageStorageBucket, child: RecPageWidget(controller: controller));
+        //   } else if (tabIndex == 1) {
+        //     return PageStorage(bucket: controller.pageStorageBucket2, child: FavPageWidget(controller: controller));
+        //   }
+        //   return PageStorage(bucket: controller.pageStorageBucket3, child: Tab2PageWidget(controller: controller));
+        // }),
         Obx(() {
           var tabIndex = controller.selectedGameTypeIndex.value;
           if (tabIndex == 0) {
@@ -94,24 +104,37 @@ class ItemGenerateWidget extends StatelessWidget {
           } else if (tabIndex == 1) {
             return FavPageWidget(controller: controller);
           }
-          return Obx(() {
-              return ListView.builder(
-                  itemCount: controller.tab2List.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return HorizontalGameListItemWidget(
-                      controller: controller,
-                      list: controller.tab2List[index],
-                      listItemIndex: index,
-                    );
-                  });
-            }
-          );
+          return Tab2PageWidget(controller: controller);
         }),
         SizedBox(height: 125.w),
       ],
     );
+  }
+}
+
+class Tab2PageWidget extends StatelessWidget {
+  const Tab2PageWidget({
+    super.key,
+    required this.controller,
+  });
+
+  final HomeController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      return ListView.builder(
+          itemCount: controller.tab2List.length,
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (BuildContext context, int index) {
+            return HorizontalGameListItemWidget(
+              controller: controller,
+              list: controller.tab2List[index],
+              listItemIndex: index,
+            );
+          });
+    });
   }
 }
 
@@ -125,6 +148,7 @@ class RecPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Log.d2("==============RecPageWidget=========================");
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -168,18 +192,21 @@ class FavPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ...List.generate(controller.tab1List.length, (index) {
-          return HorizontalGameListWidget(
-            list: controller.tab1List[index],
-            tabIndex: index,
-          );
-        }),
-      ],
+    return Obx(() {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ...List.generate(controller.tab1List.length, (index) {
+              return HorizontalGameListWidget(
+                list: controller.tab1List[index],
+                tabIndex: index,
+              );
+            }),
+          ],
+        );
+      }
     );
   }
 }
@@ -202,7 +229,9 @@ class HorizontalGameListItemWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        GameTypeTitleBar(listItemIndex: listItemIndex,),
+        GameTypeTitleBar(
+          listItemIndex: listItemIndex,
+        ),
         Container(
           margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
           alignment: Alignment.topLeft,
@@ -210,16 +239,16 @@ class HorizontalGameListItemWidget extends StatelessWidget {
             listItemIndex: listItemIndex,
           ),
         ),
-        Container(
+        SizedBox(
           width: double.infinity,
           height: list.length > 1 ? 540.w : 270.w,
           child: GridView.builder(
             padding: EdgeInsets.only(top: 20.w),
             itemCount: list.length,
+            physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: list.length > 1 ? 2 : 1, childAspectRatio:
-            1.2),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: list.length > 1 ? 2 : 1, childAspectRatio: 1.2),
             itemBuilder: (BuildContext context, int index) {
               return GameItemWidget(
                 isVerticalItem: false,
