@@ -12,12 +12,14 @@ import '../../../routes/app_pages.dart';
 import '../../login_register/views/login_regiseter_widget.dart';
 
 /// TAB 0-1. 推荐游戏列表 - 热门游戏
+int pageSize = 20;
+
 Future<void> requestHotGameListForRec(RxList<GameEntity> tarRx) async {
   try {
     var retData = await apiRequest.requestHotGameList({
       'ty': 0,
       'page': 1,
-      'page_size': 19,
+      'page_size': pageSize,
       'platform_id': 0,
     });
     var list = GameEntity.getList(retData['d']);
@@ -33,7 +35,7 @@ Future<void> requestFavGameListForRec(RxList<GameEntity> tarRx) async {
   try {
     var retData = await apiRequest.requestGameFavList(params: {
       'page': 1,
-      'page_size': 19,
+      'page_size': pageSize,
       'platform_id': 0,
     });
     var list = GameEntity.getList(retData['d']);
@@ -49,7 +51,7 @@ Future<void> requestRecGameList(int ty, RxList<GameEntity> rx) async {
   var retArr1 = await apiRequest.requestGameRecList(params: {
     'ty': ty,
     'page': 1,
-    'page_size': 19,
+    'page_size': pageSize,
     'platform_id': 0,
   });
   rx.value = GameEntity.getList(retArr1['d']);
@@ -62,7 +64,7 @@ Future<void> requestFavGameList(RxList<GameEntity> rx, {ty = "0"}) async {
     var retData = await apiRequest.requestGameFavList(params: {
       'ty': ty,
       'page': 1,
-      'page_size': 15,
+      'page_size': pageSize,
       'platform_id': 0,
     });
     List<GameEntity> list = GameEntity.getList(retData['d']);
@@ -74,17 +76,16 @@ Future<void> requestFavGameList(RxList<GameEntity> rx, {ty = "0"}) async {
 }
 
 /// TAB 2 以后 游戏列表
-Future<void> requestGameList(RxList<GameEntity> tarList, String gameType, {tagId = 0, platformId = 0}) async {
+Future<void> requestGameList(RxList<GameEntity> tarRx, String gameType, {tagId = 0, platformId = 0}) async {
   try {
     var retData = await apiRequest.requestGameList(params: {
       'game_type': gameType,
       'page': 1,
-      'page_size': 15,
+      'page_size': pageSize,
       'platform_id': platformId,
       'tag_id': tagId,
     });
-    List<GameEntity> list = GameEntity.getList(retData['d']);
-    tarList.addAll(list);
+    List<GameEntity> list = handleGameListData(retData['d'], tarRx);
     Log.d("子类游戏数目：${list.length}");
   } catch (e, stack) {
     Log.e("$e, $stack");
@@ -92,17 +93,18 @@ Future<void> requestGameList(RxList<GameEntity> tarList, String gameType, {tagId
 }
 
 /// 小按钮的热门游戏列表
-Future<void> requestHotGameList(RxList<GameEntity> tarRx, {platformId = 0, ty = "0"}) async {
+/// https://h5.cyestari.com/member/game/hot/list?ty=3&platform_id=16595015200303&page=1&page_size=20
+/// https://h5.cyestari.com/member/game/hot/list?ty=3&page=15&page_size=1&platform_id=16595015200303
+Future<void> requestHotGameList(RxList<GameEntity> tarRx, String gameType, {platformId = 0}) async {
   AppLoading.show();
   try {
     var retData = await apiRequest.requestHotGameList({
-      'ty': ty,
-      'page': 15,
-      'page_size': 1,
+      'ty': gameType,
+      'page': 1,
+      'page_size': pageSize,
       'platform_id': platformId,
     });
-    var list = GameEntity.getList(retData['d']);
-    tarRx.value = list;
+    List<GameEntity> list = handleGameListData(retData['d'], tarRx);
     Log.d("小按钮-热门游戏数目：${list.length}");
   } catch (e, stack) {
     Log.e("$e, $stack");
@@ -111,7 +113,7 @@ Future<void> requestHotGameList(RxList<GameEntity> tarRx, {platformId = 0, ty = 
 }
 
 /// 小按钮的收藏游戏列表
-Future<void> requestMemberFavList2({ty = "0"}) async {
+Future<void> requestMemberFavList2(RxList<GameEntity> tarRx, String gameType, {platformId = 0}) async {
   // if (paginationHelper.isHasRequestedAllData()) {
   //   return;
   // }
@@ -119,17 +121,54 @@ Future<void> requestMemberFavList2({ty = "0"}) async {
   try {
     // var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
     var retData = await apiRequest.requestMemberFavList(params: {
-      'ty': ty,
+      'ty': gameType,
       'page': 1,
-      'page_size': 15,
+      'page_size': pageSize,
       'platform_id': 0,
     });
-    List list = retData['d'];
+    List<GameEntity> list = handleGameListData(retData, tarRx);
     Log.d("小按钮-收藏游戏数目：${list.length}");
   } catch (e, stack) {
+    tarRx.clear();
+    tarRx.refresh();
     Log.e("$e, $stack");
   }
   AppLoading.close();
+}
+
+Future<void> requestGameSearch(String curGameType, {keyWord = '', platformId = "0", onSuccess}) async {
+  // if (paginationHelper.isHasRequestedAllData()) {
+  //   return;
+  // }
+  lastKeyWord = keyWord;
+  lastPlatformId = platformId;
+  AppLoading.show();
+  // var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
+  try {
+    var retData = await apiRequest.requestGameSearch(params: {
+      'ty': curGameType,
+      'page': 1,
+      'page_size': pageSize,
+      'w': keyWord,
+      'platform_id': platformId,
+      'tag_id': 0,
+    });
+    List list = retData['d'];
+    Log.d("游戏搜索结果数目：${list.length}");
+    onSuccess();
+  } catch (e, stack) {
+    //  subTypeGameList.value = [];
+    Log.e("$e, $stack");
+  }
+  AppLoading.close();
+}
+
+List<GameEntity> handleGameListData(jsonList, RxList<GameEntity> tarList) {
+  List<GameEntity> list = GameEntity.getList(jsonList);
+  tarList.clear();
+  tarList.addAll(list);
+  tarList.refresh();
+  return list;
 }
 
 /// Tag列表
@@ -155,32 +194,7 @@ Future<void> requestTagList(RxList<GameTagEntity> tarList, String gameType, {pla
 String lastKeyWord = "";
 String lastPlatformId = "";
 
-Future<void> requestGameSearch(String curGameType, {keyWord = '', platformId = "0", onSuccess}) async {
-  // if (paginationHelper.isHasRequestedAllData()) {
-  //   return;
-  // }
-  lastKeyWord = keyWord;
-  lastPlatformId = platformId;
-  AppLoading.show();
-  // var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
-  try {
-    var retData = await apiRequest.requestGameSearch(params: {
-      'ty': curGameType,
-      'page': 1,
-      'page_size': 15,
-      'w': keyWord,
-      'platform_id': platformId,
-      'tag_id': 0,
-    });
-    List list = retData['d'];
-    Log.d("游戏搜索结果数目：${list.length}");
-    onSuccess();
-  } catch (e, stack) {
-    //  subTypeGameList.value = [];
-    Log.e("$e, $stack");
-  }
-  AppLoading.close();
-}
+
 
 Future<void> requestGameLaunch(GameEntity gameEntity) async {
   GlobeController globeController = Get.find<GlobeController>();

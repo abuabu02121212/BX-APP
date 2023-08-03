@@ -220,7 +220,7 @@ class HorizontalGameListItemWidget extends StatelessWidget {
   });
 
   final HomeController controller;
-  final List<GameEntity> list;
+  final RxList<GameEntity> list;
   final int listItemIndex;
 
   @override
@@ -240,25 +240,28 @@ class HorizontalGameListItemWidget extends StatelessWidget {
             gameTagList: controller.tab2TagList[listItemIndex],
           ),
         ),
-        SizedBox(
-          width: double.infinity,
-          height: list.length > 1 ? 540.w : 270.w,
-          child: GridView.builder(
-            padding: EdgeInsets.only(top: 20.w),
-            itemCount: list.length,
-            physics: const BouncingScrollPhysics(),
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: list.length > 1 ? 2 : 1, childAspectRatio: 1.2),
-            itemBuilder: (BuildContext context, int index) {
-              return GameItemWidget(
-                isVerticalItem: false,
-                gameEntity: list[index],
-                index: index,
-                controller: controller,
-              );
-            },
-          ),
+        Obx(() {
+            return SizedBox(
+              width: double.infinity,
+              height: list.length > 1 ? 540.w : 270.w,
+              child: GridView.builder(
+                padding: EdgeInsets.only(top: 20.w),
+                itemCount: list.length,
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: list.length > 1 ? 2 : 1, childAspectRatio: 1.2),
+                itemBuilder: (BuildContext context, int index) {
+                  return GameItemWidget(
+                    isVerticalItem: false,
+                    gameEntity: list[index],
+                    index: index,
+                    controller: controller,
+                  );
+                },
+              ),
+            );
+          }
         )
       ],
     );

@@ -127,6 +127,7 @@ class HomeController extends GetxController {
   //   }
   // }
 
+  /// 小按钮请求
   void onGameTypeTitleBarSelected(int index, {required listItemIndex}) {
     Log.d2("onGameTypeTitleBarSelected=================index:$index============");
     selectedTagIndex.value = 0;
@@ -135,11 +136,11 @@ class HomeController extends GetxController {
       paginationHelper.reset();
     }
     if (index == 0) {
-      requestTab2GameList();
+      requestGameList(tab2List[listItemIndex], getCurGameType(), platformId: curTab2GameNavEntityList[listItemIndex].id);
     } else if (index == 1) {
-      // requestHotGameList(ty: getCurGameType());
+      requestHotGameList(tab2List[listItemIndex], getCurGameType(), platformId: curTab2GameNavEntityList[listItemIndex].id);
     } else if (index == 2) {
-      requestMemberFavList2(ty: getCurGameType());
+      requestMemberFavList2(tab2List[listItemIndex], getCurGameType(), platformId: curTab2GameNavEntityList[listItemIndex].id);
     }
   }
 
@@ -182,14 +183,14 @@ class HomeController extends GetxController {
     }
     AppLoading.close();
   }
-
+  List<GameNavEntity> curTab2GameNavEntityList = [];
   /// tab 2 包含tag列表和游戏列表
   Future<void> requestTab2GameList() async {
     AppLoading.show();
     var tempTab2List = RxList<RxList<GameEntity>>();
     var tempTab2TagList = RxList<RxList<GameTagEntity>>();
-    List<GameNavEntity> filterList = navItemList.where((element) => getCurGameType() == element.gameType).toList();
-    for (var item in filterList) {
+    curTab2GameNavEntityList = navItemList.where((element) => getCurGameType() == element.gameType).toList();
+    for (var item in curTab2GameNavEntityList) {
       var tarList = RxList<GameEntity>();
       var tarTagList = RxList<GameTagEntity>();
       tempTab2List.add(tarList);
