@@ -38,8 +38,8 @@ class ApiRequest {
     return await httpUtil.get(gameList, params ?? {});
   }
 
-  Future requestHotGameList(Map<String, Object> param) async {
-    return await httpUtil.get(hotGameList, param);
+  Future requestHotGameList({Map<String, Object>? params}) async {
+    return await httpUtil.get(hotGameList, params ?? {});
   }
 
   Future requestForgetPsw({Map<String, Object>? params}) async {

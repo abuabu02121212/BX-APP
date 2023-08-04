@@ -61,7 +61,13 @@ Future<RequestResultEntity?> requestGamePageData(
   required int pageSize,
 }) async {
   try {
-    if (gameListPageIndexHelper.isRequestedAllPage(listUIKey)) return null;
+    if(requestPageIndex == 1){
+      gameListPageIndexHelper.clear(listUIKey);
+    }
+    if (gameListPageIndexHelper.isRequestedAllPage(listUIKey)){
+      Log.d("requestPageIndex：$requestPageIndex 所有数据请求完毕 size: ${tarRx.length}");
+      return null;
+    }
     var tarPageIndex = gameListPageIndexHelper.getRequestPageIndex(listUIKey, requestPageIndex);
     param['page'] = tarPageIndex;
     var retData = await method(params: param);

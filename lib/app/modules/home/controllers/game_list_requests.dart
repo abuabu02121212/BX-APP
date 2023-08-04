@@ -19,7 +19,7 @@ int pageSize = 20;
 
 Future<void> requestHotGameListForRec(RxList<GameEntity> tarRx) async {
   try {
-    var retData = await apiRequest.requestHotGameList({
+    var retData = await apiRequest.requestHotGameList(params: {
       'ty': 0,
       'page': 1,
       'page_size': pageSize,
@@ -82,7 +82,7 @@ Future<void> requestFavGameList(RxList<GameEntity> rx, {ty = "0"}) async {
 LoadMorePageIndexHelper gameListPageIndexHelper = LoadMorePageIndexHelper();
 
 Future<RequestResultEntity?> requestGameList(RxList<GameEntity> tarRx, String gameType, {tagId = 0, platformId = 0, pageIndex = 1}) async {
-  var listUIKey = "$gameType-$platformId-$tagId";
+  var listUIKey = "GameList2-$gameType-$platformId-$tagId";
   return await requestGamePageData(
     apiRequest.requestGameList,
     {
@@ -102,39 +102,43 @@ Future<RequestResultEntity?> requestGameList(RxList<GameEntity> tarRx, String ga
 /// 小按钮的热门游戏列表
 Future<RequestResultEntity?> requestHotGameList(RxList<GameEntity> tarRx, String gameType, {platformId = 0, pageIndex = 1}) async {
   AppLoading.show();
-  try {
-    var retData = await apiRequest.requestHotGameList({
+  var listUIKey = "HotGameList2-$gameType-$platformId";
+  var ret = await requestGamePageData(
+    apiRequest.requestHotGameList,
+    {
       'ty': gameType,
-      'page': pageIndex,
       'page_size': pageSize,
       'platform_id': platformId,
-    });
-    return handleGameListData(retData['d'], tarRx, pageSize, pageIndex);
-  } catch (e, stack) {
-    onRequestFail(tarRx);
-    Log.e("$e, $stack");
-  }
+    },
+    listUIKey: listUIKey,
+    gameListPageIndexHelper: gameListPageIndexHelper,
+    requestPageIndex: pageIndex,
+    tarRx: tarRx,
+    pageSize: pageSize,
+  );
   AppLoading.close();
-  return null;
+  return ret;
 }
 
 /// 小按钮的收藏游戏列表
 Future<RequestResultEntity?> requestMemberFavList2(RxList<GameEntity> tarRx, String gameType, {platformId = 0, pageIndex = 1}) async {
   AppLoading.show();
-  try {
-    var retData = await apiRequest.requestMemberFavList(params: {
+  var listUIKey = "MemberFavList2-$gameType-$platformId";
+  var ret = await requestGamePageData(
+    apiRequest.requestMemberFavList,
+    {
       'ty': gameType,
-      'page': pageIndex,
       'page_size': pageSize,
-      'platform_id': 0,
-    });
-    return handleGameListData(retData, tarRx, pageSize, pageIndex);
-  } catch (e, stack) {
-    onRequestFail(tarRx);
-    Log.e("$e, $stack");
-  }
+      'platform_id': platformId,
+    },
+    listUIKey: listUIKey,
+    gameListPageIndexHelper: gameListPageIndexHelper,
+    requestPageIndex: pageIndex,
+    tarRx: tarRx,
+    pageSize: pageSize,
+  );
   AppLoading.close();
-  return null;
+  return ret;
 }
 
 /// 小按钮的搜索游戏列表

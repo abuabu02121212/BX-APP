@@ -35,8 +35,7 @@ class LoginRegisterWidget extends StatelessWidget {
                     minSize: 0,
                     padding: EdgeInsets.all(10.w),
                     onPressed: () {
-                      // Get.back();
-                      closeLoginRegisterDialog();
+                      Get.back();
                     },
                     child: Image.asset(
                       "assets/images/dialog-close.webp",
@@ -82,22 +81,14 @@ class LoginRegisterWidget extends StatelessWidget {
   }
 }
 
-var loginRegisterDialog = "loginRegisterDialog";
-var isLoinRegisterShowing = false;
-
 void showLoginRegisterDialog() {
   SmartDialog.show(
-      tag: loginRegisterDialog,
-      keepSingle: true,
       clickMaskDismiss: false,
+      useSystem: true,
       alignment: Alignment.center,
       builder: (BuildContext context) {
         return LoginRegisterWidget();
       });
-  isLoinRegisterShowing = true;
+
 }
 
-void closeLoginRegisterDialog() {
-  SmartDialog.dismiss(tag: loginRegisterDialog);
-  isLoinRegisterShowing = false;
-}

@@ -75,10 +75,6 @@ class HomeController extends GetxController {
     if (appNavigatorObserver.curRouterName != Routes.SPLASH) {
       return false;
     }
-    if (isLoinRegisterShowing) {
-      closeLoginRegisterDialog();
-      return true;
-    }
     if (isHomeDrawerShowing) {
       closeHomeDrawer();
       return true;

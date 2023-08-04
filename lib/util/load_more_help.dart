@@ -2,7 +2,7 @@
 import 'Log.dart';
 
 class LoadMorePageIndexHelper {
-  Map<String, int> pageIndexMap = {};
+  Map<String, int?> pageIndexMap = {};
   static const int allDataPageIndexMark = -2;
 
   int getRequestPageIndex(String listUIKey, int requestPageIndex) {
@@ -28,5 +28,9 @@ class LoadMorePageIndexHelper {
 
   void notifyRequestedAllPage(String listUIKey) {
     pageIndexMap[listUIKey] = allDataPageIndexMark;
+  }
+
+  void clear(String listUIKey) {
+    pageIndexMap[listUIKey] = null;
   }
 }
