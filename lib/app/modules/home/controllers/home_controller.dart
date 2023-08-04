@@ -52,7 +52,7 @@ class HomeController extends GetxController {
   final IndexRxMap tagTabSelectedIndexMap = IndexRxMap();
 
 
-  void addPressedRecord(int index) {
+  void switchTabWithAddPressedRecord(int index) {
     selectedGameTypeIndex.value = index;
     gameTypePressedRecordList.add(index);
     requestTabPageData(index);
@@ -107,21 +107,7 @@ class HomeController extends GetxController {
     return true;
   }
 
-  // 滚动监听回调
-  // void _scrollListener() {
-  //   if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
-  //     if (selectedChildTabIndex.value == 3) {
-  //       requestGameSearch(keyWord: lastKeyWord, platformId: lastPlatformId);
-  //     } else if (selectedGameTypeIndex.value == 0) {
-  //       requestHotGameList();
-  //     } else if (selectedGameTypeIndex.value == 1) {
-  //       requestFavGameList();
-  //     } else if (selectedGameTypeIndex.value > 1) {
-  //       requestGameList();
-  //     }
-  //     Log.d("=============滚动到了底部==============");
-  //   }
-  // }
+
 
   /// 小按钮请求
   Future<void> onGameTypeTitleBarSelected(int index, {required listItemIndex}) async {

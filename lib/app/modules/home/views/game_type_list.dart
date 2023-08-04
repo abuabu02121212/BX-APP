@@ -11,15 +11,15 @@ import '../../../entity/game_item.dart';
 import '../controllers/game_list_requests.dart';
 import '../controllers/home_controller.dart';
 
-class HorizontalGameListWidget extends StatelessWidget {
-  HorizontalGameListWidget({
+class Tab01HorizontalGameItemListWidget extends StatelessWidget {
+  Tab01HorizontalGameItemListWidget({
     super.key,
     required this.list,
-    required this.tabIndex,
+    required this.listItemIndex,
   });
 
   final HomeController controller = Get.put(HomeController());
-  final int tabIndex;
+  final int listItemIndex;
   final List<GameEntity> list;
   final List<String> titles = ["QUENTE", "DENTRO DE CASA", "SLOT", "PESCA", "PÔQUER", "ESPORTE", "AO VIVO"];
   final List<Color> colors = [
@@ -57,10 +57,10 @@ class HorizontalGameListWidget extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 32.w, top: 38.w),
                       child: Text(
-                        titles[tabIndex],
+                        titles[listItemIndex],
                         style: TextStyle(
                           fontSize: 26.w,
-                          color: colors[tabIndex],
+                          color: colors[listItemIndex],
                           fontWeight: FontWeight.w700,
                             fontStyle: FontStyle.italic
                         ),
@@ -89,23 +89,7 @@ class HorizontalGameListWidget extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) {
                           bool isLast = list.length == index;
                           return isLast
-                              ? CupertinoButton(
-                                  onPressed: () {
-                                    controller.addPressedRecord(tabIndex);
-                                    // controller.scrollController.jumpTo(390.w);
-                                    controller.scrollController.jumpTo(0);
-                                  },
-                                  minSize: 0,
-                                  padding: EdgeInsets.zero,
-                                  child: Container(
-                                    alignment: Alignment.topLeft,
-                                    padding: EdgeInsets.only(left: 20.w),
-                                    child: Image.asset(
-                                      "assets/images/game_item_more.webp",
-                                      width: 180.w,
-                                    ),
-                                  ),
-                                )
+                              ? ItemMoreWidget(controller: controller, listItemIndex: listItemIndex)
                               : GameItemWidget(
                                   isVerticalItem: false,
                                   gameEntity: list[index],
@@ -121,6 +105,40 @@ class HorizontalGameListWidget extends StatelessWidget {
             )
           : const SizedBox();
     });
+  }
+}
+
+class ItemMoreWidget extends StatelessWidget {
+  const ItemMoreWidget({
+    super.key,
+    required this.controller,
+    required this.listItemIndex,
+  });
+
+  final HomeController controller;
+  final int listItemIndex;
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoButton(
+        onPressed: () {
+          if(controller.selectedGameTypeIndex.value == 0 && listItemIndex != 0){
+            controller.switchTabWithAddPressedRecord(listItemIndex);
+            // controller.scrollController.jumpTo(390.w);
+            controller.scrollController.jumpTo(0);
+          }
+        },
+        minSize: 0,
+        padding: EdgeInsets.zero,
+        child: Container(
+          alignment: Alignment.topLeft,
+          padding: EdgeInsets.only(left: 20.w),
+          child: Image.asset(
+            "assets/images/game_item_more.webp",
+            width: 180.w,
+          ),
+        ),
+      );
   }
 }
 

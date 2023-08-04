@@ -111,7 +111,7 @@ class Tab2PageWidget extends StatelessWidget {
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             RxList<GameEntity> gameRxList = controller.tab2List[index];
-            return HorizontalGameListItemWidget(
+            return Tab2PageHorizontalListItemWidget(
               controller: controller,
               list: gameRxList,
               listItemIndex: index,
@@ -131,16 +131,15 @@ class RecPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Log.d2("==============RecPageWidget=========================");
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ...List.generate(controller.recList.length, (index) {
-          return HorizontalGameListWidget(
+          return Tab01HorizontalGameItemListWidget(
             list: controller.recList[index],
-            tabIndex: index,
+            listItemIndex: index,
           );
         }),
         WinListWidget(),
@@ -182,9 +181,9 @@ class FavPageWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ...List.generate(controller.tab1List.length, (index) {
-            return HorizontalGameListWidget(
+            return Tab01HorizontalGameItemListWidget(
               list: controller.tab1List[index],
-              tabIndex: index,
+              listItemIndex: index,
             );
           }),
         ],
@@ -193,17 +192,27 @@ class FavPageWidget extends StatelessWidget {
   }
 }
 
-class HorizontalGameListItemWidget extends StatelessWidget {
-  const HorizontalGameListItemWidget({
+class Tab2PageHorizontalListItemWidget extends StatelessWidget {
+   Tab2PageHorizontalListItemWidget({
     super.key,
     required this.controller,
     required this.list,
     required this.listItemIndex,
-  });
+  }){
+     scrollController.addListener(_scrollListener);
+  }
+
+ //  滚动监听回调
+   void _scrollListener() {
+     if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
+       Log.d("=============滚动到了底部==============");
+     }
+   }
 
   final HomeController controller;
   final RxList<GameEntity> list;
   final int listItemIndex;
+  final ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -233,6 +242,7 @@ class HorizontalGameListItemWidget extends StatelessWidget {
                     padding: EdgeInsets.only(top: 20.w),
                     itemCount: list.length,
                     physics: const BouncingScrollPhysics(),
+                    controller: scrollController,
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: list.length > 1 ? 2 : 1, childAspectRatio: 1.2),
@@ -284,7 +294,7 @@ class HomeGameTypesBarWidget extends StatelessWidget {
                       return CupertinoButton(
                         onPressed: () {
                           if (controller.selectedGameTypeIndex.value != index) {
-                            controller.addPressedRecord(index);
+                            controller.switchTabWithAddPressedRecord(index);
                           }
                         },
                         minSize: 0,
