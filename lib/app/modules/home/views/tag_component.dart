@@ -131,7 +131,7 @@ class MyState extends State<HomeGameTagComponent> with SingleTickerProviderState
       return CupertinoButton(
         onPressed: () async {
           widget.controller.tagTabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = index;
-          widget.controller.childTabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = 0;
+          widget.controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = 0;
           if (isOpen) {
             switchTagDrawer();
             upArrowSwitcherController.startSwitch();

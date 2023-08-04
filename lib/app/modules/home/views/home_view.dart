@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import '../../../../util/Log.dart';
+import '../../../../util/entity/entites.dart';
 import '../../../../widget/back_event_interceptor.dart';
 import '../../../app_style.dart';
 import '../../../component/app_empty.dart';
@@ -203,15 +204,17 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
   }
 
  //  滚动监听回调
-   void _scrollListener() {
+   Future<void> _scrollListener() async {
      if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
-       Log.d("=============滚动到了底部==============");
+       var tabIndex = controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex).value;
+       await controller.onLevel2ListItemTabSwitch(tabIndex, listItemIndex: listItemIndex, pageIndex: -2);
      }
    }
 
   final HomeController controller;
   final RxList<GameEntity> list;
   final int listItemIndex;
+  final pageIndex = 1.obs;
   final ScrollController scrollController = ScrollController();
 
   @override

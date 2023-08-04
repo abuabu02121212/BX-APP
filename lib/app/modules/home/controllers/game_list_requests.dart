@@ -1,9 +1,12 @@
 import 'package:get/get.dart';
 
 import '../../../../globe_controller.dart';
+import '../../../../http/comm_request.dart';
 import '../../../../http/request.dart';
 import '../../../../http/ret_code.dart';
 import '../../../../util/Log.dart';
+import '../../../../util/entity/entites.dart';
+import '../../../../util/load_more_help.dart';
 import '../../../../util/loading_util.dart';
 import '../../../../util/toast_util.dart';
 import '../../../entity/game_item.dart';
@@ -76,71 +79,73 @@ Future<void> requestFavGameList(RxList<GameEntity> rx, {ty = "0"}) async {
 }
 
 /// TAB 2 以后 游戏列表
-/// https://h5.cyestari.com/member/game/list?game_type=3&page=1&page_size=20&platform_id=16595015200303&tag_id=32127277494488206
-Future<void> requestGameList(RxList<GameEntity> tarRx, String gameType, {tagId = 0, platformId = 0}) async {
-  try {
-    var retData = await apiRequest.requestGameList(params: {
+LoadMorePageIndexHelper gameListPageIndexHelper = LoadMorePageIndexHelper();
+
+Future<RequestResultEntity?> requestGameList(RxList<GameEntity> tarRx, String gameType, {tagId = 0, platformId = 0, pageIndex = 1}) async {
+  var listUIKey = "$gameType-$platformId-$tagId";
+  return await requestGamePageData(
+    apiRequest.requestGameList,
+    {
       'game_type': gameType,
-      'page': 1,
       'page_size': pageSize,
       'platform_id': platformId,
       'tag_id': tagId,
-    });
-    List<GameEntity> list = handleGameListData(retData['d'], tarRx);
-    Log.d("子类游戏数目：${list.length}");
-  } catch (e, stack) {
-    onRequestFail(tarRx);
-    Log.e("$e, $stack");
-  }
+    },
+    listUIKey: listUIKey,
+    gameListPageIndexHelper: gameListPageIndexHelper,
+    requestPageIndex: pageIndex,
+    tarRx: tarRx,
+    pageSize: pageSize,
+  );
 }
 
 /// 小按钮的热门游戏列表
-Future<void> requestHotGameList(RxList<GameEntity> tarRx, String gameType, {platformId = 0}) async {
+Future<RequestResultEntity?> requestHotGameList(RxList<GameEntity> tarRx, String gameType, {platformId = 0, pageIndex = 1}) async {
   AppLoading.show();
   try {
     var retData = await apiRequest.requestHotGameList({
       'ty': gameType,
-      'page': 1,
+      'page': pageIndex,
       'page_size': pageSize,
       'platform_id': platformId,
     });
-    List<GameEntity> list = handleGameListData(retData['d'], tarRx);
-    Log.d("小按钮-热门游戏数目：${list.length}");
+    return handleGameListData(retData['d'], tarRx, pageSize, pageIndex);
   } catch (e, stack) {
     onRequestFail(tarRx);
     Log.e("$e, $stack");
   }
   AppLoading.close();
+  return null;
 }
 
 /// 小按钮的收藏游戏列表
-Future<void> requestMemberFavList2(RxList<GameEntity> tarRx, String gameType, {platformId = 0}) async {
-  // if (paginationHelper.isHasRequestedAllData()) {
-  //   return;
-  // }
+Future<RequestResultEntity?> requestMemberFavList2(RxList<GameEntity> tarRx, String gameType, {platformId = 0, pageIndex = 1}) async {
   AppLoading.show();
   try {
-    // var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
     var retData = await apiRequest.requestMemberFavList(params: {
       'ty': gameType,
-      'page': 1,
+      'page': pageIndex,
       'page_size': pageSize,
       'platform_id': 0,
     });
-    List<GameEntity> list = handleGameListData(retData, tarRx);
-    Log.d("小按钮-收藏游戏数目：${list.length}");
+    return handleGameListData(retData, tarRx, pageSize, pageIndex);
   } catch (e, stack) {
     onRequestFail(tarRx);
     Log.e("$e, $stack");
   }
   AppLoading.close();
+  return null;
 }
 
 /// 小按钮的搜索游戏列表
-Future<void> requestGameSearch(RxList<GameEntity> tarRx, String gameType, {keyWord = '', platformId = "0", onSuccess}) async {
-  // if (paginationHelper.isHasRequestedAllData()) {
-  //   return;
-  // }
+Future<RequestResultEntity?> requestGameSearch(
+  RxList<GameEntity> tarRx,
+  String gameType, {
+  keyWord = '',
+  platformId = "0",
+  onSuccess,
+  pageIndex = 1,
+}) async {
   lastKeyWord = keyWord;
   lastPlatformId = platformId;
   AppLoading.show();
@@ -148,20 +153,20 @@ Future<void> requestGameSearch(RxList<GameEntity> tarRx, String gameType, {keyWo
   try {
     var retData = await apiRequest.requestGameSearch(params: {
       'ty': gameType,
-      'page': 1,
+      'page': pageIndex,
       'page_size': pageSize,
       'w': keyWord,
       'platform_id': platformId,
       'tag_id': 0,
     });
-    List<GameEntity> list = handleGameListData(retData['d'], tarRx);
-    Log.d("游戏搜索结果数目：${list.length}");
     onSuccess();
+    return handleGameListData(retData['d'], tarRx, pageSize, pageIndex);
   } catch (e, stack) {
     onRequestFail(tarRx);
     Log.e("$e, $stack");
   }
   AppLoading.close();
+  return null;
 }
 
 void onRequestFail(RxList<GameEntity> tarRx) {
@@ -169,12 +174,15 @@ void onRequestFail(RxList<GameEntity> tarRx) {
   tarRx.refresh();
 }
 
-List<GameEntity> handleGameListData(jsonList, RxList<GameEntity> tarList) {
+RequestResultEntity handleGameListData(jsonList, RxList<GameEntity> tarList, int pageSize, pageIndex) {
   List<GameEntity> list = GameEntity.getList(jsonList);
-  tarList.clear();
+  if (pageIndex == 1) {
+    tarList.clear();
+  }
   tarList.addAll(list);
   tarList.refresh();
-  return list;
+  var listSize = list.length;
+  return RequestResultEntity(true, listSize, listSize < pageSize);
 }
 
 /// Tag列表

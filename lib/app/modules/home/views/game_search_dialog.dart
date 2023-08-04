@@ -98,10 +98,10 @@ class GameSearchWidget extends StatelessWidget {
                 String platId = controller.curTab2GameNavEntityList[listItemIndex].id;
                 requestGameSearch(controller.tab2List[listItemIndex], controller.getCurGameType(),
                     keyWord: editNode.text.value, platformId: platId, onSuccess: () {
-                  controller.onGameTypeTitleBarSelected(3, listItemIndex: listItemIndex);
+                  controller.onLevel2ListItemTabSwitch(3, listItemIndex: listItemIndex);
                 });
               } else {
-                controller.onGameTypeTitleBarSelected(0, listItemIndex: listItemIndex);
+                controller.onLevel2ListItemTabSwitch(0, listItemIndex: listItemIndex);
               }
               Get.back();
             },

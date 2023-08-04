@@ -2,9 +2,12 @@ import 'package:flutter_comm/http/request.dart';
 import 'package:get/get.dart';
 
 import '../app/entity/balance.dart';
+import '../app/entity/game_item.dart';
 import '../app/entity/user_info.dart';
 import '../globe_controller.dart';
 import '../util/Log.dart';
+import '../util/entity/entites.dart';
+import '../util/load_more_help.dart';
 import '../util/sp_util.dart';
 import '../util/sp_util_key.dart';
 
@@ -46,4 +49,46 @@ Future<dynamic> requestCommSmsSendMail(String mail, {isForgetPsw = false}) async
     'ty': isForgetPsw ? "2" : "1",
     'mail': mail,
   });
+}
+
+Future<RequestResultEntity?> requestGamePageData(
+  method,
+  Map<String, Object> param, {
+  required String listUIKey,
+  required LoadMorePageIndexHelper gameListPageIndexHelper,
+  required int requestPageIndex,
+  required RxList<GameEntity> tarRx,
+  required int pageSize,
+}) async {
+  try {
+    if (gameListPageIndexHelper.isRequestedAllPage(listUIKey)) return null;
+    var tarPageIndex = gameListPageIndexHelper.getRequestPageIndex(listUIKey, requestPageIndex);
+    param['page'] = tarPageIndex;
+    var retData = await method(params: param);
+    RequestResultEntity entity = handleGameListData(retData['d'], tarRx, pageSize, tarPageIndex);
+    if (entity.isSuccess) {
+      if (entity.isLastPage) {
+        gameListPageIndexHelper.notifyRequestedAllPage(listUIKey);
+      } else {
+        gameListPageIndexHelper.updatePageIndex(listUIKey);
+      }
+    }
+    return entity;
+  } catch (e, stack) {
+    tarRx.clear();
+    tarRx.refresh();
+    Log.e("$e, $stack");
+  }
+  return null;
+}
+
+RequestResultEntity handleGameListData(jsonList, RxList<GameEntity> tarList, int pageSize, pageIndex) {
+  List<GameEntity> list = GameEntity.getList(jsonList);
+  if (pageIndex == 1) {
+    tarList.clear();
+  }
+  tarList.addAll(list);
+  tarList.refresh();
+  var listSize = list.length;
+  return RequestResultEntity(true, listSize, listSize < pageSize);
 }

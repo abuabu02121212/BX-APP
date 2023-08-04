@@ -10,7 +10,7 @@ import 'game_search_dialog.dart';
 
 class GameTypeTitleBar extends StatelessWidget {
   GameTypeTitleBar({super.key, this.listItemIndex = 0}){
-    controller.childTabSelectedIndexMap.resetByPos(listItemIndex);
+    controller.level2TabSelectedIndexMap.resetByPos(listItemIndex);
   }
 
   final int listItemIndex;
@@ -26,9 +26,9 @@ class GameTypeTitleBar extends StatelessWidget {
       child: Obx(() {
         int selectedIndex = controller.selectedGameTypeIndex.value;
         if(selectedIndex == 1){
-          controller.childTabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = 2;
+          controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = 2;
         }else if(selectedIndex > 1){
-          controller.childTabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = 0;
+          controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = 0;
         }
         return selectedIndex != 0
             ? Row(
@@ -56,12 +56,12 @@ class GameTypeTitleBar extends StatelessWidget {
                           return isShow
                               ? CupertinoButton(
                                   onPressed: () {
-                                    controller.onGameTypeTitleBarSelected(0, listItemIndex: listItemIndex);
+                                    controller.onLevel2ListItemTabSwitch(0, listItemIndex: listItemIndex);
                                   },
                                   minSize: 0,
                                   padding: EdgeInsets.zero,
                                   child: Obx(() {
-                                    var childTabSelectIndexRx = controller.childTabSelectedIndexMap.getIndexRxByPos(listItemIndex);
+                                    var childTabSelectIndexRx = controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex);
                                       return Container(
                                           width: 60.w,
                                           height: 60.w,
@@ -81,12 +81,12 @@ class GameTypeTitleBar extends StatelessWidget {
                           return isShow
                               ? CupertinoButton(
                                   onPressed: () {
-                                    controller.onGameTypeTitleBarSelected(1, listItemIndex: listItemIndex);
+                                    controller.onLevel2ListItemTabSwitch(1, listItemIndex: listItemIndex);
                                   },
                                   minSize: 0,
                                   padding: EdgeInsets.zero,
                                   child: Obx(() {
-                                    var childTabSelectIndexRx = controller.childTabSelectedIndexMap.getIndexRxByPos(listItemIndex);
+                                    var childTabSelectIndexRx = controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex);
                                       return Container(
                                           width: 60.w,
                                           height: 60.w,
@@ -103,12 +103,12 @@ class GameTypeTitleBar extends StatelessWidget {
                         }),
                         CupertinoButton(
                           onPressed: () {
-                            controller.onGameTypeTitleBarSelected(2, listItemIndex: listItemIndex);
+                            controller.onLevel2ListItemTabSwitch(2, listItemIndex: listItemIndex);
                           },
                           minSize: 0,
                           padding: EdgeInsets.zero,
                           child: Obx(() {
-                            var childTabSelectIndexRx = controller.childTabSelectedIndexMap.getIndexRxByPos(listItemIndex);
+                            var childTabSelectIndexRx = controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex);
                               return Container(
                                   width: 60.w,
                                   height: 60.w,
@@ -133,7 +133,7 @@ class GameTypeTitleBar extends StatelessWidget {
                                   minSize: 0,
                                   padding: EdgeInsets.zero,
                                   child: Obx( () {
-                                    var childTabSelectIndexRx = controller.childTabSelectedIndexMap.getIndexRxByPos(listItemIndex);
+                                    var childTabSelectIndexRx = controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex);
                                       return Container(
                                           width: 60.w,
                                           height: 60.w,

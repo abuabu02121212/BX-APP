@@ -8,6 +8,7 @@ import '../../../../http/request.dart';
 import '../../../../util/Log.dart';
 import '../../../../util/double_click_exit_app.dart';
 import '../../../../util/dynamic_index_rx.dart';
+import '../../../../util/entity/entites.dart';
 import '../../../../util/loading_util.dart';
 import '../../../entity/banner.dart';
 import '../../../entity/cs.dart';
@@ -32,15 +33,10 @@ class HomeController extends GetxController {
   final showingMarqueeText = "".obs;
   final noticeListRx = RxList<NoticeEntity>();
 
-  final PageStorageBucket pageStorageBucket = PageStorageBucket();
-  final PageStorageBucket pageStorageBucket2 = PageStorageBucket();
-  final PageStorageBucket pageStorageBucket3 = PageStorageBucket();
-
   final List<GameNavEntity> navItemList = [];
 
   final lastWinListRx = RxList<LastWinEntity>();
   final verticalListPos0ShowSize = 0.obs;
- // final PaginationHelper paginationHelper = PaginationHelper(15);
 
   late final recList = RxList<RxList<GameEntity>>(List.generate(7, (index) => RxList<GameEntity>()));
   late final tab1List = RxList<RxList<GameEntity>>(List.generate(7, (index) => RxList<GameEntity>()));
@@ -48,19 +44,16 @@ class HomeController extends GetxController {
   late final tab2TagList = RxList<RxList<GameTagEntity>>();
 
   final bannerList = RxList<BannerEntity>();
-  final IndexRxMap childTabSelectedIndexMap = IndexRxMap();
+  final IndexRxMap level2TabSelectedIndexMap = IndexRxMap();
   final IndexRxMap tagTabSelectedIndexMap = IndexRxMap();
-
 
   void switchTabWithAddPressedRecord(int index) {
     selectedGameTypeIndex.value = index;
     gameTypePressedRecordList.add(index);
     requestTabPageData(index);
-    Log.d("========addPressedRecord：$gameTypePressedRecordList");
   }
 
   void requestTabPageData(int tabIndex) {
-  //  paginationHelper.reset();
     if (tabIndex == 0) {
       requestTab0GameList();
     } else if (tabIndex == 1) {
@@ -82,11 +75,11 @@ class HomeController extends GetxController {
     if (appNavigatorObserver.curRouterName != Routes.SPLASH) {
       return false;
     }
-    if(isLoinRegisterShowing){
+    if (isLoinRegisterShowing) {
       closeLoginRegisterDialog();
       return true;
     }
-    if(isHomeDrawerShowing){
+    if (isHomeDrawerShowing) {
       closeHomeDrawer();
       return true;
     }
@@ -107,25 +100,39 @@ class HomeController extends GetxController {
     return true;
   }
 
-
-
   /// 小按钮请求
-  Future<void> onGameTypeTitleBarSelected(int index, {required listItemIndex}) async {
-    Log.d2("onGameTypeTitleBarSelected=================index:$index============");
+  Future<RequestResultEntity?> onLevel2ListItemTabSwitch(int tabIndex, {required listItemIndex, pageIndex = 1}) async {
+    //重置 tag tab 选中的Item
     tagTabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = 0;
-    childTabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = index;
-    if (index != 3) {
-    //  paginationHelper.reset();
-    }
-    if (index == 0) {
+    // 更新二级tab选中
+    level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = tabIndex;
+    // 刷新列表数据
+    if (tabIndex == 0) {
       AppLoading.show();
-      await requestGameList(tab2List[listItemIndex], getCurGameType(), platformId: curTab2GameNavEntityList[listItemIndex].id);
+      var ret = await requestGameList(
+        tab2List[listItemIndex],
+        getCurGameType(),
+        platformId: curTab2GameNavEntityList[listItemIndex].id,
+        pageIndex: pageIndex,
+      );
       AppLoading.close();
-    } else if (index == 1) {
-      requestHotGameList(tab2List[listItemIndex], getCurGameType(), platformId: curTab2GameNavEntityList[listItemIndex].id);
-    } else if (index == 2) {
-      requestMemberFavList2(tab2List[listItemIndex], getCurGameType(), platformId: curTab2GameNavEntityList[listItemIndex].id);
+      return ret;
+    } else if (tabIndex == 1) {
+      return await requestHotGameList(
+        tab2List[listItemIndex],
+        getCurGameType(),
+        platformId: curTab2GameNavEntityList[listItemIndex].id,
+        pageIndex: pageIndex,
+      );
+    } else if (tabIndex == 2) {
+      return await requestMemberFavList2(
+        tab2List[listItemIndex],
+        getCurGameType(),
+        platformId: curTab2GameNavEntityList[listItemIndex].id,
+        pageIndex: pageIndex,
+      );
     }
+    return null;
   }
 
   @override
@@ -167,7 +174,9 @@ class HomeController extends GetxController {
     }
     AppLoading.close();
   }
+
   List<GameNavEntity> curTab2GameNavEntityList = [];
+
   /// tab 2 包含tag列表和游戏列表
   Future<void> requestTab2GameList() async {
     AppLoading.show();
@@ -190,8 +199,6 @@ class HomeController extends GetxController {
 
     tab2List.refresh();
     tab2TagList.refresh();
-
-
     AppLoading.close();
   }
 }
