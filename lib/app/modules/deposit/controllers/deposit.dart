@@ -16,6 +16,7 @@ class DepositControllerPage extends GetxController {
   EditNode amountNode = EditNode();
   final amountIndex = 0.obs;
   late DepositData pageData = DepositData();
+  final payRate = 0.0.obs;
 
   final depositData = <Map<String, String>>[
     {'amount': '50', 'discount': '1'},
@@ -37,6 +38,13 @@ class DepositControllerPage extends GetxController {
   final configList = <DepositConfigData>[].obs;
 
   setDepositSelectLabelValue(String value, String label) {
+    // 从 pageData.d，找出 fid == value的数据，获取对象的pay_rate值
+    final ra = pageData.d?.firstWhere((element) => element.fid == value);
+    if (ra?.ty == 2) {
+      payRate.value = ra?.payRate ?? 0.0;
+    } else {
+      payRate.value = 0.0;
+    }
     depositSelectValue.value = value;
     depositSelectLabel.value = label;
     setDepositData();
@@ -81,8 +89,7 @@ class DepositControllerPage extends GetxController {
       final data = DepositData.fromJson(d);
       pageData = data;
       // 设置下拉选项
-      depositSelectData.value =
-          pageData.d!.map((e) => {'label': e.showName ?? '', 'value': e.fid ?? ''}).toList();
+      depositSelectData.value = pageData.d!.map((e) => {'label': e.showName ?? '', 'value': e.fid ?? ''}).toList();
       setDepositSelectLabelValue(depositSelectData[0]['value']!, depositSelectData[0]['label']!);
     }
     isFetching.value = false;

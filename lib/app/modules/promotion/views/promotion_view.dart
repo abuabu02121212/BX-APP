@@ -26,6 +26,7 @@ class PromotionView extends GetView<PromotionController> {
         titleSpacing: 0,
         leadingWidth: 0,
         toolbarHeight: 110.w,
+        backgroundColor: const Color.fromRGBO(3, 90, 202, 1),
         title: const AppHeader(
           title: "Promoção",
           isNeedLeftBackArrow: false,

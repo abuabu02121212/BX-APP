@@ -38,6 +38,8 @@ class D {
   String? amountList;
   String? showName;
   List<AmountArray>? amountArray;
+  double? payRate;
+  int? ty;
 
   D(
       {this.fid,
@@ -46,7 +48,9 @@ class D {
         this.fmin,
         this.amountList,
         this.showName,
-        this.amountArray});
+        this.amountArray,
+        this.payRate,
+        this.ty});
 
   D.fromJson(Map<String, dynamic> json) {
     fid = json['fid'];
@@ -61,6 +65,8 @@ class D {
         amountArray!.add(new AmountArray.fromJson(v));
       });
     }
+    payRate = json['pay_rate'];
+    ty = json['ty'];
   }
 
   Map<String, dynamic> toJson() {
@@ -74,6 +80,8 @@ class D {
     if (this.amountArray != null) {
       data['amount_array'] = this.amountArray!.map((v) => v.toJson()).toList();
     }
+    data['pay_rate'] = this.payRate;
+    data['ty'] = this.ty;
     return data;
   }
 }

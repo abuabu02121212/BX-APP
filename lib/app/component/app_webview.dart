@@ -164,6 +164,7 @@ class _AppWebviewState extends State<AppWebview> {
           child: AppBar(
             titleSpacing: 0,
             leadingWidth: 0,
+            backgroundColor: const Color.fromRGBO(3, 90, 202, 1),
             title: AppHeader(title: widget.title),
           ),
         ),

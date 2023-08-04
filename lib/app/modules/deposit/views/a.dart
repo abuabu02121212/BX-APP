@@ -17,6 +17,7 @@ class DepositView extends GetView<DepositController> {
       appBar: AppBar(
         titleSpacing: 0,
         leadingWidth: 0,
+        backgroundColor: const Color.fromRGBO(3, 90, 202, 1),
         title: const AppHeader(title: "Conta"),
       ),
       body: Container(
