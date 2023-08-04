@@ -59,19 +59,20 @@ Future<RequestResultEntity?> requestGamePageData(
   required int requestPageIndex,
   required RxList<GameEntity> tarRx,
   required int pageSize,
+  bool isDData = true,
 }) async {
   try {
-    if(requestPageIndex == 1){
+    if (requestPageIndex == 1) {
       gameListPageIndexHelper.clear(listUIKey);
     }
-    if (gameListPageIndexHelper.isRequestedAllPage(listUIKey)){
+    if (gameListPageIndexHelper.isRequestedAllPage(listUIKey)) {
       Log.d("requestPageIndex：$requestPageIndex 所有数据请求完毕 size: ${tarRx.length}");
       return null;
     }
     var tarPageIndex = gameListPageIndexHelper.getRequestPageIndex(listUIKey, requestPageIndex);
     param['page'] = tarPageIndex;
     var retData = await method(params: param);
-    RequestResultEntity entity = handleGameListData(retData['d'], tarRx, pageSize, tarPageIndex);
+    RequestResultEntity entity = handleGameListData(isDData ? retData['d'] : retData, tarRx, pageSize, tarPageIndex);
     if (entity.isSuccess) {
       if (entity.isLastPage) {
         gameListPageIndexHelper.notifyRequestedAllPage(listUIKey);

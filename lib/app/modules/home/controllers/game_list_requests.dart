@@ -136,6 +136,7 @@ Future<RequestResultEntity?> requestMemberFavList2(RxList<GameEntity> tarRx, Str
     requestPageIndex: pageIndex,
     tarRx: tarRx,
     pageSize: pageSize,
+    isDData: false
   );
   AppLoading.close();
   return ret;
