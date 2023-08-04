@@ -22,6 +22,7 @@ class VipView extends GetView<VipController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(3, 90, 202, 1),
         titleSpacing: 0,
         leadingWidth: 0,
         toolbarHeight: 110.w,

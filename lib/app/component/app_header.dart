@@ -19,7 +19,9 @@ class AppHeader extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 110.w,
-      decoration: BoxDecoration(gradient: headerLinearGradient),
+      decoration: const BoxDecoration(
+        color: Color.fromRGBO(3, 90, 202, 1)
+      ),
       child: Stack(
         alignment: Alignment.center,
         children: [

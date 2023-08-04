@@ -24,7 +24,13 @@ class MainView extends GetView<MainController> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: statusBarColor));
     return Scaffold(
-      appBar: AppBar(toolbarHeight: 0.w),
+      appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(3, 90, 202, 1),
+        titleSpacing: 0,
+        leadingWidth: 0,
+        elevation: 1.0,
+        toolbarHeight: 0.w
+      ),
       body: SafeArea(
         child: Stack(
           children: [

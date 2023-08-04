@@ -33,7 +33,9 @@ class HomeHeader extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 110.w,
-      decoration: BoxDecoration(gradient: headerLinearGradient),
+      decoration: BoxDecoration(
+        color: const Color.fromRGBO(3, 90, 202, 1),
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

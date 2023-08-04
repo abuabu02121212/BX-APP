@@ -27,6 +27,7 @@ class DepositView extends GetView<DepositController> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(0, 10, 29, 1),
       appBar: AppBar(
+        backgroundColor: const Color.fromRGBO(3, 90, 202, 1),
         titleSpacing: 0,
         leadingWidth: 0,
         elevation: 1.0,
