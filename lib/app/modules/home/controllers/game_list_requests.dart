@@ -6,6 +6,7 @@ import '../../../../http/request.dart';
 import '../../../../http/ret_code.dart';
 import '../../../../util/Log.dart';
 import '../../../../util/entity/entites.dart';
+import '../../../../util/extensions.dart';
 import '../../../../util/load_more_help.dart';
 import '../../../../util/loading_util.dart';
 import '../../../../util/toast_util.dart';
@@ -62,7 +63,7 @@ Future<void> requestRecGameList(int ty, RxList<GameEntity> rx) async {
 }
 
 /// TAB 1 游戏列表
-Future<RequestResultEntity?> requestFavGameList(RxList<GameEntity> tarRx, {ty = "0", pageIndex=1}) async {
+Future<RequestResultEntity?> requestFavGameList(AppRxList<GameEntity> tarRx, {ty = "0", pageIndex=1}) async {
   var listUIKey = "GameFavList1-$ty";
   return await requestGamePageData(
     apiRequest.requestGameFavList,

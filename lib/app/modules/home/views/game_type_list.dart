@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 
 import '../../../../http/api.dart';
 import '../../../../util/Log.dart';
+import '../../../../util/entity/entites.dart';
+import '../../../../util/extensions.dart';
 import '../../../app_style.dart';
 import '../../../entity/game_item.dart';
 import '../controllers/game_list_requests.dart';
@@ -22,7 +24,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
 
   final HomeController controller = Get.put(HomeController());
   final int listItemIndex;
-  final RxList<GameEntity> list;
+  final AppRxList<GameEntity> list;
   final List<String> titles = ["QUENTE", "DENTRO DE CASA", "SLOT", "PESCA", "PÔQUER", "ESPORTE", "AO VIVO"];
   final List<Color> colors = [
     const Color(0xffd4316c),
@@ -46,6 +48,8 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      RequestResultEntity? requestResultEntity = list.other;
+      bool isLastPage = requestResultEntity?.isLastPage ?? false;
       return list.isNotEmpty
           ? Column(
               children: [
@@ -93,14 +97,14 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                       decoration: BoxDecoration(gradient: headerLinearGradient),
                       child: GridView.builder(
                         padding: EdgeInsets.only(top: 20.w),
-                        itemCount: list.length + 1,
+                        itemCount: isLastPage ? list.length : list.length + 1,
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         controller: scrollController,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.2),
                         itemBuilder: (BuildContext context, int index) {
-                          bool isLast = list.length == index;
-                          return isLast
+                          bool isLoadMoreItem = list.length == index;
+                          return isLoadMoreItem
                               ? ItemMoreWidget(controller: controller, listItemIndex: listItemIndex)
                               : GameItemWidget(
                                   isVerticalItem: false,

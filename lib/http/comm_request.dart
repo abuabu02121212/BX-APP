@@ -1,4 +1,5 @@
 import 'package:flutter_comm/http/request.dart';
+import 'package:flutter_comm/util/extensions.dart';
 import 'package:get/get.dart';
 
 import '../app/entity/balance.dart';
@@ -94,8 +95,13 @@ RequestResultEntity handleGameListData(jsonList, RxList<GameEntity> tarList, int
   if (pageIndex == 1) {
     tarList.clear();
   }
+  var listSize = list.length;
+  var retEntity = RequestResultEntity(true, listSize, listSize < pageSize);
+  if(tarList is AppRxList){
+    AppRxList appRxList = tarList as AppRxList;
+    appRxList.other = retEntity;
+  }
   tarList.addAll(list);
   tarList.refresh();
-  var listSize = list.length;
-  return RequestResultEntity(true, listSize, listSize < pageSize);
+  return retEntity;
 }

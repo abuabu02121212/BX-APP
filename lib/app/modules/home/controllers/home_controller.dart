@@ -9,6 +9,7 @@ import '../../../../util/Log.dart';
 import '../../../../util/double_click_exit_app.dart';
 import '../../../../util/dynamic_index_rx.dart';
 import '../../../../util/entity/entites.dart';
+import '../../../../util/extensions.dart';
 import '../../../../util/loading_util.dart';
 import '../../../entity/banner.dart';
 import '../../../entity/cs.dart';
@@ -37,10 +38,10 @@ class HomeController extends GetxController {
   final lastWinListRx = RxList<LastWinEntity>();
   final verticalListPos0ShowSize = 0.obs;
 
-  late final recList = RxList<RxList<GameEntity>>(List.generate(7, (index) => RxList<GameEntity>()));
-  late final tab1List = RxList<RxList<GameEntity>>(List.generate(7, (index) => RxList<GameEntity>()));
-  late final tab2List = RxList<RxList<GameEntity>>();
-  late final tab2TagList = RxList<RxList<GameTagEntity>>();
+  late final recList = AppRxList<AppRxList<GameEntity>>(List.generate(7, (index) => AppRxList<GameEntity>()));
+  late final tab1List = AppRxList<AppRxList<GameEntity>>(List.generate(7, (index) => AppRxList<GameEntity>()));
+  late final tab2List = AppRxList<AppRxList<GameEntity>>();
+  late final tab2TagList = AppRxList<AppRxList<GameTagEntity>>();
 
   final bannerList = RxList<BannerEntity>();
   final IndexRxMap level2TabSelectedIndexMap = IndexRxMap();
@@ -173,12 +174,12 @@ class HomeController extends GetxController {
   /// tab 2 包含tag列表和游戏列表
   Future<void> requestTab2GameList() async {
     AppLoading.show();
-    var tempTab2List = RxList<RxList<GameEntity>>();
-    var tempTab2TagList = RxList<RxList<GameTagEntity>>();
+    var tempTab2List = RxList<AppRxList<GameEntity>>();
+    var tempTab2TagList = RxList<AppRxList<GameTagEntity>>();
     curTab2GameNavEntityList = navItemList.where((element) => getCurGameType() == element.gameType).toList();
     for (var item in curTab2GameNavEntityList) {
-      var tarList = RxList<GameEntity>();
-      var tarTagList = RxList<GameTagEntity>();
+      var tarList = AppRxList<GameEntity>();
+      var tarTagList = AppRxList<GameTagEntity>();
       tempTab2List.add(tarList);
       tempTab2TagList.add(tarTagList);
       await requestGameList(tarList, getCurGameType(), platformId: item.id);
