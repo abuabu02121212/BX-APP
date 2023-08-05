@@ -175,25 +175,16 @@ class HomeController extends GetxController {
   Future<void> requestTab2GameList() async {
     AppLoading.show();
     var tempTab2List = RxList<AppRxList<GameEntity>>();
-    var tempTab2TagList = RxList<AppRxList<GameTagEntity>>();
     curTab2GameNavEntityList = navItemList.where((element) => getCurGameType() == element.gameType).toList();
     for (var item in curTab2GameNavEntityList) {
       var tarList = AppRxList<GameEntity>();
       tarList.strExt = item.name;
-      var tarTagList = AppRxList<GameTagEntity>();
       tempTab2List.add(tarList);
-      tempTab2TagList.add(tarTagList);
       await requestGameList(tarList, getCurGameType(), platformId: item.id);
-      await requestTagList(tarTagList, getCurGameType(), platformId: 0);
     }
-    tab2TagList.clear();
-    tab2TagList.addAll(tempTab2TagList);
-
     tab2List.clear();
     tab2List.addAll(tempTab2List);
-
     tab2List.refresh();
-    tab2TagList.refresh();
     AppLoading.close();
   }
 }

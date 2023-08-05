@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/entity/game_type.dart';
 import 'package:flutter_comm/app/modules/home/views/swiper_component.dart';
-import 'package:flutter_comm/app/modules/home/views/tag_component.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -109,6 +108,7 @@ class Tab2PageWidget extends StatelessWidget {
       return ListView.builder(
           itemCount: controller.tab2List.length,
           physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.only(top: 20.w),
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             AppRxList<GameEntity> gameRxList = controller.tab2List[index];
@@ -226,23 +226,15 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
         GameTypeTitleBar(
           listItemIndex: listItemIndex, typeName: list.strExt ?? "",
         ),
-        Container(
-          margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
-          alignment: Alignment.topLeft,
-          child: Obx(() {
-            return HomeGameTagComponent(
-              listItemIndex: listItemIndex,
-              gameTagList: controller.tab2TagList[listItemIndex],
-            );
-          }),
-        ),
+       // SizedBox(height: 10.w,),
         Obx(() {
           RequestResultEntity? requestResultEntity = list.other;
           bool isLastPage = requestResultEntity?.isLastPage ?? false;
           return list.isNotEmpty
-              ? SizedBox(
+              ? Container(
                   width: double.infinity,
                   height: list.length > 1 ? 540.w : 270.w,
+              //    color: Colors.pink,
                   child: GridView.builder(
                     padding: EdgeInsets.only(top: 20.w),
                     itemCount: isLastPage ? list.length : list.length + 1,

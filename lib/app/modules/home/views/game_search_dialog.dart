@@ -14,7 +14,7 @@ import '../controllers/home_controller.dart';
 class GameSearchWidget extends StatelessWidget {
   GameSearchWidget({super.key, required this.dataList, required this.listItemIndex});
 
-  final List<GameNavEntity> dataList;
+  final List<GameNavEntity>? dataList;
 
   final HomeController controller = Get.put(HomeController());
   final EditNode editNode = EditNode();
@@ -28,7 +28,9 @@ class GameSearchWidget extends StatelessWidget {
       controller.selectedSearchItemIndex.value = 0;
     }
     lastSelectedGameType.value = controller.getCurGameType();
-    platformId.value = dataList[controller.selectedSearchItemIndex.value].id;
+    if(dataList != null){
+      platformId.value = dataList![controller.selectedSearchItemIndex.value].id;
+    }
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -60,7 +62,7 @@ class GameSearchWidget extends StatelessWidget {
           width: double.infinity,
           margin: EdgeInsets.only(top: 10.w, left: 20.w, right: 20.w),
           child: UserInfoInputField(
-            prefixIcon: 'assets/images/i-filter4.webp',
+            prefixIcon: 'assets/images/game_search.webp',
             editNode: editNode,
             height: 96.w,
             hint: 'To search for',
@@ -179,7 +181,7 @@ class PlatformGridWidget extends StatelessWidget {
   }
 }
 
-void showSearchDialog(List<GameNavEntity> list, {listItemIndex = 0}) {
+void showSearchDialog(List<GameNavEntity>? list, {listItemIndex = 0}) {
   Get.dialog(
     GameSearchWidget(
       dataList: list,

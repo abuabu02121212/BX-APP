@@ -26,15 +26,6 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
   final int listItemIndex;
   final AppRxList<GameEntity> list;
   final List<String> titles = ["QUENTE", "DENTRO DE CASA", "SLOT", "PESCA", "PÔQUER", "ESPORTE", "AO VIVO"];
-  final List<Color> colors = [
-    const Color(0xffd4316c),
-    const Color(0xff619e36),
-    const Color(0xff3b7cf6),
-    const Color(0xffef8633),
-    const Color(0xff9b3cf6),
-    const Color(0xfff9d548),
-    const Color(0xff6ff2fc),
-  ];
   final ScrollController scrollController = ScrollController();
 
   //  滚动监听回调
@@ -53,23 +44,24 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
       bool isLastPage = requestResultEntity?.isLastPage ?? false;
       return list.isNotEmpty
           ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 40.w),
+                SizedBox(height: 30.w),
                 Stack(
                   children: [
-                    Image.asset("assets/images/index-title-home.webp", height: 83.w),
+                  //  Image.asset("assets/images/index-title-home.webp", height: 83.w),
                     Padding(
-                      padding: EdgeInsets.only(left: 32.w, top: 10.w),
+                      padding: EdgeInsets.only(left: 20.w, top: 10.w),
                       child: Text(
                         "RECOMENDAÇÕES",
-                        style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
+                        style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 32.w, top: 38.w),
+                      padding: EdgeInsets.only(left: 20.w, top: 38.w, bottom: 10.w),
                       child: Text(
                         titles[listItemIndex],
-                        style: TextStyle(fontSize: 26.w, color: colors[listItemIndex], fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
+                        style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
                       ),
                     ),
                   ],
