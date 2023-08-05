@@ -216,10 +216,10 @@ Future<void> requestTagList(RxList<GameTagEntity> tarList, String gameType, {pla
 String lastKeyWord = "";
 String lastPlatformId = "";
 
-Future<void> onGameItemClick(GameEntity gameEntity) async {
+Future<void> onGameItemClick(GameEntity gameEntity, String typeName) async {
   GlobeController globeController = Get.find<GlobeController>();
   if (globeController.isLogin()) {
-    showGameEntranceDialog(gameEntity);
+    showGameEntranceDialog(gameEntity, typeName);
   } else {
     showLoginRegisterDialog();
   }

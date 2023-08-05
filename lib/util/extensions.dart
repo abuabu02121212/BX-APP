@@ -19,5 +19,6 @@ extension StringExtension on String {
 
 class AppRxList<T> extends RxList<T>{
   dynamic other;
+  String? strExt;
   AppRxList([List<T> initial = const []]): super(initial);
 }

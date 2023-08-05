@@ -18,7 +18,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
     super.key,
     required this.list,
     required this.listItemIndex,
-  }){
+  }) {
     scrollController.addListener(_scrollListener);
   }
 
@@ -36,10 +36,11 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
     const Color(0xff6ff2fc),
   ];
   final ScrollController scrollController = ScrollController();
+
   //  滚动监听回调
   Future<void> _scrollListener() async {
     if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
-      if(controller.selectedGameTypeIndex.value == 1){
+      if (controller.selectedGameTypeIndex.value == 1) {
         await requestFavGameList(controller.tab1List[listItemIndex], ty: controller.tab1gameTypeList[listItemIndex].toString(), pageIndex: -3);
       }
     }
@@ -61,24 +62,14 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                       padding: EdgeInsets.only(left: 32.w, top: 10.w),
                       child: Text(
                         "RECOMENDAÇÕES",
-                        style: TextStyle(
-                          fontSize: 26.w,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontStyle: FontStyle.italic
-                        ),
+                        style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 32.w, top: 38.w),
                       child: Text(
                         titles[listItemIndex],
-                        style: TextStyle(
-                          fontSize: 26.w,
-                          color: colors[listItemIndex],
-                          fontWeight: FontWeight.w700,
-                            fontStyle: FontStyle.italic
-                        ),
+                        style: TextStyle(fontSize: 26.w, color: colors[listItemIndex], fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
                       ),
                     ),
                   ],
@@ -111,6 +102,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                                   gameEntity: list[index],
                                   index: index,
                                   controller: controller,
+                                  typeName: list.strExt,
                                 );
                         },
                       ),
@@ -137,24 +129,24 @@ class ItemMoreWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
-        onPressed: () {
-          if(controller.selectedGameTypeIndex.value == 0 && listItemIndex != 0){
-            controller.switchTabWithAddPressedRecord(listItemIndex);
-            // controller.scrollController.jumpTo(390.w);
-            controller.scrollController.jumpTo(0);
-          }
-        },
-        minSize: 0,
-        padding: EdgeInsets.zero,
-        child: Container(
-          alignment: Alignment.topLeft,
-          padding: EdgeInsets.only(left: 20.w),
-          child: Image.asset(
-            "assets/images/game_item_more.webp",
-            width: 180.w,
-          ),
+      onPressed: () {
+        if (controller.selectedGameTypeIndex.value == 0 && listItemIndex != 0) {
+          controller.switchTabWithAddPressedRecord(listItemIndex);
+          // controller.scrollController.jumpTo(390.w);
+          controller.scrollController.jumpTo(0);
+        }
+      },
+      minSize: 0,
+      padding: EdgeInsets.zero,
+      child: Container(
+        alignment: Alignment.topLeft,
+        padding: EdgeInsets.only(left: 20.w),
+        child: Image.asset(
+          "assets/images/game_item_more.webp",
+          width: 180.w,
         ),
-      );
+      ),
+    );
   }
 }
 
@@ -165,12 +157,14 @@ class GameItemWidget extends StatelessWidget {
     required this.gameEntity,
     this.index,
     required this.controller,
+    required this.typeName,
   });
 
   final HomeController controller;
   final bool isVerticalItem;
   final GameEntity gameEntity;
   final int? index;
+  final String? typeName;
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +172,7 @@ class GameItemWidget extends StatelessWidget {
     return CupertinoButton(
       onPressed: () {
         Log.d("gameEntity:${gameEntity.toJson()}");
-        onGameItemClick(gameEntity);
+        onGameItemClick(gameEntity, typeName ?? "");
       },
       minSize: 0,
       padding: EdgeInsets.zero,

@@ -179,6 +179,7 @@ class HomeController extends GetxController {
     curTab2GameNavEntityList = navItemList.where((element) => getCurGameType() == element.gameType).toList();
     for (var item in curTab2GameNavEntityList) {
       var tarList = AppRxList<GameEntity>();
+      tarList.strExt = item.name;
       var tarTagList = AppRxList<GameTagEntity>();
       tempTab2List.add(tarList);
       tempTab2TagList.add(tarTagList);

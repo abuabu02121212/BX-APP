@@ -16,9 +16,11 @@ class GameEntranceWidget extends StatelessWidget {
   const GameEntranceWidget({
     super.key,
     required this.gameEntity,
+    required this.typeName,
   });
 
   final GameEntity gameEntity;
+  final String typeName;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +90,7 @@ class GameEntranceWidget extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(top: 10.w, bottom: 10.w),
                         child: Text(
-                          "??",
+                          typeName,
                           style: TextStyle(
                             fontSize: 32.w,
                             color: const Color.fromRGBO(255, 255, 255, 0.6),
@@ -149,7 +151,7 @@ class GameEntranceWidget extends StatelessWidget {
   }
 }
 
-void showGameEntranceDialog(GameEntity gameEntity) {
+void showGameEntranceDialog(GameEntity gameEntity, String typeName) {
   SmartDialog.show(
       clickMaskDismiss: true,
       useSystem: true,
@@ -157,6 +159,7 @@ void showGameEntranceDialog(GameEntity gameEntity) {
       builder: (BuildContext context) {
         return GameEntranceWidget(
           gameEntity: gameEntity,
+          typeName: typeName,
         );
       });
 }

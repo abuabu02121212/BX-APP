@@ -9,11 +9,12 @@ import '../controllers/home_controller.dart';
 import 'game_search_dialog.dart';
 
 class GameTypeTitleBar extends StatelessWidget {
-  GameTypeTitleBar({super.key, this.listItemIndex = 0}){
+  GameTypeTitleBar({super.key, this.listItemIndex = 0, required this.typeName}){
     controller.level2TabSelectedIndexMap.resetByPos(listItemIndex);
   }
 
   final int listItemIndex;
+  final String typeName;
 
   final HomeController controller = Get.put(HomeController());
 
@@ -34,17 +35,14 @@ class GameTypeTitleBar extends StatelessWidget {
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Obx(() {
-                    int selectedIndex = controller.selectedGameTypeIndex.value;
-                    return Text(
-                      selectedIndex > -1 ? controller.gameTypes[selectedIndex].name.replaceAll(RegExp(r'\n+'), '') : "",
-                      style: TextStyle(
-                        fontSize: 32.w,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    );
-                  }),
+                  Text(
+                    typeName,
+                    style: TextStyle(
+                      fontSize: 32.w,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   SizedBox(
                     width: 280.w,
                     child: Row(

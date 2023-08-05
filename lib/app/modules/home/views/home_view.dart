@@ -194,22 +194,22 @@ class FavPageWidget extends StatelessWidget {
 }
 
 class Tab2PageHorizontalListItemWidget extends StatelessWidget {
-   Tab2PageHorizontalListItemWidget({
+  Tab2PageHorizontalListItemWidget({
     super.key,
     required this.controller,
     required this.list,
     required this.listItemIndex,
-  }){
-     scrollController.addListener(_scrollListener);
+  }) {
+    scrollController.addListener(_scrollListener);
   }
 
- //  滚动监听回调
-   Future<void> _scrollListener() async {
-     if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
-       var tabIndex = controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex).value;
-       await controller.onLevel2ListItemTabSwitch(tabIndex, listItemIndex: listItemIndex, pageIndex: -2);
-     }
-   }
+  //  滚动监听回调
+  Future<void> _scrollListener() async {
+    if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
+      var tabIndex = controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex).value;
+      await controller.onLevel2ListItemTabSwitch(tabIndex, listItemIndex: listItemIndex, pageIndex: -2);
+    }
+  }
 
   final HomeController controller;
   final AppRxList<GameEntity> list;
@@ -224,7 +224,7 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         GameTypeTitleBar(
-          listItemIndex: listItemIndex,
+          listItemIndex: listItemIndex, typeName: list.strExt ?? "",
         ),
         Container(
           margin: EdgeInsets.only(top: 27.w, left: 20.w, right: 20.w),
@@ -245,7 +245,7 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
                   height: list.length > 1 ? 540.w : 270.w,
                   child: GridView.builder(
                     padding: EdgeInsets.only(top: 20.w),
-                    itemCount: isLastPage ? list.length: list.length + 1 ,
+                    itemCount: isLastPage ? list.length : list.length + 1,
                     physics: const BouncingScrollPhysics(),
                     controller: scrollController,
                     shrinkWrap: true,
@@ -253,12 +253,15 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: list.length > 1 ? 2 : 1, childAspectRatio: 1.2),
                     itemBuilder: (BuildContext context, int index) {
                       bool isLoadMoreItem = list.length == index;
-                      return isLoadMoreItem ? ItemMoreWidget(controller: controller, listItemIndex: listItemIndex) : GameItemWidget(
-                        isVerticalItem: false,
-                        gameEntity: list[index],
-                        index: index,
-                        controller: controller,
-                      );
+                      return isLoadMoreItem
+                          ? ItemMoreWidget(controller: controller, listItemIndex: listItemIndex)
+                          : GameItemWidget(
+                              isVerticalItem: false,
+                              gameEntity: list[index],
+                              index: index,
+                              controller: controller,
+                              typeName: list.strExt,
+                            );
                     },
                   ),
                 )
@@ -327,4 +330,3 @@ class HomeGameTypesBarWidget extends StatelessWidget {
     );
   }
 }
-
