@@ -6,8 +6,8 @@ import 'package:flutter_comm/app/modules/home/views/tag_component.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import '../../../../util/Log.dart';
 import '../../../../util/entity/entites.dart';
+import '../../../../util/extensions.dart';
 import '../../../../widget/back_event_interceptor.dart';
 import '../../../app_style.dart';
 import '../../../component/app_empty.dart';
@@ -111,7 +111,7 @@ class Tab2PageWidget extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
-            RxList<GameEntity> gameRxList = controller.tab2List[index];
+            AppRxList<GameEntity> gameRxList = controller.tab2List[index];
             return Tab2PageHorizontalListItemWidget(
               controller: controller,
               list: gameRxList,
@@ -212,7 +212,7 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
    }
 
   final HomeController controller;
-  final RxList<GameEntity> list;
+  final AppRxList<GameEntity> list;
   final int listItemIndex;
   final pageIndex = 1.obs;
   final ScrollController scrollController = ScrollController();
@@ -237,20 +237,23 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
           }),
         ),
         Obx(() {
+          RequestResultEntity? requestResultEntity = list.other;
+          bool isLastPage = requestResultEntity?.isLastPage ?? false;
           return list.isNotEmpty
               ? SizedBox(
                   width: double.infinity,
                   height: list.length > 1 ? 540.w : 270.w,
                   child: GridView.builder(
                     padding: EdgeInsets.only(top: 20.w),
-                    itemCount: list.length,
+                    itemCount: isLastPage ? list.length: list.length + 1 ,
                     physics: const BouncingScrollPhysics(),
                     controller: scrollController,
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: list.length > 1 ? 2 : 1, childAspectRatio: 1.2),
                     itemBuilder: (BuildContext context, int index) {
-                      return GameItemWidget(
+                      bool isLoadMoreItem = list.length == index;
+                      return isLoadMoreItem ? ItemMoreWidget(controller: controller, listItemIndex: listItemIndex) : GameItemWidget(
                         isVerticalItem: false,
                         gameEntity: list[index],
                         index: index,
