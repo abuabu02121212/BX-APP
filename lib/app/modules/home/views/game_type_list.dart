@@ -16,11 +16,13 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
     super.key,
     required this.list,
     required this.listItemIndex,
-  });
+  }){
+    scrollController.addListener(_scrollListener);
+  }
 
   final HomeController controller = Get.put(HomeController());
   final int listItemIndex;
-  final List<GameEntity> list;
+  final RxList<GameEntity> list;
   final List<String> titles = ["QUENTE", "DENTRO DE CASA", "SLOT", "PESCA", "PÔQUER", "ESPORTE", "AO VIVO"];
   final List<Color> colors = [
     const Color(0xffd4316c),
@@ -31,6 +33,15 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
     const Color(0xfff9d548),
     const Color(0xff6ff2fc),
   ];
+  final ScrollController scrollController = ScrollController();
+  //  滚动监听回调
+  Future<void> _scrollListener() async {
+    if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
+      if(controller.selectedGameTypeIndex.value == 1){
+        await requestFavGameList(controller.tab1List[listItemIndex], ty: controller.tab1gameTypeList[listItemIndex].toString(), pageIndex: -3);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +96,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                         itemCount: list.length + 1,
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
+                        controller: scrollController,
                         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.2),
                         itemBuilder: (BuildContext context, int index) {
                           bool isLast = list.length == index;

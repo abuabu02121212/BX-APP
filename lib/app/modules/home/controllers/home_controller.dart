@@ -19,7 +19,6 @@ import '../../../entity/last_win.dart';
 import '../../../entity/notice.dart';
 import '../../../routes/app_pages.dart';
 import '../../home_menu/views/home_menu_view.dart';
-import '../../login_register/views/login_regiseter_widget.dart';
 import 'game_list_requests.dart';
 import 'home_requests.dart';
 
@@ -159,14 +158,12 @@ class HomeController extends GetxController {
       requestRecGameList(tyList[i - 2], item);
     }
   }
-
+  List<int> tab1gameTypeList = [-1, -1, 3, 2, 5, 4, 1];
   /// tab 1
   Future<void> requestTab1FavGameList() async {
-    List<int> tyList = [3, 2, 5, 4, 1];
     AppLoading.show();
     for (int i = 2; i < 7; i++) {
-      RxList<GameEntity> item = tab1List[i];
-      await requestFavGameList(item, ty: tyList[i - 2].toString());
+      await requestFavGameList(tab1List[i], ty: tab1gameTypeList[i].toString());
     }
     AppLoading.close();
   }
