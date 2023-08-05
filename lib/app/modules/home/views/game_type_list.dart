@@ -12,6 +12,7 @@ import '../../../app_style.dart';
 import '../../../entity/game_item.dart';
 import '../controllers/game_list_requests.dart';
 import '../controllers/home_controller.dart';
+import 'game_type_title_bar.dart';
 
 class Tab01HorizontalGameItemListWidget extends StatelessWidget {
   Tab01HorizontalGameItemListWidget({
@@ -47,24 +48,36 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 30.w),
-                Stack(
-                  children: [
-                  //  Image.asset("assets/images/index-title-home.webp", height: 83.w),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.w, top: 10.w),
-                      child: Text(
-                        "RECOMENDAÇÕES",
-                        style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
+                Container(
+                  width: 1.sw,
+                  padding: EdgeInsets.only(right: 18.w),
+                  child: Stack(
+                    children: [
+                      //  Image.asset("assets/images/index-title-home.webp", height: 83.w),
+                      Padding(
+                        padding: EdgeInsets.only(left: 20.w, top: 10.w),
+                        child: Text(
+                          "RECOMENDAÇÕES",
+                          style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 20.w, top: 38.w, bottom: 10.w),
-                      child: Text(
-                        titles[listItemIndex],
-                        style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
+                      Padding(
+                        padding: EdgeInsets.only(left: 20.w, top: 38.w, bottom: 10.w),
+                        child: Text(
+                          titles[listItemIndex],
+                          style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
+                        ),
                       ),
-                    ),
-                  ],
+                      Positioned(
+                        right: 0,
+                        top: 0,
+                        child: Level2TypeTabs(
+                          listItemIndex: listItemIndex,
+                          controller: controller,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 20.w, right: 20.w),

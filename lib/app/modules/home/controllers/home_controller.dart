@@ -98,35 +98,32 @@ class HomeController extends GetxController {
 
   /// 小按钮请求
   Future<RequestResultEntity?> onLevel2ListItemTabSwitch(int tabIndex, {required listItemIndex, pageIndex = 1}) async {
-    //重置 tag tab 选中的Item
-    tagTabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = 0;
-    // 更新二级tab选中
     level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = tabIndex;
     // 刷新列表数据
     if (tabIndex == 0) {
-      AppLoading.show();
-      var ret = await requestGameList(
-        tab2List[listItemIndex],
-        getCurGameType(),
-        platformId: curTab2GameNavEntityList[listItemIndex].id,
-        pageIndex: pageIndex,
-      );
-      AppLoading.close();
-      return ret;
+      // AppLoading.show();
+      // var ret = await requestGameList(
+      //   tab2List[listItemIndex],
+      //   getCurGameType(),
+      //   platformId: curTab2GameNavEntityList[listItemIndex].id,
+      //   pageIndex: pageIndex,
+      // );
+      // AppLoading.close();
+      // return ret;
     } else if (tabIndex == 1) {
-      return await requestHotGameList(
-        tab2List[listItemIndex],
-        getCurGameType(),
-        platformId: curTab2GameNavEntityList[listItemIndex].id,
-        pageIndex: pageIndex,
-      );
+      // return await requestHotGameList(
+      //   tab2List[listItemIndex],
+      //   getCurGameType(),
+      //   platformId: curTab2GameNavEntityList[listItemIndex].id,
+      //   pageIndex: pageIndex,
+      // );
     } else if (tabIndex == 2) {
-      return await requestMemberFavList2(
+      /*return await requestMemberFavList2(
         tab2List[listItemIndex],
         getCurGameType(),
         platformId: curTab2GameNavEntityList[listItemIndex].id,
         pageIndex: pageIndex,
-      );
+      );*/
     }
     return null;
   }
@@ -159,7 +156,9 @@ class HomeController extends GetxController {
       requestRecGameList(tyList[i - 2], item);
     }
   }
+
   List<int> tab1gameTypeList = [-1, -1, 3, 2, 5, 4, 1];
+
   /// tab 1
   Future<void> requestTab1FavGameList() async {
     AppLoading.show();
