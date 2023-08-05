@@ -62,20 +62,21 @@ Future<void> requestRecGameList(int ty, RxList<GameEntity> rx) async {
 }
 
 /// TAB 1 游戏列表
-Future<void> requestFavGameList(RxList<GameEntity> rx, {ty = "0"}) async {
-  try {
-    var retData = await apiRequest.requestGameFavList(params: {
+Future<RequestResultEntity?> requestFavGameList(RxList<GameEntity> tarRx, {ty = "0", pageIndex=1}) async {
+  var listUIKey = "GameFavList1-$ty";
+  return await requestGamePageData(
+    apiRequest.requestGameFavList,
+    {
       'ty': ty,
-      'page': 1,
       'page_size': pageSize,
       'platform_id': 0,
-    });
-    List<GameEntity> list = GameEntity.getList(retData['d']);
-    rx.value = list;
-    Log.d("tab1-收藏游戏数目：${list.length}");
-  } catch (e, stack) {
-    Log.e("$e, $stack");
-  }
+    },
+    listUIKey: listUIKey,
+    gameListPageIndexHelper: gameListPageIndexHelper,
+    requestPageIndex: pageIndex,
+    tarRx: tarRx,
+    pageSize: pageSize,
+  );
 }
 
 /// TAB 2 以后 游戏列表

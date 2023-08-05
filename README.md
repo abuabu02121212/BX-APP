@@ -23,7 +23,7 @@ samples, guidance on mobile development, and a full API reference.
 
 替换启动图： /Users/cg/fvm/versions/3.7.12/bin/flutter pub run flutter_native_splash:create
 
-打包命令： /Users/cg/fvm/versions/3.7.12/bin/flutter build apk --release
+打包命令： /Users/henry2023/Desktop/env/flutter-3-7-12/bin/flutter build apk --release
 项目结构：
    lib下面的app模块是本app业务相关的模块
    lib 下面除了app之外的其他模块，是所有项目的通用框架模块
