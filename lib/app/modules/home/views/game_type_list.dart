@@ -174,14 +174,11 @@ class GameItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var imgUrl = "$baseImgUrl${gameEntity.img}";
-    if (gameEntity.img.contains("https://")) {
-      imgUrl = gameEntity.img;
-    }
+    String imgUrl = getRealImageUrl(gameEntity);
     return CupertinoButton(
       onPressed: () {
         Log.d("gameEntity:${gameEntity.toJson()}");
-        requestGameLaunch(gameEntity);
+        onGameItemClick(gameEntity);
       },
       minSize: 0,
       padding: EdgeInsets.zero,
@@ -200,34 +197,34 @@ class GameItemWidget extends StatelessWidget {
                   imageUrl: imgUrl,
                 ),
               ),
-              Positioned(
-                top: 0,
-                right: 0,
-                child: CupertinoButton(
-                  onPressed: () {
-                    bool isFav = gameEntity.isRxFav.value;
-                    if (isFav) {
-                      requestDelFav(gameEntity);
-                    } else {
-                      requestAddFav(gameEntity);
-                    }
-                  },
-                  minSize: 0,
-                  padding: EdgeInsets.zero,
-                  child: Container(
-                    padding: EdgeInsets.only(left: 10.w, bottom: 10.w),
-                    //  alignment: Alignment,
-                    child: Obx(() {
-                      bool isFav = gameEntity.isRxFav.value;
-                      String name = isFav ? "game_item_fav" : "game_item_fav_not";
-                      return Image.asset(
-                        "assets/images/$name.webp",
-                        width: 35.w,
-                      );
-                    }),
-                  ),
-                ),
-              ),
+              // Positioned(
+              //   top: 0,
+              //   right: 0,
+              //   child: CupertinoButton(
+              //     onPressed: () {
+              //       bool isFav = gameEntity.isRxFav.value;
+              //       if (isFav) {
+              //         requestDelFav(gameEntity);
+              //       } else {
+              //         requestAddFav(gameEntity);
+              //       }
+              //     },
+              //     minSize: 0,
+              //     padding: EdgeInsets.zero,
+              //     child: Container(
+              //       padding: EdgeInsets.only(left: 10.w, bottom: 10.w),
+              //       //  alignment: Alignment,
+              //       child: Obx(() {
+              //         bool isFav = gameEntity.isRxFav.value;
+              //         String name = isFav ? "game_item_fav" : "game_item_fav_not";
+              //         return Image.asset(
+              //           "assets/images/$name.webp",
+              //           width: 35.w,
+              //         );
+              //       }),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
           SizedBox(height: 10.w),
@@ -250,4 +247,12 @@ class GameItemWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+String getRealImageUrl(GameEntity gameEntity) {
+  var imgUrl = "$baseImgUrl${gameEntity.img}";
+  if (gameEntity.img.contains("https://")) {
+    imgUrl = gameEntity.img;
+  }
+  return imgUrl;
 }

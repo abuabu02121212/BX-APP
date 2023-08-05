@@ -14,6 +14,7 @@ import '../../../entity/game_item.dart';
 import '../../../entity/game_tag.dart';
 import '../../../routes/app_pages.dart';
 import '../../login_register/views/login_regiseter_widget.dart';
+import '../views/game_entrance_widget.dart';
 
 /// TAB 0-1. 推荐游戏列表 - 热门游戏
 int pageSize = 20;
@@ -215,24 +216,28 @@ Future<void> requestTagList(RxList<GameTagEntity> tarList, String gameType, {pla
 String lastKeyWord = "";
 String lastPlatformId = "";
 
-Future<void> requestGameLaunch(GameEntity gameEntity) async {
+Future<void> onGameItemClick(GameEntity gameEntity) async {
   GlobeController globeController = Get.find<GlobeController>();
   if (globeController.isLogin()) {
-    AppLoading.show();
-    try {
-      var url = await apiRequest.requestGameLaunch(params: {
-        'pid': gameEntity.platformId,
-        'code': gameEntity.gameId,
-      });
-      Get.toNamed(Routes.WEBVIEW, arguments: {"url": url, 'title': gameEntity.brAlias});
-      Log.d("请求游戏Url结果：$url");
-    } catch (e, stack) {
-      Log.e("请求游戏Url结果异常 $e == > \n $stack");
-    }
-    AppLoading.close();
+    showGameEntranceDialog(gameEntity);
   } else {
     showLoginRegisterDialog();
   }
+}
+
+Future<void> requestEnterGame(GameEntity gameEntity) async {
+  AppLoading.show();
+  try {
+    var url = await apiRequest.requestGameLaunch(params: {
+      'pid': gameEntity.platformId,
+      'code': gameEntity.gameId,
+    });
+    Get.toNamed(Routes.WEBVIEW, arguments: {"url": url, 'title': gameEntity.brAlias});
+    Log.d("请求游戏Url结果：$url");
+  } catch (e, stack) {
+    Log.e("请求游戏Url结果异常 $e == > \n $stack");
+  }
+  AppLoading.close();
 }
 
 Future<void> requestAddFav(GameEntity gameEntity) async {
