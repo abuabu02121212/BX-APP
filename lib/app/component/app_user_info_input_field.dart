@@ -37,9 +37,10 @@ class UserInfoInputField extends StatelessWidget {
     this.showErrHeight,
     this.pswEditNode,
     this.confirmPswEditNode,
+    this.suffixWidget,
   });
 
-  final String prefixIcon;
+  final String? prefixIcon;
   final EditNode editNode;
   /// 只有确认密码需要配置
   final EditNode? pswEditNode;
@@ -66,6 +67,7 @@ class UserInfoInputField extends StatelessWidget {
   final String codeName;
   final ValueChanged<String>? onTextChanged;
   final bool editEnable;
+  final Widget? suffixWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +116,8 @@ class UserInfoInputField extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Image.asset(prefixIcon, width: prefixIconWidth ?? 28.w),
+                        if(prefixIcon != null)
+                        Image.asset(prefixIcon!, width: prefixIconWidth ?? 28.w),
                         if (isPhone)
                           Padding(
                             padding: EdgeInsets.only(left: 20.w),
@@ -130,7 +133,7 @@ class UserInfoInputField extends StatelessWidget {
                       ],
                     ),
                   ),
-                  suffix: SuffixImageWidget(
+                  suffix: suffixWidget ?? SuffixImageWidget(
                     editNode: editNode,
                     isCode: isCode,
                     isPassword: isPassword || isConfirmsPassword,

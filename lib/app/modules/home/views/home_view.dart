@@ -231,7 +231,7 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
           RequestResultEntity? requestResultEntity = list.other;
           bool isLastPage = requestResultEntity?.isLastPage ?? false;
           return list.isNotEmpty
-              ? Container(
+              ? SizedBox(
                   width: double.infinity,
                   height: list.length > 1 ? 540.w : 270.w,
               //    color: Colors.pink,
@@ -250,7 +250,6 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
                           : GameItemWidget(
                               isVerticalItem: false,
                               gameEntity: list[index],
-                              index: index,
                               controller: controller,
                               typeName: list.strExt,
                             );

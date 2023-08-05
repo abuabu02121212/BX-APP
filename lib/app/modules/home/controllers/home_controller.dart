@@ -27,7 +27,7 @@ class HomeController extends GetxController {
   final gameTypes = RxList<GameTypeEntity>(GameTypeEntity.getList());
   final selectedGameTypeIndex = 0.obs;
 
-  final selectedSearchItemIndex = 0.obs;
+ // final selectedSearchItemIndex = 0.obs;
   final List<int> gameTypePressedRecordList = [0];
   final ScrollController scrollController = ScrollController();
   final showingMarqueeText = "".obs;
@@ -41,6 +41,7 @@ class HomeController extends GetxController {
   late final recList = AppRxList<AppRxList<GameEntity>>(List.generate(7, (index) => AppRxList<GameEntity>()));
   late final tab1List = AppRxList<AppRxList<GameEntity>>(List.generate(7, (index) => AppRxList<GameEntity>()));
   late final tab2List = AppRxList<AppRxList<GameEntity>>();
+  late final searchRxList = AppRxList<GameEntity>();
   late final tab2TagList = AppRxList<AppRxList<GameTagEntity>>();
 
   final bannerList = RxList<BannerEntity>();

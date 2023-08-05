@@ -155,26 +155,30 @@ Future<RequestResultEntity?> requestGameSearch(
   pageIndex = 1,
 }) async {
   lastKeyWord = keyWord;
-  lastPlatformId = platformId;
   AppLoading.show();
-  // var curRequestPageIndex = paginationHelper.getCurRequestPageIndex();
-  try {
-    var retData = await apiRequest.requestGameSearch(params: {
-      'ty': gameType,
-      'page': pageIndex,
-      'page_size': pageSize,
-      'w': keyWord,
-      'platform_id': platformId,
-      'tag_id': 0,
-    });
-    onSuccess();
-    return handleGameListData(retData['d'], tarRx, pageSize, pageIndex);
-  } catch (e, stack) {
-    onRequestFail(tarRx);
-    Log.e("$e, $stack");
+  var listUIKey = "GameSearch-$keyWord";
+  if(lastKeyWord != keyWord){
+    gameListPageIndexHelper.clear(listUIKey);
   }
+  var ret= await requestGamePageData(
+      apiRequest.requestGameSearch,
+      {
+        'ty': gameType,
+        'page_size': pageSize,
+        'w': keyWord,
+        'platform_id': platformId,
+        'tag_id': 0,
+      },
+      listUIKey: listUIKey,
+      gameListPageIndexHelper: gameListPageIndexHelper,
+      requestPageIndex: pageIndex,
+      tarRx: tarRx,
+      pageSize: pageSize,
+      isDData: false
+  );
   AppLoading.close();
-  return null;
+  return ret ;
+
 }
 
 void onRequestFail(RxList<GameEntity> tarRx) {

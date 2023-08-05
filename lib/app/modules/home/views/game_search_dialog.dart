@@ -4,12 +4,13 @@ import 'package:flutter_comm/widget/input_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../app_style.dart';
-import '../../../component/app_button.dart';
+import '../../../../util/entity/entites.dart';
+import '../../../component/app_empty.dart';
 import '../../../component/app_user_info_input_field.dart';
 import '../../../entity/game_nav.dart';
 import '../controllers/game_list_requests.dart';
 import '../controllers/home_controller.dart';
+import 'game_type_list.dart';
 
 class GameSearchWidget extends StatelessWidget {
   GameSearchWidget({super.key, required this.dataList, required this.listItemIndex});
@@ -19,165 +20,105 @@ class GameSearchWidget extends StatelessWidget {
   final HomeController controller = Get.put(HomeController());
   final EditNode editNode = EditNode();
   final platformId = '0'.obs;
-  static final lastSelectedGameType = ''.obs;
   final int listItemIndex;
 
   @override
   Widget build(BuildContext context) {
-    if (controller.getCurGameType() != lastSelectedGameType.value) {
-      controller.selectedSearchItemIndex.value = 0;
-    }
-    lastSelectedGameType.value = controller.getCurGameType();
-    if(dataList != null){
-      platformId.value = dataList![controller.selectedSearchItemIndex.value].id;
-    }
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          alignment: Alignment.topRight,
-          child: CupertinoButton(
-            onPressed: () {
-              Get.back();
-            },
-            minSize: 0,
-            padding: EdgeInsets.only(right: 20.w, top: 40.w),
-            child: Image.asset(
-              "assets/images/dialog-close.webp",
-              width: 40.w,
+    return SafeArea(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 60.w,
+            alignment: Alignment.center,
+            child: Text(
+              "Category",
+              style: TextStyle(fontSize: 32.w, color: Colors.white, fontWeight: FontWeight.w700),
             ),
           ),
-        ),
-        Container(
-          height: 60.w,
-          alignment: Alignment.center,
-          child: Text(
-            "Category",
-            style: TextStyle(fontSize: 32.w, color: Colors.white, fontWeight: FontWeight.w700),
-          ),
-        ),
-        Container(
-          width: double.infinity,
-          margin: EdgeInsets.only(top: 10.w, left: 20.w, right: 20.w),
-          child: UserInfoInputField(
-            prefixIcon: 'assets/images/game_search.webp',
-            editNode: editNode,
-            height: 96.w,
-            hint: 'To search for',
-            bgColor: const Color(0xff000A1D),
-            border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
-            errText: '',
-            onTextChanged: (text) {},
-            isEmail: false,
-          ),
-        ),
-        // Container(
-        //   alignment: Alignment.topLeft,
-        //   padding: EdgeInsets.only(left: 20.w),
-        //   child: Text(
-        //     "Providers",
-        //     style: TextStyle(
-        //       fontSize: 32.w,
-        //       color: const Color(0xffffffff),
-        //       fontWeight: FontWeight.w400,
-        //     ),
-        //   ),
-        // ),
-        //  SizedBox(height: 10.w),
-        ///  PlatformGridWidget(dataList: dataList, controller: controller, platformId: platformId),
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 10.w),
-          child: AppButton(
+          Container(
             width: double.infinity,
-            height: 90.w,
-            radius: 100.w,
-            text: 'confirm',
-            onClick: () {
-              if (editNode.text.value.isNotEmpty || controller.selectedSearchItemIndex.value != 0) {
-                String platId = controller.curTab2GameNavEntityList[listItemIndex].id;
-                requestGameSearch(controller.tab2List[listItemIndex], controller.getCurGameType(),
-                    keyWord: editNode.text.value, platformId: platId, onSuccess: () {
-                  controller.onLevel2ListItemTabSwitch(2, listItemIndex: listItemIndex);
-                });
-              } else {
-                controller.onLevel2ListItemTabSwitch(0, listItemIndex: listItemIndex);
-              }
-              Get.back();
-            },
+            margin: EdgeInsets.only(top: 10.w, left: 20.w, right: 20.w),
+            child: UserInfoInputField(
+              prefixIcon: null,
+              paddingLeft: 0,
+              editNode: editNode,
+              height: 96.w,
+              hint: 'To search for',
+              bgColor: const Color(0xff000A1D),
+              border: Border.all(color: const Color(0xff2A2E3E), width: 1.w),
+              errText: '',
+              onTextChanged: (text) {},
+              suffixWidget: CupertinoButton(
+                onPressed: () {
+                  startSearch();
+                },
+                minSize: 0,
+                padding: EdgeInsets.only(left: 10.w, right: 30.w, top: 10.w, bottom: 10.w),
+                child: Image.asset("assets/images/game_search.webp", width: 32.w),
+              ),
+              isEmail: false,
+            ),
           ),
-        ),
-      ],
+          Expanded(
+              child: GameGridWidget(
+            controller: controller,
+          ))
+        ],
+      ),
     );
+  }
+
+  void startSearch() {
+    if (editNode.text.value.isNotEmpty) {
+      requestGameSearch(controller.searchRxList, '0', keyWord: editNode.text.value, platformId: "0", onSuccess: () {
+        controller.onLevel2ListItemTabSwitch(2, listItemIndex: listItemIndex);
+      });
+    }
   }
 }
 
-class PlatformGridWidget extends StatelessWidget {
-  const PlatformGridWidget({
+class GameGridWidget extends StatelessWidget {
+  const GameGridWidget({
     super.key,
-    required this.dataList,
     required this.controller,
-    required this.platformId,
   });
 
-  final List<GameNavEntity> dataList;
   final HomeController controller;
-  final RxString platformId;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints(maxHeight: 600.w),
-      child: GridView.builder(
-        itemCount: dataList.length,
-        padding: EdgeInsets.only(left: 20.w, right: 20.w),
-        shrinkWrap: true,
-        physics: const BouncingScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 1.8),
-        itemBuilder: (BuildContext context, int index) {
-          return CupertinoButton(
-            onPressed: () {
-              controller.selectedSearchItemIndex.value = index;
-              platformId.value = dataList[index].id;
-            },
-            minSize: 0,
-            padding: EdgeInsets.zero,
-            child: SizedBox(
+    return Obx(() {
+      var searchRxList = controller.searchRxList;
+      RequestResultEntity? requestResultEntity = searchRxList.other;
+      bool isLastPage = requestResultEntity?.isLastPage ?? false;
+      return searchRxList.isNotEmpty
+          ? GridView.builder(
+              itemCount: isLastPage ? searchRxList.length : searchRxList.length + 1,
+              padding: EdgeInsets.only(left: 20.w, right: 20.w),
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 0.9),
+              itemBuilder: (BuildContext context, int index) {
+                bool isLoadMoreItem = searchRxList.length == index;
+                return isLoadMoreItem
+                    ? ItemMoreWidget(controller: controller, listItemIndex: 0)
+                    : GameItemWidget(
+                        isVerticalItem: true,
+                        gameEntity: searchRxList[index],
+                        controller: controller,
+                        typeName: '',
+                      );
+              },
+            )
+          : AppEmpty(
               width: double.infinity,
-              height: double.infinity,
-              child: Center(
-                child: Obx(() {
-                  bool isSelected = controller.selectedSearchItemIndex.value == index;
-                  Color textColor = isSelected ? Colors.white : const Color.fromRGBO(255, 255, 255, 0.40);
-                  return Container(
-                    width: 220.w,
-                    height: 86.w,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      gradient: isSelected ? activeBtnLinearGradient : tabBgLinearGradient,
-                      borderRadius: BorderRadius.circular(100.w),
-                      border: isSelected ? Border.all(width: 1.w, color: const Color(0xff2A2E3E)) : null,
-                    ),
-                    child: Text(
-                      dataList[index].name,
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 26.w,
-                        color: textColor,
-                        fontWeight: isSelected ? FontWeight.w700 : FontWeight.w400,
-                      ),
-                    ),
-                  );
-                }),
-              ),
-            ),
-          );
-        },
-      ),
-    );
+              height: 400.w,
+              alignment: Alignment.center,
+            );
+    });
   }
 }
 
@@ -188,6 +129,6 @@ void showSearchDialog(List<GameNavEntity>? list, {listItemIndex = 0}) {
       listItemIndex: listItemIndex,
     ),
     barrierDismissible: false,
-    barrierColor: const Color.fromRGBO(0, 0, 0, 0.8),
+    barrierColor: const Color.fromRGBO(0, 0, 0, 0.94),
   );
 }

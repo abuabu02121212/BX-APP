@@ -105,7 +105,6 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                               : GameItemWidget(
                                   isVerticalItem: false,
                                   gameEntity: list[index],
-                                  index: index,
                                   controller: controller,
                                   typeName: list.strExt,
                                 );
@@ -160,7 +159,6 @@ class GameItemWidget extends StatelessWidget {
     super.key,
     this.isVerticalItem = false,
     required this.gameEntity,
-    this.index,
     required this.controller,
     required this.typeName,
   });
@@ -168,7 +166,6 @@ class GameItemWidget extends StatelessWidget {
   final HomeController controller;
   final bool isVerticalItem;
   final GameEntity gameEntity;
-  final int? index;
   final String? typeName;
 
   @override
@@ -190,7 +187,7 @@ class GameItemWidget extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(16.w),
                 child: CachedNetworkImage(
-                  width: isVerticalItem ? 225.w : 180.w,
+                  width: isVerticalItem ? 220.w : 180.w,
                   height: 180.w,
                   fit: BoxFit.cover,
                   imageUrl: imgUrl,
