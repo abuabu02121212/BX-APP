@@ -7,11 +7,13 @@ import 'package:flutter_comm/app/modules/mine/views/mine_view.dart';
 import 'package:flutter_comm/app/modules/promotion/views/promotion_view.dart';
 import 'package:flutter_comm/app/modules/vip/views/vip_view.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
+import 'package:flutter_comm/util/sp_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import '../../../../globe_controller.dart';
 import '../../../../util/Log.dart';
+import '../../../../util/sp_util_key.dart';
 import '../../../../widget/keep_alive_page.dart';
 import '../../../app_style.dart';
 import '../../login_register/views/login_regiseter_widget.dart';
@@ -31,6 +33,7 @@ class MainView extends GetView<MainController> {
         toolbarHeight: 0.w
       ),
       body: SafeArea(
+        bottom: false,
         child: Stack(
           children: [
             SizedBox(
@@ -59,28 +62,37 @@ class MainView extends GetView<MainController> {
             Positioned(
               left: 0.w,
               bottom: 0.w,
-              child: MainHorizontalTabComponent(
-                indicatorTabController: controller.indicatorTabController,
-                onSelectChanged: (pos) {
-                  GlobeController globeController = Get.find<GlobeController>();
-                  if (pos >= 2) {
-                    if (!globeController.isLogin()) {
-                      Log.d("还没有登陆");
-                      controller.indicatorTabController.back();
-                      showLoginRegisterDialog();
-                    } else {
-                      Log.d("已经登陆");
-                      if (pos == 2) {
-                        controller.indicatorTabController.back();
-                        Get.toNamed(Routes.DEPOSIT);
+              child: Column(
+                children: [
+                  MainHorizontalTabComponent(
+                    indicatorTabController: controller.indicatorTabController,
+                    onSelectChanged: (pos) {
+                      GlobeController globeController = Get.find<GlobeController>();
+                      if (pos >= 2) {
+                        if (!globeController.isLogin()) {
+                          Log.d("还没有登陆");
+                          controller.indicatorTabController.back();
+                          showLoginRegisterDialog();
+                        } else {
+                          Log.d("已经登陆");
+                          if (pos == 2) {
+                            controller.indicatorTabController.back();
+                            Get.toNamed(Routes.DEPOSIT);
+                          } else {
+                            controller.pageController.jumpToPage(pos);
+                          }
+                        }
                       } else {
                         controller.pageController.jumpToPage(pos);
                       }
-                    }
-                  } else {
-                    controller.pageController.jumpToPage(pos);
-                  }
-                },
+                    },
+                  ),
+                  Container(
+                    width: 1.sw,
+                    height: MediaQuery.of(context).padding.bottom,
+                    color: const Color.fromRGBO(3, 11, 29, 1),
+                  )
+                ],
               ),
             ),
           ],
