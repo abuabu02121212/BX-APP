@@ -31,7 +31,10 @@ void main() {
   //FlutterChain.capture(() => runApp(buildScreenUtilInit(child: getRootWidget())));
   if (Platform.isAndroid) {
     /// 设置android状态栏为透明的沉浸。写在组件渲染之后，是为了在渲染后进行set赋值，覆盖状态栏，写在渲染之前MaterialApp组件会覆盖掉这个值。
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Color.fromRGBO(3, 11, 29, 1),
+    ));
   }
 }
 
@@ -42,7 +45,8 @@ class RefreshConfigurationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshConfiguration(
         headerBuilder: () => const WaterDropHeader(),
-        footerBuilder: () => const ClassicFooter(loadingIcon: CupertinoActivityIndicator()),
+        footerBuilder: () =>
+            const ClassicFooter(loadingIcon: CupertinoActivityIndicator()),
         hideFooterWhenNotFull: false,
         // Viewport不满一屏时,禁用上拉加载更多功能
         enableBallisticLoad: false,
@@ -56,7 +60,8 @@ class RefreshConfigurationWidget extends StatelessWidget {
 }
 
 class ScreenAdapterConfigurationWidget extends StatelessWidget {
-  const ScreenAdapterConfigurationWidget({Key? key, required this.child}) : super(key: key);
+  const ScreenAdapterConfigurationWidget({Key? key, required this.child})
+      : super(key: key);
   final Widget child;
 
   @override
@@ -98,13 +103,14 @@ class AppConfigurationWidget extends StatelessWidget {
 
       /// 配置404页面: 如果路由不存在则跳到该页面
       onGenerateRoute: (RouteSettings settings) {
-        return MaterialPageRoute(builder: (BuildContext context) => const ErrPage());
+        return MaterialPageRoute(
+            builder: (BuildContext context) => const ErrPage());
       },
       builder: EasyLoading.init(builder: (context, widget) {
         return MediaQuery(
           ///设置文字大小不随系统设置改变
           data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-          child:  FlutterSmartDialog.init()(context, widget),
+          child: FlutterSmartDialog.init()(context, widget),
         );
       }),
 
@@ -116,7 +122,8 @@ class AppConfigurationWidget extends StatelessWidget {
         appNavigatorObserver
       ],
       routingCallback: (Routing? routing) {
-        Log.d('cur route: ${routing?.current}  name: ${routing?.route?.settings.name}');
+        Log.d(
+            'cur route: ${routing?.current}  name: ${routing?.route?.settings.name}');
       },
     );
   }
