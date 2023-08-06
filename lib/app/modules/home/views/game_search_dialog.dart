@@ -32,6 +32,20 @@ class GameSearchWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
+            alignment: Alignment.topRight,
+            child: CupertinoButton(
+              onPressed: () {
+                Get.back();
+              },
+              minSize: 0,
+              padding: EdgeInsets.only(right: 20.w, top: 40.w),
+              child: Image.asset(
+                "assets/images/dialog-close.webp",
+                width: 40.w,
+              ),
+            ),
+          ),
+          Container(
             height: 60.w,
             alignment: Alignment.center,
             child: Text(
@@ -86,7 +100,7 @@ class GameSearchWidget extends StatelessWidget {
     }
   }
 }
-
+int searchDialogListItemIndex = -9;
 class GameGridWidget extends StatelessWidget {
   GameGridWidget({
     super.key,
@@ -125,7 +139,7 @@ class GameGridWidget extends StatelessWidget {
                         gameEntity: searchRxList[index],
                         controller: controller,
                         typeName: '',
-                        listItemIndex: 0,
+                        listItemIndex: searchDialogListItemIndex,
                       );
               },
             )

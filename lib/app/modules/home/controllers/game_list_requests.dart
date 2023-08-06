@@ -195,7 +195,7 @@ Future<RequestResultEntity?> requestGameSearch(
       requestPageIndex: pageIndex,
       tarRx: tarRx,
       pageSize: pageSize,
-      isDData: false);
+      isDData: true);
   AppLoading.close();
   return ret;
 }
