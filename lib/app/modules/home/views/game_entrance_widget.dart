@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_button.dart';
 import 'package:flutter_comm/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -132,7 +131,7 @@ class GameEntranceWidget extends StatelessWidget {
                 height: 90.w,
                 text: 'Modo real',
                 onClick: () {
-                  startGame(platformId: gameEntity.platformId, gameId: gameEntity.gameId, brAlias: gameEntity.brAlias);
+                  startGame(platformId: gameEntity.platformId, gameId: gameEntity.gameId, brAlias: gameEntity.brAlias, isFromDialog: true);
                 },
                 radius: 100.w,
               ),
@@ -159,10 +158,10 @@ void showGameEntranceDialog(GameEntity gameEntity, String typeName) {
       });
 }
 
-Future<void> startGame({required platformId, required gameId,required brAlias}) async {
+Future<void> startGame({required platformId, required gameId,required brAlias, bool isFromDialog=false}) async {
   GlobeController globeController = Get.find<GlobeController>();
   if (globeController.isLogin()) {
-    await requestEnterGame(platformId: platformId, gameId: gameId, brAlias: brAlias);
+    await requestEnterGame(platformId: platformId, gameId: gameId, brAlias: brAlias, isFromDialog: isFromDialog);
   } else {
     showLoginRegisterDialog();
   }

@@ -1,3 +1,7 @@
+
+
+import 'dart:ui';
+
 import 'package:get/get.dart';
 
 import '../../../../globe_controller.dart';
@@ -225,13 +229,16 @@ Future<void> onGameItemClick(GameEntity gameEntity, String typeName) async {
   }
 }
 
-Future<void> requestEnterGame({required platformId, required gameId, required brAlias}) async {
+Future<void> requestEnterGame({required platformId, required gameId, required brAlias, bool isFromDialog=false}) async {
   AppLoading.show();
   try {
     var url = await apiRequest.requestGameLaunch(params: {
       'pid': platformId,
       'code': gameId,
     });
+    if(isFromDialog){
+      Get.back();
+    }
     Get.toNamed(Routes.WEBVIEW, arguments: {"url": url, 'title': brAlias});
     Log.d("请求游戏Url结果：$url");
   } catch (e, stack) {
