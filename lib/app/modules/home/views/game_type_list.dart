@@ -34,7 +34,6 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
   Future<void> _scrollListener() async {
     if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
       if (controller.selectedGameTypeIndex.value == 1) {
-        await requestFavGameList(controller.tab1List[listItemIndex], ty: controller.gameTypeList[listItemIndex].toString(), pageIndex: -3);
       }
     }
   }

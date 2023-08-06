@@ -67,18 +67,24 @@ Future<void> requestRecGameList(int ty, RxList<GameEntity> rx) async {
 /// TAB 1 游戏列表
 Future<RequestResultEntity?> requestFavGameList(AppRxList<GameEntity> tarRx, {ty = "0", pageIndex = 1}) async {
   var listUIKey = "GameFavList1-$ty";
+  int favPageSize = 69;
+  // ?ty=4&platform_id=0&page_size=69&page=1
+  // ?ty=fav&platform_id=0&hot=0&game_type=4
+  var param = <String, Object>{
+    'ty': ty,
+    'page_size': favPageSize,
+    'platform_id': 0,
+  };
   return await requestGamePageData(
     apiRequest.requestGameFavList,
-    {
-      'ty': ty,
-      'page_size': pageSize,
-      'platform_id': 0,
-    },
+
+    param,
+
     listUIKey: listUIKey,
     gameListPageIndexHelper: gameListPageIndexHelper,
     requestPageIndex: pageIndex,
     tarRx: tarRx,
-    pageSize: pageSize,
+    pageSize: favPageSize,
   );
 }
 
@@ -104,23 +110,23 @@ Future<RequestResultEntity?> requestGameList(RxList<GameEntity> tarRx, String ga
 }
 
 /// 小按钮的热门游戏列表
-Future<RequestResultEntity?> requestHotGameList(RxList<GameEntity> tarRx, String gameType, {platformId = 0, pageIndex = 1}) async {
-  AppLoading.show();
+Future<RequestResultEntity?> requestHotGameList(RxList<GameEntity> tarRx, int gameType, {platformId = 0, pageIndex = 1}) async {
   var listUIKey = "HotGameList2-$gameType-$platformId";
+  int myPageSize = 69;
+  // ?ty=3&platform_id=0&page=1&page_size=69
   var ret = await requestGamePageData(
     apiRequest.requestHotGameList,
     {
       'ty': gameType,
-      'page_size': pageSize,
+      'page_size': myPageSize,
       'platform_id': platformId,
     },
     listUIKey: listUIKey,
     gameListPageIndexHelper: gameListPageIndexHelper,
     requestPageIndex: pageIndex,
     tarRx: tarRx,
-    pageSize: pageSize,
+    pageSize: myPageSize,
   );
-  AppLoading.close();
   return ret;
 }
 
@@ -135,11 +141,11 @@ Future<RequestResultEntity?> requestMemberFavList2(
 }) async {
   var listUIKey = "MemberFavList2-$ty-$platformId=$gameType";
   var ret = await requestGamePageData(
-    // ty=hot&platform_id=0&hot=0&game_type=0
+      // ty=hot&platform_id=0&hot=0&game_type=0
       apiRequest.requestMemberFavList,
       {
         'ty': ty,
-       // 'page_size': pageSize,
+        // 'page_size': pageSize,
         'platform_id': platformId,
         'game_type': gameType,
         'hot': hot,
@@ -233,9 +239,9 @@ Future<void> requestEnterGame({required platformId, required gameId, required br
   AppLoading.close();
 }
 
-Future<void> requestAddFav(GameEntity gameEntity,  {ty = ''}) async {
+Future<void> requestAddFav(GameEntity gameEntity, {ty = ''}) async {
   AppLoading.show();
-  var ret = await apiRequest.requestFavInsert(params: {"id": gameEntity.id, 'ty' : ty});
+  var ret = await apiRequest.requestFavInsert(params: {"id": gameEntity.id, 'ty': ty});
   if (ret == retCodeSuccess) {
     gameEntity.switchFavState(true);
     // Toast.show("Success");

@@ -62,7 +62,7 @@ class HomeController extends GetxController {
     if (tabIndex == 0) {
       requestTab0GameList();
     } else if (tabIndex == 1) {
-      requestTab1FavGameList();
+      requestTab1GameList();
     } else {
       tagTabSelectedIndexMap.clear();
       requestTab2GameList();
@@ -176,13 +176,32 @@ class HomeController extends GetxController {
   List<int> gameTypeList = [3, 2, 5, 4, 1];
 
   /// tab 1
-  Future<void> requestTab1FavGameList() async {
+  Future<void> requestTab1GameList() async {
     AppLoading.show();
     for (int i = 0; i < tab1List.length; i++) {
       await requestFavGameList(tab1List[i], ty: gameTypeList[i].toString());
     }
     AppLoading.close();
   }
+
+  /// tab 1 -fav
+  Future<void> requestTab1FavGameList() async {
+    AppLoading.show();
+    for (int i = 0; i < tab1List.length; i++) {
+      await requestMemberFavList2(tab1List[i], tab1TyName, gameType: gameTypeList[i]);
+    }
+    AppLoading.close();
+  }
+
+  /// tab 1 -hot
+  Future<void> requestTab1HotGameList() async {
+    AppLoading.show();
+    for (int i = 0; i < tab1List.length; i++) {
+      await requestHotGameList(tab1List[i], gameTypeList[i]);
+    }
+    AppLoading.close();
+  }
+
 
   List<GameNavEntity> curTab2GameNavEntityList = [];
 

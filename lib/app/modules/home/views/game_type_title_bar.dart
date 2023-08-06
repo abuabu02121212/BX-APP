@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/app/modules/login_register/views/login_regiseter_widget.dart';
+import 'package:flutter_comm/globe_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -57,7 +59,6 @@ class Level2TypeTabs extends StatelessWidget {
   final int listItemIndex;
   final HomeController controller;
 
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -72,7 +73,14 @@ class Level2TypeTabs extends StatelessWidget {
                     CupertinoButton(
                       onPressed: () {
                         controller.hotIsSelected.value = !controller.hotIsSelected.value;
-                       // controller.onLevel2ListItemTabSwitch(listItemIndex: listItemIndex);
+                        var selectedGameTypeIndex = controller.selectedGameTypeIndex.value;
+                        if (selectedGameTypeIndex == 1) {
+                          if(controller.hotIsSelected.value){
+                            controller.requestTab1HotGameList();
+                          }else{
+                            controller.requestTab1GameList();
+                          }
+                        }
                       },
                       minSize: 0,
                       padding: EdgeInsets.symmetric(horizontal: 5.w),
@@ -83,16 +91,27 @@ class Level2TypeTabs extends StatelessWidget {
                     ),
                   CupertinoButton(
                     onPressed: () async {
+                      GlobeController globeController = Get.find<GlobeController>();
+                      if (!globeController.isLogin()) {
+                        showLoginRegisterDialog();
+                        return;
+                      }
                       controller.favIsSelected.value = !controller.favIsSelected.value;
                       var selectedGameTypeIndex = controller.selectedGameTypeIndex.value;
-                      if(selectedGameTypeIndex == 0){
+                      if (selectedGameTypeIndex == 0) {
                         AppLoading.show();
-                        if(controller.favIsSelected.value){
+                        if (controller.favIsSelected.value) {
                           await controller.requestTab0FavGameList();
-                        }else{
+                        } else {
                           await controller.requestTab0GameList();
                         }
                         AppLoading.close();
+                      } else if (selectedGameTypeIndex == 1) {
+                        if (controller.favIsSelected.value) {
+                          controller.requestTab1FavGameList();
+                        } else {
+                          controller.requestTab1GameList();
+                        }
                       }
                     },
                     minSize: 0,
