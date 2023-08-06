@@ -270,7 +270,6 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
                               isVerticalItem: false,
                               gameEntity: list[index],
                               controller: controller,
-                              typeName: list.strExt,
                               listItemIndex: listItemIndex,
                             );
                     },

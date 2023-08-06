@@ -220,10 +220,10 @@ Future<void> requestTagList(RxList<GameTagEntity> tarList, String gameType, {pla
   Log.d("=======游戏tag列表长度：${tarList.length} ");
 }
 
-Future<void> onGameItemClick(GameEntity gameEntity, String typeName) async {
+Future<void> onGameItemClick(GameEntity gameEntity) async {
   GlobeController globeController = Get.find<GlobeController>();
   if (globeController.isLogin()) {
-    showGameEntranceDialog(gameEntity, typeName);
+    showGameEntranceDialog(gameEntity);
   } else {
     showLoginRegisterDialog();
   }

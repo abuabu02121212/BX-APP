@@ -138,7 +138,6 @@ class GameGridWidget extends StatelessWidget {
                         isVerticalItem: true,
                         gameEntity: searchRxList[index],
                         controller: controller,
-                        typeName: '',
                         listItemIndex: searchDialogListItemIndex,
                       );
               },

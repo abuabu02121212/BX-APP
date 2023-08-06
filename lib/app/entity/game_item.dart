@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../util/Log.dart';
+import 'game_nav.dart';
 
 class GameEntity {
   String id;
@@ -62,6 +63,15 @@ class GameEntity {
     );
     entity.isRxFav.value = entity.isFav == '1';
     return entity;
+  }
+
+  String getPlatformName(List<GameNavEntity> navItemList){
+    for(var item in navItemList){
+      if(item.id == platformId){
+        return item.name;
+      }
+    }
+    return "";
   }
 
   void switchFavState(bool isFavorite) {

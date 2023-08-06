@@ -114,7 +114,6 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                                   isVerticalItem: false,
                                   gameEntity: list[index],
                                   controller: controller,
-                                  typeName: list.strExt,
                                   listItemIndex: listItemIndex,
                                 );
                         },
@@ -172,14 +171,12 @@ class GameItemWidget extends StatelessWidget {
     this.isVerticalItem = false,
     required this.gameEntity,
     required this.controller,
-    required this.typeName,
     required this.listItemIndex,
   });
 
   final HomeController controller;
   final bool isVerticalItem;
   final GameEntity gameEntity;
-  final String? typeName;
   final int listItemIndex;
 
   @override
@@ -189,7 +186,7 @@ class GameItemWidget extends StatelessWidget {
       onPressed: () {
         Log.d("gameEntity:${gameEntity.toJson()}");
         gameEntity.listItemIndex = listItemIndex;
-        onGameItemClick(gameEntity, typeName ?? "");
+        onGameItemClick(gameEntity);
       },
       minSize: 0,
       padding: EdgeInsets.zero,

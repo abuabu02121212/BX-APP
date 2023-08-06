@@ -62,6 +62,9 @@ class HomeController extends GetxController {
   void requestTabPageData(int tabIndex) {
     hotIsSelected.value = false;
     favIsSelected.value = false;
+    if(navItemList.isEmpty){
+      requestMemberNav(navItemList, gameTypes);
+    }
     if (tabIndex == 0) {
       requestTab0GameList();
     } else if (tabIndex == 1) {

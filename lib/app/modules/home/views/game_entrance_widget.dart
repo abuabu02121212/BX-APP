@@ -13,14 +13,13 @@ import '../controllers/game_list_requests.dart';
 import 'game_type_list.dart';
 
 class GameEntranceWidget extends StatelessWidget {
-  const GameEntranceWidget({
+   GameEntranceWidget({
     super.key,
     required this.gameEntity,
-    required this.typeName,
   });
 
   final GameEntity gameEntity;
-  final String typeName;
+  final HomeController controller = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +89,7 @@ class GameEntranceWidget extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(top: 10.w, bottom: 10.w),
                         child: Text(
-                          typeName,
+                          gameEntity.getPlatformName(controller.navItemList),
                           style: TextStyle(
                             fontSize: 32.w,
                             color: const Color.fromRGBO(255, 255, 255, 0.6),
@@ -145,7 +144,7 @@ class GameEntranceWidget extends StatelessWidget {
 
 }
 
-void showGameEntranceDialog(GameEntity gameEntity, String typeName) {
+void showGameEntranceDialog(GameEntity gameEntity) {
   SmartDialog.show(
       clickMaskDismiss: true,
       useSystem: true,
@@ -153,7 +152,6 @@ void showGameEntranceDialog(GameEntity gameEntity, String typeName) {
       builder: (BuildContext context) {
         return GameEntranceWidget(
           gameEntity: gameEntity,
-          typeName: typeName,
         );
       });
 }
