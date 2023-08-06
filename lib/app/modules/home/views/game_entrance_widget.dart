@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_button.dart';
+import 'package:flutter_comm/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
@@ -104,7 +105,8 @@ class GameEntranceWidget extends StatelessWidget {
                           if (isFav) {
                             requestDelFav(gameEntity);
                           } else {
-                            requestAddFav(gameEntity);
+                            HomeController homeController =  Get.find<HomeController>();
+                            requestAddFav(gameEntity, ty: homeController.getInsertFavTy(gameEntity.listItemIndex));
                           }
                         },
                         minSize: 0,

@@ -65,7 +65,7 @@ Future<void> requestRecGameList(int ty, RxList<GameEntity> rx) async {
 }
 
 /// TAB 1 游戏列表
-Future<RequestResultEntity?> requestFavGameList(AppRxList<GameEntity> tarRx, {ty = "0", pageIndex=1}) async {
+Future<RequestResultEntity?> requestFavGameList(AppRxList<GameEntity> tarRx, {ty = "0", pageIndex = 1}) async {
   var listUIKey = "GameFavList1-$ty";
   return await requestGamePageData(
     apiRequest.requestGameFavList,
@@ -125,28 +125,38 @@ Future<RequestResultEntity?> requestHotGameList(RxList<GameEntity> tarRx, String
 }
 
 /// 小按钮的收藏游戏列表
-Future<RequestResultEntity?> requestMemberFavList2(RxList<GameEntity> tarRx, String gameType, {platformId = 0, pageIndex = 1}) async {
-  AppLoading.show();
-  var listUIKey = "MemberFavList2-$gameType-$platformId";
+Future<RequestResultEntity?> requestMemberFavList2(
+  AppRxList<GameEntity> tarRx,
+  String ty, {
+  String platformId = "0",
+  int gameType = 0,
+  int hot = 0,
+  pageIndex = 1,
+}) async {
+  var listUIKey = "MemberFavList2-$ty-$platformId=$gameType";
   var ret = await requestGamePageData(
-    apiRequest.requestMemberFavList,
-    {
-      'ty': gameType,
-      'page_size': pageSize,
-      'platform_id': platformId,
-    },
-    listUIKey: listUIKey,
-    gameListPageIndexHelper: gameListPageIndexHelper,
-    requestPageIndex: pageIndex,
-    tarRx: tarRx,
-    pageSize: pageSize,
-    isDData: false
-  );
-  AppLoading.close();
+    // ty=hot&platform_id=0&hot=0&game_type=0
+      apiRequest.requestMemberFavList,
+      {
+        'ty': ty,
+       // 'page_size': pageSize,
+        'platform_id': platformId,
+        'game_type': gameType,
+        'hot': hot,
+      },
+      listUIKey: listUIKey,
+      gameListPageIndexHelper: gameListPageIndexHelper,
+      requestPageIndex: pageIndex,
+      tarRx: tarRx,
+      isNeedPage: false,
+      pageSize: pageSize,
+      isDData: false);
   return ret;
 }
+
 /// 小按钮的搜索游戏列表
 LoadMorePageIndexHelper gameSearchPageIndexHelper = LoadMorePageIndexHelper();
+
 Future<RequestResultEntity?> requestGameSearch(
   RxList<GameEntity> tarRx,
   String gameType, {
@@ -157,10 +167,10 @@ Future<RequestResultEntity?> requestGameSearch(
 }) async {
   AppLoading.show();
   var listUIKey = "GameSearch-$keyWord";
-  if(pageIndex == 1){
+  if (pageIndex == 1) {
     gameSearchPageIndexHelper.clearMap();
   }
-  var ret= await requestGamePageData(
+  var ret = await requestGamePageData(
       apiRequest.requestGameSearch,
       {
         'ty': gameType,
@@ -174,11 +184,9 @@ Future<RequestResultEntity?> requestGameSearch(
       requestPageIndex: pageIndex,
       tarRx: tarRx,
       pageSize: pageSize,
-      isDData: false
-  );
+      isDData: false);
   AppLoading.close();
-  return ret ;
-
+  return ret;
 }
 
 /// Tag列表
@@ -210,7 +218,7 @@ Future<void> onGameItemClick(GameEntity gameEntity, String typeName) async {
   }
 }
 
-Future<void> requestEnterGame({required platformId, required gameId,required brAlias}) async {
+Future<void> requestEnterGame({required platformId, required gameId, required brAlias}) async {
   AppLoading.show();
   try {
     var url = await apiRequest.requestGameLaunch(params: {
@@ -225,9 +233,9 @@ Future<void> requestEnterGame({required platformId, required gameId,required brA
   AppLoading.close();
 }
 
-Future<void> requestAddFav(GameEntity gameEntity) async {
+Future<void> requestAddFav(GameEntity gameEntity,  {ty = ''}) async {
   AppLoading.show();
-  var ret = await apiRequest.requestFavInsert(params: {"id": gameEntity.id});
+  var ret = await apiRequest.requestFavInsert(params: {"id": gameEntity.id, 'ty' : ty});
   if (ret == retCodeSuccess) {
     gameEntity.switchFavState(true);
     // Toast.show("Success");

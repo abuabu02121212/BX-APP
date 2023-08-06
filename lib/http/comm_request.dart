@@ -60,6 +60,7 @@ Future<RequestResultEntity?> requestGamePageData(
   required int requestPageIndex,
   required RxList<GameEntity> tarRx,
   required int pageSize,
+  bool isNeedPage = true,
   bool isDData = true,
 }) async {
   try {
@@ -71,7 +72,9 @@ Future<RequestResultEntity?> requestGamePageData(
       return null;
     }
     var tarPageIndex = gameListPageIndexHelper.getRequestPageIndex(listUIKey, requestPageIndex);
-    param['page'] = tarPageIndex;
+    if(isNeedPage) {
+      param['page'] = tarPageIndex;
+    }
     var retData = await method(params: param);
     RequestResultEntity entity = handleGameListData(isDData ? retData['d'] : retData, tarRx, pageSize, tarPageIndex);
     if (entity.isSuccess) {

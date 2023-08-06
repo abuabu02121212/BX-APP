@@ -9,6 +9,7 @@ import '../../../../util/Log.dart';
 import '../../../../util/entity/entites.dart';
 import '../../../../util/extensions.dart';
 import '../../../app_style.dart';
+import '../../../component/app_empty.dart';
 import '../../../entity/game_item.dart';
 import '../controllers/game_list_requests.dart';
 import '../controllers/home_controller.dart';
@@ -47,8 +48,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
       if(controller.selectedGameTypeIndex.value == 0 && listItemIndex == 0){
         itemCount = list.length; /// 第一行不显示加载更多
       }
-      return list.isNotEmpty
-          ? Column(
+      return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 30.w),
@@ -91,7 +91,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                       topRight: Radius.circular(30.w),
                       bottomRight: Radius.circular(30.w),
                     ),
-                    child: Container(
+                    child:itemCount !=0 ? Container(
                       width: double.infinity,
                       height: 540.w,
                       decoration: BoxDecoration(gradient: headerLinearGradient),
@@ -111,15 +111,19 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                                   gameEntity: list[index],
                                   controller: controller,
                                   typeName: list.strExt,
+                                  listItemIndex: listItemIndex,
                                 );
                         },
                       ),
+                    ) : AppEmpty(
+                      width: double.infinity,
+                      height: 400.w,
+                      alignment: Alignment.center,
                     ),
                   ),
                 ),
               ],
-            )
-          : const SizedBox();
+            );
     });
   }
 }
@@ -165,12 +169,14 @@ class GameItemWidget extends StatelessWidget {
     required this.gameEntity,
     required this.controller,
     required this.typeName,
+    required this.listItemIndex,
   });
 
   final HomeController controller;
   final bool isVerticalItem;
   final GameEntity gameEntity;
   final String? typeName;
+  final int listItemIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -178,6 +184,7 @@ class GameItemWidget extends StatelessWidget {
     return CupertinoButton(
       onPressed: () {
         Log.d("gameEntity:${gameEntity.toJson()}");
+        gameEntity.listItemIndex = listItemIndex;
         onGameItemClick(gameEntity, typeName ?? "");
       },
       minSize: 0,
@@ -197,34 +204,6 @@ class GameItemWidget extends StatelessWidget {
                   imageUrl: imgUrl,
                 ),
               ),
-              // Positioned(
-              //   top: 0,
-              //   right: 0,
-              //   child: CupertinoButton(
-              //     onPressed: () {
-              //       bool isFav = gameEntity.isRxFav.value;
-              //       if (isFav) {
-              //         requestDelFav(gameEntity);
-              //       } else {
-              //         requestAddFav(gameEntity);
-              //       }
-              //     },
-              //     minSize: 0,
-              //     padding: EdgeInsets.zero,
-              //     child: Container(
-              //       padding: EdgeInsets.only(left: 10.w, bottom: 10.w),
-              //       //  alignment: Alignment,
-              //       child: Obx(() {
-              //         bool isFav = gameEntity.isRxFav.value;
-              //         String name = isFav ? "game_item_fav" : "game_item_fav_not";
-              //         return Image.asset(
-              //           "assets/images/$name.webp",
-              //           width: 35.w,
-              //         );
-              //       }),
-              //     ),
-              //   ),
-              // ),
             ],
           ),
           SizedBox(height: 10.w),

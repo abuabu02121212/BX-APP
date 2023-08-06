@@ -27,7 +27,7 @@ class HomeController extends GetxController {
   final gameTypes = RxList<GameTypeEntity>(GameTypeEntity.getList());
   final selectedGameTypeIndex = 0.obs;
 
- // final selectedSearchItemIndex = 0.obs;
+  // final selectedSearchItemIndex = 0.obs;
   final List<int> gameTypePressedRecordList = [0];
   final ScrollController scrollController = ScrollController();
   final showingMarqueeText = "".obs;
@@ -45,7 +45,8 @@ class HomeController extends GetxController {
   late final tab2TagList = AppRxList<AppRxList<GameTagEntity>>();
 
   final bannerList = RxList<BannerEntity>();
-  final IndexRxMap level2TabSelectedIndexMap = IndexRxMap();
+
+//  final IndexRxMap level2TabSelectedIndexMap = IndexRxMap();
   final IndexRxMap tagTabSelectedIndexMap = IndexRxMap();
 
   void switchTabWithAddPressedRecord(int index) {
@@ -53,6 +54,9 @@ class HomeController extends GetxController {
     gameTypePressedRecordList.add(index);
     requestTabPageData(index);
   }
+
+  final hotIsSelected = false.obs;
+  final favIsSelected = false.obs;
 
   void requestTabPageData(int tabIndex) {
     if (tabIndex == 0) {
@@ -67,6 +71,19 @@ class HomeController extends GetxController {
 
   String getCurGameType() {
     return gameTypes[selectedGameTypeIndex.value].gameType;
+  }
+
+  List<String> tab0TyList = ["hot", "fav", "rec", "rec", "rec", "rec", "rec"];
+  String tab1TyName = 'fav';
+
+  String getInsertFavTy(int listItemIndex) {
+    var selectedTypeIndex = selectedGameTypeIndex.value;
+    if (selectedTypeIndex == 0) {
+      return tab0TyList[listItemIndex];
+    }else if (selectedTypeIndex == 1) {
+      return tab1TyName;
+    }
+    return '';
   }
 
   final DoubleClickExitApp doubleClickExitApp = DoubleClickExitApp();
@@ -98,26 +115,15 @@ class HomeController extends GetxController {
   }
 
   /// 小按钮请求
-  Future<RequestResultEntity?> onLevel2ListItemTabSwitch(int tabIndex, {required listItemIndex, pageIndex = 1}) async {
-    level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = tabIndex;
+  Future<RequestResultEntity?> onLevel2ListItemTabSwitch({required listItemIndex, pageIndex = 1}) async {
+    // level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = tabIndex;
+    int tabIndex = 0;
     // 刷新列表数据
     if (tabIndex == 0) {
-      // AppLoading.show();
-      // var ret = await requestGameList(
-      //   tab2List[listItemIndex],
-      //   getCurGameType(),
-      //   platformId: curTab2GameNavEntityList[listItemIndex].id,
-      //   pageIndex: pageIndex,
-      // );
-      // AppLoading.close();
-      // return ret;
+      AppLoading.show();
+      // await requestTab0FavGameList();
+      AppLoading.close();
     } else if (tabIndex == 1) {
-      // return await requestHotGameList(
-      //   tab2List[listItemIndex],
-      //   getCurGameType(),
-      //   platformId: curTab2GameNavEntityList[listItemIndex].id,
-      //   pageIndex: pageIndex,
-      // );
     } else if (tabIndex == 2) {
       /*return await requestMemberFavList2(
         tab2List[listItemIndex],
@@ -148,12 +154,22 @@ class HomeController extends GetxController {
   final csEntity = Rx<CsEntity?>(null);
 
   /// tab 0
-  void requestTab0GameList() {
-    requestHotGameListForRec(recList[0]);
-    requestFavGameListForRec(recList[1]);
+  Future<void> requestTab0GameList() async {
+    await requestHotGameListForRec(recList[0]);
+    await requestFavGameListForRec(recList[1]);
     for (int i = 2; i < recList.length; i++) {
       RxList<GameEntity> item = recList[i];
-      requestRecGameList(gameTypeList[i - 2], item);
+      await requestRecGameList(gameTypeList[i - 2], item);
+    }
+  }
+
+  /// tab 0 favs
+  Future<void> requestTab0FavGameList() async {
+    await requestMemberFavList2(recList[0], tab0TyList[0], gameType: 0);
+    await requestMemberFavList2(recList[1], tab0TyList[1], gameType: 0);
+    for (int i = 2; i < recList.length; i++) {
+      AppRxList<GameEntity> item = recList[i];
+      await requestMemberFavList2(item, tab0TyList[i], gameType: gameTypeList[i - 2]);
     }
   }
 

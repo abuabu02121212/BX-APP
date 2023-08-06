@@ -206,8 +206,9 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
   //  滚动监听回调
   Future<void> _scrollListener() async {
     if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
-      var tabIndex = controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex).value;
-      await controller.onLevel2ListItemTabSwitch(tabIndex, listItemIndex: listItemIndex, pageIndex: -2);
+      /// TODO
+    //  var tabIndex = controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex).value;
+    //  await controller.onLevel2ListItemTabSwitch(listItemIndex: listItemIndex, pageIndex: -2);
     }
   }
 
@@ -252,6 +253,7 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
                               gameEntity: list[index],
                               controller: controller,
                               typeName: list.strExt,
+                              listItemIndex: listItemIndex,
                             );
                     },
                   ),

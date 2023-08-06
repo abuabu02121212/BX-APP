@@ -81,9 +81,7 @@ class GameSearchWidget extends StatelessWidget {
         keyWord: editNode.text.value,
         platformId: "0",
         pageIndex: pageIndex,
-        onSuccess: () {
-          controller.onLevel2ListItemTabSwitch(2, listItemIndex: listItemIndex);
-        },
+        onSuccess: () {},
       );
     }
   }
@@ -127,6 +125,7 @@ class GameGridWidget extends StatelessWidget {
                         gameEntity: searchRxList[index],
                         controller: controller,
                         typeName: '',
+                        listItemIndex: 0,
                       );
               },
             )

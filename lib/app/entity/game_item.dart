@@ -19,6 +19,9 @@ class GameEntity {
   String sorting;
   String createdAt;
 
+  /// 方便数据传递使用
+  int listItemIndex = 0;
+
   final isRxFav = false.obs;
 
   GameEntity({

@@ -3,13 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import '../../../../util/loading_util.dart';
 import '../controllers/home_controller.dart';
 import 'game_search_dialog.dart';
 
 class GameTypeTitleBar extends StatelessWidget {
-  GameTypeTitleBar({super.key, this.listItemIndex = 0, required this.typeName}) {
-    controller.level2TabSelectedIndexMap.resetByPos(listItemIndex);
-  }
+  GameTypeTitleBar({super.key, this.listItemIndex = 0, required this.typeName});
 
   final int listItemIndex;
   final String typeName;
@@ -24,11 +23,6 @@ class GameTypeTitleBar extends StatelessWidget {
       margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: listItemIndex > 0 ? 20.w : 10.w, top: 10.w),
       child: Obx(() {
         int selectedIndex = controller.selectedGameTypeIndex.value;
-        if (selectedIndex == 1) {
-          controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = 2;
-        } else if (selectedIndex > 1) {
-          controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = 0;
-        }
         return selectedIndex != 0
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -54,7 +48,7 @@ class GameTypeTitleBar extends StatelessWidget {
 }
 
 class Level2TypeTabs extends StatelessWidget {
-  const Level2TypeTabs({
+  Level2TypeTabs({
     super.key,
     required this.listItemIndex,
     required this.controller,
@@ -63,53 +57,62 @@ class Level2TypeTabs extends StatelessWidget {
   final int listItemIndex;
   final HomeController controller;
 
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       child: listItemIndex == 0
           ? Obx(() {
-            var typeTabIndex = controller.selectedGameTypeIndex.value;
+              var typeTabIndex = controller.selectedGameTypeIndex.value;
               return Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    if(typeTabIndex != 0)
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  if (typeTabIndex != 0)
                     CupertinoButton(
                       onPressed: () {
-                        controller.onLevel2ListItemTabSwitch(0, listItemIndex: listItemIndex);
+                        controller.hotIsSelected.value = !controller.hotIsSelected.value;
+                       // controller.onLevel2ListItemTabSwitch(listItemIndex: listItemIndex);
                       },
                       minSize: 0,
                       padding: EdgeInsets.symmetric(horizontal: 5.w),
                       child: Obx(() {
-                        var childTabSelectIndexRx = controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex);
-                        String icon = childTabSelectIndexRx.value == 0 ? "game_type_hot_ok" : "game_type_hot_no";
+                        String icon = controller.hotIsSelected.value ? "game_type_hot_ok" : "game_type_hot_no";
                         return Container(alignment: Alignment.center, child: Image.asset("assets/images/$icon.webp", width: 60.w));
                       }),
                     ),
-                    CupertinoButton(
-                      onPressed: () {
-                        controller.onLevel2ListItemTabSwitch(1, listItemIndex: listItemIndex);
-                      },
-                      minSize: 0,
-                      padding: EdgeInsets.symmetric(horizontal: 5.w),
-                      child: Obx(() {
-                        var childTabSelectIndexRx = controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex);
-                        String icon = childTabSelectIndexRx.value == 1 ? "game_type_fav_ok" : "game_type_fav_no";
-                        return Container(alignment: Alignment.center, child: Image.asset("assets/images/$icon.webp", width: 60.w));
-                      }),
-                    ),
-                    CupertinoButton(
-                      onPressed: () {
-                        showSearchDialog(null, listItemIndex: listItemIndex);
-                      },
-                      minSize: 0,
-                      padding: EdgeInsets.symmetric(horizontal: 5.w),
-                      child: Image.asset("assets/images/game_type_search.webp", width: 60.w),
-                    ),
-                  ],
-                );
-            }
-          )
+                  CupertinoButton(
+                    onPressed: () async {
+                      controller.favIsSelected.value = !controller.favIsSelected.value;
+                      var selectedGameTypeIndex = controller.selectedGameTypeIndex.value;
+                      if(selectedGameTypeIndex == 0){
+                        AppLoading.show();
+                        if(controller.favIsSelected.value){
+                          await controller.requestTab0FavGameList();
+                        }else{
+                          await controller.requestTab0GameList();
+                        }
+                        AppLoading.close();
+                      }
+                    },
+                    minSize: 0,
+                    padding: EdgeInsets.symmetric(horizontal: 5.w),
+                    child: Obx(() {
+                      String icon = controller.favIsSelected.value ? "game_type_fav_ok" : "game_type_fav_no";
+                      return Container(alignment: Alignment.center, child: Image.asset("assets/images/$icon.webp", width: 60.w));
+                    }),
+                  ),
+                  CupertinoButton(
+                    onPressed: () {
+                      showSearchDialog(null, listItemIndex: listItemIndex);
+                    },
+                    minSize: 0,
+                    padding: EdgeInsets.symmetric(horizontal: 5.w),
+                    child: Image.asset("assets/images/game_type_search.webp", width: 60.w),
+                  ),
+                ],
+              );
+            })
           : const SizedBox(),
     );
   }
