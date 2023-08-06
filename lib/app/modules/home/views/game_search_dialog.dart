@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../util/entity/entites.dart';
+import '../../../../util/extensions.dart';
 import '../../../component/app_empty.dart';
 import '../../../component/app_user_info_input_field.dart';
 import '../../../entity/game_nav.dart';
@@ -53,7 +54,7 @@ class GameSearchWidget extends StatelessWidget {
               onTextChanged: (text) {},
               suffixWidget: CupertinoButton(
                 onPressed: () {
-                  startSearch();
+                  startSearch(1);
                 },
                 minSize: 0,
                 padding: EdgeInsets.only(left: 10.w, right: 30.w, top: 10.w, bottom: 10.w),
@@ -65,28 +66,43 @@ class GameSearchWidget extends StatelessWidget {
           Expanded(
               child: GameGridWidget(
             controller: controller,
+            widget: this,
           ))
         ],
       ),
     );
   }
 
-  void startSearch() {
+  void startSearch(int pageIndex) {
     if (editNode.text.value.isNotEmpty) {
-      requestGameSearch(controller.searchRxList, '0', keyWord: editNode.text.value, platformId: "0", onSuccess: () {
-        controller.onLevel2ListItemTabSwitch(2, listItemIndex: listItemIndex);
-      });
+      requestGameSearch(
+        controller.searchRxList,
+        '0',
+        keyWord: editNode.text.value,
+        platformId: "0",
+        pageIndex: pageIndex,
+        onSuccess: () {
+          controller.onLevel2ListItemTabSwitch(2, listItemIndex: listItemIndex);
+        },
+      );
     }
   }
 }
 
 class GameGridWidget extends StatelessWidget {
-  const GameGridWidget({
+  GameGridWidget({
     super.key,
     required this.controller,
-  });
+    required this.widget,
+  }) {
+    scrollController.addScrollToBottomListener(() {
+      widget.startSearch(-1);
+    });
+  }
 
   final HomeController controller;
+  final AppScrollController scrollController = AppScrollController();
+  final GameSearchWidget widget;
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +115,7 @@ class GameGridWidget extends StatelessWidget {
               itemCount: isLastPage ? searchRxList.length : searchRxList.length + 1,
               padding: EdgeInsets.only(left: 20.w, right: 20.w),
               shrinkWrap: true,
+              controller: scrollController,
               physics: const BouncingScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 0.9),
               itemBuilder: (BuildContext context, int index) {

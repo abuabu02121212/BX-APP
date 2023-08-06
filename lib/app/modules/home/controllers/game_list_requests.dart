@@ -144,8 +144,8 @@ Future<RequestResultEntity?> requestMemberFavList2(RxList<GameEntity> tarRx, Str
   AppLoading.close();
   return ret;
 }
-
 /// 小按钮的搜索游戏列表
+LoadMorePageIndexHelper gameSearchPageIndexHelper = LoadMorePageIndexHelper();
 Future<RequestResultEntity?> requestGameSearch(
   RxList<GameEntity> tarRx,
   String gameType, {
@@ -154,11 +154,10 @@ Future<RequestResultEntity?> requestGameSearch(
   onSuccess,
   pageIndex = 1,
 }) async {
-  lastKeyWord = keyWord;
   AppLoading.show();
   var listUIKey = "GameSearch-$keyWord";
-  if(lastKeyWord != keyWord){
-    gameListPageIndexHelper.clear(listUIKey);
+  if(pageIndex == 1){
+    gameSearchPageIndexHelper.clearMap();
   }
   var ret= await requestGamePageData(
       apiRequest.requestGameSearch,
@@ -170,7 +169,7 @@ Future<RequestResultEntity?> requestGameSearch(
         'tag_id': 0,
       },
       listUIKey: listUIKey,
-      gameListPageIndexHelper: gameListPageIndexHelper,
+      gameListPageIndexHelper: gameSearchPageIndexHelper,
       requestPageIndex: pageIndex,
       tarRx: tarRx,
       pageSize: pageSize,
@@ -179,22 +178,6 @@ Future<RequestResultEntity?> requestGameSearch(
   AppLoading.close();
   return ret ;
 
-}
-
-void onRequestFail(RxList<GameEntity> tarRx) {
-  tarRx.clear();
-  tarRx.refresh();
-}
-
-RequestResultEntity handleGameListData(jsonList, RxList<GameEntity> tarList, int pageSize, pageIndex) {
-  List<GameEntity> list = GameEntity.getList(jsonList);
-  if (pageIndex == 1) {
-    tarList.clear();
-  }
-  tarList.addAll(list);
-  tarList.refresh();
-  var listSize = list.length;
-  return RequestResultEntity(true, listSize, listSize < pageSize);
 }
 
 /// Tag列表
@@ -216,9 +199,6 @@ Future<void> requestTagList(RxList<GameTagEntity> tarList, String gameType, {pla
   }
   Log.d("=======游戏tag列表长度：${tarList.length} ");
 }
-
-String lastKeyWord = "";
-String lastPlatformId = "";
 
 Future<void> onGameItemClick(GameEntity gameEntity, String typeName) async {
   GlobeController globeController = Get.find<GlobeController>();

@@ -5,6 +5,7 @@ class LoadMorePageIndexHelper {
   Map<String, int?> pageIndexMap = {};
   static const int allDataPageIndexMark = -2;
 
+  /// requestPageIndex 为 1 请求第一页，非 1 请求下一页
   int getRequestPageIndex(String listUIKey, int requestPageIndex) {
     int retIndex = 1;
     if (requestPageIndex == 1) {
@@ -32,5 +33,9 @@ class LoadMorePageIndexHelper {
 
   void clear(String listUIKey) {
     pageIndexMap[listUIKey] = null;
+  }
+
+  void clearMap() {
+    pageIndexMap.clear();
   }
 }
