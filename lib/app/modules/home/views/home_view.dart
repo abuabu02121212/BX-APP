@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/entity/game_type.dart';
 import 'package:flutter_comm/app/modules/home/views/swiper_component.dart';
+import 'package:flutter_comm/util/loading_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ import '../../../../widget/back_event_interceptor.dart';
 import '../../../app_style.dart';
 import '../../../component/app_empty.dart';
 import '../../../entity/game_item.dart';
+import '../controllers/game_list_requests.dart';
 import '../controllers/home_controller.dart';
 import 'home_widgets.dart';
 import 'game_type_list.dart';
@@ -200,23 +202,38 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
     required this.list,
     required this.listItemIndex,
   }) {
-    scrollController.addListener(_scrollListener);
-  }
-
-  //  滚动监听回调
-  Future<void> _scrollListener() async {
-    if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
-      /// TODO
-    //  var tabIndex = controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex).value;
-    //  await controller.onLevel2ListItemTabSwitch(listItemIndex: listItemIndex, pageIndex: -2);
-    }
+    scrollController.addScrollToBottomListener(() async {
+      var platformId = controller.curTab2GameNavEntityList[listItemIndex].id;
+      if (controller.hotIsSelected.value) {
+        // 热门 加载更多
+        AppLoading.show();
+        await requestHotGameList(
+          controller.tab2List[listItemIndex],
+          int.tryParse(controller.getCurGameType()) ?? 0,
+          platformId: platformId,
+          pageSize: 20,
+          pageIndex: -1,
+        );
+        AppLoading.close();
+      } else if (!controller.favIsSelected.value) {
+        // 正常列表 加载更多
+        AppLoading.show();
+        await requestGameList(
+          controller.tab2List[listItemIndex],
+          controller.getCurGameType(),
+          platformId: platformId,
+          pageIndex: -1,
+        );
+        AppLoading.close();
+      }
+    });
   }
 
   final HomeController controller;
   final AppRxList<GameEntity> list;
   final int listItemIndex;
   final pageIndex = 1.obs;
-  final ScrollController scrollController = ScrollController();
+  final AppScrollController scrollController = AppScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -225,9 +242,10 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         GameTypeTitleBar(
-          listItemIndex: listItemIndex, typeName: list.strExt ?? "",
+          listItemIndex: listItemIndex,
+          typeName: list.strExt ?? "",
         ),
-       // SizedBox(height: 10.w,),
+        // SizedBox(height: 10.w,),
         Obx(() {
           RequestResultEntity? requestResultEntity = list.other;
           bool isLastPage = requestResultEntity?.isLastPage ?? false;
@@ -235,7 +253,7 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
               ? SizedBox(
                   width: double.infinity,
                   height: list.length > 1 ? 540.w : 270.w,
-              //    color: Colors.pink,
+                  //    color: Colors.pink,
                   child: GridView.builder(
                     padding: EdgeInsets.only(top: 20.w),
                     itemCount: isLastPage ? list.length : list.length + 1,
