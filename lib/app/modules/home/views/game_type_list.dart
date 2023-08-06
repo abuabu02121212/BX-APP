@@ -33,7 +33,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
   Future<void> _scrollListener() async {
     if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
       if (controller.selectedGameTypeIndex.value == 1) {
-        await requestFavGameList(controller.tab1List[listItemIndex], ty: controller.tab1gameTypeList[listItemIndex].toString(), pageIndex: -3);
+        await requestFavGameList(controller.tab1List[listItemIndex], ty: controller.gameTypeList[listItemIndex].toString(), pageIndex: -3);
       }
     }
   }
@@ -43,6 +43,10 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
     return Obx(() {
       RequestResultEntity? requestResultEntity = list.other;
       bool isLastPage = requestResultEntity?.isLastPage ?? false;
+      var itemCount = isLastPage ? list.length : list.length + 1;
+      if(controller.selectedGameTypeIndex.value == 0 && listItemIndex == 0){
+        itemCount = list.length; /// 第一行不显示加载更多
+      }
       return list.isNotEmpty
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,14 +61,14 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(left: 20.w, top: 10.w),
                         child: Text(
-                          "RECOMENDAÇÕES",
+                          "RECOMENDAÇÕES".capitalizeFirstLetterOfEachWord(),
                           style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
                         ),
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 20.w, top: 38.w, bottom: 10.w),
                         child: Text(
-                          titles[listItemIndex],
+                          titles[listItemIndex].capitalizeFirstLetterOfEachWord(),
                           style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
                         ),
                       ),
@@ -93,7 +97,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                       decoration: BoxDecoration(gradient: headerLinearGradient),
                       child: GridView.builder(
                         padding: EdgeInsets.only(top: 20.w),
-                        itemCount: isLastPage ? list.length : list.length + 1,
+                        itemCount: itemCount,
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         controller: scrollController,

@@ -39,7 +39,7 @@ class HomeController extends GetxController {
   final verticalListPos0ShowSize = 0.obs;
 
   late final recList = AppRxList<AppRxList<GameEntity>>(List.generate(7, (index) => AppRxList<GameEntity>()));
-  late final tab1List = AppRxList<AppRxList<GameEntity>>(List.generate(7, (index) => AppRxList<GameEntity>()));
+  late final tab1List = AppRxList<AppRxList<GameEntity>>(List.generate(5, (index) => AppRxList<GameEntity>()));
   late final tab2List = AppRxList<AppRxList<GameEntity>>();
   late final searchRxList = AppRxList<GameEntity>();
   late final tab2TagList = AppRxList<AppRxList<GameTagEntity>>();
@@ -151,20 +151,19 @@ class HomeController extends GetxController {
   void requestTab0GameList() {
     requestHotGameListForRec(recList[0]);
     requestFavGameListForRec(recList[1]);
-    List<int> tyList = [3, 2, 5, 4, 1];
     for (int i = 2; i < recList.length; i++) {
       RxList<GameEntity> item = recList[i];
-      requestRecGameList(tyList[i - 2], item);
+      requestRecGameList(gameTypeList[i - 2], item);
     }
   }
 
-  List<int> tab1gameTypeList = [-1, -1, 3, 2, 5, 4, 1];
+  List<int> gameTypeList = [3, 2, 5, 4, 1];
 
   /// tab 1
   Future<void> requestTab1FavGameList() async {
     AppLoading.show();
-    for (int i = 2; i < 7; i++) {
-      await requestFavGameList(tab1List[i], ty: tab1gameTypeList[i].toString());
+    for (int i = 0; i < tab1List.length; i++) {
+      await requestFavGameList(tab1List[i], ty: gameTypeList[i].toString());
     }
     AppLoading.close();
   }

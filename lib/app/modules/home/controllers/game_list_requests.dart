@@ -18,13 +18,14 @@ import '../views/game_entrance_widget.dart';
 
 /// TAB 0-1. 推荐游戏列表 - 热门游戏
 int pageSize = 20;
+int recListPageSize = 69;
 
 Future<void> requestHotGameListForRec(RxList<GameEntity> tarRx) async {
   try {
     var retData = await apiRequest.requestHotGameList(params: {
       'ty': 0,
       'page': 1,
-      'page_size': pageSize,
+      'page_size': recListPageSize,
       'platform_id': 0,
     });
     var list = GameEntity.getList(retData['d']);
@@ -40,7 +41,7 @@ Future<void> requestFavGameListForRec(RxList<GameEntity> tarRx) async {
   try {
     var retData = await apiRequest.requestGameFavList(params: {
       'page': 1,
-      'page_size': pageSize,
+      'page_size': recListPageSize,
       'platform_id': 0,
     });
     var list = GameEntity.getList(retData['d']);
@@ -56,7 +57,7 @@ Future<void> requestRecGameList(int ty, RxList<GameEntity> rx) async {
   var retArr1 = await apiRequest.requestGameRecList(params: {
     'ty': ty,
     'page': 1,
-    'page_size': pageSize,
+    'page_size': recListPageSize,
     'platform_id': 0,
   });
   rx.value = GameEntity.getList(retArr1['d']);

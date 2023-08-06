@@ -17,6 +17,26 @@ extension StringExtension on String {
     }
     return this;
   }
+
+  String capitalizeFirstLetter() {
+    if (isEmpty) {
+      return this;
+    }
+    return this[0].toUpperCase() + substring(1).toLowerCase();
+  }
+
+  String capitalizeFirstLetterOfEachWord() {
+    List<String> words = split(" ");
+    List<String> capitalizedWords = [];
+
+    for (String word in words) {
+      if (word.isNotEmpty) {
+        capitalizedWords.add(word[0].toUpperCase() + word.substring(1).toLowerCase());
+      }
+    }
+
+    return capitalizedWords.join(" ");
+  }
 }
 
 class AppRxList<T> extends RxList<T> {

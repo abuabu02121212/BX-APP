@@ -67,44 +67,49 @@ class Level2TypeTabs extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: listItemIndex == 0
-          ? Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CupertinoButton(
-                  onPressed: () {
-                    controller.onLevel2ListItemTabSwitch(0, listItemIndex: listItemIndex);
-                  },
-                  minSize: 0,
-                  padding: EdgeInsets.symmetric(horizontal: 5.w),
-                  child: Obx(() {
-                    var childTabSelectIndexRx = controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex);
-                    String icon = childTabSelectIndexRx.value == 0 ? "game_type_hot_ok" : "game_type_hot_no";
-                    return Container(alignment: Alignment.center, child: Image.asset("assets/images/$icon.webp", width: 60.w));
-                  }),
-                ),
-                CupertinoButton(
-                  onPressed: () {
-                    controller.onLevel2ListItemTabSwitch(1, listItemIndex: listItemIndex);
-                  },
-                  minSize: 0,
-                  padding: EdgeInsets.symmetric(horizontal: 5.w),
-                  child: Obx(() {
-                    var childTabSelectIndexRx = controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex);
-                    String icon = childTabSelectIndexRx.value == 1 ? "game_type_fav_ok" : "game_type_fav_no";
-                    return Container(alignment: Alignment.center, child: Image.asset("assets/images/$icon.webp", width: 60.w));
-                  }),
-                ),
-                CupertinoButton(
-                  onPressed: () {
-                    showSearchDialog(null, listItemIndex: listItemIndex);
-                  },
-                  minSize: 0,
-                  padding: EdgeInsets.symmetric(horizontal: 5.w),
-                  child: Image.asset("assets/images/game_type_search.webp", width: 60.w),
-                ),
-              ],
-            )
+          ? Obx(() {
+            var typeTabIndex = controller.selectedGameTypeIndex.value;
+              return Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if(typeTabIndex != 0)
+                    CupertinoButton(
+                      onPressed: () {
+                        controller.onLevel2ListItemTabSwitch(0, listItemIndex: listItemIndex);
+                      },
+                      minSize: 0,
+                      padding: EdgeInsets.symmetric(horizontal: 5.w),
+                      child: Obx(() {
+                        var childTabSelectIndexRx = controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex);
+                        String icon = childTabSelectIndexRx.value == 0 ? "game_type_hot_ok" : "game_type_hot_no";
+                        return Container(alignment: Alignment.center, child: Image.asset("assets/images/$icon.webp", width: 60.w));
+                      }),
+                    ),
+                    CupertinoButton(
+                      onPressed: () {
+                        controller.onLevel2ListItemTabSwitch(1, listItemIndex: listItemIndex);
+                      },
+                      minSize: 0,
+                      padding: EdgeInsets.symmetric(horizontal: 5.w),
+                      child: Obx(() {
+                        var childTabSelectIndexRx = controller.level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex);
+                        String icon = childTabSelectIndexRx.value == 1 ? "game_type_fav_ok" : "game_type_fav_no";
+                        return Container(alignment: Alignment.center, child: Image.asset("assets/images/$icon.webp", width: 60.w));
+                      }),
+                    ),
+                    CupertinoButton(
+                      onPressed: () {
+                        showSearchDialog(null, listItemIndex: listItemIndex);
+                      },
+                      minSize: 0,
+                      padding: EdgeInsets.symmetric(horizontal: 5.w),
+                      child: Image.asset("assets/images/game_type_search.webp", width: 60.w),
+                    ),
+                  ],
+                );
+            }
+          )
           : const SizedBox(),
     );
   }
