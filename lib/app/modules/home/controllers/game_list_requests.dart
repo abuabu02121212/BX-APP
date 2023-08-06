@@ -77,9 +77,7 @@ Future<RequestResultEntity?> requestFavGameList(AppRxList<GameEntity> tarRx, {ty
   };
   return await requestGamePageData(
     apiRequest.requestGameFavList,
-
     param,
-
     listUIKey: listUIKey,
     gameListPageIndexHelper: gameListPageIndexHelper,
     requestPageIndex: pageIndex,
@@ -110,22 +108,27 @@ Future<RequestResultEntity?> requestGameList(RxList<GameEntity> tarRx, String ga
 }
 
 /// 小按钮的热门游戏列表
-Future<RequestResultEntity?> requestHotGameList(RxList<GameEntity> tarRx, int gameType, {platformId = 0, pageIndex = 1}) async {
+Future<RequestResultEntity?> requestHotGameList(
+  RxList<GameEntity> tarRx,
+  int gameType, {
+  platformId = 0,
+  pageIndex = 1,
+  pageSize = 69,
+}) async {
   var listUIKey = "HotGameList2-$gameType-$platformId";
-  int myPageSize = 69;
   // ?ty=3&platform_id=0&page=1&page_size=69
   var ret = await requestGamePageData(
     apiRequest.requestHotGameList,
     {
       'ty': gameType,
-      'page_size': myPageSize,
+      'page_size': pageSize,
       'platform_id': platformId,
     },
     listUIKey: listUIKey,
     gameListPageIndexHelper: gameListPageIndexHelper,
     requestPageIndex: pageIndex,
     tarRx: tarRx,
-    pageSize: myPageSize,
+    pageSize: pageSize,
   );
   return ret;
 }
@@ -141,11 +144,9 @@ Future<RequestResultEntity?> requestMemberFavList2(
 }) async {
   var listUIKey = "MemberFavList2-$ty-$platformId=$gameType";
   var ret = await requestGamePageData(
-      // ty=hot&platform_id=0&hot=0&game_type=0
       apiRequest.requestMemberFavList,
       {
         'ty': ty,
-        // 'page_size': pageSize,
         'platform_id': platformId,
         'game_type': gameType,
         'hot': hot,

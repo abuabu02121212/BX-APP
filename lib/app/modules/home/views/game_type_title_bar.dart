@@ -71,17 +71,7 @@ class Level2TypeTabs extends StatelessWidget {
                 children: [
                   if (typeTabIndex != 0)
                     CupertinoButton(
-                      onPressed: () {
-                        controller.hotIsSelected.value = !controller.hotIsSelected.value;
-                        var selectedGameTypeIndex = controller.selectedGameTypeIndex.value;
-                        if (selectedGameTypeIndex == 1) {
-                          if(controller.hotIsSelected.value){
-                            controller.requestTab1HotGameList();
-                          }else{
-                            controller.requestTab1GameList();
-                          }
-                        }
-                      },
+                      onPressed: onHotClick,
                       minSize: 0,
                       padding: EdgeInsets.symmetric(horizontal: 5.w),
                       child: Obx(() {
@@ -90,30 +80,7 @@ class Level2TypeTabs extends StatelessWidget {
                       }),
                     ),
                   CupertinoButton(
-                    onPressed: () async {
-                      GlobeController globeController = Get.find<GlobeController>();
-                      if (!globeController.isLogin()) {
-                        showLoginRegisterDialog();
-                        return;
-                      }
-                      controller.favIsSelected.value = !controller.favIsSelected.value;
-                      var selectedGameTypeIndex = controller.selectedGameTypeIndex.value;
-                      if (selectedGameTypeIndex == 0) {
-                        AppLoading.show();
-                        if (controller.favIsSelected.value) {
-                          await controller.requestTab0FavGameList();
-                        } else {
-                          await controller.requestTab0GameList();
-                        }
-                        AppLoading.close();
-                      } else if (selectedGameTypeIndex == 1) {
-                        if (controller.favIsSelected.value) {
-                          controller.requestTab1FavGameList();
-                        } else {
-                          controller.requestTab1GameList();
-                        }
-                      }
-                    },
+                    onPressed: onFavClick,
                     minSize: 0,
                     padding: EdgeInsets.symmetric(horizontal: 5.w),
                     child: Obx(() {
@@ -134,5 +101,46 @@ class Level2TypeTabs extends StatelessWidget {
             })
           : const SizedBox(),
     );
+  }
+
+  void onHotClick() {
+    controller.hotIsSelected.value = !controller.hotIsSelected.value;
+    var selectedGameTypeIndex = controller.selectedGameTypeIndex.value;
+    if (selectedGameTypeIndex == 1) {
+      if (controller.hotIsSelected.value) {
+        controller.requestTab1HotGameList();
+      } else {
+        controller.requestTab1GameList();
+      }
+    } else {
+      controller.requestTab2GameList(func: controller.hotIsSelected.value ? 1 : 0);
+    }
+  }
+
+  void onFavClick() async {
+    GlobeController globeController = Get.find<GlobeController>();
+    if (!globeController.isLogin()) {
+      showLoginRegisterDialog();
+      return;
+    }
+    controller.favIsSelected.value = !controller.favIsSelected.value;
+    var selectedGameTypeIndex = controller.selectedGameTypeIndex.value;
+    if (selectedGameTypeIndex == 0) {
+      AppLoading.show();
+      if (controller.favIsSelected.value) {
+        await controller.requestTab0FavGameList();
+      } else {
+        await controller.requestTab0GameList();
+      }
+      AppLoading.close();
+    } else if (selectedGameTypeIndex == 1) {
+      if (controller.favIsSelected.value) {
+        controller.requestTab1FavGameList();
+      } else {
+        controller.requestTab1GameList();
+      }
+    } else {
+      controller.requestTab2GameList(func: controller.favIsSelected.value ? 2 : 0);
+    }
   }
 }
