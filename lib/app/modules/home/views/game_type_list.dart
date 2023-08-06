@@ -45,53 +45,58 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
       RequestResultEntity? requestResultEntity = list.other;
       bool isLastPage = requestResultEntity?.isLastPage ?? false;
       var itemCount = isLastPage ? list.length : list.length + 1;
-      if(controller.selectedGameTypeIndex.value == 0 && listItemIndex == 0){
-        itemCount = list.length; /// 第一行不显示加载更多
+      if (controller.selectedGameTypeIndex.value == 0) {
+        if (listItemIndex == 0) {
+          itemCount = list.length; // 第一行不显示加载更多
+        }else{
+          itemCount = list.length + 1; // 其他行必须显示做跳转用
+        }
       }
       return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 30.w),
+          Container(
+            width: 1.sw,
+            padding: EdgeInsets.only(right: 18.w),
+            child: Stack(
               children: [
-                SizedBox(height: 30.w),
-                Container(
-                  width: 1.sw,
-                  padding: EdgeInsets.only(right: 18.w),
-                  child: Stack(
-                    children: [
-                      //  Image.asset("assets/images/index-title-home.webp", height: 83.w),
-                      Padding(
-                        padding: EdgeInsets.only(left: 20.w, top: 10.w),
-                        child: Text(
-                          "RECOMENDAÇÕES".capitalizeFirstLetterOfEachWord(),
-                          style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 20.w, top: 38.w, bottom: 10.w),
-                        child: Text(
-                          titles[listItemIndex].capitalizeFirstLetterOfEachWord(),
-                          style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
-                        ),
-                      ),
-                      Positioned(
-                        right: 0,
-                        top: 0,
-                        child: Level2TypeTabs(
-                          listItemIndex: listItemIndex,
-                          controller: controller,
-                        ),
-                      )
-                    ],
+                //  Image.asset("assets/images/index-title-home.webp", height: 83.w),
+                Padding(
+                  padding: EdgeInsets.only(left: 20.w, top: 10.w),
+                  child: Text(
+                    "RECOMENDAÇÕES".capitalizeFirstLetterOfEachWord(),
+                    style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(30.w),
-                      topRight: Radius.circular(30.w),
-                      bottomRight: Radius.circular(30.w),
-                    ),
-                    child:itemCount !=0 ? Container(
+                  padding: EdgeInsets.only(left: 20.w, top: 38.w, bottom: 10.w),
+                  child: Text(
+                    titles[listItemIndex].capitalizeFirstLetterOfEachWord(),
+                    style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
+                  ),
+                ),
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  child: Level2TypeTabs(
+                    listItemIndex: listItemIndex,
+                    controller: controller,
+                  ),
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 20.w, right: 20.w),
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30.w),
+                topRight: Radius.circular(30.w),
+                bottomRight: Radius.circular(30.w),
+              ),
+              child: itemCount != 0
+                  ? Container(
                       width: double.infinity,
                       height: 540.w,
                       decoration: BoxDecoration(gradient: headerLinearGradient),
@@ -115,15 +120,16 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                                 );
                         },
                       ),
-                    ) : AppEmpty(
+                    )
+                  : AppEmpty(
                       width: double.infinity,
                       height: 400.w,
                       alignment: Alignment.center,
                     ),
-                  ),
-                ),
-              ],
-            );
+            ),
+          ),
+        ],
+      );
     });
   }
 }
@@ -142,9 +148,8 @@ class ItemMoreWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoButton(
       onPressed: () {
-        if (controller.selectedGameTypeIndex.value == 0 && listItemIndex != 0) {
+        if (controller.selectedGameTypeIndex.value == 0) {
           controller.switchTabWithAddPressedRecord(listItemIndex);
-          // controller.scrollController.jumpTo(390.w);
           controller.scrollController.jumpTo(0);
         }
       },
