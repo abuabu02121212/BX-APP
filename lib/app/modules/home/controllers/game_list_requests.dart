@@ -209,14 +209,14 @@ Future<void> onGameItemClick(GameEntity gameEntity, String typeName) async {
   }
 }
 
-Future<void> requestEnterGame(GameEntity gameEntity) async {
+Future<void> requestEnterGame({required platformId, required gameId,required brAlias}) async {
   AppLoading.show();
   try {
     var url = await apiRequest.requestGameLaunch(params: {
-      'pid': gameEntity.platformId,
-      'code': gameEntity.gameId,
+      'pid': platformId,
+      'code': gameId,
     });
-    Get.toNamed(Routes.WEBVIEW, arguments: {"url": url, 'title': gameEntity.brAlias});
+    Get.toNamed(Routes.WEBVIEW, arguments: {"url": url, 'title': brAlias});
     Log.d("请求游戏Url结果：$url");
   } catch (e, stack) {
     Log.e("请求游戏Url结果异常 $e == > \n $stack");

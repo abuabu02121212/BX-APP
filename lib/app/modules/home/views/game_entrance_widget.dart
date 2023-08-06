@@ -130,7 +130,7 @@ class GameEntranceWidget extends StatelessWidget {
                 height: 90.w,
                 text: 'Modo real',
                 onClick: () {
-                  startGame(gameEntity);
+                  startGame(platformId: gameEntity.platformId, gameId: gameEntity.gameId, brAlias: gameEntity.brAlias);
                 },
                 radius: 100.w,
               ),
@@ -141,14 +141,7 @@ class GameEntranceWidget extends StatelessWidget {
     );
   }
 
-  Future<void> startGame(GameEntity gameEntity) async {
-    GlobeController globeController = Get.find<GlobeController>();
-    if (globeController.isLogin()) {
-      await requestEnterGame(gameEntity);
-    } else {
-      showLoginRegisterDialog();
-    }
-  }
+
 }
 
 void showGameEntranceDialog(GameEntity gameEntity, String typeName) {
@@ -162,4 +155,13 @@ void showGameEntranceDialog(GameEntity gameEntity, String typeName) {
           typeName: typeName,
         );
       });
+}
+
+Future<void> startGame({required platformId, required gameId,required brAlias}) async {
+  GlobeController globeController = Get.find<GlobeController>();
+  if (globeController.isLogin()) {
+    await requestEnterGame(platformId: platformId, gameId: gameId, brAlias: brAlias);
+  } else {
+    showLoginRegisterDialog();
+  }
 }

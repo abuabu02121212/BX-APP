@@ -3,37 +3,37 @@ import 'package:flutter/cupertino.dart';
 import '../util/Log.dart';
 
 class AutoScrollUtil {
-
   final ScrollController sc = ScrollController();
-
-  AutoScrollUtil() {
+  double scrollSpeed;
+  AutoScrollUtil({this.scrollSpeed = 20}) {
     Future.delayed(const Duration(milliseconds: 1000), () async {
-      while(true){
-        if(!sc.hasClients){
+      while (true) {
+        if (!sc.hasClients) {
           await Future.delayed(const Duration(milliseconds: 1000));
           continue;
         }
-        if(sc.position.extentAfter == 0){
-         // await Future.delayed(const Duration(milliseconds: 1000));
+        if (sc.position.extentAfter == 0) {
           sc.jumpTo(0);
         }
         await startScroll();
-       // await Future.delayed(const Duration(milliseconds: 1000));
       }
-
     });
   }
-  int exeTimes = 0;
-  Future<void> startScroll() async {
-    var extentAfter = sc.position.extentAfter;
-    double scrollUnitDistance = 20;
-    double unitDuring = 500;
-    double scrollDistance = extentAfter >= scrollUnitDistance ? scrollUnitDistance : extentAfter;
-    int scrollDuring = (scrollDistance / scrollUnitDistance * unitDuring).toInt();
-    sc.position.animateTo(scrollDistance + sc.offset, duration: Duration(milliseconds: scrollDuring), curve: Curves.linear);
-    // Log.d("===================AutoScrollUtil=====exeTimes:$exeTimes======scrollDistance:$scrollDistance===scrollDuring:$scrollDuring========");
-    await Future.delayed(Duration(milliseconds: scrollDuring));
-    exeTimes++;
-  }
 
+  int exeTimes = 0;
+  bool isPauseScroll = false;
+
+  Future<void> startScroll() async {
+    try {
+      var extentAfter = sc.position.extentAfter;
+      double scrollUnitDistance = scrollSpeed;
+      double unitDuring = 250;
+      double scrollDistance = extentAfter >= scrollUnitDistance ? scrollUnitDistance : extentAfter;
+      int scrollDuring = (scrollDistance / scrollUnitDistance * unitDuring).toInt();
+      await sc.position.animateTo(scrollDistance + sc.offset, duration: Duration(milliseconds: scrollDuring), curve: Curves.linear);
+      exeTimes++;
+    } catch (e, stack) {
+      Log.e("$e, \n$stack");
+    }
+  }
 }
