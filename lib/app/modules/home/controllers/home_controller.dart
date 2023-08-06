@@ -59,6 +59,8 @@ class HomeController extends GetxController {
   final favIsSelected = false.obs;
 
   void requestTabPageData(int tabIndex) {
+    hotIsSelected.value = false;
+    favIsSelected.value = false;
     if (tabIndex == 0) {
       requestTab0GameList();
     } else if (tabIndex == 1) {

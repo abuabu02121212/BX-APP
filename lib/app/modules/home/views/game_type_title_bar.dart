@@ -50,7 +50,7 @@ class GameTypeTitleBar extends StatelessWidget {
 }
 
 class Level2TypeTabs extends StatelessWidget {
-  Level2TypeTabs({
+  const Level2TypeTabs({
     super.key,
     required this.listItemIndex,
     required this.controller,
@@ -105,6 +105,9 @@ class Level2TypeTabs extends StatelessWidget {
 
   void onHotClick() {
     controller.hotIsSelected.value = !controller.hotIsSelected.value;
+    if (controller.hotIsSelected.value) {
+      controller.favIsSelected.value = false;
+    }
     var selectedGameTypeIndex = controller.selectedGameTypeIndex.value;
     if (selectedGameTypeIndex == 1) {
       if (controller.hotIsSelected.value) {
@@ -124,6 +127,9 @@ class Level2TypeTabs extends StatelessWidget {
       return;
     }
     controller.favIsSelected.value = !controller.favIsSelected.value;
+    if (controller.favIsSelected.value) {
+      controller.hotIsSelected.value = false;
+    }
     var selectedGameTypeIndex = controller.selectedGameTypeIndex.value;
     if (selectedGameTypeIndex == 0) {
       AppLoading.show();
