@@ -8,7 +8,7 @@ class AutoScrollUtil {
   AutoScrollUtil({this.scrollSpeed = 20}) {
     Future.delayed(const Duration(milliseconds: 1000), () async {
       while (true) {
-        if (!sc.hasClients) {
+        if (!sc.hasClients || sc.position.maxScrollExtent == 0) {
           await Future.delayed(const Duration(milliseconds: 1000));
           continue;
         }
