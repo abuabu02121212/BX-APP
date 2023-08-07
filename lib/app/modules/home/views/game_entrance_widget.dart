@@ -145,15 +145,14 @@ class GameEntranceWidget extends StatelessWidget {
 }
 
 void showGameEntranceDialog(GameEntity gameEntity) {
-  SmartDialog.show(
-      clickMaskDismiss: true,
-      useSystem: true,
-      alignment: Alignment.bottomLeft,
-      builder: (BuildContext context) {
-        return GameEntranceWidget(
-          gameEntity: gameEntity,
-        );
-      });
+  Get.dialog(
+      GameEntranceWidget(
+        gameEntity: gameEntity,
+      ),
+      barrierDismissible: true
+    //  barrierColor: const Color.fromRGBO(0, 0, 0, 0.7),
+  );
+
 }
 
 Future<void> startGame({required platformId, required gameId,required brAlias, bool isFromDialog=false}) async {

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/modules/login_register/views/tab_component.dart';
 import 'package:flutter_comm/app/modules/register/views/register_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 
 import '../../login/views/login_view.dart';
@@ -82,13 +81,12 @@ class LoginRegisterWidget extends StatelessWidget {
 }
 
 void showLoginRegisterDialog() {
-  SmartDialog.show(
-      clickMaskDismiss: false,
-      useSystem: true,
-      alignment: Alignment.center,
-      builder: (BuildContext context) {
-        return LoginRegisterWidget();
-      });
+  // SmartDialog.show(
+  Get.dialog(
+      LoginRegisterWidget(),
+      barrierDismissible: false
+    //  barrierColor: const Color.fromRGBO(0, 0, 0, 0.7),
+  );
 
 }
 
