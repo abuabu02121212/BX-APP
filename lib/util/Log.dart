@@ -28,7 +28,7 @@ class Log {
 
   static void d2(dynamic msg, {int traceDepth = 1}) {
     if (debugEnable) {
-      _print(Level.debug, msg, traceDepth: traceDepth, logcatOnly: true);
+      _print(Level.debug, msg, traceDepth: traceDepth);
     }
   }
 
@@ -44,13 +44,13 @@ class Log {
     _print(Level.error, msg);
   }
 
-  static void _print(Level level, dynamic msg, {int traceDepth = 1, bool logcatOnly=false}) {
+  static void _print(Level level, dynamic msg, {int traceDepth = 1}) {
     String traceInfo = getTraceInfo(level, traceDepth: traceDepth);
     String text = "${DateTime.now()} $traceInfo $tag$msg";
-    if (logcatOnly) {
-      logger.log(level, text);
-    } else {
+    if(text.length > 500){
       log(text);
+    }else{
+      logger.log(level, text);
     }
   }
 
