@@ -20,6 +20,7 @@ import '../../../entity/last_win.dart';
 import '../../../entity/notice.dart';
 import '../../../routes/app_pages.dart';
 import '../../home_menu/views/home_menu_view.dart';
+import '../views/drag_float_btn.dart';
 import '../views/game_search_dialog.dart';
 import 'game_list_requests.dart';
 import 'home_requests.dart';
@@ -148,6 +149,7 @@ class HomeController extends GetxController {
   Future<void> onReady() async {
     super.onReady();
     //  scrollController.addListener(_scrollListener);
+    showFloatService(Get.context);
     requestMemberNav(navItemList, gameTypes);
     requestNotice(noticeListRx, showingMarqueeText);
     requestCsData(csEntity);
