@@ -147,7 +147,7 @@ class HomeMarquee extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.only(top: 40.w, left: 20.w, right: 20.w),
       height: 60.w,
-      decoration: BoxDecoration(color: const Color.fromRGBO(3, 51, 119, 1), borderRadius: BorderRadius.circular(30.w)),
+      decoration: BoxDecoration(color: const Color.fromRGBO(1, 26, 81, 1), borderRadius: BorderRadius.circular(30.w)),
       child: CupertinoButton(
         onPressed: () {
           requestNotice(controller.noticeListRx, controller.showingMarqueeText);
