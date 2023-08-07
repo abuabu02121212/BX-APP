@@ -1,9 +1,13 @@
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/app/modules/home/controllers/home_controller.dart';
+import 'package:flutter_comm/app/modules/login_register/views/login_regiseter_widget.dart';
+import 'package:flutter_comm/globe_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../util/Log.dart';
+import 'package:get/get.dart';
 import '../../../../util/overlay_util.dart';
+import '../../../../util/weburl_util.dart';
+import '../../../routes/app_pages.dart';
 
 class FloatServiceBtnWidget extends StatelessWidget {
   const FloatServiceBtnWidget({super.key});
@@ -20,7 +24,13 @@ class FloatServiceBtnWidget extends StatelessWidget {
         borderBottom: 120.w,
       ),
       onTap: () {
-        Log.d("=================");
+        GlobeController globeController = Get.find<GlobeController>();
+        if(globeController.isLogin()){
+          HomeController homeController = Get.find<HomeController>();
+          Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.getCsLinkParam(homeController.csEntity.value!.onlinecs));
+        }else{
+          showLoginRegisterDialog();
+        }
       },
       child: Image.asset("assets/images/float_service.webp", width: 90.w),
     );

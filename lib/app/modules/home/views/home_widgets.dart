@@ -215,6 +215,8 @@ class BrandListWidget extends StatelessWidget {
                 onPressed: () async {
                   if (controller.csEntity.value == null) {
                     await requestCsData(controller.csEntity);
+                  }else{
+                    requestCsData(controller.csEntity);
                   }
                   var facebook = controller.csEntity.value?.facebook ?? "-";
                   AppUtil.launch(facebook);

@@ -69,12 +69,13 @@ class WebURLUtil {
     };
   }
 
-  static Map<String ,String> getGamePageParam(String url){
-    String url = "url?is-app=1";
+
+  static Map<String ,String> getCsLinkParam(String url){
+    url = "$url?is-app=1";
     Log.d("=======url:$url");
     return {
       "url": url,
-      "title": "Promoção"
+      "title": "Atendimento Ao Cliente"
     };
   }
 }
