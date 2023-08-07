@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../app_config.dart';
-import '../../../../util/Log.dart';
 import '../../login/views/login_view.dart';
 import '../controllers/login_register_controller.dart';
 
@@ -83,7 +82,6 @@ class LoginRegisterWidget extends StatelessWidget {
 }
 
 void showLoginRegisterDialog() {
-  Log.d("======showLoginRegisterDialog=====");
   String routerName = 'login-register';
   if(appNavigatorObserver.curRouterName == routerName){
     return;

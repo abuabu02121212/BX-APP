@@ -137,9 +137,11 @@ class MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixi
         anim.updateEndAndStart(getItemWidthSum(pos - 1));
       }
       widget.controller.selectedIndexNotifier.value = pos;
+      if(pos != widget.controller.posList.last){
+        widget.controller.posList.add(pos);
+      }
       widget.onSelectChanged(pos);
       autoScroll(pos);
-      widget.controller.posList.add(pos);
     } else {
       Log.d("相同位置不跳转");
     }
@@ -205,13 +207,10 @@ class IndicatorTabController {
   }
 
   void back() {
-   // Log.d("=======back====$posList====myState:$myState=====");
-    if (posList.isNotEmpty) {
-      var last = posList.removeLast();
-      if (last == selectedIndexNotifier.value && posList.isNotEmpty) {
-        last = posList.removeLast();
-      }
-      myState?.onItemClick(last);
+     Log.d("posList: $posList ");
+    if (posList.length > 1) {
+      posList.removeLast();
+      myState?.onItemClick(posList.last);
     }
   }
 }

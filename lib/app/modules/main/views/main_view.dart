@@ -67,10 +67,10 @@ class MainView extends GetView<MainController> {
                   MainHorizontalTabComponent(
                     indicatorTabController: controller.indicatorTabController,
                     onSelectChanged: (pos) {
+                      Log.d("==========onSelectChanged===pos:$pos====");
                       GlobeController globeController = Get.find<GlobeController>();
                       if (pos >= 2) {
                         if (!globeController.isLogin()) {
-                          Log.d("还没有登陆");
                           controller.indicatorTabController.back();
                           showLoginRegisterDialog();
                         } else {
