@@ -66,9 +66,9 @@ class MainController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Log.d("===========onInit================");
     Get.lazyPut(() => MineController());
     getAppUpgradeInfo();
+    Log.d("===========onInit=====finished===========");
   }
 
   @override

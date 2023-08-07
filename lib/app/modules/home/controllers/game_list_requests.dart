@@ -1,7 +1,4 @@
 
-
-import 'dart:ui';
-
 import 'package:get/get.dart';
 
 import '../../../../globe_controller.dart';
@@ -35,8 +32,8 @@ Future<void> requestHotGameListForRec(RxList<GameEntity> tarRx) async {
     var list = GameEntity.getList(retData['d']);
     tarRx.value = list;
     Log.d("推荐热门游戏数目：${tarRx.length}");
-  } catch (e, stack) {
-    Log.e("$e, $stack");
+  } catch (e) {
+    Log.e("$e");
   }
 }
 
@@ -51,21 +48,25 @@ Future<void> requestFavGameListForRec(RxList<GameEntity> tarRx) async {
     var list = GameEntity.getList(retData['d']);
     tarRx.value = list;
     Log.d("推荐收藏游戏数目：${tarRx.length}");
-  } catch (e, stack) {
-    Log.e("$e, $stack");
+  } catch (e) {
+    Log.e("$e");
   }
 }
 
 /// TAB 0-3. 推荐游戏列表 - 五种不同gameType的推荐游戏
 Future<void> requestRecGameList(int ty, RxList<GameEntity> rx) async {
-  var retArr1 = await apiRequest.requestGameRecList(params: {
-    'ty': ty,
-    'page': 1,
-    'page_size': recListPageSize,
-    'platform_id': 0,
-  });
-  rx.value = GameEntity.getList(retArr1['d']);
-  Log.d("=======ty:$ty 推荐游戏数目：${rx.length}");
+  try {
+    var retArr1 = await apiRequest.requestGameRecList(params: {
+        'ty': ty,
+        'page': 1,
+        'page_size': recListPageSize,
+        'platform_id': 0,
+      });
+    rx.value = GameEntity.getList(retArr1['d']);
+    Log.d("=======ty:$ty 推荐游戏数目：${rx.length}");
+  } catch (e) {
+    Log.e(e);
+  }
 }
 
 /// TAB 1 游戏列表
@@ -248,27 +249,35 @@ Future<void> requestEnterGame({required platformId, required gameId, required br
 }
 
 Future<void> requestAddFav(GameEntity gameEntity, {ty = ''}) async {
-  AppLoading.show();
-  var ret = await apiRequest.requestFavInsert(params: {"id": gameEntity.id, 'ty': ty});
-  if (ret == retCodeSuccess) {
-    gameEntity.switchFavState(true);
-    // Toast.show("Success");
-  } else {
-    Toast.show("Fail:$ret");
+  try {
+    AppLoading.show();
+    var ret = await apiRequest.requestFavInsert(params: {"id": gameEntity.id, 'ty': ty});
+    if (ret == retCodeSuccess) {
+        gameEntity.switchFavState(true);
+        // Toast.show("Success");
+      } else {
+        Toast.show("Fail:$ret");
+      }
+    AppLoading.close();
+    Log.d("添加收藏结果：$ret");
+  } catch (e) {
+    Log.e(e);
   }
-  AppLoading.close();
-  Log.d("添加收藏结果：$ret");
 }
 
 Future<void> requestDelFav(GameEntity gameEntity) async {
-  AppLoading.show();
-  var ret = await apiRequest.requestFavDelete(params: {"id": gameEntity.id});
-  if (ret == retCodeSuccess) {
-    gameEntity.switchFavState(false);
-    // Toast.show("Success");
-  } else {
-    Toast.show("Fail:$ret");
+  try {
+    AppLoading.show();
+    var ret = await apiRequest.requestFavDelete(params: {"id": gameEntity.id});
+    if (ret == retCodeSuccess) {
+        gameEntity.switchFavState(false);
+        // Toast.show("Success");
+      } else {
+        Toast.show("Fail:$ret");
+      }
+    AppLoading.close();
+    Log.d("删除收藏结果：$ret");
+  } catch (e) {
+    Log.e(e);
   }
-  AppLoading.close();
-  Log.d("删除收藏结果：$ret");
 }

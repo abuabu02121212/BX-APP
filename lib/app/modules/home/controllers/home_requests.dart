@@ -1,11 +1,24 @@
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import '../../../../http/request.dart';
 import '../../../../util/Log.dart';
+import '../../../entity/banner.dart';
 import '../../../entity/cs.dart';
 import '../../../entity/game_nav.dart';
 import '../../../entity/game_type.dart';
 import '../../../entity/last_win.dart';
 import '../../../entity/notice.dart';
+
+
+Future<void> requestBannerData(RxList<BannerEntity> bannerList) async {
+  /// 请求banner列表
+  try {
+    var bannerJson = await apiRequest.requestBanner();
+    bannerList.value = BannerEntity.getList(bannerJson);
+    Log.d("bannerArr 的长度：${bannerList.length}");
+  }  catch (e) {
+    Log.e("$e");
+  }
+}
 
 Future<void> requestMemberNav(List<GameNavEntity> navItemList, RxList<GameTypeEntity> gameTypes) async {
   try {
@@ -27,8 +40,8 @@ Future<void> requestMemberNav(List<GameNavEntity> navItemList, RxList<GameTypeEn
     navItemList.clear();
     navItemList.addAll(ls);
     Log.d("nav的数据size是：${navItemList.length} ");
-  } catch (e, stack) {
-    Log.e("$e, $stack");
+  } catch (e) {
+    Log.e("$e");
   }
 }
 
@@ -49,21 +62,25 @@ Future<void> requestLastWin(RxList<LastWinEntity> lastWinListRx) async {
     var list = LastWinEntity.getList(listJson);
     lastWinListRx.value = list;
     Log.d("请求最近获奖结果size：${list.length}");
-  } catch (e, stack) {
-    Log.e("stack: $stack");
+  } catch (e) {
+    Log.e("$e");
   }
 }
 
 Future<void> requestNotice(RxList<NoticeEntity> noticeListRx, RxString showingMarqueeText) async {
-  var json = await apiRequest.requestNotice();
-  var noticeList = NoticeEntity.getList(json);
-  noticeListRx.value = noticeList;
-  if (noticeList.isNotEmpty) {
-    String temp = '';
-    for (var item in noticeList) {
-      temp += '${item.content}   ';
-    }
-    showingMarqueeText.value = temp.trim();
-    Log.d("=======通知返回 size：${noticeList.length} ");
+  try {
+    var json = await apiRequest.requestNotice();
+    var noticeList = NoticeEntity.getList(json);
+    noticeListRx.value = noticeList;
+    if (noticeList.isNotEmpty) {
+        String temp = '';
+        for (var item in noticeList) {
+          temp += '${item.content}   ';
+        }
+        showingMarqueeText.value = temp.trim();
+        Log.d("=======通知返回 size：${noticeList.length} ");
+      }
+  } catch (e) {
+    Log.e("$e");
   }
 }

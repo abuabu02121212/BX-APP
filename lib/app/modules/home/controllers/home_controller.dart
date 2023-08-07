@@ -4,11 +4,9 @@ import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../../app_config.dart';
-import '../../../../http/request.dart';
 import '../../../../util/Log.dart';
 import '../../../../util/double_click_exit_app.dart';
 import '../../../../util/dynamic_index_rx.dart';
-import '../../../../util/entity/entites.dart';
 import '../../../../util/extensions.dart';
 import '../../../../util/loading_util.dart';
 import '../../../entity/banner.dart';
@@ -28,8 +26,6 @@ import 'home_requests.dart';
 class HomeController extends GetxController {
   final gameTypes = RxList<GameTypeEntity>(GameTypeEntity.getList());
   final selectedGameTypeIndex = 0.obs;
-
-  // final selectedSearchItemIndex = 0.obs;
   final List<int> gameTypePressedRecordList = [0];
   final ScrollController scrollController = ScrollController();
   final showingMarqueeText = "".obs;
@@ -47,8 +43,6 @@ class HomeController extends GetxController {
   late final tab2TagList = AppRxList<AppRxList<GameTagEntity>>();
 
   final bannerList = RxList<BannerEntity>();
-
-//  final IndexRxMap level2TabSelectedIndexMap = IndexRxMap();
   final IndexRxMap tagTabSelectedIndexMap = IndexRxMap();
 
   void switchTabWithAddPressedRecord(int index) {
@@ -124,43 +118,25 @@ class HomeController extends GetxController {
     return true;
   }
 
-  /// 小按钮请求
-  Future<RequestResultEntity?> onLevel2ListItemTabSwitch({required listItemIndex, pageIndex = 1}) async {
-    // level2TabSelectedIndexMap.getIndexRxByPos(listItemIndex).value = tabIndex;
-    int tabIndex = 0;
-    // 刷新列表数据
-    if (tabIndex == 0) {
-      AppLoading.show();
-      // await requestTab0FavGameList();
-      AppLoading.close();
-    } else if (tabIndex == 1) {
-    } else if (tabIndex == 2) {
-      /*return await requestMemberFavList2(
-        tab2List[listItemIndex],
-        getCurGameType(),
-        platformId: curTab2GameNavEntityList[listItemIndex].id,
-        pageIndex: pageIndex,
-      );*/
-    }
-    return null;
-  }
-
   @override
   Future<void> onReady() async {
     super.onReady();
-    //  scrollController.addListener(_scrollListener);
-    showFloatService(Get.context);
-    requestMemberNav(navItemList, gameTypes);
-    requestNotice(noticeListRx, showingMarqueeText);
-    requestCsData(csEntity);
-    requestLastWin(lastWinListRx);
+    try {
+      showFloatService(Get.context);
+      await requestMemberNav(navItemList, gameTypes);
+      requestNotice(noticeListRx, showingMarqueeText);
+      requestCsData(csEntity);
+      requestLastWin(lastWinListRx);
 
-    /// 请求banner列表
-    var bannerJson = await apiRequest.requestBanner();
-    bannerList.value = BannerEntity.getList(bannerJson);
-    Log.d("bannerArr 的长度：${bannerList.length}");
-    requestTab0GameList();
+      /// 请求banner列表
+      requestBannerData(bannerList);
+      requestTab0GameList();
+    } catch (e) {
+      Log.e(e);
+    }
+    Log.d("=====home===onReady=====finished=============");
   }
+
 
   final csEntity = Rx<CsEntity?>(null);
 
