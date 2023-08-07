@@ -205,7 +205,7 @@ class IndicatorTabController {
   }
 
   void back() {
-    Log.d("=======back====$posList====myState:$myState=====");
+   // Log.d("=======back====$posList====myState:$myState=====");
     if (posList.isNotEmpty) {
       var last = posList.removeLast();
       if (last == selectedIndexNotifier.value && posList.isNotEmpty) {

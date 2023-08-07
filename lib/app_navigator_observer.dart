@@ -13,7 +13,7 @@ class AppNavigatorObserver extends NavigatorObserver {
     routerList.add(route);
     routerNameList.add(route.settings.name);
     curRouterName = routerNameList.isEmpty ? "" : routerNameList.last;
-    Log.d("========didPush========curRouterName:$curRouterName====");
+    Log.d("========didPush========curRouterName:$curRouterName==routerNameList:$routerNameList==");
   }
 
   @override
@@ -31,7 +31,7 @@ class AppNavigatorObserver extends NavigatorObserver {
     routerList.removeLast();
     routerNameList.removeLast();
     curRouterName = routerNameList.isEmpty ? "" : routerNameList.last;
-    Log.d("========didPop========routeName:$routeName==popListenerSize:${popListenerList.length}==");
+    Log.d("========didPop========curRouterName:$curRouterName==routerNameList:$routerNameList==");
   }
 
   void setPopListener(RoutePopCallBack callBack) {

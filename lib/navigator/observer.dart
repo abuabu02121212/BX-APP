@@ -10,7 +10,7 @@ class MyNavigatorObserver extends NavigatorObserver {
   @override
   void didPop(Route cur, Route? pre) {
     super.didPop(cur, pre);
-    Log.d("didPop 离开页面 cur: ${cur.settings.name}  pre: ${pre?.settings.name}");
+  //  Log.d("didPop 离开页面 cur: ${cur.settings.name}  pre: ${pre?.settings.name}");
 
     /// 回到main首页请求余额接口
     if (pre?.settings.name == Routes.MAIN && cur.settings.name != null) {
@@ -22,7 +22,7 @@ class MyNavigatorObserver extends NavigatorObserver {
   @override
   void didPush(Route cur, Route? pre) {
     super.didPush(cur, pre);
-    Log.d("didPush 进入页面 cur: ${cur.settings.name}  pre: ${pre?.settings.name}");
+   // Log.d("didPush 进入页面 cur: ${cur.settings.name}  pre: ${pre?.settings.name}");
   }
 
 }

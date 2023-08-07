@@ -5,6 +5,8 @@ import 'package:flutter_comm/app/modules/register/views/register_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../app_config.dart';
+import '../../../../util/Log.dart';
 import '../../login/views/login_view.dart';
 import '../controllers/login_register_controller.dart';
 
@@ -81,12 +83,16 @@ class LoginRegisterWidget extends StatelessWidget {
 }
 
 void showLoginRegisterDialog() {
-  // SmartDialog.show(
-  Get.dialog(
+  Log.d("======showLoginRegisterDialog=====");
+  String routerName = 'login-register';
+  if(appNavigatorObserver.curRouterName == routerName){
+    return;
+  }
+    Get.dialog(
       LoginRegisterWidget(),
+      name: routerName,
       barrierDismissible: false
     //  barrierColor: const Color.fromRGBO(0, 0, 0, 0.7),
   );
-
 }
 

@@ -122,8 +122,6 @@ class AppConfigurationWidget extends StatelessWidget {
         appNavigatorObserver
       ],
       routingCallback: (Routing? routing) {
-        Log.d(
-            'cur route: ${routing?.current}  name: ${routing?.route?.settings.name}');
       },
     );
   }
