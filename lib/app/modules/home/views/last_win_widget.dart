@@ -14,7 +14,7 @@ class WinListWidget extends StatelessWidget {
   WinListWidget({super.key});
 
   final HomeController controller = Get.put(HomeController());
-  final AutoScrollUtil autoScrollUtil = AutoScrollUtil(scrollSpeed: 40);
+  final AutoScrollUtil autoScrollUtil = AutoScrollUtil(scrollSpeed: 16);
   final isPressed = false.obs;
   @override
   Widget build(BuildContext context) {
