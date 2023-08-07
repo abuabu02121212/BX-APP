@@ -5,6 +5,7 @@ import 'package:flutter_comm/util/app_util.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
 import '../../globe_controller.dart';
+import '../app_style.dart';
 import '../modules/main/controllers/main_controller.dart';
 import '../routes/app_pages.dart';
 import 'app_header.dart';
@@ -164,7 +165,7 @@ class _AppWebviewState extends State<AppWebview> {
           child: AppBar(
             titleSpacing: 0,
             leadingWidth: 0,
-            backgroundColor: const Color.fromRGBO(3, 90, 202, 1),
+            backgroundColor: headerBgColor,
             title: AppHeader(title: widget.title),
           ),
         ),

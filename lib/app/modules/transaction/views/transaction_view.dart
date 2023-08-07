@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../util/toast_util.dart';
+import '../../../app_style.dart';
 import '../../../entity/member_record_data.dart';
 import '../controllers/transaction_controller.dart';
 
@@ -22,7 +23,7 @@ class TransactionView extends GetView<TransactionController> {
       appBar: AppBar(
         titleSpacing: 0,
         leadingWidth: 0,
-        backgroundColor: const Color.fromRGBO(3, 90, 202, 1),
+        backgroundColor: headerBgColor,
         title: const AppHeader(title: "Transação"),
       ),
       backgroundColor: const Color.fromRGBO(0, 10, 29, 1),

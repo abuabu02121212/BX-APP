@@ -26,7 +26,7 @@ class MainView extends GetView<MainController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(3, 90, 202, 1),
+        backgroundColor: headerBgColor,
         titleSpacing: 0,
         leadingWidth: 0,
         elevation: 0,

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
+import '../../../app_style.dart';
 import '../../../component/app_header.dart';
 import '../controllers/security_center_controller.dart';
 
@@ -19,7 +20,7 @@ class SecurityCenterView extends GetView<SecurityCenterController> {
         titleSpacing: 0,
         leadingWidth: 0,
         toolbarHeight: 110.w,
-        backgroundColor: const Color.fromRGBO(3, 90, 202, 1),
+        backgroundColor: headerBgColor,
         title: const AppHeader(title: "Centro de Segurança"),
       ),
       body: SafeArea(

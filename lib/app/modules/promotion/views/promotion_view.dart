@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import '../../../../util/toast_util.dart';
 import '../../../../util/weburl_util.dart';
+import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_empty.dart';
 import '../../../component/app_header.dart';
@@ -26,7 +27,7 @@ class PromotionView extends GetView<PromotionController> {
         titleSpacing: 0,
         leadingWidth: 0,
         toolbarHeight: 110.w,
-        backgroundColor: const Color.fromRGBO(3, 90, 202, 1),
+        backgroundColor: headerBgColor,
         title: const AppHeader(
           title: "Promoção",
           isNeedLeftBackArrow: false,

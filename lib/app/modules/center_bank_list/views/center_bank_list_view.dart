@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
+import '../../../app_style.dart';
 import '../../../component/app_header.dart';
 import '../controllers/center_bank_list_controller.dart';
 
@@ -19,7 +20,7 @@ class CenterBankListView extends GetView<CenterBankListController> {
         titleSpacing: 0,
         leadingWidth: 0,
         elevation: 1.0,
-        backgroundColor: const Color.fromRGBO(3, 90, 202, 1),
+        backgroundColor: headerBgColor,
         title: const AppHeader(
           title: "Número da conta bancária",
         ),

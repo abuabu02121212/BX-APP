@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import '../../../../util/Log.dart';
+import '../../../app_style.dart';
 import '../../../component/app_header.dart';
 import '../controllers/vip_controller.dart';
 import 'level_list_view_widget.dart';
@@ -22,7 +23,7 @@ class VipView extends GetView<VipController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(3, 90, 202, 1),
+        backgroundColor: headerBgColor,
         titleSpacing: 0,
         leadingWidth: 0,
         toolbarHeight: 110.w,

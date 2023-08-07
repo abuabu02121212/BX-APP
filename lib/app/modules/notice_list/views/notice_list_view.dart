@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
+import '../../../app_style.dart';
 import '../../../component/app_header.dart';
 import '../../../component/app_list.dart';
 import '../../../component/app_tab.dart';
@@ -22,7 +23,7 @@ class NoticeListView extends GetView<NoticeListController> {
       appBar: AppBar(
         titleSpacing: 0,
         leadingWidth: 0,
-        backgroundColor: const Color.fromRGBO(3, 90, 202, 1),
+        backgroundColor: headerBgColor,
         title: const AppHeader(title: "Centro de Notificação"),
       ),
       backgroundColor: const Color.fromRGBO(0, 10, 29, 1),

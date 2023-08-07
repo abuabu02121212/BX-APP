@@ -300,7 +300,9 @@ class HomeGameTypesBarWidget extends StatelessWidget {
         child: Container(
             width: double.infinity,
             height: 148.w,
-            decoration: BoxDecoration(gradient: headerLinearGradient),
+            decoration: const BoxDecoration(
+              color: Color.fromRGBO(3, 51, 119, 1)
+            ),
             child: Obx(() {
               return GridView.builder(
                   itemCount: controller.gameTypes.length,
