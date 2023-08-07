@@ -123,6 +123,7 @@ class HomeController extends GetxController {
     super.onReady();
     try {
       showFloatService(Get.context);
+      AppLoading.show();
       await requestMemberNav(navItemList, gameTypes);
       requestNotice(noticeListRx, showingMarqueeText);
       requestCsData(csEntity);
@@ -130,7 +131,7 @@ class HomeController extends GetxController {
 
       /// 请求banner列表
       requestBannerData(bannerList);
-      requestTab0GameList();
+      requestTab0GameList(isShowLoading: false);
     } catch (e) {
       Log.e(e);
     }
@@ -141,23 +142,29 @@ class HomeController extends GetxController {
   final csEntity = Rx<CsEntity?>(null);
 
   /// tab 0
-  Future<void> requestTab0GameList() async {
+  Future<void> requestTab0GameList({bool isShowLoading = true}) async {
+    if(isShowLoading) {
+      AppLoading.show();
+    }
     await requestHotGameListForRec(recList[0]);
     await requestFavGameListForRec(recList[1]);
     for (int i = 2; i < recList.length; i++) {
       RxList<GameEntity> item = recList[i];
       await requestRecGameList(gameTypeList[i - 2], item);
     }
+    AppLoading.close();
   }
 
   /// tab 0 favs
   Future<void> requestTab0FavGameList() async {
+    AppLoading.show();
     await requestMemberFavList2(recList[0], tab0TyList[0], gameType: 0);
     await requestMemberFavList2(recList[1], tab0TyList[1], gameType: 0);
     for (int i = 2; i < recList.length; i++) {
       AppRxList<GameEntity> item = recList[i];
       await requestMemberFavList2(item, tab0TyList[i], gameType: gameTypeList[i - 2]);
     }
+    AppLoading.close();
   }
 
   List<int> gameTypeList = [3, 2, 5, 4, 1];

@@ -132,13 +132,11 @@ class Level2TypeTabs extends StatelessWidget {
     }
     var selectedGameTypeIndex = controller.selectedGameTypeIndex.value;
     if (selectedGameTypeIndex == 0) {
-      AppLoading.show();
       if (controller.favIsSelected.value) {
         await controller.requestTab0FavGameList();
       } else {
         await controller.requestTab0GameList();
       }
-      AppLoading.close();
     } else if (selectedGameTypeIndex == 1) {
       if (controller.favIsSelected.value) {
         controller.requestTab1FavGameList();
