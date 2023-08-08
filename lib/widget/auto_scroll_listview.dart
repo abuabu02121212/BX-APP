@@ -10,10 +10,12 @@ class AutoScrollListView extends StatefulWidget {
     super.key,
     required this.rxList,
     required this.itemBuilder,
+    required this.controller,
   });
 
   final RxList rxList;
   final ItemBuilder itemBuilder;
+  final AutoScrollListViewController controller;
 
   @override
   State<StatefulWidget> createState() {
@@ -21,9 +23,14 @@ class AutoScrollListView extends StatefulWidget {
   }
 }
 
-class MyState extends State<AutoScrollListView> {
-  final AutoScrollUtil autoScrollUtil = AutoScrollUtil(scrollSpeed: 16);
-  final isPressed = false.obs;
+class MyState extends State<AutoScrollListView> with TickerProviderStateMixin {
+  late final AutoScrollUtil autoScrollUtil = AutoScrollUtil(scrollSpeed: 1, vsync: this);
+
+  @override
+  void dispose() {
+    autoScrollUtil.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +38,13 @@ class MyState extends State<AutoScrollListView> {
       var length = widget.rxList.length;
       return Listener(
         onPointerDown: (e) {
-          isPressed.value = true;
+          widget.controller.isStopScroll.value = true;
         },
         onPointerUp: (e) async {
-          await Future.delayed(const Duration(microseconds: 250));
-          isPressed.value = false;
+          widget.controller.isStopScroll.value = false;
         },
         child: Obx(() {
-          var scrollController = isPressed.value ? ScrollController(initialScrollOffset: autoScrollUtil.sc.offset) : autoScrollUtil.sc;
+          var scrollController = widget.controller.isStopScroll.value ? ScrollController(initialScrollOffset: autoScrollUtil.curScrolledDistance) : autoScrollUtil.sc;
           return ListView.builder(
             itemCount: length * 3,
             controller: scrollController,
@@ -51,5 +57,17 @@ class MyState extends State<AutoScrollListView> {
         }),
       );
     });
+  }
+}
+
+class AutoScrollListViewController {
+  final isStopScroll = false.obs;
+
+  void stopScroll() {
+    isStopScroll.value = true;
+  }
+
+  void startScroll() {
+    isStopScroll.value = false;
   }
 }

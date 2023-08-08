@@ -1,9 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import '../../../../util/Log.dart';
-import '../../../../widget/auto_scroll.dart';
 import '../../../../widget/auto_scroll_listview.dart';
 import '../../../app_style.dart';
 import '../../../entity/last_win.dart';
@@ -14,9 +14,7 @@ class WinListWidget extends StatelessWidget {
   WinListWidget({super.key});
 
   final HomeController controller = Get.put(HomeController());
-  final AutoScrollUtil autoScrollUtil = AutoScrollUtil(scrollSpeed: 16);
-  final isPressed = false.obs;
-
+  final AutoScrollListViewController autoScrollListViewController = AutoScrollListViewController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,7 +49,7 @@ class WinListWidget extends StatelessWidget {
             rxList: controller.lastWinListRx,
             itemBuilder: (BuildContext context, int index) {
               return getListItem(index);
-            },
+            }, controller: autoScrollListViewController,
           ))
           // Text(""),
         ],
@@ -60,15 +58,17 @@ class WinListWidget extends StatelessWidget {
     );
   }
 
-  Listener getListItem(int index) {
+  Widget getListItem(int index) {
     LastWinEntity item = controller.lastWinListRx[index];
-    return Listener(
-      onPointerUp: (e) {
+    return CupertinoButton(
+      onPressed: () async {
         Log.d2("LastWinEntity: ${item.toJson()}");
-        startGame(platformId: item.platform_id, gameId: item.game_id, brAlias: item.game_name);
+        autoScrollListViewController.stopScroll();
+        await startGame(platformId: item.platform_id, gameId: item.game_id, brAlias: item.game_name);
+        autoScrollListViewController.startScroll();
       },
-      // minSize: 0,
-      // padding: EdgeInsets.zero,
+       minSize: 0,
+       padding: EdgeInsets.zero,
       child: Container(
         width: double.infinity,
         height: 110.w,
