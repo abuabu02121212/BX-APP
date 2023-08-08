@@ -44,9 +44,11 @@ class MyState extends State<AutoScrollListView> with TickerProviderStateMixin {
           widget.controller.isStopScroll.value = false;
         },
         child: Obx(() {
-          var scrollController = widget.controller.isStopScroll.value ? ScrollController(initialScrollOffset: autoScrollUtil.curScrolledDistance) : autoScrollUtil.sc;
+          var isStopAutoScroll = widget.controller.isStopScroll.value;
+          var scrollController = isStopAutoScroll ? ScrollController(initialScrollOffset: autoScrollUtil.curScrolledDistance) : autoScrollUtil.sc;
           return ListView.builder(
-            itemCount: length * 3,
+            itemCount: length > 0 ? 999999999999 : 0,
+            // 无限循环
             controller: scrollController,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
