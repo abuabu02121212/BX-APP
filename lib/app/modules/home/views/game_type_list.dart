@@ -97,7 +97,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
               child: itemCount != 0
                   ? Container(
                       width: double.infinity,
-                      height: 540.w,
+                      height: 560.w,
                       decoration: BoxDecoration(gradient: headerLinearGradient),
                       child: GridView.builder(
                         padding: EdgeInsets.only(top: 20.w),
@@ -105,7 +105,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         controller: scrollController,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.2),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.3),
                         itemBuilder: (BuildContext context, int index) {
                           bool isLoadMoreItem = list.length == index;
                           return isLoadMoreItem
