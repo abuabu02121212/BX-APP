@@ -79,7 +79,7 @@ class ItemGenerateWidget extends StatelessWidget {
             radius: 0,
           ),
         ),
-        HomeMarquee(),
+        SearchWidget(),
         HomeGameTypesBarWidget(),
         Obx(() {
           var tabIndex = controller.selectedGameTypeIndex.value;

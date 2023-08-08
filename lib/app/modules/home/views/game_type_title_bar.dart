@@ -54,15 +54,17 @@ class Level2TypeTabs extends StatelessWidget {
     super.key,
     required this.listItemIndex,
     required this.controller,
+    this.isDisplay = false,
   });
 
   final int listItemIndex;
   final HomeController controller;
+  final bool isDisplay;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      child: listItemIndex == 0
+      child: listItemIndex == 0 && isDisplay
           ? Obx(() {
               var typeTabIndex = controller.selectedGameTypeIndex.value;
               return Row(
@@ -90,7 +92,7 @@ class Level2TypeTabs extends StatelessWidget {
                   ),
                   CupertinoButton(
                     onPressed: () {
-                      showSearchDialog(null, listItemIndex: listItemIndex);
+                      showSearchDialog(null);
                     },
                     minSize: 0,
                     padding: EdgeInsets.symmetric(horizontal: 5.w),

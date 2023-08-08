@@ -14,14 +14,13 @@ import '../controllers/home_controller.dart';
 import 'game_type_list.dart';
 
 class GameSearchWidget extends StatelessWidget {
-  GameSearchWidget({super.key, required this.dataList, required this.listItemIndex});
+  GameSearchWidget({super.key, required this.dataList});
 
   final List<GameNavEntity>? dataList;
 
   final HomeController controller = Get.put(HomeController());
   final EditNode editNode = EditNode();
   final platformId = '0'.obs;
-  final int listItemIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -151,11 +150,10 @@ class GameGridWidget extends StatelessWidget {
   }
 }
 
-void showSearchDialog(List<GameNavEntity>? list, {listItemIndex = 0}) {
+void showSearchDialog(List<GameNavEntity>? list) {
   Get.dialog(
     GameSearchWidget(
       dataList: list,
-      listItemIndex: listItemIndex,
     ),
     barrierDismissible: false,
     barrierColor: const Color.fromRGBO(0, 0, 0, 0.94),

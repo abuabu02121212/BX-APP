@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/app/modules/home/views/game_search_dialog.dart';
 import 'package:flutter_comm/app/modules/home/views/swiper_component_notice.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,8 +17,6 @@ import '../../login_register/views/login_regiseter_widget.dart';
 import '../../main/controllers/main_controller.dart';
 import '../controllers/home_controller.dart';
 import '../controllers/home_requests.dart';
-
-
 
 class HomeHeader extends StatelessWidget {
   HomeHeader({
@@ -53,67 +52,65 @@ class HomeHeader extends StatelessWidget {
             var userInfo = globeController.balance.value;
             return userInfo == null
                 ? AppButton(
-              width: 350.w,
-              height: 60.w,
-              radius: 30.w,
-              text: 'Registar Conta',
-              onClick: () {
-                showLoginRegisterDialog();
-              },
-            )
-                : Container(
-              width: 350.w,
-              height: 60.w,
-              decoration: BoxDecoration(
-                  gradient: btnLinearBg,
-                  borderRadius: BorderRadius.circular(30.w),
-                  border: Border.all(color: const Color(0x66335a94), width: 1.w)),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CupertinoButton(
-                    onPressed: () {
-                      if (isEnd.value) {
-                        isEnd.value = false;
-                        angel.value += 1;
-                        requestCommBalance();
-                      }
-                    },
-                    minSize: 0,
-                    padding: EdgeInsets.zero,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 20.w, top: 10.w, bottom: 10.w, right: 0.w),
-                      child: Obx(() {
-                        return AnimatedRotation(
-                          turns: angel.value,
-                          duration: const Duration(milliseconds: 600),
-                          onEnd: () {
-                            isEnd.value = true;
-                          },
-                          child: Image.asset("assets/images/refresher_balance.webp", width: 36.w),
-                        );
-                      }),
-                    ),
-                  ),
-                  Text(
-                    AppUtil.amountFormat(globeController.balance.value?.brl ?? '0'),
-                    style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w400),
-                  ),
-                  AppButton(
-                    width: 121.w,
+                    width: 350.w,
                     height: 60.w,
                     radius: 30.w,
-                    text: 'Conta',
+                    text: 'Registar Conta',
                     onClick: () {
-                      MainController mainController = Get.find<MainController>();
-                      mainController.changeSelectedTab(2);
+                      showLoginRegisterDialog();
                     },
                   )
-                ],
-              ),
-            );
+                : Container(
+                    width: 350.w,
+                    height: 60.w,
+                    decoration: BoxDecoration(
+                        gradient: btnLinearBg, borderRadius: BorderRadius.circular(30.w), border: Border.all(color: const Color(0x66335a94), width: 1.w)),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CupertinoButton(
+                          onPressed: () {
+                            if (isEnd.value) {
+                              isEnd.value = false;
+                              angel.value += 1;
+                              requestCommBalance();
+                            }
+                          },
+                          minSize: 0,
+                          padding: EdgeInsets.zero,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 20.w, top: 10.w, bottom: 10.w, right: 0.w),
+                            child: Obx(() {
+                              return AnimatedRotation(
+                                turns: angel.value,
+                                duration: const Duration(milliseconds: 600),
+                                onEnd: () {
+                                  isEnd.value = true;
+                                },
+                                child: Image.asset("assets/images/refresher_balance.webp", width: 36.w),
+                              );
+                            }),
+                          ),
+                        ),
+                        Text(
+                          AppUtil.amountFormat(globeController.balance.value?.brl ?? '0'),
+                          style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w400),
+                        ),
+                        AppButton(
+                          width: 121.w,
+                          height: 60.w,
+                          radius: 30.w,
+                          text: 'Conta',
+                          onClick: () {
+                            MainController mainController = Get.find<MainController>();
+                            mainController.changeSelectedTab(2);
+                          },
+                        )
+                      ],
+                    ),
+                  );
           }),
           SizedBox(width: 26.w),
           CupertinoButton(
@@ -161,21 +158,73 @@ class HomeMarquee extends StatelessWidget {
             Image.asset("assets/images/i-notice.webp", width: 36.w),
             Expanded(
                 child: Container(
-                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 18.w),
-                  child: Obx(() {
-                    return Marqueer(
-                        pps: 30,
-                        infinity: true,
-                        child: Text(
-                          "${controller.showingMarqueeText.value}                        ",
-                          style: TextStyle(
-                            fontSize: 22.w,
-                            color: Colors.white,
-                          ),
-                        ));
-                  }),
-                )),
+              padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 18.w),
+              child: Obx(() {
+                return Marqueer(
+                    pps: 30,
+                    infinity: true,
+                    child: Text(
+                      "${controller.showingMarqueeText.value}                        ",
+                      style: TextStyle(
+                        fontSize: 22.w,
+                        color: Colors.white,
+                      ),
+                    ));
+              }),
+            )),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class SearchWidget extends StatelessWidget {
+  SearchWidget({
+    super.key,
+  });
+
+  final HomeController controller = Get.put(HomeController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(top: 40.w, left: 20.w, right: 20.w),
+      height: 72.w,
+      decoration: BoxDecoration(color: const Color.fromRGBO(1, 26, 81, 1), borderRadius: BorderRadius.circular(30.w)),
+      child: CupertinoButton(
+        onPressed: () {
+          showSearchDialog(null);
+        },
+        minSize: 0,
+        padding: EdgeInsets.zero,
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100.w),
+            border: Border.all(color: const Color.fromRGBO(4, 75, 154, 0.5), width: 1.w)
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 20.w, right: 10.w),
+                child: Image.asset("assets/images/search-1.webp", width: 32.w),
+              ),
+              Text(
+                "To search for",
+                style: TextStyle(
+                  fontSize: 26.w,
+                  color: const Color(0xff969799),
+                  fontWeight: FontWeight.w400,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -215,7 +264,7 @@ class BrandListWidget extends StatelessWidget {
                 onPressed: () async {
                   if (controller.csEntity.value == null) {
                     await requestCsData(controller.csEntity);
-                  }else{
+                  } else {
                     requestCsData(controller.csEntity);
                   }
                   var facebook = controller.csEntity.value?.facebook ?? "-";
@@ -282,22 +331,22 @@ class BottomIconsWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(
           names.length,
-              (index) => Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                "assets/images/bottom${index + 1}.webp",
-                width: 42.w,
-              ),
-              SizedBox(height: 8.w),
-              Text(
-                names[index],
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 22.w, color: const Color(0xffCCCED2), fontWeight: FontWeight.w400),
-              ),
-            ],
-          )),
+          (index) => Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/images/bottom${index + 1}.webp",
+                    width: 42.w,
+                  ),
+                  SizedBox(height: 8.w),
+                  Text(
+                    names[index],
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 22.w, color: const Color(0xffCCCED2), fontWeight: FontWeight.w400),
+                  ),
+                ],
+              )),
     );
   }
 }
