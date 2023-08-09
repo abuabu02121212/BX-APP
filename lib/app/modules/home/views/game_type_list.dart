@@ -28,6 +28,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
   final int listItemIndex;
   final AppRxList<GameEntity> list;
   final List<String> titles = ["QUENTE", "DENTRO DE CASA", "SLOT", "PESCA", "PÔQUER", "ESPORTE", "AO VIVO"];
+  final List<String> titles2 = ["SLOT", "PESCA", "PÔQUER", "ESPORTE", "AO VIVO"];
   final ScrollController scrollController = ScrollController();
 
 
@@ -47,6 +48,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
       if(list.isEmpty){
         itemCount = 0;
       }
+      List<String> lever2Titles = controller.selectedGameTypeIndex.value == 0 ? titles : titles2;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -60,14 +62,14 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 20.w, top: 10.w),
                   child: Text(
-                    "RECOMENDAÇÕES".capitalizeFirstLetterOfEachWord(),
+                    listItemIndex == -1? "Minha Coleção" : "RECOMENDAÇÕES".capitalizeFirstLetterOfEachWord(),
                     style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 20.w, top: 38.w, bottom: 10.w),
                   child: Text(
-                    listItemIndex >= 0 ? titles[listItemIndex].capitalizeFirstLetterOfEachWord() : "",
+                    listItemIndex >= 0 ? lever2Titles[listItemIndex].capitalizeFirstLetterOfEachWord() : "",
                     style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
                   ),
                 ),

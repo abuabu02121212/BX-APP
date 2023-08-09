@@ -98,14 +98,18 @@ class GameEntranceWidget extends StatelessWidget {
                         ),
                       ),
                       CupertinoButton(
-                        onPressed: () {
+                        onPressed: () async {
                           bool isFav = gameEntity.isRxFav.value;
+                          HomeController homeController =  Get.find<HomeController>();
                           if (isFav) {
-                            requestDelFav(gameEntity);
+                            await requestDelFav(gameEntity);
+                            if(homeController.selectedGameTypeIndex.value == 1){
+                              homeController. requestTabPageData(homeController.selectedGameTypeIndex.value);
+                            }
                           } else {
-                            HomeController homeController =  Get.find<HomeController>();
-                            requestAddFav(gameEntity, ty: homeController.getInsertFavTy(gameEntity.listItemIndex));
+                            await requestAddFav(gameEntity, ty: homeController.getInsertFavTy(gameEntity.listItemIndex));
                           }
+
                         },
                         minSize: 0,
                         padding: EdgeInsets.only(right: 10.w, top: 10.w, bottom: 10.w),
