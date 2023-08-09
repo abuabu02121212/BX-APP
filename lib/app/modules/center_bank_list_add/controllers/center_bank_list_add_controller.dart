@@ -6,6 +6,9 @@ import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_comm/widget/input_field.dart';
 import 'package:get/get.dart';
 
+import '../../../../globe_controller.dart';
+import '../../../../util/dialog.dart';
+
 class CenterBankListAddController extends GetxController {
   EditNode bankInputNode = EditNode();
   EditNode payPasswordInputNode = EditNode();
@@ -79,15 +82,19 @@ class CenterBankListAddController extends GetxController {
     }
   }
 
+  final globalController = Get.find<GlobeController>();
+
+
   @override
   void onInit() {
-    setBankTypeList();
     super.onInit();
+    setBankTypeList();
   }
 
   @override
   void onReady() {
     super.onReady();
+    globalController.switchPayPasswordStatus();
   }
 
   @override

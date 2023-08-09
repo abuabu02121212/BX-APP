@@ -5,6 +5,7 @@ import 'package:flutter_comm/app/entity/balance.dart';
 import 'package:flutter_comm/app/events.dart';
 import 'package:flutter_comm/skin/skin_manager.dart';
 import 'package:flutter_comm/util/Log.dart';
+import 'package:flutter_comm/util/dialog.dart';
 import 'package:flutter_comm/util/sp_util.dart';
 import 'package:flutter_comm/util/sp_util_key.dart';
 import 'package:flutter_comm/util/system_util.dart';
@@ -73,6 +74,12 @@ class GlobeController extends GetxController with WidgetsBindingObserver {
       return false;
     }
     return entity.phone!.isNotEmpty && entity.email!.isNotEmpty && entity.telegram!.isNotEmpty;
+  }
+
+  void switchPayPasswordStatus() {
+    if (userInfoEntity.value?.payPassword != '1') {
+      AppDialog.showSetPayPwdDialog();
+    }
   }
 
   @override

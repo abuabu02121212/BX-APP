@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/modules/deposit/controllers/deposit.dart';
 import 'package:flutter_comm/app/modules/deposit/controllers/withdraw.dart';
 import 'package:flutter_comm/app/modules/deposit/views/deposit_data.dart';
+import 'package:flutter_comm/util/toast_util.dart';
 import 'package:get/get.dart';
 
 import '../../../../globe_controller.dart';
@@ -12,7 +13,7 @@ class DepositController extends GetxController with GetSingleTickerProviderState
 
   late ScrollController scrollViewController;
   late TabController tabController;
-  final arguments = Get.arguments;
+  int index = Get.arguments != null ? Get.arguments['index'] : 0;
 
   final depositControllerPage = DepositControllerPage();
   final withdrawControllerPage = WithdrawControllerPage();
@@ -20,15 +21,23 @@ class DepositController extends GetxController with GetSingleTickerProviderState
   final globalController = Get.find<GlobeController>();
   late Rx<BalanceEntity?> balanceDetailInfo;
 
+
   @override
   void onInit() {
     super.onInit();
-    int index = arguments != null ? arguments['index'] : 0;
     balanceDetailInfo = globalController.balance;
     depositControllerPage.onInit();
     withdrawControllerPage.onInit();
     scrollViewController = ScrollController();
     tabController = TabController(length: 2, vsync: this, initialIndex: index);
+
+    tabController.addListener(() {
+      if (tabController.index == 1) {
+        if (Get.isDialogOpen != true) {
+          globalController.switchPayPasswordStatus();
+        }
+      }
+    });
   }
 
   @override
@@ -36,6 +45,9 @@ class DepositController extends GetxController with GetSingleTickerProviderState
     super.onReady();
     depositControllerPage.onReady();
     withdrawControllerPage.onReady();
+    // if (index == 1) {
+    //   globalController.switchPayPasswordStatus();
+    // }
   }
 
   @override

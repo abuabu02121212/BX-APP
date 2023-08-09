@@ -59,7 +59,7 @@ class _AppTabState extends State<AppTab> with SingleTickerProviderStateMixin {
       ),
       onTap: (index) {
         if (widget.onTap != null) {
-          widget.onTap!(index, widget.tabs[index]['value']);
+          widget.onTap!(index, (widget.tabs[index]['value'] ?? '').toString());
         }
       },
       indicator: CustomTabIndicator(
