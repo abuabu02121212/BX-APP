@@ -52,7 +52,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 30.w),
+          SizedBox(height: 10.w),
           Container(
             width: 1.sw,
             padding: EdgeInsets.only(right: 18.w),
@@ -63,14 +63,14 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                   padding: EdgeInsets.only(left: 20.w, top: 10.w),
                   child: Text(
                     listItemIndex == -1? "Minha Coleção" : "RECOMENDAÇÕES".capitalizeFirstLetterOfEachWord(),
-                    style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
+                    style: TextStyle(fontSize: 42.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 20.w, top: 38.w, bottom: 10.w),
+                  padding: EdgeInsets.only(left: 20.w, top: 58.w, bottom: 10.w),
                   child: Text(
                     listItemIndex >= 0 ? lever2Titles[listItemIndex].capitalizeFirstLetterOfEachWord() : "",
-                    style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
+                    style: TextStyle(fontSize: 42.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
                   ),
                 ),
                 Positioned(

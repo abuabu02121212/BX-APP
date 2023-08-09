@@ -190,9 +190,9 @@ class SearchWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.only(top: 40.w, left: 20.w, right: 20.w),
+      margin: EdgeInsets.only(top: 30.w, left: 20.w, right: 20.w),
       height: 72.w,
-      decoration: BoxDecoration(color: const Color.fromRGBO(1, 26, 81, 1), borderRadius: BorderRadius.circular(30.w)),
+      decoration: BoxDecoration(color: const Color.fromRGBO(1, 26, 81, 0), borderRadius: BorderRadius.circular(30.w)),
       child: CupertinoButton(
         onPressed: () {
           showSearchDialog(null);
@@ -212,8 +212,8 @@ class SearchWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 20.w, right: 10.w),
-                child: Image.asset("assets/images/search-1.webp", width: 32.w),
+                padding: EdgeInsets.only(left: 20.w, right: 12.w),
+                child: Image.asset("assets/images/search-1.webp", width: 27.w),
               ),
               Text(
                 "To search for",

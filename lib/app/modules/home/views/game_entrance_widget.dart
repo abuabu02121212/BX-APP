@@ -103,13 +103,12 @@ class GameEntranceWidget extends StatelessWidget {
                           HomeController homeController =  Get.find<HomeController>();
                           if (isFav) {
                             await requestDelFav(gameEntity);
-                            if(homeController.selectedGameTypeIndex.value == 1){
-                              homeController. requestTabPageData(homeController.selectedGameTypeIndex.value);
-                            }
                           } else {
                             await requestAddFav(gameEntity, ty: homeController.getInsertFavTy(gameEntity.listItemIndex));
                           }
-
+                          if(homeController.selectedGameTypeIndex.value == 1){
+                            homeController. requestTabPageData(homeController.selectedGameTypeIndex.value);
+                          }
                         },
                         minSize: 0,
                         padding: EdgeInsets.only(right: 10.w, top: 10.w, bottom: 10.w),

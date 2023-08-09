@@ -79,8 +79,8 @@ class ItemGenerateWidget extends StatelessWidget {
             radius: 0,
           ),
         ),
-        SearchWidget(),
         HomeGameTypesBarWidget(),
+        SearchWidget(),
         Obx(() {
           var tabIndex = controller.selectedGameTypeIndex.value;
           if (tabIndex == 0) {
@@ -303,7 +303,7 @@ class HomeGameTypesBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 24.w, left: 20.w, right: 20.w),
+      margin: EdgeInsets.only(top: 30.w, left: 20.w, right: 20.w),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20.w),
         child: Container(
