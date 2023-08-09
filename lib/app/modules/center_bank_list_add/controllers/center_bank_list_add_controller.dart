@@ -44,17 +44,17 @@ class CenterBankListAddController extends GetxController {
 
   void submit() async {
     if (bankTypeLabel.value.isEmpty) {
-      Toast.show('请选择银行类型');
+      Toast.show('Selecione um banco!');
       return;
     }
 
     if (bankInputNode.text.isEmpty) {
-      Toast.show('请输入银行卡号');
+      Toast.show('Informe o CPF no formato correto');
       return;
     }
 
     if (payPasswordInputNode.text.isEmpty) {
-      Toast.show('请输入支付密码');
+      Toast.show('Senha (6 letras e números)');
       return;
     }
 
@@ -65,7 +65,7 @@ class CenterBankListAddController extends GetxController {
         'bankcode': bankTypeValue.value,
         'pay_password': payPasswordInputNode.text.value,
       });
-      Toast.show('设置成功');
+      Toast.show('sucesso');
       Get.back();
     } catch (e) {
       if (e is Exception) {

@@ -37,7 +37,7 @@ class _AppAvatarState extends State<AppAvatar> {
     });
     await requestUserInfo();
     AppLoading.close();
-    Toast.show('修改成功');
+    Toast.show('sucesso');
     Get.back();
   }
 

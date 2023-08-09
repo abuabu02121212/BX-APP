@@ -26,29 +26,29 @@ class CenterPayPasswordController extends GetxController {
     // 为false，只需要验证两次密码是否一致
     if (getPayPasswordStatus() == true) {
       if (psw1EditNode.text.isEmpty) {
-        Toast.show('请输入原密码');
+        Toast.show('Por favor, digite a senha original');
         return;
       } else if (isSixNumber(psw1EditNode.text.value) == false) {
-        Toast.show('原密码格式不正确');
+        Toast.show('formato incorreto');
         return;
       };
     }
 
     if (psw2EditNode.text.isEmpty) {
-      Toast.show('请输入新密码');
+      Toast.show('Insira uma nova senha');
       return;
     } else if (isSixNumber(psw2EditNode.text.value) == false) {
-      Toast.show('新密码格式不正确');
+      Toast.show('formato incorreto');
       return;
     };
 
     if (psw3EditNode.text.isEmpty) {
-      Toast.show('请再次输入新密码');
+      Toast.show('Digite a nova senha novamente');
       return;
     }
 
     if (psw2EditNode.text != psw3EditNode.text) {
-      Toast.show('两次密码不一致');
+      Toast.show('As duas senhas não combinam');
       return;
     }
     

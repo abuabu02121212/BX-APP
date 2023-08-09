@@ -81,7 +81,7 @@ class CenterPayPasswordSmsController extends GetxController {
         startCountDown();
       } catch (e) {
         Log.d("发送短信失败：$e");
-        Toast.show('短信发送失败，重试');
+        Toast.show('Falha no envio do SMS, tente novamente');
       } finally {
         isSending.value = false;
       }
@@ -104,7 +104,7 @@ class CenterPayPasswordSmsController extends GetxController {
         startCountDown();
       } catch (e) {
         Log.d("发送邮箱验证失败：$e");
-        Toast.show('邮件发送失败，重试');
+        Toast.show('Falha no envio do e-mail, tente novamente');
       } finally {
         isSending.value = false;
       }
@@ -130,17 +130,17 @@ class CenterPayPasswordSmsController extends GetxController {
 
   void submit() async {
     if (sid.isEmpty || ts.isEmpty) {
-      Toast.show('请先获取验证码');
+      Toast.show('Por favor, obtenha o código de verificação primeiro');
       return;
     }
 
     if (codeEditNode.text.isEmpty) {
-      Toast.show('请输入验证码');
+      Toast.show('por favor insira o código de verificação');
       return;
     }
 
     if (codeEditNode.text.value.length != 4) {
-      Toast.show('请输入4位验证码');
+      Toast.show('Insira um código de verificação de 4 dígitos');
       return;
     }
 
@@ -163,7 +163,7 @@ class CenterPayPasswordSmsController extends GetxController {
     try {
       AppLoading.show();
       final data = await apiRequest.requestPasswordUpdate(params: params);
-      Toast.show('设置成功');
+      Toast.show('sucesso');
       _timer?.cancel();
       countDown.value = 0;
       await spUtil.setInt(spUtilsCoundownKey, 0);
