@@ -1,9 +1,10 @@
+import 'package:event_bus/event_bus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_comm/app/entity/balance.dart';
+import 'package:flutter_comm/app/events.dart';
 import 'package:flutter_comm/skin/skin_manager.dart';
 import 'package:flutter_comm/util/Log.dart';
-import 'package:flutter_comm/util/dialog.dart';
 import 'package:flutter_comm/util/sp_util.dart';
 import 'package:flutter_comm/util/sp_util_key.dart';
 import 'package:flutter_comm/util/system_util.dart';
@@ -13,6 +14,7 @@ import 'app/entity/user_info.dart';
 import 'http/comm_request.dart';
 import 'http/request.dart';
 
+EventBus eventBus = EventBus();
 class GlobeController extends GetxController with WidgetsBindingObserver {
   GlobeController(this.context);
 
@@ -29,6 +31,7 @@ class GlobeController extends GetxController with WidgetsBindingObserver {
      balance.value = null;
      await spUtil.setString(keyLoginToken, "");
      apiRequest.httpUtil.loginToken = "";
+     eventBus.fire(LoginEvent(false));
      Log.d("已经退出登陆...");
   }
 

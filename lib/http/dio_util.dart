@@ -79,7 +79,7 @@ class DioUtil {
      // Log.d('\nstatus: ${(responseData.toJson() as Map<String, dynamic>)['status']}');
      // Log.d('\ndata:${(responseData.toJson() as Map<String, dynamic>)['data']}');
       // \n源数据: ${response.data} \n结果:${cbor.decode(byteData)}
-      Log.d("\npath:${response.requestOptions.uri} responseData :$responseData \n${'-' * 200}");
+      Log.d("path:${response.requestOptions.uri} responseData :$responseData ${'-' * 200}");
 
       if (status == false) {
         onStatusFalse(data);

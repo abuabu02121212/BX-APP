@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_comm/app/entity/game_tag.dart';
+import 'package:flutter_comm/app/events.dart';
 import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../../app_config.dart';
+import '../../../../globe_controller.dart';
 import '../../../../util/Log.dart';
 import '../../../../util/double_click_exit_app.dart';
 import '../../../../util/dynamic_index_rx.dart';
@@ -38,13 +40,14 @@ class HomeController extends GetxController {
 
   late final recList = AppRxList<AppRxList<GameEntity>>(List.generate(7, (index) => AppRxList<GameEntity>()));
   late final tab1List = AppRxList<AppRxList<GameEntity>>(List.generate(5, (index) => AppRxList<GameEntity>()));
+  late final tab1FavRxList = AppRxList<GameEntity>();
   late final tab2List = AppRxList<AppRxList<GameEntity>>();
   late final searchRxList = AppRxList<GameEntity>();
   late final tab2TagList = AppRxList<AppRxList<GameTagEntity>>();
 
   final bannerList = RxList<BannerEntity>();
   final IndexRxMap tagTabSelectedIndexMap = IndexRxMap();
-
+  late final globalController = Get.find<GlobeController>();
   void switchTabWithAddPressedRecord(int index) {
     selectedGameTypeIndex.value = index;
     gameTypePressedRecordList.add(index);
@@ -119,6 +122,14 @@ class HomeController extends GetxController {
   }
 
   @override
+  void onInit() {
+    eventBus.on<LoginEvent>().listen((event) {
+      requestTab0GameList();
+    });
+    super.onInit();
+  }
+
+  @override
   Future<void> onReady() async {
     super.onReady();
     try {
@@ -172,6 +183,12 @@ class HomeController extends GetxController {
   /// tab 1
   Future<void> requestTab1GameList() async {
     AppLoading.show();
+    if(globalController.isLogin()){
+      await requestMemberFavList2(tab1FavRxList, "");
+    }else{
+      tab1FavRxList.clear();
+      tab1FavRxList.refresh();
+    }
     for (int i = 0; i < tab1List.length; i++) {
       await requestFavGameList(tab1List[i], ty: gameTypeList[i].toString());
     }

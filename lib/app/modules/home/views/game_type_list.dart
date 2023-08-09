@@ -21,7 +21,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
     required this.list,
     required this.listItemIndex,
   }) {
-    scrollController.addListener(_scrollListener);
+    // scrollController.addListener(_scrollListener);
   }
 
   final HomeController controller = Get.put(HomeController());
@@ -30,13 +30,6 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
   final List<String> titles = ["QUENTE", "DENTRO DE CASA", "SLOT", "PESCA", "PÔQUER", "ESPORTE", "AO VIVO"];
   final ScrollController scrollController = ScrollController();
 
-  //  滚动监听回调
-  Future<void> _scrollListener() async {
-    if (scrollController.offset >= scrollController.position.maxScrollExtent && !scrollController.position.outOfRange) {
-      if (controller.selectedGameTypeIndex.value == 1) {
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +43,9 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
         }else{
           itemCount = list.length + 1; // 其他行必须显示做跳转用
         }
+      }
+      if(list.isEmpty){
+        itemCount = 0;
       }
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +67,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 20.w, top: 38.w, bottom: 10.w),
                   child: Text(
-                    titles[listItemIndex].capitalizeFirstLetterOfEachWord(),
+                    listItemIndex >= 0 ? titles[listItemIndex].capitalizeFirstLetterOfEachWord() : "",
                     style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
                   ),
                 ),

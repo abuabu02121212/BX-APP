@@ -12,6 +12,7 @@ import '../../../../util/loading_util.dart';
 import '../../../../util/system_util.dart';
 import '../../../entity/user_info.dart';
 import '../../../../globe_controller.dart';
+import '../../../events.dart';
 
 class LoginController extends GetxController {
   EditNode userNameEditNode = EditNode();
@@ -58,6 +59,7 @@ class LoginController extends GetxController {
       Get.back();
       MainController mainController = Get.put(MainController());
       mainController.toHome();
+      eventBus.fire(LoginEvent(true));
     } else {
       AppLoading.close();
       Log.e("登陆失败...");

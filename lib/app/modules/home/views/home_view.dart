@@ -178,12 +178,21 @@ class FavPageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      var login = controller.globalController.isLogin();
+      var itemSize = login ? controller.tab1List.length + 1 : controller.tab1List.length;
       return Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ...List.generate(controller.tab1List.length, (index) {
+          ...List.generate(itemSize, (index) {
+            if (login && index == 0) {
+              return Tab01HorizontalGameItemListWidget(
+                list: controller.tab1FavRxList,
+                listItemIndex: -1,
+              );
+            }
+            index = login ? index - 1 : index;
             return Tab01HorizontalGameItemListWidget(
               list: controller.tab1List[index],
               listItemIndex: index,
@@ -300,9 +309,7 @@ class HomeGameTypesBarWidget extends StatelessWidget {
         child: Container(
             width: double.infinity,
             height: 148.w,
-            decoration: const BoxDecoration(
-              color: Color.fromRGBO(3, 51, 119, 1)
-            ),
+            decoration: const BoxDecoration(color: Color.fromRGBO(3, 51, 119, 1)),
             child: Obx(() {
               return GridView.builder(
                   itemCount: controller.gameTypes.length,
