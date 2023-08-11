@@ -25,8 +25,22 @@ class MainHorizontalTabComponent extends StatelessWidget {
     "Minha",
     //  "组件测试页",
   ];
-  static const selectedIconList = ["i-index", "i-promotion", "blue-circle", "i-vip", "i-personal", "i-personal"];
-  static const unselectedIconList = ["i-index-gray", "i-promotion-gray", "blue-circle", "i-vip-gray", "i-personal-gray", "i-personal-gray"];
+  static const selectedIconList = [
+    "i-index",
+    "i-promotion",
+    "blue-circle",
+    "i-vip",
+    "i-personal",
+    "i-personal"
+  ];
+  static const unselectedIconList = [
+    "i-index-gray",
+    "i-promotion-gray",
+    "blue-circle",
+    "i-vip-gray",
+    "i-personal-gray",
+    "i-personal-gray"
+  ];
   static const miniScale = 1.3;
   static const maxScale = 1.6;
   final animScale = miniScale.obs;
@@ -37,11 +51,13 @@ class MainHorizontalTabComponent extends StatelessWidget {
       size: tabNames.length,
       itemBuilder: _buildIndicatorTabItemBuilder,
       height: 125.w,
-      itemWidthList: List.generate(tabNames.length, (index) => getTabItemWidth(index)),
+      itemWidthList:
+          List.generate(tabNames.length, (index) => getTabItemWidth(index)),
       onSelectChanged: onSelectChanged,
       bgColor: Colors.transparent,
       bgImgPath: "assets/images/app-footer-bg.webp",
-      indicatorAttr: IndicatorAttr(color: const Color(0xffd54f7d), height: 0.w, width: 44.w),
+      indicatorAttr: IndicatorAttr(
+          color: const Color(0xffd54f7d), height: 0.w, width: 44.w),
       controller: indicatorTabController,
     );
   }
@@ -50,10 +66,14 @@ class MainHorizontalTabComponent extends StatelessWidget {
     return 1.sw / 5;
   }
 
-  Widget _buildIndicatorTabItemBuilder(BuildContext context, int index, int selectedPos) {
+  Widget _buildIndicatorTabItemBuilder(
+      BuildContext context, int index, int selectedPos) {
     bool selected = index == selectedPos;
-    Color color = selected ? const Color(0xff0ED1F4) : const Color.fromRGBO(255, 255, 255, 0.6);
-    String imgPath = selected ? selectedIconList[index] : unselectedIconList[index];
+    Color color = selected
+        ? const Color(0xff0ED1F4)
+        : const Color.fromRGBO(255, 255, 255, 0.6);
+    String imgPath =
+        selected ? selectedIconList[index] : unselectedIconList[index];
     imgPath = "assets/images/$imgPath.webp";
     double offsetY = index == 2 ? -12.w : 0;
     double scale = index == 2 ? 1.5 : 1;
@@ -69,7 +89,8 @@ class MainHorizontalTabComponent extends StatelessWidget {
                   offset: Offset(0, offsetY),
                   child: Transform.scale(
                     scale: scale,
-                    child: Image.asset(imgPath, width: 45.w, gaplessPlayback: true),
+                    child: Image.asset(imgPath,
+                        width: 45.w, gaplessPlayback: true),
                   )),
               if (index == 2)
                 Obx(() {
@@ -77,14 +98,16 @@ class MainHorizontalTabComponent extends StatelessWidget {
                     scale: animScale.value,
                     duration: const Duration(milliseconds: 800),
                     onEnd: () {
-                      animScale.value = animScale.value == miniScale ? maxScale : miniScale;
+                      animScale.value =
+                          animScale.value == miniScale ? maxScale : miniScale;
                     },
                     child: Transform.translate(
-                        offset: Offset(0, -10.w),
-                        child: Image.asset(
-                          "assets/images/pig.webp",
-                          width: 45.w,
-                        )),
+                      offset: Offset(0, -10.w),
+                      child: Image.asset(
+                        "assets/images/pig.webp",
+                        width: 45.w,
+                      ),
+                    ),
                   );
                 }),
             ],
