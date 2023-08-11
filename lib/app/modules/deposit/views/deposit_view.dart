@@ -408,7 +408,10 @@ class DepositView extends GetView<DepositController> {
             child: Text(
               "Prezado usuário, quando o valor da primeira recarga for maior que 50 reais, você receberá no máximo 20% de recompensa de recarga, e quando o valor da recarga for maior que 50 reais, você receberá no máximo 10% de recompensa de recarga! 6 vezes ao dia, quanto maior o valor da recarga, maior a proporção de presentes!!",
               style: TextStyle(
-                  color: Color(0xffF7BA17), fontSize: 24.w, height: 1.5),
+                color: Color(0xffF7BA17),
+                fontSize: 24.w,
+                height: 1.5,
+              ),
               textAlign: TextAlign.center,
             ),
           ),
@@ -492,7 +495,7 @@ class DepositView extends GetView<DepositController> {
             child: Column(
               children: [
                 SizedBox(height: 36.w),
-                Container(
+                SizedBox(
                   width: double.infinity,
                   child: Text(
                     'Bônus de depósito',
@@ -501,7 +504,7 @@ class DepositView extends GetView<DepositController> {
                   ),
                 ),
                 SizedBox(height: 10.w),
-                Container(
+                SizedBox(
                   width: double.infinity,
                   child: RichText(
                     textAlign: TextAlign.left,
@@ -519,7 +522,7 @@ class DepositView extends GetView<DepositController> {
                             controller.balanceDetailInfo.value?.brl ?? '0',
                           )}',
                           style: TextStyle(
-                            color: Color(0xff0ED1F4),
+                            color: const Color(0xff0ED1F4),
                             fontSize: 28.w,
                             height: 1.5,
                             fontWeight: FontWeight.bold,
@@ -612,7 +615,8 @@ class DepositView extends GetView<DepositController> {
                                     .depositSelectLabel.value
                             ? const DecorationImage(
                                 image: AssetImage(
-                                    "assets/images/i-radio-active.webp"),
+                                  "assets/images/i-radio-active.webp",
+                                ),
                                 fit: BoxFit.cover,
                               )
                             : null,
@@ -728,7 +732,9 @@ class DepositView extends GetView<DepositController> {
             padding: EdgeInsets.only(left: 24.w, right: 20.w),
             decoration: BoxDecoration(
               border: Border.all(
-                  color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
+                color: const Color.fromRGBO(255, 255, 255, 0.1),
+                width: 1.w,
+              ),
               image: const DecorationImage(
                 image: AssetImage("assets/images/btn-bg-gray.webp"),
                 fit: BoxFit.cover,
