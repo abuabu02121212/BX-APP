@@ -412,6 +412,8 @@ class DepositView extends GetView<DepositController> {
               textAlign: TextAlign.center,
             ),
           ),
+          _buildPayType(controller),
+          SizedBox(height: 14.w),
           Stack(
             children: [
               Container(
@@ -485,58 +487,6 @@ class DepositView extends GetView<DepositController> {
                 : SizedBox(height: 30.w);
           }),
           _buildAmountWrap(controller),
-          Container(
-            margin: EdgeInsets.only(top: 36.w, bottom: 16.w),
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "Escolha o metodo de pagamento",
-              style: TextStyle(color: const Color(0xff0ED1F4), fontSize: 32.w),
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            height: 72.w,
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(left: 24.w, right: 20.w),
-            decoration: BoxDecoration(
-              border: Border.all(
-                  color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
-              image: const DecorationImage(
-                image: AssetImage("assets/images/btn-bg-gray.webp"),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.circular(8.w),
-            ),
-            child: AppCupertinoButton(
-              onPressed: () {
-                BottomSheetUtil.showBottomSheet(
-                  context,
-                  selectData:
-                      controller.depositControllerPage.depositSelectLabel.value,
-                  data: controller.depositControllerPage.depositSelectData,
-                  ok: (String value, String label) {
-                    controller.depositControllerPage
-                        .setDepositSelectLabelValue(value, label);
-                  },
-                );
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Obx(() {
-                    return Text(
-                      controller.depositControllerPage.depositSelectLabel.value,
-                      style: TextStyle(color: Colors.white, fontSize: 28.w),
-                    );
-                  }),
-                  Image(
-                      image:
-                          const AssetImage("assets/images/i-radio-active.webp"),
-                      width: 32.w),
-                ],
-              ),
-            ),
-          ),
           Visibility(
             visible: controller.depositControllerPage.payRate.value > 0,
             child: Column(
@@ -597,7 +547,7 @@ class DepositView extends GetView<DepositController> {
             width: 580.w,
             height: 90.w,
             radius: 100.w,
-            text: 'Depósito1111',
+            text: 'Depósito',
             onClick: () {
               controller.depositControllerPage.submit();
             },
@@ -608,20 +558,99 @@ class DepositView extends GetView<DepositController> {
     );
   }
 
+  Widget _buildPayType(DepositController controller) {
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 30.w, bottom: 16.w),
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "Escolha o metodo de pagamento",
+            style: TextStyle(color: const Color(0xff0ED1F4), fontSize: 32.w),
+          ),
+        ),
+        ...List.generate(
+          controller.depositControllerPage.depositSelectData.length,
+          (index) => Padding(
+            padding: EdgeInsets.only(bottom: 16.w),
+            child: AppCupertinoButton(
+              onPressed: () {
+                controller.depositControllerPage.setDepositSelectLabelValue(
+                  controller.depositControllerPage.depositSelectData[index]
+                          ['value'] ??
+                      '',
+                  controller.depositControllerPage.depositSelectData[index]
+                          ['label'] ??
+                      '',
+                );
+              },
+              child: Container(
+                width: double.infinity,
+                height: 88.w,
+                padding: EdgeInsets.only(left: 24.w, right: 24.w),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.w),
+                  border: Border.all(
+                    color: const Color.fromRGBO(255, 255, 255, 0.2),
+                    width: 1.w,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 32.w,
+                      height: 32.w,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: const Color.fromRGBO(185, 185, 185, 1),
+                          width: 1.w,
+                        ),
+                        borderRadius: BorderRadius.circular(16.w),
+                        image: controller.depositControllerPage
+                                    .depositSelectData[index]['label'] ==
+                                controller.depositControllerPage
+                                    .depositSelectLabel.value
+                            ? const DecorationImage(
+                                image: AssetImage(
+                                    "assets/images/i-radio-active.webp"),
+                                fit: BoxFit.cover,
+                              )
+                            : null,
+                      ),
+                    ),
+                    SizedBox(width: 20.w),
+                    Text(
+                      controller.depositControllerPage.depositSelectData[index]
+                          ['label'] as String,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 28.w,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
   Widget _buildAmountWrap(DepositController controller) {
     return Obx(() {
       return Wrap(
         alignment: WrapAlignment.start,
         runAlignment: WrapAlignment.start,
-        spacing: 18.w,
-        runSpacing: 18.w,
+        spacing: 11.w,
+        runSpacing: 11.w,
         children: [
           for (var i = 0;
               i < controller.depositControllerPage.depositData.length;
               i++)
             Stack(
               children: [
-                CupertinoButton(
+                AppCupertinoButton(
                   onPressed: () {
                     controller.depositControllerPage.setInputValue(
                       controller.depositControllerPage.depositData[i]['amount']
@@ -630,16 +659,16 @@ class DepositView extends GetView<DepositController> {
                           ['discount'] as String,
                     );
                   },
-                  padding: EdgeInsets.zero,
                   child: Obx(() {
                     return Container(
-                      width: 224.w,
-                      height: 100.w,
+                      width: 168.w,
+                      height: 68.w,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         border: Border.all(
-                            color: const Color.fromRGBO(255, 255, 255, 0.1),
-                            width: 1.w),
+                          color: const Color.fromRGBO(255, 255, 255, 0.1),
+                          width: 1.w,
+                        ),
                         borderRadius: BorderRadius.circular(8.w),
                         image: DecorationImage(
                           // 激活样式图片背景改为btn-bg-active
@@ -666,8 +695,8 @@ class DepositView extends GetView<DepositController> {
                   top: 0,
                   child: Container(
                     alignment: Alignment.center,
-                    width: 108.w,
-                    height: 30.w,
+                    width: 67.w,
+                    height: 19.w,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("assets/images/i-label-bg.webp"),
@@ -675,8 +704,8 @@ class DepositView extends GetView<DepositController> {
                       ),
                     ),
                     child: Text(
-                      "${controller.depositControllerPage.depositData[i]['discount']}",
-                      style: TextStyle(color: Colors.white, fontSize: 24.w),
+                      "+${controller.depositControllerPage.depositData[i]['discount']}",
+                      style: TextStyle(color: Colors.white, fontSize: 16.w),
                     ),
                   ),
                 )

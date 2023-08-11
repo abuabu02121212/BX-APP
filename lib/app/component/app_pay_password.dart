@@ -24,12 +24,13 @@ class AppPayPassword extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 34.w),
                 child: Text(
-                  'A senha de pagamento ainda não foi\ndefinida, por favor, defina-a primeiro',
+                  'Por favor, defina a senha da transação\nprimeiro, obrigado',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 26.w,
                     height: 1.7
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ),
               Padding(
