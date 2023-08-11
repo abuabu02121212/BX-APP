@@ -32,7 +32,7 @@ class HomeMenuView extends GetView<HomeMenuController> {
         leadingWidth: 0,
         toolbarHeight: 110.w,
         title: Stack(
-          children: [],
+          children: const [],
         ),
       ),
       body: const HomeDrawerWidget(),
@@ -56,7 +56,7 @@ class HomeDrawerWidget extends StatelessWidget {
         child: Container(
           width: 540.w,
           height: double.infinity,
-          decoration: const BoxDecoration(color: Color(0xff011A51)),
+          decoration: const BoxDecoration(color: Color(0xff000A1D)),
           child: SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.only(bottom: 120.w),
@@ -82,14 +82,15 @@ class HomeDrawerWidget extends StatelessWidget {
                   HeaderWidget(isLogin: isLogin),
                   const ActivityWidget(),
                   GameTabListWidget(),
-                  SizedBox(height: 12.w),
-                  ...List.generate(4, (index) => ItemType1Widget(index: index)),
-                  SizedBox(
-                    height: 26.w,
+                  Container(
+                    margin: EdgeInsets.only(left: 32.w, right: 32.w, top: 20.w, bottom: 20.w),
+                    height: 1.w,
+                    decoration: const BoxDecoration(color: Color.fromRGBO(255, 255, 255, 0.1)),
                   ),
-                  ...List.generate(4, (index) => ItemType2Widget(index: index)),
+                  OtherTabListWidget(),
+                  SizedBox(height: 12.w),
                   Padding(
-                    padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 30.w),
+                    padding: EdgeInsets.only(left: 50.w, right: 50.w, top: 20.w),
                     child: Text(
                       "Copie o link e cole-o no navegador do seu computador para abri-lo em seu computador",
                       style: TextStyle(
@@ -111,6 +112,83 @@ class HomeDrawerWidget extends StatelessWidget {
   }
 }
 
+class OtherTabListWidget extends StatelessWidget {
+  OtherTabListWidget({super.key});
+
+  final HomeController homeController = Get.find<HomeController>();
+  final selectedIndex = (-1).obs;
+  final List<String> names = [
+    "Canal De Telegram",
+    "Introdução ao nível VIP",
+    "Serviço on-line",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        itemCount: 3,
+        padding: EdgeInsets.only(left: 32.w, right: 32.w),
+        physics: const NeverScrollableScrollPhysics(),
+        controller: ScrollController(),
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index) {
+          return CupertinoButton(
+            onPressed: () {
+              switch (index) {
+                case 0:
+                  Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_TELEGRAM);
+                  break;
+                case 1:
+                  closeHomeDrawer();
+                  MainController mainController = Get.find<MainController>();
+                  mainController.toVip();
+                  break;
+                case 2:
+                  Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.CUSTOMER_SERVICE);
+                  break;
+              }
+            },
+            minSize: 0,
+            padding: EdgeInsets.zero,
+            child: Container(
+              width: double.infinity,
+              height: 82.w,
+              padding: EdgeInsets.only(left: 28.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Obx(() {
+                    bool isSelected = selectedIndex.value == index;
+                    // assets/images/munu_other_tab_0_a.webp
+                    return Image.asset(
+                      "assets/images/munu_other_tab_${index}_${isSelected ? 'b' : 'a'}.webp",
+                      width: 40.w,
+                    );
+                  }),
+                  SizedBox(
+                    width: 30.w,
+                  ),
+                  Obx(() {
+                    bool isSelected = selectedIndex.value == index;
+                    return Text(
+                      names[index],
+                      style: TextStyle(
+                        fontSize: 24.w,
+                        color: Color.fromRGBO(255, 255, 255, isSelected ? 1 : 0.4),
+                        fontWeight: isSelected ? FontWeight.w700 : FontWeight.w400,
+                      ),
+                    );
+                  })
+                ],
+              ),
+            ),
+          );
+        });
+  }
+}
+
 class GameTabListWidget extends StatelessWidget {
   GameTabListWidget({
     super.key,
@@ -123,7 +201,7 @@ class GameTabListWidget extends StatelessWidget {
     return Obx(() {
       return ListView.builder(
           itemCount: homeController.gameTypes.length,
-          padding: EdgeInsets.only(left: 32.w, right: 32.w),
+          padding: EdgeInsets.only(left: 32.w, right: 32.w, top: 14.w),
           physics: const NeverScrollableScrollPhysics(),
           controller: ScrollController(),
           shrinkWrap: true,
@@ -131,7 +209,7 @@ class GameTabListWidget extends StatelessWidget {
             GameTypeEntity entity = homeController.gameTypes[index];
             return CupertinoButton(
               onPressed: () {
-               // homeController.selectedGameTypeIndex.value = index;
+                // homeController.selectedGameTypeIndex.value = index;
                 homeController.switchTabWithAddPressedRecord(index);
                 closeHomeDrawer();
               },
@@ -186,7 +264,7 @@ class ActivityWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 20.w),
+      padding: EdgeInsets.only(top: 30.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
@@ -195,8 +273,10 @@ class ActivityWidget extends StatelessWidget {
           CupertinoButton(
             minSize: 0,
             padding: EdgeInsets.zero,
-            onPressed: () {},
-            child: Container(
+            onPressed: () {
+              Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_INVITE);
+            },
+            child: SizedBox(
               width: 229.w,
               height: 107.w,
               child: Image.asset("assets/images/menu_aty_1.webp", height: double.infinity),
@@ -208,8 +288,10 @@ class ActivityWidget extends StatelessWidget {
           CupertinoButton(
             minSize: 0,
             padding: EdgeInsets.zero,
-            onPressed: () {},
-            child: Container(
+            onPressed: () {
+              Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_REWARD_BOX);
+            },
+            child: SizedBox(
               width: 229.w,
               height: 107.w,
               child: Image.asset("assets/images/menu_aty_2.webp", height: double.infinity),
@@ -231,15 +313,15 @@ class BottomCopyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 550.w,
-      height: 70.w,
+      width: 441.w,
+      height: 72.w,
       decoration: BoxDecoration(
         color: const Color(0xff000A1D),
         border: Border.all(
           color: const Color.fromRGBO(255, 255, 255, 0.10),
           width: 1.w,
         ),
-        borderRadius: BorderRadius.circular(8.w),
+        borderRadius: BorderRadius.circular(56.w),
       ),
       padding: EdgeInsets.only(left: 20.w),
       child: Row(
@@ -258,7 +340,8 @@ class BottomCopyWidget extends StatelessWidget {
           AppButton(
             width: 150.w,
             height: 70.w,
-            radius: 8.w,
+            radius: 56.w,
+            borderRadius: BorderRadius.horizontal(right: Radius.circular(56.w)),
             text: 'Cópia',
             onClick: () {
               copyText(text);
@@ -293,24 +376,7 @@ class ItemType2Widget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
-      onPressed: () {
-        switch (index) {
-          case 0:
-            Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_INVITE);
-            break;
-          case 1:
-            Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_REWARD_BOX);
-            break;
-          case 2:
-            closeHomeDrawer();
-            MainController mainController = Get.find<MainController>();
-            mainController.toVip();
-            break;
-          case 3:
-            Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.CUSTOMER_SERVICE);
-            break;
-        }
-      },
+      onPressed: () {},
       minSize: 0,
       padding: EdgeInsets.only(left: 30.w),
       child: SizedBox(
@@ -359,7 +425,6 @@ class ItemType1Widget extends StatelessWidget {
       onPressed: () {
         switch (index) {
           case 0:
-            Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_TELEGRAM);
             break;
           case 1:
             Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_FIRST_DEPOSIT);
