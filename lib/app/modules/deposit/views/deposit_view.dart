@@ -490,6 +490,7 @@ class DepositView extends GetView<DepositController> {
                 : SizedBox(height: 30.w);
           }),
           _buildAmountWrap(controller),
+          _buildDiscount(controller),
           Visibility(
             visible: controller.depositControllerPage.payRate.value > 0,
             child: Column(
@@ -600,28 +601,10 @@ class DepositView extends GetView<DepositController> {
                 ),
                 child: Row(
                   children: [
-                    Container(
-                      width: 32.w,
-                      height: 32.w,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: const Color.fromRGBO(185, 185, 185, 1),
-                          width: 1.w,
-                        ),
-                        borderRadius: BorderRadius.circular(16.w),
-                        image: controller.depositControllerPage
-                                    .depositSelectData[index]['label'] ==
-                                controller.depositControllerPage
-                                    .depositSelectLabel.value
-                            ? const DecorationImage(
-                                image: AssetImage(
-                                  "assets/images/i-radio-active.webp",
-                                ),
-                                fit: BoxFit.cover,
-                              )
-                            : null,
-                      ),
-                    ),
+                    _buildRadio(controller.depositControllerPage
+                            .depositSelectData[index]['label'] ==
+                        controller
+                            .depositControllerPage.depositSelectLabel.value),
                     SizedBox(width: 20.w),
                     Text(
                       controller.depositControllerPage.depositSelectData[index]
@@ -635,6 +618,76 @@ class DepositView extends GetView<DepositController> {
                 ),
               ),
             ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildRadio(bool isSelect) {
+    return Container(
+      width: 32.w,
+      height: 32.w,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: const Color.fromRGBO(185, 185, 185, 1),
+          width: 1.w,
+        ),
+        borderRadius: BorderRadius.circular(16.w),
+        image: isSelect
+            ? const DecorationImage(
+                image: AssetImage(
+                  "assets/images/i-radio-active.webp",
+                ),
+                fit: BoxFit.cover,
+              )
+            : null,
+      ),
+    );
+  }
+
+  Widget _buildDiscount(DepositController controller) {
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(top: 30.w, bottom: 16.w),
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "Atividade",
+            style: TextStyle(color: const Color(0xff0ED1F4), fontSize: 32.w),
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.only(left: 24.w, right: 24.w),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8.w),
+            border: Border.all(
+              color: const Color.fromRGBO(255, 255, 255, 0.2),
+              width: 1.w,
+            ),
+          ),
+          child: Column(
+            children: [
+              ...List.generate(3, (index) => Padding(
+                padding: EdgeInsets.symmetric(vertical: 27.w),
+                child: AppCupertinoButton(
+                  child: Row(
+                    children: [
+                      _buildRadio(true),
+                      SizedBox(width: 20.w),
+                      Text(
+                        '10% primeiro depósito',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 28.w,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ))
+            ],
           ),
         )
       ],
@@ -666,7 +719,7 @@ class DepositView extends GetView<DepositController> {
                   child: Obx(() {
                     return Container(
                       width: 168.w,
-                      height: 68.w,
+                      height: 74.w,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         border: Border.all(
@@ -700,7 +753,7 @@ class DepositView extends GetView<DepositController> {
                   child: Container(
                     alignment: Alignment.center,
                     width: 67.w,
-                    height: 19.w,
+                    height: 22.w,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage("assets/images/i-label-bg.webp"),
@@ -709,7 +762,7 @@ class DepositView extends GetView<DepositController> {
                     ),
                     child: Text(
                       "+${controller.depositControllerPage.depositData[i]['discount']}",
-                      style: TextStyle(color: Colors.white, fontSize: 16.w),
+                      style: TextStyle(color: Colors.white, fontSize: 18.w),
                     ),
                   ),
                 )
