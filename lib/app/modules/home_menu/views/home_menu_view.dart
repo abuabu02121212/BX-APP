@@ -486,7 +486,6 @@ class HeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Obx(() {
       var login = globeController.userInfoEntity.value != null;
       return login
@@ -595,65 +594,83 @@ class HeaderWidget extends StatelessWidget {
                 )
               ],
             )
-          : Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CupertinoButton(
-                  onPressed: (){
-                    closeHomeDrawer();
-                    showLoginRegisterDialog();
-                  },
-                  minSize: 0,
-                  padding: EdgeInsets.zero,
-                  child: Container(
-                    width: 195.w,
-                    height: 60.w,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: const Color(0xffF5C31B),
-                      borderRadius: BorderRadius.circular(48.w),
-                    ),
-                    child: Text(
-                        "Conecte-se",
-                        style: TextStyle(
-                          fontSize: 26.w,
-                          color: const Color(0xff000000),
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                  ),
-                ),
-                SizedBox(width: 14.w,),
-                CupertinoButton(
-                  onPressed: (){
-                    closeHomeDrawer();
-                    showLoginRegisterDialog();
-                  },
-                  minSize: 0,
-                  padding: EdgeInsets.zero,
-                  child: Container(
-                    width: 195.w,
-                    height: 60.w,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: const Color(0xff0F293E),
-                      borderRadius: BorderRadius.circular(48.w),
-                    ),
-                    child: Text(
-                      "registro",
-                      style: TextStyle(
-                        fontSize: 26.w,
-                        color: const Color(0xffffffff),
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            );
+          : const LoginRegisterBtnWidget();
     });
+  }
+}
+
+class LoginRegisterBtnWidget extends StatelessWidget {
+  const LoginRegisterBtnWidget({
+    super.key,
+    this.defColorList = cList,
+  });
+
+  static const List<Color> cList = [Color(0xffF5C31B), Color(0xff0F293E)];
+  static const  List<Color> cList2 = [Color(0xffF5C31B), Color.fromRGBO(15, 196, 244, 0.2)];
+  final List<Color> defColorList;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        CupertinoButton(
+          onPressed: () {
+            closeHomeDrawer();
+            showLoginRegisterDialog();
+          },
+          minSize: 0,
+          padding: EdgeInsets.zero,
+          child: Container(
+            width: 195.w,
+            height: 60.w,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: defColorList[0],
+              borderRadius: BorderRadius.circular(48.w),
+            ),
+            child: Text(
+              "Conecte-se",
+              style: TextStyle(
+                fontSize: 26.w,
+                color: const Color(0xff000000),
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 14.w,
+        ),
+        CupertinoButton(
+          onPressed: () {
+            closeHomeDrawer();
+            showLoginRegisterDialog();
+          },
+          minSize: 0,
+          padding: EdgeInsets.zero,
+          child: Container(
+            width: 152.w,
+            height: 60.w,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: defColorList[1],
+              borderRadius: BorderRadius.circular(48.w),
+            ),
+            child: Text(
+              "registro",
+              style: TextStyle(
+                fontSize: 26.w,
+                color: const Color(0xffffffff),
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
 

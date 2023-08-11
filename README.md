@@ -39,6 +39,7 @@ samples, guidance on mobile development, and a full API reference.
 接口文档地址：http://rap2.cyestari.com/organization/repository/editor?id=17&mod=55
 UI地址：
 https://www.figma.com/file/VQCM9LAoTTvkuqvdWgtiX9/LB88-%E7%A7%BB%E5%8A%A8%E7%AB%AF?node-id=665%3A14552&mode=dev
+https://www.figma.com/file/h4tdH4QJEOKQNyrSRei2Ag/%E5%B7%B4%E8%A5%BF?type=design&node-id=0%3A1&mode=design&t=Qc1lqoTohpHQXkyZ-1
 账号密码： 自己注册，然后找后端相关人员，添加权限。
 henry常用密码：aa123456
 测试账号： 8888-99999  henry01@163.com  aa123@163.com

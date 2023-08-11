@@ -11,9 +11,7 @@ import '../../../../http/comm_request.dart';
 import '../../../../util/app_util.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
-import '../../../routes/app_pages.dart';
 import '../../home_menu/views/home_menu_view.dart';
-import '../../login_register/views/login_regiseter_widget.dart';
 import '../../main/controllers/main_controller.dart';
 import '../controllers/home_controller.dart';
 import '../controllers/home_requests.dart';
@@ -51,20 +49,41 @@ class HomeHeader extends StatelessWidget {
           Obx(() {
             var userInfo = globeController.balance.value;
             return userInfo == null
-                ? AppButton(
-                    width: 350.w,
-                    height: 60.w,
-                    radius: 30.w,
-                    text: 'Registar Conta',
-                    onClick: () {
-                      showLoginRegisterDialog();
-                    },
+                ?  Container(
+                    width: 450.w,
+                    alignment: Alignment.centerRight,
+                    child: const LoginRegisterBtnWidget(defColorList: LoginRegisterBtnWidget.cList2),
                   )
                 : Container(
                     width: 350.w,
                     height: 60.w,
+                    margin: EdgeInsets.only(left: 98.w),
                     decoration: BoxDecoration(
-                        gradient: btnLinearBg, borderRadius: BorderRadius.circular(30.w), border: Border.all(color: const Color(0x66335a94), width: 1.w)),
+                      borderRadius: BorderRadius.circular(100.w),
+                      gradient: const LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          Color(0xFF011A51),
+                        ],
+                      ),
+                      boxShadow:  [
+                        BoxShadow(
+                          color: const Color.fromRGBO(255, 255, 255, 0.30),
+                          blurRadius: 4.w,
+                          spreadRadius: 1.w,
+                          offset: Offset(0, 1.w),
+                        ),
+                        BoxShadow(
+                          color: const Color.fromRGBO(0, 0, 0, 0.10),
+                          blurRadius: 0,
+                          spreadRadius: 0,
+                          offset: Offset(0, 1.w),
+                        ),
+                      ],
+                      // You can also set other properties like border, etc.
+                    ),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,14 +113,21 @@ class HomeHeader extends StatelessWidget {
                             }),
                           ),
                         ),
-                        Text(
-                          AppUtil.amountFormat(globeController.balance.value?.brl ?? '0'),
-                          style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w400),
+                        Container(
+                       // color: Colors.red,
+                        width: 160.w,
+                        padding: EdgeInsets.only(left: 8.w),
+                        alignment: Alignment.centerLeft,
+                          child: Text(
+                            AppUtil.amountFormat(globeController.balance.value?.brl ?? '0'),
+                            style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w400),
+                          ),
                         ),
                         AppButton(
                           width: 121.w,
                           height: 60.w,
                           radius: 30.w,
+                          borderRadius: BorderRadius.horizontal(right: Radius.circular(60.w)),
                           text: 'Conta',
                           onClick: () {
                             MainController mainController = Get.find<MainController>();
@@ -112,19 +138,19 @@ class HomeHeader extends StatelessWidget {
                     ),
                   );
           }),
-          SizedBox(width: 26.w),
-          CupertinoButton(
-            onPressed: () {
-              if (globeController.isLogin()) {
-                Get.toNamed(Routes.NOTICE_LIST);
-              } else {
-                showLoginRegisterDialog();
-              }
-            },
-            minSize: 0,
-            padding: EdgeInsets.all(10.w),
-            child: Image.asset("assets/images/home_message.webp", width: 60.w),
-          ),
+          //  SizedBox(width: 26.w),
+          // CupertinoButton(
+          //   onPressed: () {
+          //     if (globeController.isLogin()) {
+          //       Get.toNamed(Routes.NOTICE_LIST);
+          //     } else {
+          //       showLoginRegisterDialog();
+          //     }
+          //   },
+          //   minSize: 0,
+          //   padding: EdgeInsets.all(10.w),
+          //   child: Image.asset("assets/images/home_message.webp", width: 60.w),
+          // ),
         ],
       ),
     );
@@ -203,9 +229,7 @@ class SearchWidget extends StatelessWidget {
           width: double.infinity,
           height: double.infinity,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100.w),
-            border: Border.all(color: const Color.fromRGBO(4, 75, 154, 0.5), width: 1.w)
-          ),
+              borderRadius: BorderRadius.circular(100.w), border: Border.all(color: const Color.fromRGBO(4, 75, 154, 0.5), width: 1.w)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
