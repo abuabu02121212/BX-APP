@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_comm/app/entity/game_type.dart';
 import 'package:flutter_comm/app/modules/home/views/swiper_component.dart';
 import 'package:flutter_comm/util/loading_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,11 +8,13 @@ import 'package:get/get.dart';
 import '../../../../util/entity/entites.dart';
 import '../../../../util/extensions.dart';
 import '../../../../widget/back_event_interceptor.dart';
-import '../../../app_style.dart';
 import '../../../component/app_empty.dart';
 import '../../../entity/game_item.dart';
+import '../../../entity/promotion_entity.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/game_list_requests.dart';
 import '../controllers/home_controller.dart';
+import 'game_search_dialog.dart';
 import 'home_widgets.dart';
 import 'game_type_list.dart';
 import 'game_type_title_bar.dart';
@@ -79,8 +80,36 @@ class ItemGenerateWidget extends StatelessWidget {
             radius: 0,
           ),
         ),
-        HomeGameTypesBarWidget(),
-        SearchWidget(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CupertinoButton(
+              onPressed: () {
+                final List<List<PromotionEntity>> listData = PromotionEntity.getLocalData();
+                var entity = listData[0][0];
+                Get.toNamed(Routes.WEBVIEW, arguments: entity.url);
+              },
+              minSize: 0,
+              padding: EdgeInsets.zero,
+              child: Image.asset("assets/images/home_aty_2.webp", height: 119.w),
+            ),
+            SizedBox(width: 20.w,),
+            CupertinoButton(
+              onPressed: () {
+                final List<List<PromotionEntity>> listData = PromotionEntity.getLocalData();
+                var entity = listData[0][3];
+                Get.toNamed(Routes.WEBVIEW, arguments: entity.url);
+              },
+              minSize: 0,
+              padding: EdgeInsets.zero,
+              child: Image.asset("assets/images/home_aty_1.webp", height: 119.w),
+            ),
+          ],
+        ),
+        HomeGameTypesTabWidget(),
+        //  SearchWidget(),
         Obx(() {
           var tabIndex = controller.selectedGameTypeIndex.value;
           if (tabIndex == 0) {
@@ -295,56 +324,87 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
   }
 }
 
-class HomeGameTypesBarWidget extends StatelessWidget {
-  HomeGameTypesBarWidget({super.key});
+class HomeGameTypesTabWidget extends StatelessWidget {
+  HomeGameTypesTabWidget({super.key});
 
   final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 30.w, left: 20.w, right: 20.w),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20.w),
-        child: Container(
-            width: double.infinity,
-            height: 148.w,
-            decoration: const BoxDecoration(color: Color.fromRGBO(3, 51, 119, 1)),
-            child: Obx(() {
-              return GridView.builder(
-                  itemCount: controller.gameTypes.length,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, childAspectRatio: 2.4),
-                  itemBuilder: (BuildContext context, int index) {
-                    return Obx(() {
-                      bool isSelected = controller.selectedGameTypeIndex.value == index;
-                      GameTypeEntity gameTypeEntity = controller.gameTypes[index];
-                      return CupertinoButton(
-                        onPressed: () {
-                          if (controller.selectedGameTypeIndex.value != index) {
-                            controller.switchTabWithAddPressedRecord(index);
-                          }
-                        },
-                        minSize: 0,
-                        padding: EdgeInsets.zero,
-                        child: Container(
+      margin: EdgeInsets.only(top: 26.w, left: 20.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          SizedBox(
+            width: 630.w,
+            child: SizedBox(
+                height: 88.w,
+                child: Obx(() {
+
+                  return ListView.separated(
+                    itemCount: controller.gameTypes.length,
+                    physics: const BouncingScrollPhysics(),
+                    controller: controller.sc2,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Obx(() {
+                        bool isSelected = controller.selectedGameTypeIndex.value == index;
+                        return CupertinoButton(
+                          onPressed: () {
+                            if (controller.selectedGameTypeIndex.value != index) {
+                              controller.switchTabWithAddPressedRecord(index);
+                            }
+                          },
+                          minSize: 0,
+                          padding: EdgeInsets.zero,
                           alignment: Alignment.center,
-                          decoration: BoxDecoration(gradient: isSelected ? activeBtnLinearGradient : null),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.asset("assets/images/game-tab$index.webp", width: 50.w),
-                              Text(
-                                gameTypeEntity.name,
-                                style: TextStyle(color: Colors.white, fontSize: 26.w),
-                              ),
-                            ],
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 88.w,
+                            decoration:
+                                BoxDecoration(color: isSelected ? const Color(0xffEEBD36) : const Color(0xff0F1A34), borderRadius: BorderRadius.circular(12.w)),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image.asset("assets/images/game-tab$index.webp", width: 78.w),
+                              ],
+                            ),
                           ),
-                        ),
+                        );
+                      });
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return SizedBox(
+                        width: 20.w,
                       );
-                    });
-                  });
-            })),
+                    },
+                  );
+                })),
+          ),
+          SizedBox(
+            width: 10.w,
+          ),
+          CupertinoButton(
+            minSize: 0,
+            padding: EdgeInsets.all(10.w),
+            child: Container(
+              width: 60.w,
+              height: 60.w,
+              decoration: BoxDecoration(
+                color: const Color(0xff0F1A34),
+                borderRadius: BorderRadius.circular(30.w),
+              ),
+              alignment: Alignment.center,
+              child: Image.asset("assets/images/game_search.webp", width: 32.w),
+            ),
+            onPressed: () {
+              showSearchDialog(null);
+            },
+          )
+        ],
       ),
     );
   }
