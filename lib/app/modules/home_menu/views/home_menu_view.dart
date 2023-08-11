@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/component/app_button.dart';
 import 'package:flutter_comm/app/modules/home/controllers/home_controller.dart';
+import 'package:flutter_comm/app/modules/login_register/views/login_regiseter_widget.dart';
 import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_comm/http/comm_request.dart';
@@ -79,7 +80,7 @@ class HomeDrawerWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  HeaderWidget(isLogin: isLogin),
+                  HeaderWidget(),
                   const ActivityWidget(),
                   GameTabListWidget(),
                   Container(
@@ -477,123 +478,182 @@ class ItemType1Widget extends StatelessWidget {
 class HeaderWidget extends StatelessWidget {
   HeaderWidget({
     super.key,
-    required this.isLogin,
   });
 
   final GlobeController globeController = Get.find<GlobeController>();
-  final bool isLogin;
   final isEnd = true.obs;
   final angel = 0.0.obs;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        isLogin
-            ? Container(
-                padding: EdgeInsets.only(left: 29.w, right: 22.w),
-                margin: EdgeInsets.only(left: 32.w),
-                width: 476.w,
-                height: 95.w,
-                decoration: BoxDecoration(
-                  color: const Color(0xff002F97),
-                  borderRadius: BorderRadius.circular(10.w),
-                ),
-                clipBehavior: Clip.none,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Transform.translate(
-                      offset: Offset(0, -10.w),
-                      child: CupertinoButton(
-                        onPressed: () async {
-                          requestUserInfo();
-                          var appInfo = await EnvironmentConfig.getAppInfo();
-                          Log.d(appInfo);
-                        },
-                        minSize: 0,
-                        padding: EdgeInsets.zero,
-                        child: Obx(() {
-                          var avatar = globeController.userInfoEntity.value?.avatar ?? "0";
-                          return Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(45.w),
-                                border: Border.all(
-                                  color: const Color(0xff47C8EF),
-                                  width: 4.w,
-                                )),
-                            child: Image.asset(
-                              "assets/images/avatar/avatar$avatar.webp",
-                              width: 90.w,
+
+    return Obx(() {
+      var login = globeController.userInfoEntity.value != null;
+      return login
+          ? Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(left: 29.w, right: 22.w),
+                  margin: EdgeInsets.only(left: 32.w),
+                  width: 476.w,
+                  height: 95.w,
+                  decoration: BoxDecoration(
+                    color: const Color(0xff002F97),
+                    borderRadius: BorderRadius.circular(10.w),
+                  ),
+                  clipBehavior: Clip.none,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Transform.translate(
+                        offset: Offset(0, -10.w),
+                        child: CupertinoButton(
+                          onPressed: () async {
+                            requestUserInfo();
+                            var appInfo = await EnvironmentConfig.getAppInfo();
+                            Log.d(appInfo);
+                          },
+                          minSize: 0,
+                          padding: EdgeInsets.zero,
+                          child: Obx(() {
+                            var avatar = globeController.userInfoEntity.value?.avatar ?? "0";
+                            return Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(45.w),
+                                  border: Border.all(
+                                    color: const Color(0xff47C8EF),
+                                    width: 4.w,
+                                  )),
+                              child: Image.asset(
+                                "assets/images/avatar/avatar$avatar.webp",
+                                width: 90.w,
+                              ),
+                            );
+                          }),
+                        ),
+                      ),
+                      Container(
+                        width: 238.w,
+                        height: 46.w,
+                        decoration: BoxDecoration(
+                          gradient: btnLinearBg,
+                          borderRadius: BorderRadius.circular(30.w),
+                          border: Border.all(color: const Color(0x66335a94), width: 1.w),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CupertinoButton(
+                              onPressed: () {
+                                if (isEnd.value) {
+                                  isEnd.value = false;
+                                  angel.value += 1;
+                                  requestCommBalance();
+                                }
+                              },
+                              minSize: 0,
+                              padding: EdgeInsets.zero,
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 12.w, top: 6.w, bottom: 6.w, right: 0.w),
+                                child: Obx(() {
+                                  return AnimatedRotation(
+                                    turns: angel.value,
+                                    duration: const Duration(milliseconds: 600),
+                                    onEnd: () {
+                                      isEnd.value = true;
+                                    },
+                                    child: Image.asset("assets/images/refresher_balance.webp", height: double.infinity),
+                                  );
+                                }),
+                              ),
                             ),
-                          );
-                        }),
+                            Text(
+                              AppUtil.amountFormat(globeController.balance.value?.brl ?? '0'),
+                              style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(
+                              width: 12.w,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Obx(() {
+                        return Image.asset(
+                          "assets/images/vip/medal-${globeController.userInfoEntity.value?.vip}.webp",
+                          width: 60.w,
+                        );
+                      }),
+                    ],
+                  ),
+                )
+              ],
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CupertinoButton(
+                  onPressed: (){
+                    closeHomeDrawer();
+                    showLoginRegisterDialog();
+                  },
+                  minSize: 0,
+                  padding: EdgeInsets.zero,
+                  child: Container(
+                    width: 195.w,
+                    height: 60.w,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: const Color(0xffF5C31B),
+                      borderRadius: BorderRadius.circular(48.w),
+                    ),
+                    child: Text(
+                        "Conecte-se",
+                        style: TextStyle(
+                          fontSize: 26.w,
+                          color: const Color(0xff000000),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                  ),
+                ),
+                SizedBox(width: 14.w,),
+                CupertinoButton(
+                  onPressed: (){
+                    closeHomeDrawer();
+                    showLoginRegisterDialog();
+                  },
+                  minSize: 0,
+                  padding: EdgeInsets.zero,
+                  child: Container(
+                    width: 195.w,
+                    height: 60.w,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: const Color(0xff0F293E),
+                      borderRadius: BorderRadius.circular(48.w),
+                    ),
+                    child: Text(
+                      "registro",
+                      style: TextStyle(
+                        fontSize: 26.w,
+                        color: const Color(0xffffffff),
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
-                    Container(
-                      width: 238.w,
-                      height: 46.w,
-                      decoration: BoxDecoration(
-                        gradient: btnLinearBg,
-                        borderRadius: BorderRadius.circular(30.w),
-                        border: Border.all(color: const Color(0x66335a94), width: 1.w),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CupertinoButton(
-                            onPressed: () {
-                              if (isEnd.value) {
-                                isEnd.value = false;
-                                angel.value += 1;
-                                requestCommBalance();
-                              }
-                            },
-                            minSize: 0,
-                            padding: EdgeInsets.zero,
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 12.w, top: 6.w, bottom: 6.w, right: 0.w),
-                              child: Obx(() {
-                                return AnimatedRotation(
-                                  turns: angel.value,
-                                  duration: const Duration(milliseconds: 600),
-                                  onEnd: () {
-                                    isEnd.value = true;
-                                  },
-                                  child: Image.asset("assets/images/refresher_balance.webp", height: double.infinity),
-                                );
-                              }),
-                            ),
-                          ),
-                          Text(
-                            AppUtil.amountFormat(globeController.balance.value?.brl ?? '0'),
-                            style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w400),
-                          ),
-                          SizedBox(
-                            width: 12.w,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Obx(() {
-                      return Image.asset(
-                        "assets/images/vip/medal-${globeController.userInfoEntity.value?.vip}.webp",
-                        width: 60.w,
-                      );
-                    }),
-                  ],
+                  ),
                 ),
-              )
-            : const SizedBox(),
-      ],
-    );
+              ],
+            );
+    });
   }
 }
 
