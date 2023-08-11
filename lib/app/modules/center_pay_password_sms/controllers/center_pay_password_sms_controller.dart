@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_comm/http/comm_request.dart';
 import 'package:flutter_comm/http/request.dart';
 import 'package:flutter_comm/util/loading_util.dart';
 import 'package:flutter_comm/util/sp_util.dart';
@@ -163,6 +164,7 @@ class CenterPayPasswordSmsController extends GetxController {
     try {
       AppLoading.show();
       final data = await apiRequest.requestPasswordUpdate(params: params);
+      await requestUserInfo();
       Toast.show('sucesso');
       _timer?.cancel();
       countDown.value = 0;

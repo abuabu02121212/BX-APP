@@ -1,4 +1,5 @@
 import 'package:flutter_comm/app/routes/app_pages.dart';
+import 'package:flutter_comm/http/comm_request.dart';
 import 'package:flutter_comm/util/dialog.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_comm/widget/input_field.dart';
@@ -55,7 +56,7 @@ class CenterPayPasswordController extends GetxController {
     Get.toNamed(Routes.CENTER_PAY_PASSWORD_SMS, arguments: {
       'password': psw2EditNode.text.value,
       'oldPassword': psw1EditNode.text.value.isEmpty ? null : psw1EditNode.text.value,
-    })?.then((value) {
+    })?.then((value) async {
       if (value == true) {
         Get.back();
       }

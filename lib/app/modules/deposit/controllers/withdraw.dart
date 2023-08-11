@@ -14,15 +14,6 @@ class WithdrawControllerPage extends GetxController {
   // 最小金额
   EditNode minAmountNode = EditNode();
 
-  // 用户名
-  EditNode usernameNode = EditNode();
-
-  // pix id
-  EditNode idNode = EditNode();
-
-  // pid account
-  EditNode accountNode = EditNode();
-
   // pay password
   EditNode payPasswordNode = EditNode();
 
@@ -78,30 +69,6 @@ class WithdrawControllerPage extends GetxController {
     return null;
   }
 
-  // 验证用户名
-  String? validateUsername() {
-    if (usernameNode.text.value.isEmpty) {
-      return 'Insira o nome do titular do cartão';
-    }
-    return null;
-  }
-
-  // 验证pix id
-  String? validateId() {
-    if (idNode.text.value.isEmpty) {
-      return 'Informe o CPF no formato correto';
-    }
-    return null;
-  }
-
-  // 验证pix account
-  String? validateAccount() {
-    if (accountNode.text.value.isEmpty) {
-      return 'Informe o CPF no formato correto';
-    }
-    return null;
-  }
-
   // 验证pay password
   String? validatePayPassword() {
     if (payPasswordNode.text.value.isEmpty) {
@@ -112,9 +79,6 @@ class WithdrawControllerPage extends GetxController {
 
   reset() {
     minAmountNode.text.value = '';
-    usernameNode.text.value = '';
-    idNode.text.value = '';
-    accountNode.text.value = '';
     payPasswordNode.text.value = '';
   }
 
@@ -123,9 +87,6 @@ class WithdrawControllerPage extends GetxController {
     isClickSubmit.value = true;
 
     if (validateMinAmount() != null ||
-        validateUsername() != null ||
-        validateId() != null ||
-        validateAccount() != null ||
         validatePayPassword() != null) {
       return;
     }
@@ -140,9 +101,6 @@ class WithdrawControllerPage extends GetxController {
     try {
       final s = await apiRequest.requestPayWithdraw({
         'amount': minAmountNode.text.value,
-        'real_name': usernameNode.text.value,
-        'pix_id': idNode.text.value,
-        'pix_account': accountNode.text.value,
         'flag': int.parse(waysSelectValue.value),
         'pay_password': payPasswordNode.text.value,
       });

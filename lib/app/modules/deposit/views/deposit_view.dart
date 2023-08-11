@@ -13,6 +13,7 @@ import '../../../../util/bottom_sheet_util.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_header.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/deposit_controller.dart';
 
 class DepositView extends GetView<DepositController> {
@@ -391,6 +392,7 @@ class DepositView extends GetView<DepositController> {
     );
   }
 
+  /// 提款UI
   Widget _buildDeposit(DepositController controller, BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 20.w, right: 20.w),
@@ -624,6 +626,7 @@ class DepositView extends GetView<DepositController> {
     );
   }
 
+  /// 单选框
   Widget _buildRadio(bool isSelect) {
     return Container(
       width: 32.w,
@@ -646,6 +649,7 @@ class DepositView extends GetView<DepositController> {
     );
   }
 
+  /// 存款优惠选择
   Widget _buildDiscount(DepositController controller) {
     return Column(
       children: [
@@ -669,24 +673,27 @@ class DepositView extends GetView<DepositController> {
           ),
           child: Column(
             children: [
-              ...List.generate(3, (index) => Padding(
-                padding: EdgeInsets.symmetric(vertical: 27.w),
-                child: AppCupertinoButton(
-                  child: Row(
-                    children: [
-                      _buildRadio(true),
-                      SizedBox(width: 20.w),
-                      Text(
-                        '10% primeiro depósito',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28.w,
+              ...List.generate(
+                3,
+                (index) => Padding(
+                  padding: EdgeInsets.symmetric(vertical: 27.w),
+                  child: AppCupertinoButton(
+                    child: Row(
+                      children: [
+                        _buildRadio(true),
+                        SizedBox(width: 20.w),
+                        Text(
+                          '10% primeiro depósito',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 28.w,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ))
+              )
             ],
           ),
         )
@@ -694,6 +701,7 @@ class DepositView extends GetView<DepositController> {
     );
   }
 
+  /// 存款金额列表
   Widget _buildAmountWrap(DepositController controller) {
     return Obx(() {
       return Wrap(
@@ -773,7 +781,33 @@ class DepositView extends GetView<DepositController> {
     });
   }
 
+  /// 银行卡列表，如果没有银行卡，显示添加银行卡按钮
   Widget _buildWithdrawBankList(DepositController controller) {
+    int bankListLength = 0;
+    if (bankListLength == 0) {
+      return Row(
+        children: [
+          Expanded(
+            child: Text(
+              'Cartão bancário não consolidado',
+              style: TextStyle(
+                color: Color.fromRGBO(14, 209, 244, 1),
+                fontSize: 32.w,
+              ),
+            ),
+          ),
+          AppButton(
+            width: 132.w,
+            height: 48.w,
+            text: 'ligar',
+            onClick: () {
+              Get.toNamed(Routes.CENTER_BANK_LIST_ADD);
+            },
+            radius: 100.w,
+          )
+        ],
+      );
+    }
     return Column(
       children: [
         Container(
@@ -786,16 +820,16 @@ class DepositView extends GetView<DepositController> {
         ),
         ...List.generate(
           controller.depositControllerPage.depositSelectData.length,
-              (index) => Padding(
+          (index) => Padding(
             padding: EdgeInsets.only(bottom: 16.w),
             child: AppCupertinoButton(
               onPressed: () {
                 controller.depositControllerPage.setDepositSelectLabelValue(
                   controller.depositControllerPage.depositSelectData[index]
-                  ['value'] ??
+                          ['value'] ??
                       '',
                   controller.depositControllerPage.depositSelectData[index]
-                  ['label'] ??
+                          ['label'] ??
                       '',
                 );
               },
@@ -813,13 +847,13 @@ class DepositView extends GetView<DepositController> {
                 child: Row(
                   children: [
                     _buildRadio(controller.depositControllerPage
-                        .depositSelectData[index]['label'] ==
+                            .depositSelectData[index]['label'] ==
                         controller
                             .depositControllerPage.depositSelectLabel.value),
                     SizedBox(width: 20.w),
                     Text(
                       controller.depositControllerPage.depositSelectData[index]
-                      ['label'] as String,
+                          ['label'] as String,
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.6),
                         fontSize: 28.w,
@@ -835,11 +869,28 @@ class DepositView extends GetView<DepositController> {
     );
   }
 
+  /// 提款UI
   Widget _buildWithdraw(DepositController controller, BuildContext context) {
     return Container(
       padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 36.w),
       child: Column(
         children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/text-bg.webp"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            margin: EdgeInsets.only(bottom: 24.w),
+            padding: EdgeInsets.only(bottom: 10.w, left: 10.w, right: 10.w),
+            child: Text(
+              " Uma conta só pode ser vinculada a um número de CPF para saque, uma vez vinculada não pode ser alterada.",
+              style: TextStyle(
+                  color: const Color(0xffF7BA17), fontSize: 24.w, height: 1.5),
+              textAlign: TextAlign.center,
+            ),
+          ),
           Container(
             width: double.infinity,
             height: 72.w,
@@ -865,12 +916,12 @@ class DepositView extends GetView<DepositController> {
                     keyboardType: TextInputType.number,
                     width: double.infinity,
                     height: 72.w,
-                    hint: "Retirada mínima R\$ ${controller.withdrawControllerPage.pageData.config?.fmin ?? ''}",
+                    hint:
+                        "Retirada mínima R\$ ${controller.withdrawControllerPage.pageData.config?.fmin ?? ''}",
                     onTextChanged: (String value) {
                       print('vvv $value');
                     },
-                    editNode:
-                    controller.withdrawControllerPage.minAmountNode,
+                    editNode: controller.withdrawControllerPage.minAmountNode,
                   ),
                 ),
                 Text(
@@ -888,24 +939,10 @@ class DepositView extends GetView<DepositController> {
                             '')
                 : SizedBox(height: 34.w);
           }),
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/text-bg.webp"),
-                fit: BoxFit.cover,
-              ),
-            ),
-            margin: EdgeInsets.only(bottom: 24.w),
-            padding: EdgeInsets.only(bottom: 10.w, left: 10.w, right: 10.w),
-            child: Text(
-              " Uma conta só pode ser vinculada a um número de CPF para saque, uma vez vinculada não pode ser alterada.",
-              style: TextStyle(
-                  color: const Color(0xffF7BA17), fontSize: 24.w, height: 1.5),
-              textAlign: TextAlign.center,
-            ),
-          ),
           _buildWithdrawBankList(controller),
-          SizedBox(height: 30.w,),
+          SizedBox(
+            height: 30.w,
+          ),
           Container(
             width: double.infinity,
             height: 72.w,

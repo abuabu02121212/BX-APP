@@ -45,9 +45,9 @@ class DepositController extends GetxController with GetSingleTickerProviderState
     super.onReady();
     depositControllerPage.onReady();
     withdrawControllerPage.onReady();
-    // if (index == 1) {
-    //   globalController.switchPayPasswordStatus();
-    // }
+    if (index == 1) {
+      globalController.switchPayPasswordStatus();
+    }
   }
 
   @override
