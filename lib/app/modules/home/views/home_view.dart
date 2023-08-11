@@ -12,6 +12,8 @@ import '../../../../widget/back_event_interceptor.dart';
 import '../../../app_style.dart';
 import '../../../component/app_empty.dart';
 import '../../../entity/game_item.dart';
+import '../../../entity/promotion_entity.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/game_list_requests.dart';
 import '../controllers/home_controller.dart';
 import 'game_search_dialog.dart';
@@ -80,8 +82,36 @@ class ItemGenerateWidget extends StatelessWidget {
             radius: 0,
           ),
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            CupertinoButton(
+              onPressed: () {
+                final List<List<PromotionEntity>> listData = PromotionEntity.getLocalData();
+                var entity = listData[0][0];
+                Get.toNamed(Routes.WEBVIEW, arguments: entity.url);
+              },
+              minSize: 0,
+              padding: EdgeInsets.zero,
+              child: Image.asset("assets/images/home_aty_2.webp", height: 119.w),
+            ),
+            SizedBox(width: 20.w,),
+            CupertinoButton(
+              onPressed: () {
+                final List<List<PromotionEntity>> listData = PromotionEntity.getLocalData();
+                var entity = listData[0][3];
+                Get.toNamed(Routes.WEBVIEW, arguments: entity.url);
+              },
+              minSize: 0,
+              padding: EdgeInsets.zero,
+              child: Image.asset("assets/images/home_aty_1.webp", height: 119.w),
+            ),
+          ],
+        ),
         HomeGameTypesTabWidget(),
-      //  SearchWidget(),
+        //  SearchWidget(),
         Obx(() {
           var tabIndex = controller.selectedGameTypeIndex.value;
           if (tabIndex == 0) {
@@ -328,9 +358,9 @@ class HomeGameTypesTabWidget extends StatelessWidget {
                           onPressed: () {
                             if (controller.selectedGameTypeIndex.value != index) {
                               controller.switchTabWithAddPressedRecord(index);
-                              if(index >= 3){
+                              if (index >= 3) {
                                 sc.animateTo(sc.position.maxScrollExtent, duration: const Duration(microseconds: 250), curve: Curves.ease);
-                              }else{
+                              } else {
                                 sc.animateTo(0, duration: const Duration(microseconds: 250), curve: Curves.ease);
                               }
                             }
@@ -341,10 +371,8 @@ class HomeGameTypesTabWidget extends StatelessWidget {
                           child: Container(
                             alignment: Alignment.center,
                             width: 88.w,
-                            decoration: BoxDecoration(
-                              color: isSelected ? const Color(0xffEEBD36) : const Color(0xff0F1A34),
-                              borderRadius: BorderRadius.circular(12.w)
-                            ),
+                            decoration:
+                                BoxDecoration(color: isSelected ? const Color(0xffEEBD36) : const Color(0xff0F1A34), borderRadius: BorderRadius.circular(12.w)),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -363,7 +391,9 @@ class HomeGameTypesTabWidget extends StatelessWidget {
                   );
                 })),
           ),
-          SizedBox(width: 10.w,),
+          SizedBox(
+            width: 10.w,
+          ),
           CupertinoButton(
             minSize: 0,
             padding: EdgeInsets.all(10.w),
