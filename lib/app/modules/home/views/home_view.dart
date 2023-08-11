@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_comm/app/entity/game_type.dart';
 import 'package:flutter_comm/app/modules/home/views/swiper_component.dart';
 import 'package:flutter_comm/util/loading_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,7 +8,6 @@ import 'package:get/get.dart';
 import '../../../../util/entity/entites.dart';
 import '../../../../util/extensions.dart';
 import '../../../../widget/back_event_interceptor.dart';
-import '../../../app_style.dart';
 import '../../../component/app_empty.dart';
 import '../../../entity/game_item.dart';
 import '../../../entity/promotion_entity.dart';
@@ -345,11 +343,11 @@ class HomeGameTypesTabWidget extends StatelessWidget {
             child: SizedBox(
                 height: 88.w,
                 child: Obx(() {
-                  ScrollController sc = ScrollController();
+
                   return ListView.separated(
                     itemCount: controller.gameTypes.length,
                     physics: const BouncingScrollPhysics(),
-                    controller: sc,
+                    controller: controller.sc2,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext context, int index) {
                       return Obx(() {
@@ -358,11 +356,6 @@ class HomeGameTypesTabWidget extends StatelessWidget {
                           onPressed: () {
                             if (controller.selectedGameTypeIndex.value != index) {
                               controller.switchTabWithAddPressedRecord(index);
-                              if (index >= 3) {
-                                sc.animateTo(sc.position.maxScrollExtent, duration: const Duration(microseconds: 250), curve: Curves.ease);
-                              } else {
-                                sc.animateTo(0, duration: const Duration(microseconds: 250), curve: Curves.ease);
-                              }
                             }
                           },
                           minSize: 0,

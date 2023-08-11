@@ -28,6 +28,7 @@ import 'home_requests.dart';
 class HomeController extends GetxController {
   final gameTypes = RxList<GameTypeEntity>(GameTypeEntity.getList());
   final selectedGameTypeIndex = 0.obs;
+  ScrollController sc2 = ScrollController();
   final List<int> gameTypePressedRecordList = [0];
   final ScrollController scrollController = ScrollController();
   final showingMarqueeText = "".obs;
@@ -51,6 +52,11 @@ class HomeController extends GetxController {
   void switchTabWithAddPressedRecord(int index) {
     selectedGameTypeIndex.value = index;
     gameTypePressedRecordList.add(index);
+    if (index >= 3) {
+      sc2.animateTo(sc2.position.maxScrollExtent, duration: const Duration(microseconds: 250), curve: Curves.ease);
+    } else {
+      sc2.animateTo(0, duration: const Duration(microseconds: 250), curve: Curves.ease);
+    }
     requestTabPageData(index);
   }
 
