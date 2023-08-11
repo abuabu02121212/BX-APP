@@ -376,7 +376,7 @@ class HomeGameTypesTabWidget extends StatelessWidget {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Image.asset("assets/images/game-tab$index.webp", width: 60.w),
+                                Image.asset("assets/images/game-tab$index.webp", width: 78.w),
                               ],
                             ),
                           ),
