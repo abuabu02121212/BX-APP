@@ -59,6 +59,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
             child: Row(
               children: [
                 //  Image.asset("assets/images/index-title-home.webp", height: 83.w),
+                SizedBox(width: 2.w),
                 Text(
                   listItemIndex == -1 ? "Minha Coleção" : "RECOMENDAÇÕES".capitalizeFirstLetterOfEachWord(),
                   style: TextStyle(fontSize: 33.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
@@ -91,7 +92,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 20.w, right: 20.w),
+            padding: EdgeInsets.only(left: 10.w, right: 10.w),
             child: ClipRRect(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(30.w),
