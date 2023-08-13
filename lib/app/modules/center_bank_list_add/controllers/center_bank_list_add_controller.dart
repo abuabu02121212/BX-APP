@@ -10,12 +10,36 @@ import '../../../../globe_controller.dart';
 import '../../../../util/dialog.dart';
 
 class CenterBankListAddController extends GetxController {
-  EditNode bankInputNode = EditNode();
+  EditNode pixIdNode = EditNode();
   EditNode payPasswordInputNode = EditNode();
+  // 用户名
+  EditNode usernameNode = EditNode();
+  // pid account
+  EditNode pixAccountNode = EditNode();
+
 
   List<Map<String, String>> bankTypeList = [];
   final bankTypeValue = ''.obs;
   final bankTypeLabel = ''.obs;
+
+  // final withdrawSelectData = [
+  //   {'label': 'A', 'value': '1'},
+  //   {'label': 'B', 'value': '2'}
+  // ].obs;
+
+  final ways = [
+    {'label': 'CPF', 'value': '1'},
+    {'label': 'E-mail', 'value': '2'},
+    {'label': 'Telefone(+55)', 'value': '3'},
+  ];
+  final waysSelectLabel = 'CPF'.obs;
+  final waysSelectValue = '1'.obs;
+
+
+  setWaysData(String label, String value) {
+    waysSelectLabel.value = label;
+    waysSelectValue.value = value;
+  }
 
   void setBankTypeList() async {
     print('执行了');
@@ -43,17 +67,22 @@ class CenterBankListAddController extends GetxController {
   }
 
   void submit() async {
-    if (bankTypeLabel.value.isEmpty) {
-      Toast.show('Selecione um banco!');
+    if (pixIdNode.text.trim().isEmpty) {
+      Toast.show('Por favor, preencha o número da conta bancária');
       return;
     }
 
-    if (bankInputNode.text.isEmpty) {
-      Toast.show('Informe o CPF no formato correto');
+    if (usernameNode.text.trim().isEmpty) {
+      Toast.show('Insira o nome do titular do cartão');
       return;
     }
 
-    if (payPasswordInputNode.text.isEmpty) {
+    if (pixAccountNode.text.trim().isEmpty) {
+      Toast.show('Digite o método de contato');
+      return;
+    }
+
+    if (payPasswordInputNode.text.trim().isEmpty) {
       Toast.show('Senha (6 letras e números)');
       return;
     }
@@ -61,9 +90,11 @@ class CenterBankListAddController extends GetxController {
     AppLoading.show();
     try {
       final data = await apiRequest.requestBankCardInsert(params: {
-        'pix_id': bankInputNode.text.value,
-        'bankcode': bankTypeValue.value,
+        'pix_id': pixIdNode.text.value,
         'pay_password': payPasswordInputNode.text.value,
+        'flag': waysSelectValue.value,
+        'pix_account': pixAccountNode.text.value,
+        'realname': usernameNode.text.value,
       });
       Toast.show('sucesso');
       Get.back();
@@ -88,7 +119,6 @@ class CenterBankListAddController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    setBankTypeList();
   }
 
   @override
