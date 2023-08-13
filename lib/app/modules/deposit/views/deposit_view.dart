@@ -107,14 +107,14 @@ class DepositView extends GetView<DepositController> {
                   return controller.depositControllerPage.isFetching.isFalse
                       ? _buildDeposit(controller, context)
                       : const Center(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 50.0),
-                            child: CupertinoActivityIndicator(
-                              radius: 14.0,
-                              color: Colors.white,
-                            ),
-                          ),
-                        );
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 50.0),
+                      child: CupertinoActivityIndicator(
+                        radius: 14.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  );
                 }),
               ],
             ),
@@ -124,14 +124,14 @@ class DepositView extends GetView<DepositController> {
                   return controller.withdrawControllerPage.isFetching.isFalse
                       ? _buildWithdraw(controller, context)
                       : const Center(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 50.0),
-                            child: CupertinoActivityIndicator(
-                              radius: 14.0,
-                              color: Colors.white,
-                            ),
-                          ),
-                        );
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 50.0),
+                      child: CupertinoActivityIndicator(
+                        radius: 14.0,
+                        color: Colors.white,
+                      ),
+                    ),
+                  );
                 })
               ],
             ),
@@ -275,9 +275,9 @@ class DepositView extends GetView<DepositController> {
                                   value: 'A',
                                   child: Container(
                                     constraints:
-                                        BoxConstraints(minWidth: 350.w),
+                                    BoxConstraints(minWidth: 350.w),
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 20.w),
+                                    EdgeInsets.symmetric(horizontal: 20.w),
                                     child: Text(
                                       'Uma conta que consiste no valor da recarga, recompensas pela participação em atividades, vitórias e derrotas no jogo, etc.',
                                       style: TextStyle(
@@ -302,14 +302,18 @@ class DepositView extends GetView<DepositController> {
                       SizedBox(height: 16.w),
                       Obx(() {
                         return Text(
-                          "Balanço: ${AppUtil.amountFormat(controller.balanceDetailInfo.value?.deposit_amount ?? '0')}",
+                          "Balanço: ${AppUtil.amountFormat(
+                              controller.balanceDetailInfo.value
+                                  ?.deposit_amount ?? '0')}",
                           style: TextStyle(color: Colors.white, fontSize: 24.w),
                         );
                       }),
                       SizedBox(height: 16.w),
                       Obx(() {
                         return Text(
-                          "Retirável: ${AppUtil.amountFormat(controller.balanceDetailInfo.value?.deposit_balance ?? '0')}",
+                          "Retirável: ${AppUtil.amountFormat(
+                              controller.balanceDetailInfo.value
+                                  ?.deposit_balance ?? '0')}",
                           style: TextStyle(color: Colors.white, fontSize: 24.w),
                         );
                       }),
@@ -343,7 +347,7 @@ class DepositView extends GetView<DepositController> {
                                 child: Container(
                                   constraints: BoxConstraints(minWidth: 350.w),
                                   padding:
-                                      EdgeInsets.symmetric(horizontal: 20.w),
+                                  EdgeInsets.symmetric(horizontal: 20.w),
                                   child: Text(
                                     'Uma conta composta por recompensas por convidar amigos e retorno de comissões com base no valor da transação dos usuários convidados.',
                                     style: TextStyle(
@@ -368,14 +372,16 @@ class DepositView extends GetView<DepositController> {
                     SizedBox(height: 16.w),
                     Obx(() {
                       return Text(
-                        "Balanço: ${AppUtil.amountFormat(controller.balanceDetailInfo.value?.agencyAmount ?? '0')}",
+                        "Balanço: ${AppUtil.amountFormat(controller
+                            .balanceDetailInfo.value?.agencyAmount ?? '0')}",
                         style: TextStyle(color: Colors.white, fontSize: 24.w),
                       );
                     }),
                     SizedBox(height: 16.w),
                     Obx(() {
                       return Text(
-                        "Retirável: ${AppUtil.amountFormat(controller.balanceDetailInfo.value?.agency_balance ?? '0')}",
+                        "Retirável: ${AppUtil.amountFormat(controller
+                            .balanceDetailInfo.value?.agency_balance ?? '0')}",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 24.w,
@@ -450,7 +456,7 @@ class DepositView extends GetView<DepositController> {
               Obx(() {
                 return Visibility(
                   visible: controller.depositControllerPage
-                          .getDepositDiscountValue() >
+                      .getDepositDiscountValue() >
                       0,
                   child: Positioned(
                     right: 0,
@@ -485,10 +491,10 @@ class DepositView extends GetView<DepositController> {
           Obx(() {
             return controller.depositControllerPage.isClickSubmit.isTrue
                 ? VerifyError(
-                    error:
-                        controller.depositControllerPage.validateAmount() ?? '',
-                    mainAxis: MainAxisAlignment.start,
-                  )
+              error:
+              controller.depositControllerPage.validateAmount() ?? '',
+              mainAxis: MainAxisAlignment.start,
+            )
                 : SizedBox(height: 30.w);
           }),
           _buildAmountWrap(controller),
@@ -513,7 +519,9 @@ class DepositView extends GetView<DepositController> {
                     textAlign: TextAlign.left,
                     text: TextSpan(
                       text:
-                          'Taxa de cambio de referencia 1 USDT=${controller.depositControllerPage.payRate.value.toString()}BRL\nIr para Minhas chavesR',
+                      'Taxa de cambio de referencia 1 USDT=${controller
+                          .depositControllerPage.payRate.value
+                          .toString()}BRL\nIr para Minhas chavesR',
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.6),
                         fontSize: 24.w,
@@ -577,50 +585,53 @@ class DepositView extends GetView<DepositController> {
         ),
         ...List.generate(
           controller.depositControllerPage.depositSelectData.length,
-          (index) => Padding(
-            padding: EdgeInsets.only(bottom: 16.w),
-            child: AppCupertinoButton(
-              onPressed: () {
-                controller.depositControllerPage.setDepositSelectLabelValue(
-                  controller.depositControllerPage.depositSelectData[index]
-                          ['value'] ??
-                      '',
-                  controller.depositControllerPage.depositSelectData[index]
-                          ['label'] ??
-                      '',
-                );
-              },
-              child: Container(
-                width: double.infinity,
-                height: 88.w,
-                padding: EdgeInsets.only(left: 24.w, right: 24.w),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.w),
-                  border: Border.all(
-                    color: const Color.fromRGBO(255, 255, 255, 0.2),
-                    width: 1.w,
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    _buildRadio(controller.depositControllerPage
-                            .depositSelectData[index]['label'] ==
-                        controller
-                            .depositControllerPage.depositSelectLabel.value),
-                    SizedBox(width: 20.w),
-                    Text(
+              (index) =>
+              Padding(
+                padding: EdgeInsets.only(bottom: 16.w),
+                child: AppCupertinoButton(
+                  onPressed: () {
+                    controller.depositControllerPage.setDepositSelectLabelValue(
                       controller.depositControllerPage.depositSelectData[index]
-                          ['label'] as String,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 28.w,
+                      ['value'] ??
+                          '',
+                      controller.depositControllerPage.depositSelectData[index]
+                      ['label'] ??
+                          '',
+                    );
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 88.w,
+                    padding: EdgeInsets.only(left: 24.w, right: 24.w),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.w),
+                      border: Border.all(
+                        color: const Color.fromRGBO(255, 255, 255, 0.2),
+                        width: 1.w,
                       ),
                     ),
-                  ],
+                    child: Row(
+                      children: [
+                        _buildRadio(controller.depositControllerPage
+                            .depositSelectData[index]['label'] ==
+                            controller
+                                .depositControllerPage.depositSelectLabel
+                                .value),
+                        SizedBox(width: 20.w),
+                        Text(
+                          controller.depositControllerPage
+                              .depositSelectData[index]
+                          ['label'] as String,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 28.w,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
         )
       ],
     );
@@ -639,11 +650,11 @@ class DepositView extends GetView<DepositController> {
         borderRadius: BorderRadius.circular(16.w),
         image: isSelect
             ? const DecorationImage(
-                image: AssetImage(
-                  "assets/images/i-radio-active.webp",
-                ),
-                fit: BoxFit.cover,
-              )
+          image: AssetImage(
+            "assets/images/i-radio-active.webp",
+          ),
+          fit: BoxFit.cover,
+        )
             : null,
       ),
     );
@@ -675,24 +686,25 @@ class DepositView extends GetView<DepositController> {
             children: [
               ...List.generate(
                 3,
-                (index) => Padding(
-                  padding: EdgeInsets.symmetric(vertical: 27.w),
-                  child: AppCupertinoButton(
-                    child: Row(
-                      children: [
-                        _buildRadio(true),
-                        SizedBox(width: 20.w),
-                        Text(
-                          '10% primeiro depósito',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 28.w,
-                          ),
+                    (index) =>
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 27.w),
+                      child: AppCupertinoButton(
+                        child: Row(
+                          children: [
+                            _buildRadio(true),
+                            SizedBox(width: 20.w),
+                            Text(
+                              '10% primeiro depósito',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 28.w,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
               )
             ],
           ),
@@ -711,17 +723,17 @@ class DepositView extends GetView<DepositController> {
         runSpacing: 11.w,
         children: [
           for (var i = 0;
-              i < controller.depositControllerPage.depositData.length;
-              i++)
+          i < controller.depositControllerPage.depositData.length;
+          i++)
             Stack(
               children: [
                 AppCupertinoButton(
                   onPressed: () {
                     controller.depositControllerPage.setInputValue(
                       controller.depositControllerPage.depositData[i]['amount']
-                          as String,
+                      as String,
                       controller.depositControllerPage.depositData[i]
-                          ['discount'] as String,
+                      ['discount'] as String,
                     );
                   },
                   child: Obx(() {
@@ -740,7 +752,7 @@ class DepositView extends GetView<DepositController> {
                           image: AssetImage(
                             controller.depositControllerPage.isSelectAmount(
                               controller.depositControllerPage.depositData[i]
-                                  ['amount']!,
+                              ['amount']!,
                             )
                                 ? "assets/images/btn-bg-active.webp"
                                 : "assets/images/btn-bg-gray.webp",
@@ -749,7 +761,8 @@ class DepositView extends GetView<DepositController> {
                         ),
                       ),
                       child: Text(
-                        "R\$ ${controller.depositControllerPage.depositData[i]['amount']}",
+                        "R\$ ${controller.depositControllerPage
+                            .depositData[i]['amount']}",
                         style: TextStyle(color: Colors.white, fontSize: 28.w),
                       ),
                     );
@@ -769,7 +782,8 @@ class DepositView extends GetView<DepositController> {
                       ),
                     ),
                     child: Text(
-                      "+${controller.depositControllerPage.depositData[i]['discount']}",
+                      "+${controller.depositControllerPage
+                          .depositData[i]['discount']}",
                       style: TextStyle(color: Colors.white, fontSize: 18.w),
                     ),
                   ),
@@ -783,7 +797,7 @@ class DepositView extends GetView<DepositController> {
 
   /// 银行卡列表，如果没有银行卡，显示添加银行卡按钮
   Widget _buildWithdrawBankList(DepositController controller) {
-    int bankListLength = 0;
+    int bankListLength = controller.withdrawControllerPage.bankList.length;
     if (bankListLength == 0) {
       return Row(
         children: [
@@ -801,7 +815,11 @@ class DepositView extends GetView<DepositController> {
             height: 48.w,
             text: 'ligar',
             onClick: () {
-              Get.toNamed(Routes.CENTER_BANK_LIST_ADD);
+              Get.toNamed(Routes.CENTER_BANK_LIST_ADD)?.then((value) {
+                if (controller.withdrawControllerPage.bankList.isEmpty) {
+                  controller.withdrawControllerPage.getBankList();
+                }
+              });
             },
             radius: 100.w,
           )
@@ -819,51 +837,50 @@ class DepositView extends GetView<DepositController> {
           ),
         ),
         ...List.generate(
-          controller.depositControllerPage.depositSelectData.length,
-          (index) => Padding(
-            padding: EdgeInsets.only(bottom: 16.w),
-            child: AppCupertinoButton(
-              onPressed: () {
-                controller.depositControllerPage.setDepositSelectLabelValue(
-                  controller.depositControllerPage.depositSelectData[index]
-                          ['value'] ??
-                      '',
-                  controller.depositControllerPage.depositSelectData[index]
-                          ['label'] ??
-                      '',
-                );
-              },
-              child: Container(
-                width: double.infinity,
-                height: 88.w,
-                padding: EdgeInsets.only(left: 24.w, right: 24.w),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8.w),
-                  border: Border.all(
-                    color: const Color.fromRGBO(255, 255, 255, 0.2),
-                    width: 1.w,
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    _buildRadio(controller.depositControllerPage
-                            .depositSelectData[index]['label'] ==
-                        controller
-                            .depositControllerPage.depositSelectLabel.value),
-                    SizedBox(width: 20.w),
-                    Text(
-                      controller.depositControllerPage.depositSelectData[index]
-                          ['label'] as String,
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.6),
-                        fontSize: 28.w,
+          controller.withdrawControllerPage.bankList.length,
+              (index) =>
+              Padding(
+                padding: EdgeInsets.only(bottom: 16.w),
+                child: AppCupertinoButton(
+                  onPressed: () {
+                    controller.withdrawControllerPage.setBankId(
+                      controller.withdrawControllerPage.bankList[index].id!,
+                    );
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    height: 88.w,
+                    padding: EdgeInsets.only(left: 24.w, right: 24.w),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.w),
+                      border: Border.all(
+                        color: const Color.fromRGBO(255, 255, 255, 0.2),
+                        width: 1.w,
                       ),
                     ),
-                  ],
+                    child: Row(
+                      children: [
+                        _buildRadio(
+                          controller.withdrawControllerPage.bankList[index]
+                              .id ==
+                              controller.withdrawControllerPage.selectBankId
+                                  .value,
+                        ),
+                        SizedBox(width: 20.w),
+                        Text(
+                          controller.withdrawControllerPage.bankList[index]
+                              .pixId ??
+                              '',
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.6),
+                            fontSize: 28.w,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
         )
       ],
     );
@@ -917,7 +934,8 @@ class DepositView extends GetView<DepositController> {
                     width: double.infinity,
                     height: 72.w,
                     hint:
-                        "Retirada mínima R\$ ${controller.withdrawControllerPage.pageData.config?.fmin ?? ''}",
+                    "Retirada mínima R\$ ${controller.withdrawControllerPage
+                        .pageData.config?.fmin ?? ''}",
                     onTextChanged: (String value) {
                       print('vvv $value');
                     },
@@ -934,12 +952,14 @@ class DepositView extends GetView<DepositController> {
           Obx(() {
             return controller.withdrawControllerPage.isClickSubmit.isTrue
                 ? VerifyError(
-                    error:
-                        controller.withdrawControllerPage.validateMinAmount() ??
-                            '')
+                error:
+                controller.withdrawControllerPage.validateMinAmount() ??
+                    '')
                 : SizedBox(height: 34.w);
           }),
-          _buildWithdrawBankList(controller),
+          Obx(() {
+            return _buildWithdrawBankList(controller);
+          }),
           SizedBox(
             height: 30.w,
           ),
@@ -947,7 +967,7 @@ class DepositView extends GetView<DepositController> {
             width: double.infinity,
             height: 72.w,
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(left: 24.w, right: 20.w),
+            padding: EdgeInsets.only(left: 6.w, right: 20.w),
             decoration: BoxDecoration(
               border: Border.all(
                   color: const Color.fromRGBO(255, 255, 255, 0.1), width: 1.w),
@@ -962,7 +982,7 @@ class DepositView extends GetView<DepositController> {
                 bgColor: Colors.transparent,
                 width: double.infinity,
                 height: 72.w,
-                hint: 'Digite a senha do fundo111',
+                hint: 'Digite a senha do fundo',
                 keyboardType: TextInputType.number,
                 editNode: controller.withdrawControllerPage.payPasswordNode,
                 obscureText: controller
@@ -970,13 +990,13 @@ class DepositView extends GetView<DepositController> {
                 suffix: GestureDetector(
                   onTap: () {
                     controller.withdrawControllerPage.payPasswordObscureText
-                            .value =
-                        !controller.withdrawControllerPage
-                            .payPasswordObscureText.value;
+                        .value =
+                    !controller.withdrawControllerPage
+                        .payPasswordObscureText.value;
                   },
                   child: Image.asset(
                     !controller
-                            .withdrawControllerPage.payPasswordObscureText.value
+                        .withdrawControllerPage.payPasswordObscureText.value
                         ? "assets/images/eye-open.webp"
                         : "assets/images/eye-close.webp",
                     width: 28.w,
@@ -988,20 +1008,23 @@ class DepositView extends GetView<DepositController> {
           Obx(() {
             return controller.withdrawControllerPage.isClickSubmit.isTrue
                 ? VerifyError(
-                    error: controller.withdrawControllerPage
-                            .validatePayPassword() ??
-                        '')
+                error: controller.withdrawControllerPage
+                    .validatePayPassword() ??
+                    '')
                 : SizedBox(height: 34.w);
           }),
-          AppButton(
-            width: 580.w,
-            height: 90.w,
-            radius: 100.w,
-            text: 'Retirar',
-            onClick: () {
-              controller.withdrawControllerPage.submit();
-            },
-          ),
+          Obx(() {
+            return AppButton(
+              width: 580.w,
+              height: 90.w,
+              radius: 100.w,
+              disable: controller.withdrawControllerPage.bankList.isEmpty,
+              text: 'Retirar',
+              onClick: () {
+                controller.withdrawControllerPage.submit();
+              },
+            );
+          }),
           SizedBox(height: 54.w),
           Text(
             'Regras de retirada',
@@ -1046,7 +1069,7 @@ class VerifyError extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: mainAxis ?? MainAxisAlignment.end,
+      mainAxisAlignment: mainAxis ?? MainAxisAlignment.start,
       children: [
         Container(
           height: 44.w,

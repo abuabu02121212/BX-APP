@@ -4,6 +4,7 @@ import 'package:flutter_comm/util/toast_util.dart';
 import 'package:get/get.dart';
 import '../../../../globe_controller.dart';
 import '../../../../widget/input_field.dart';
+import '../../../entity/bank_list_data.dart';
 import '../views/withdraw_data.dart';
 
 class WithdrawControllerPage extends GetxController {
@@ -33,6 +34,7 @@ class WithdrawControllerPage extends GetxController {
     {'label': 'A', 'value': '1'},
     {'label': 'B', 'value': '2'}
   ].obs;
+
 
   initChannelData() async {
     final d = await apiRequest.requestWithdrawConfig();
@@ -80,6 +82,31 @@ class WithdrawControllerPage extends GetxController {
   reset() {
     minAmountNode.text.value = '';
     payPasswordNode.text.value = '';
+    minAmountNode.editController.clear();
+    payPasswordNode.editController.clear();
+    isClickSubmit.value = false;
+  }
+
+  final bankList = <BankListDataD>[].obs;
+  final selectBankId = ''.obs;
+  void getBankList() async {
+    try {
+      AppLoading.show();
+      final data = await apiRequest.requestBankCardList();
+      BankListData bankListData = BankListData.fromJson(data);
+      if (bankListData.d != null) {
+        bankList.value = bankListData.d!;
+        setBankId(bankListData.d!.first.id.toString());
+      }
+    } catch (e) {
+      print(e);
+    } finally {
+      AppLoading.close();
+    }
+  }
+
+  setBankId(String id) {
+    selectBankId.value = id;
   }
 
   // 提交函数
@@ -101,8 +128,8 @@ class WithdrawControllerPage extends GetxController {
     try {
       final s = await apiRequest.requestPayWithdraw({
         'amount': minAmountNode.text.value,
-        'flag': int.parse(waysSelectValue.value),
         'pay_password': payPasswordNode.text.value,
+        'bank_id': selectBankId.value,
       });
       Toast.show('Retirada bem-sucedida');
       reset();
@@ -116,8 +143,9 @@ class WithdrawControllerPage extends GetxController {
 
   @override
   void onInit() {
-    super.onInit();
     initChannelData();
+    getBankList();
+    super.onInit();
   }
 
   @override
