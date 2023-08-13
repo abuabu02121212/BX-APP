@@ -21,7 +21,7 @@ class GameTypeTitleBar extends StatelessWidget {
     return Container(
       width: double.infinity,
       //  color: Colors.blue,
-      margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: listItemIndex > 0 ? 20.w : 10.w, top: 10.w),
+      margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: listItemIndex > 0 ? 10.w : 0.w, top: 0.w),
       child: Obx(() {
         int selectedIndex = controller.selectedGameTypeIndex.value;
         return selectedIndex != 0
@@ -36,10 +36,21 @@ class GameTypeTitleBar extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  Level2TypeTabs(
-                    listItemIndex: listItemIndex,
-                    controller: controller,
-                  )
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.only(right: 8.w),
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        "More",
+                        style: TextStyle(fontSize: 24.w, color: const Color.fromRGBO(255, 255, 255, 0.6)),
+                      ),
+                    ),
+                  ),
+                  // Level2TypeTabs(
+                  //   listItemIndex: listItemIndex,
+                  //   controller: controller,
+                  // )
                 ],
               )
             : const SizedBox();

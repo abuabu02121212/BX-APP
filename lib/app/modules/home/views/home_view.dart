@@ -80,34 +80,7 @@ class ItemGenerateWidget extends StatelessWidget {
             radius: 0,
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CupertinoButton(
-              onPressed: () {
-                final List<List<PromotionEntity>> listData = PromotionEntity.getLocalData();
-                var entity = listData[0][0];
-                Get.toNamed(Routes.WEBVIEW, arguments: entity.url);
-              },
-              minSize: 0,
-              padding: EdgeInsets.zero,
-              child: Image.asset("assets/images/home_aty_2.webp", height: 119.w),
-            ),
-            SizedBox(width: 20.w,),
-            CupertinoButton(
-              onPressed: () {
-                final List<List<PromotionEntity>> listData = PromotionEntity.getLocalData();
-                var entity = listData[0][3];
-                Get.toNamed(Routes.WEBVIEW, arguments: entity.url);
-              },
-              minSize: 0,
-              padding: EdgeInsets.zero,
-              child: Image.asset("assets/images/home_aty_1.webp", height: 119.w),
-            ),
-          ],
-        ),
+        const ActivityWidget(),
         HomeGameTypesTabWidget(),
         //  SearchWidget(),
         Obx(() {
@@ -121,6 +94,49 @@ class ItemGenerateWidget extends StatelessWidget {
         }),
         SizedBox(height: 125.w),
       ],
+    );
+  }
+}
+
+class ActivityWidget extends StatelessWidget {
+  const ActivityWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color(0xff0F1A34),
+      padding: EdgeInsets.only(left: 18.w, right: 18.w),
+      width: double.infinity,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CupertinoButton(
+            onPressed: () {
+              final List<List<PromotionEntity>> listData = PromotionEntity.getLocalData();
+              var entity = listData[0][0];
+              Get.toNamed(Routes.WEBVIEW, arguments: entity.url);
+            },
+            minSize: 0,
+            padding: EdgeInsets.zero,
+            child: Image.asset("assets/images/home_aty_2.webp", height: 119.w),
+          ),
+          SizedBox(width: 20.w,),
+          CupertinoButton(
+            onPressed: () {
+              final List<List<PromotionEntity>> listData = PromotionEntity.getLocalData();
+              var entity = listData[0][3];
+              Get.toNamed(Routes.WEBVIEW, arguments: entity.url);
+            },
+            minSize: 0,
+            padding: EdgeInsets.zero,
+            child: Image.asset("assets/images/home_aty_1.webp", height: 119.w),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -332,14 +348,16 @@ class HomeGameTypesTabWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 26.w, left: 20.w),
+      color: const Color(0xff0F1A34),
+      padding: EdgeInsets.only(left: 18.w, top: 29.w, bottom: 20.w),
+      width: double.infinity,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: [
           SizedBox(
-            width: 630.w,
+            width: 628.w,
             child: SizedBox(
                 height: 88.w,
                 child: Obx(() {
@@ -365,7 +383,8 @@ class HomeGameTypesTabWidget extends StatelessWidget {
                             alignment: Alignment.center,
                             width: 88.w,
                             decoration:
-                                BoxDecoration(color: isSelected ? const Color(0xffEEBD36) : const Color(0xff0F1A34), borderRadius: BorderRadius.circular(12.w)),
+                                BoxDecoration(color: isSelected ? const Color.fromRGBO(0, 52, 166, 0.8) : const Color(0xff0F1A34), borderRadius: BorderRadius
+                              .circular(12.w)),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -378,7 +397,7 @@ class HomeGameTypesTabWidget extends StatelessWidget {
                     },
                     separatorBuilder: (BuildContext context, int index) {
                       return SizedBox(
-                        width: 20.w,
+                        width: 10.w,
                       );
                     },
                   );
@@ -391,14 +410,8 @@ class HomeGameTypesTabWidget extends StatelessWidget {
             minSize: 0,
             padding: EdgeInsets.all(10.w),
             child: Container(
-              width: 60.w,
-              height: 60.w,
-              decoration: BoxDecoration(
-                color: const Color(0xff0F1A34),
-                borderRadius: BorderRadius.circular(30.w),
-              ),
               alignment: Alignment.center,
-              child: Image.asset("assets/images/game_search.webp", width: 32.w),
+              child: Image.asset("assets/images/game-tab-search.webp", width: 66.w),
             ),
             onPressed: () {
               showSearchDialog(null);

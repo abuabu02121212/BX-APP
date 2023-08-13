@@ -31,7 +31,6 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
   final List<String> titles2 = ["SLOT", "PESCA", "PÔQUER", "ESPORTE", "AO VIVO"];
   final ScrollController scrollController = ScrollController();
 
-
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -41,36 +40,43 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
       if (controller.selectedGameTypeIndex.value == 0) {
         if (listItemIndex == 0) {
           itemCount = list.length; // 第一行不显示加载更多
-        }else{
+        } else {
           itemCount = list.length + 1; // 其他行必须显示做跳转用
         }
       }
-      if(list.isEmpty){
+      if (list.isEmpty) {
         itemCount = 0;
       }
       List<String> lever2Titles = controller.selectedGameTypeIndex.value == 0 ? titles : titles2;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 10.w),
+          if(listItemIndex == 0)
+          SizedBox(height: 20.w),
           Container(
             width: 1.sw,
-            padding: EdgeInsets.only(right: 18.w),
-            child: Stack(
+            padding: EdgeInsets.only(left: 18.w, right: 18.w, top: 0.w, bottom: 6.w),
+            child: Row(
               children: [
                 //  Image.asset("assets/images/index-title-home.webp", height: 83.w),
-                Padding(
-                  padding: EdgeInsets.only(left: 20.w, top: 10.w),
-                  child: Text(
-                    listItemIndex == -1? "Minha Coleção" : "RECOMENDAÇÕES".capitalizeFirstLetterOfEachWord(),
-                    style: TextStyle(fontSize: 42.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
-                  ),
+                Text(
+                  listItemIndex == -1 ? "Minha Coleção" : "RECOMENDAÇÕES".capitalizeFirstLetterOfEachWord(),
+                  style: TextStyle(fontSize: 33.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 20.w, top: 58.w, bottom: 10.w),
-                  child: Text(
-                    listItemIndex >= 0 ? lever2Titles[listItemIndex].capitalizeFirstLetterOfEachWord() : "",
-                    style: TextStyle(fontSize: 42.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
+                SizedBox(width: 15.w),
+                Text(
+                  listItemIndex >= 0 ? lever2Titles[listItemIndex].capitalizeFirstLetterOfEachWord() : "",
+                  style: TextStyle(fontSize: 33.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
+                ),
+                Expanded(
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.only(right: 10.w),
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "More",
+                      style: TextStyle(fontSize: 24.w, color: const Color.fromRGBO(255, 255, 255, 0.6)),
+                    ),
                   ),
                 ),
                 Positioned(
@@ -93,10 +99,10 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                 bottomRight: Radius.circular(30.w),
               ),
               child: itemCount != 0
-                  ? Container(
+                  ? SizedBox(
                       width: double.infinity,
                       height: 560.w,
-                      decoration: BoxDecoration(gradient: headerLinearGradient),
+                      //  decoration: BoxDecoration(gradient: headerLinearGradient),
                       child: GridView.builder(
                         padding: EdgeInsets.only(top: 20.w),
                         itemCount: itemCount,
