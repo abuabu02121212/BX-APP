@@ -27,6 +27,8 @@ class DepositControllerPage extends GetxController {
     {'label': 'A', 'value': '1'},
     {'label': 'B', 'value': '2'}
   ].obs;
+
+
   final depositSelectValue = '1'.obs;
   final depositSelectLabel = 'A'.obs;
   final depositDiscount = '0'.obs;
@@ -36,6 +38,11 @@ class DepositControllerPage extends GetxController {
   final isClickSubmit = false.obs;
 
   final configList = <DepositConfigData>[].obs;
+
+  final depositAtividadeValue = '1'.obs;
+  setAtividadeValue(String value) {
+    depositAtividadeValue.value = value;
+  }
 
   setDepositSelectLabelValue(String value, String label) {
     // 从 pageData.d，找出 fid == value的数据，获取对象的pay_rate值
@@ -53,7 +60,8 @@ class DepositControllerPage extends GetxController {
   }
 
   bool isAmountInDepositData() {
-    return depositData.any((element) => element['amount'] == amountNode.text.value);
+    return depositData
+        .any((element) => element['amount'] == amountNode.text.value);
   }
 
   setInputValue(String value, String discount) {
@@ -89,20 +97,25 @@ class DepositControllerPage extends GetxController {
       final data = DepositData.fromJson(d);
       pageData = data;
       // 设置下拉选项
-      depositSelectData.value = pageData.d!.map((e) => {'label': e.showName ?? '', 'value': e.fid ?? ''}).toList();
-      setDepositSelectLabelValue(depositSelectData[0]['value']!, depositSelectData[0]['label']!);
+      depositSelectData.value = pageData.d!
+          .map((e) => {'label': e.showName ?? '', 'value': e.fid ?? ''})
+          .toList();
+      setDepositSelectLabelValue(
+          depositSelectData[0]['value']!, depositSelectData[0]['label']!);
     }
     isFetching.value = false;
   }
 
   setDepositData() {
     // 设置快捷金额列表，从d中查找fid==当前选中的fid，如果找到了，就设置amount_array给depositData
-    final currentData = pageData.d!.firstWhere((e) => e.fid == depositSelectValue.value);
+    final currentData =
+        pageData.d!.firstWhere((e) => e.fid == depositSelectValue.value);
     final kList = currentData.amountArray ?? [];
     fmin.value = (currentData.fmin ?? '0').toString();
     fmax.value = (currentData.fmax ?? '0').toString();
-    depositData.value =
-        kList.map((e) => {'amount': e.amount ?? '', 'discount': e.discount ?? ''}).toList();
+    depositData.value = kList
+        .map((e) => {'amount': e.amount ?? '', 'discount': e.discount ?? ''})
+        .toList();
   }
 
   String getDepositInputPlaceholder() {
@@ -134,6 +147,28 @@ class DepositControllerPage extends GetxController {
     }
   }
 
+  /// 是否是首存
+  bool isFristDeposit() {
+    return configList[0].ty == 1;
+  }
+
+  /// 获取渲染的优惠列表
+  List getDepositAtividade() {
+    String bonus = (configList[0].bonus ?? '0').toString();
+    if (isFristDeposit()) {
+      return [
+        {'label': '$bonus% primeiro depósito', 'value': '1'},
+        {'label': 'não participe de atividades', 'value': '2'},
+      ];
+    } else {
+      // 保存第一项和最后一项
+      return [
+        {'label': '$bonus% de novo depósito', 'value': '1'},
+        {'label': 'não participe de atividades', 'value': '2'},
+      ];
+    }
+  }
+
   void submit() async {
     isClickSubmit.value = true;
     if (validateAmount() == null) {
@@ -142,6 +177,7 @@ class DepositControllerPage extends GetxController {
       final d = await apiRequest.requestPayDeposit({
         'fid': depositSelectValue.value,
         'amount': amountNode.text.value,
+        'flag': depositAtividadeValue.value,
       });
       final result = PayDepositData.fromJson(d);
       AppLoading.close();
