@@ -8,12 +8,10 @@ import '../../../../http/api.dart';
 import '../../../../util/Log.dart';
 import '../../../../util/entity/entites.dart';
 import '../../../../util/extensions.dart';
-import '../../../app_style.dart';
 import '../../../component/app_empty.dart';
 import '../../../entity/game_item.dart';
 import '../controllers/game_list_requests.dart';
 import '../controllers/home_controller.dart';
-import 'game_type_title_bar.dart';
 
 class Tab01HorizontalGameItemListWidget extends StatelessWidget {
   Tab01HorizontalGameItemListWidget({
@@ -37,7 +35,8 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
       RequestResultEntity? requestResultEntity = list.other;
       bool isLastPage = requestResultEntity?.isLastPage ?? false;
       var itemCount = isLastPage ? list.length : list.length + 1;
-      if (controller.selectedGameTypeIndex.value == 0) {
+      var tabIndex = controller.selectedGameTypeIndex.value;
+      if (tabIndex == 0) {
         if (listItemIndex == 0) {
           itemCount = list.length; // 第一行不显示加载更多
         } else {
@@ -47,21 +46,19 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
       if (list.isEmpty) {
         itemCount = 0;
       }
-      List<String> lever2Titles = controller.selectedGameTypeIndex.value == 0 ? titles : titles2;
+      List<String> lever2Titles = tabIndex == 0 ? titles : titles2;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if(listItemIndex == 0)
-          SizedBox(height: 20.w),
+          if (listItemIndex == 0) SizedBox(height: 20.w),
           Container(
             width: 1.sw,
             padding: EdgeInsets.only(left: 18.w, right: 18.w, top: 0.w, bottom: 6.w),
             child: Row(
               children: [
-                //  Image.asset("assets/images/index-title-home.webp", height: 83.w),
                 SizedBox(width: 2.w),
-              //  Image.asset("assets/images/game_title_icon$listItemIndex.png", width: 55.w),
-                SizedBox(width: 10.w),
+                Image.asset("assets/images/game_title_icon${tabIndex == 0 ? listItemIndex : listItemIndex + 2}.png", width: 55.w),
+                SizedBox(width: 14.w),
                 Text(
                   listItemIndex == -1 ? "Minha Coleção" : "RECOMENDAÇÕES".capitalizeFirstLetterOfEachWord(),
                   style: TextStyle(fontSize: 33.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
@@ -71,21 +68,25 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                   listItemIndex >= 0 ? lever2Titles[listItemIndex].capitalizeFirstLetterOfEachWord() : "",
                   style: TextStyle(fontSize: 33.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
                 ),
-                Expanded(
-                  child: Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.only(right: 10.w),
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      "More",
-                      style: TextStyle(fontSize: 24.w, color: const Color.fromRGBO(255, 255, 255, 0.6)),
-                    ),
-                  ),
-                ),
-                // Level2TypeTabs(
-                //   listItemIndex: listItemIndex,
-                //   controller: controller,
-                // )
+                tabIndex == 0 && listItemIndex == 0
+                    ? const SizedBox()
+                    : Expanded(
+                        child: Container(
+                          width: double.infinity,
+                          alignment: Alignment.centerRight,
+                          child: CupertinoButton(
+                            onPressed: () {
+                              onClickMore(listItemIndex, controller);
+                            },
+                            minSize: 0,
+                            padding: EdgeInsets.all(10.w),
+                            child: Text(
+                              "More",
+                              style: TextStyle(fontSize: 24.w, color: const Color.fromRGBO(255, 255, 255, 0.6)),
+                            ),
+                          ),
+                        ),
+                      ),
               ],
             ),
           ),
@@ -135,6 +136,15 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
   }
 }
 
+void onClickMore(int listItemIndex, HomeController controller) {
+  var tabIndex = controller.selectedGameTypeIndex.value;
+  if (tabIndex == 0 || tabIndex == 1) {
+    int tarTabIndex = tabIndex == 0 ? listItemIndex : listItemIndex + 2;
+    controller.switchTabWithAddPressedRecord(tarTabIndex);
+    controller.scrollController.jumpTo(0);
+  }
+}
+
 class ItemMoreWidget extends StatelessWidget {
   const ItemMoreWidget({
     super.key,
@@ -149,10 +159,7 @@ class ItemMoreWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoButton(
       onPressed: () {
-        if (controller.selectedGameTypeIndex.value == 0) {
-          controller.switchTabWithAddPressedRecord(listItemIndex);
-          controller.scrollController.jumpTo(0);
-        }
+        onClickMore(listItemIndex, controller);
       },
       minSize: 0,
       padding: EdgeInsets.zero,
