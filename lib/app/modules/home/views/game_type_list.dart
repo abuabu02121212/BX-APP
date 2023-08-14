@@ -57,8 +57,6 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
             child: Row(
               children: [
                 SizedBox(width: 2.w),
-                Image.asset("assets/images/game_title_icon${tabIndex == 0 ? listItemIndex : listItemIndex + 2}.png", width: 55.w),
-                SizedBox(width: 14.w),
                 Text(
                   listItemIndex == -1 ? "Minha Coleção" : "RECOMENDAÇÕES".capitalizeFirstLetterOfEachWord(),
                   style: TextStyle(fontSize: 33.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
@@ -109,7 +107,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         controller: scrollController,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.3),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.4),
                         itemBuilder: (BuildContext context, int index) {
                           bool isLoadMoreItem = list.length == index;
                           return isLoadMoreItem
