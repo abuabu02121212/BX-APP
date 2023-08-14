@@ -315,7 +315,7 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
                     controller: scrollController,
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: list.length > 1 ? 2 : 1, childAspectRatio: 1.2),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: list.length > 1 ? 2 : 1, childAspectRatio: 1.35),
                     itemBuilder: (BuildContext context, int index) {
                       bool isLoadMoreItem = list.length == index;
                       return isLoadMoreItem
