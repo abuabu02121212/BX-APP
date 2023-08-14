@@ -157,6 +157,7 @@ class _AppWebviewState extends State<AppWebview> {
     }
 
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(0, 10, 30, 1),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(_isAppBarVisible ? _appBarHeight : 0),
         child: AnimatedContainer(
