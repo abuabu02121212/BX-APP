@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:intl/intl.dart';
@@ -50,7 +52,7 @@ class AppUtil {
   static launch(String url) async {
     Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalNonBrowserApplication);
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
       Toast.show('Não foi possível abrir o link');
     }
