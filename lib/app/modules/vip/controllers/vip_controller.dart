@@ -62,10 +62,10 @@ class VipController extends GetxController {
       dataList.value = list;
       final GlobeController globeController = Get.find<GlobeController>();
       UserInfoEntity? entity = globeController.userInfoEntity.value;
-      int tarIndex = int.tryParse("${entity?.vip}") ?? 0;
+      int curLevel = int.tryParse("${entity?.vip}") ?? 0;
       if (dataList.isNotEmpty) {
-        var startIndex = int.tryParse("${entity?.vip}") ?? 0;
-        int curLevelIndex = tarIndex - startIndex;
+        var startIndex = int.tryParse("${dataList[0].vip}") ?? 0;
+        int curLevelIndex = curLevel - startIndex;
         pageController.jumpToPage(curLevelIndex);
         onLevelCardSelectChanged(curLevelIndex);
       }
