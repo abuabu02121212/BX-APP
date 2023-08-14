@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_comm/http/request.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +13,7 @@ class VipController extends GetxController {
 
   final nextLevelFlow = "?".obs;
   final curCardLevelProgress = 0.obs;
+  final PageController pageController = PageController(initialPage: 0, viewportFraction: 0.93);
 
   @override
   void onInit() {
@@ -50,14 +52,26 @@ class VipController extends GetxController {
   }
 
   Future<void> requestVip() async {
-    dynamic requestVips = await apiRequest.requestVips();
-    List<VipInfoEntity> list = [];
-    for (var element in requestVips) {
-      var item = VipInfoEntity.fromJson(element);
-      list.add(item);
+    try {
+      dynamic requestVips = await apiRequest.requestVips();
+      List<VipInfoEntity> list = [];
+      for (var element in requestVips) {
+        var item = VipInfoEntity.fromJson(element);
+        list.add(item);
+      }
+      dataList.value = list;
+      final GlobeController globeController = Get.find<GlobeController>();
+      UserInfoEntity? entity = globeController.userInfoEntity.value;
+      int curLevel = int.tryParse("${entity?.vip}") ?? 0;
+      if (dataList.isNotEmpty) {
+        var startIndex = int.tryParse("${dataList[0].vip}") ?? 0;
+        int curLevelIndex = curLevel - startIndex;
+        pageController.jumpToPage(curLevelIndex);
+        onLevelCardSelectChanged(curLevelIndex);
+      }
+    } catch (e) {
+      Log.e(e);
     }
-    dataList.value = list;
-    onLevelCardSelectChanged(0);
     Log.d("vip requestVips size:${dataList.length}");
   }
 

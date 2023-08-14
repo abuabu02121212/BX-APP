@@ -90,43 +90,36 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(left: 10.w, right: 10.w),
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30.w),
-                topRight: Radius.circular(30.w),
-                bottomRight: Radius.circular(30.w),
-              ),
-              child: itemCount != 0
-                  ? SizedBox(
-                      width: double.infinity,
-                      height: 560.w,
-                      //  decoration: BoxDecoration(gradient: headerLinearGradient),
-                      child: GridView.builder(
-                        padding: EdgeInsets.only(top: 20.w),
-                        itemCount: itemCount,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        controller: scrollController,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.4),
-                        itemBuilder: (BuildContext context, int index) {
-                          bool isLoadMoreItem = list.length == index;
-                          return isLoadMoreItem
-                              ? ItemMoreWidget(controller: controller, listItemIndex: listItemIndex)
-                              : GameItemWidget(
-                                  isVerticalItem: false,
-                                  gameEntity: list[index],
-                                  controller: controller,
-                                  listItemIndex: listItemIndex,
-                                );
-                        },
-                      ),
-                    )
-                  : AppEmpty(
-                      width: double.infinity,
-                      height: 400.w,
-                      alignment: Alignment.center,
+            child: itemCount != 0
+                ? SizedBox(
+                    width: double.infinity,
+                    height: 560.w,
+                    //  decoration: BoxDecoration(gradient: headerLinearGradient),
+                    child: GridView.builder(
+                      padding: EdgeInsets.only(top: 20.w),
+                      itemCount: itemCount,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      controller: scrollController,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.4),
+                      itemBuilder: (BuildContext context, int index) {
+                        bool isLoadMoreItem = list.length == index;
+                        return isLoadMoreItem
+                            ? ItemMoreWidget(controller: controller, listItemIndex: listItemIndex)
+                            : GameItemWidget(
+                                isVerticalItem: false,
+                                gameEntity: list[index],
+                                controller: controller,
+                                listItemIndex: listItemIndex,
+                              );
+                      },
                     ),
-            ),
+                  )
+                : AppEmpty(
+                    width: double.infinity,
+                    height: 400.w,
+                    alignment: Alignment.center,
+                  ),
           ),
         ],
       );
@@ -197,41 +190,44 @@ class GameItemWidget extends StatelessWidget {
         onGameItemClick(gameEntity);
       },
       minSize: 0,
-      padding: EdgeInsets.zero,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(16.w),
-                child: CachedNetworkImage(
-                  width: isVerticalItem ? 220.w : 180.w,
-                  height: 180.w,
-                  fit: BoxFit.cover,
-                  imageUrl: imgUrl,
+      padding: EdgeInsets.only(left: 6.w, right: 6.w, bottom: 11.w),
+      child: Container(
+        decoration: BoxDecoration(color: const Color(0xff11151E), borderRadius: BorderRadius.circular(16.w)),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(16.w),
+                  child: CachedNetworkImage(
+                    width: isVerticalItem ? 220.w : 180.w,
+                    height: 180.w,
+                    fit: BoxFit.cover,
+                    imageUrl: imgUrl,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 10.w),
+            Container(
+              padding: EdgeInsets.only(left: 20.w, right: 5.w),
+              alignment: Alignment.topLeft,
+              child: Text(
+                gameEntity.brAlias,
+                textAlign: TextAlign.start,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 24.w,
+                  color: const Color(0xffcccccc),
+                  fontWeight: FontWeight.w400,
                 ),
               ),
-            ],
-          ),
-          SizedBox(height: 10.w),
-          Container(
-            padding: EdgeInsets.only(left: 20.w, right: 5.w),
-            alignment: Alignment.topLeft,
-            child: Text(
-              gameEntity.brAlias,
-              textAlign: TextAlign.start,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 24.w,
-                color: const Color(0xffcccccc),
-                fontWeight: FontWeight.w400,
-              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -240,7 +240,7 @@ class GameTabListWidget extends StatelessWidget {
                       var selectedIndex = homeController.selectedGameTypeIndex.value;
                       bool isSelected = selectedIndex == index;
                       return Text(
-                        entity.name,
+                        entity.name.replaceAll("\n", ""),
                         style: TextStyle(
                           fontSize: 24.w,
                           color: Color.fromRGBO(255, 255, 255, isSelected ? 1 : 0.4),
@@ -596,7 +596,7 @@ class HeaderWidget extends StatelessWidget {
                       Obx(() {
                         return Image.asset(
                           "assets/images/vip/medal-${globeController.userInfoEntity.value?.vip}.webp",
-                          width: 60.w,
+                          width: 64.w,
                         );
                       }),
                     ],

@@ -26,7 +26,7 @@ class VipLevelCard extends StatelessWidget {
         UserInfoEntity? entity = globeController.userInfoEntity.value;
         return PageView.builder(
           itemCount: list.length,
-          controller: PageController(initialPage: 0, viewportFraction: 0.93),
+          controller: controller.pageController,
           scrollDirection: Axis.horizontal,
           onPageChanged: (pageIndex) {
             controller.onLevelCardSelectChanged(pageIndex);
@@ -52,7 +52,7 @@ class VipLevelCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Image.asset("assets/images/vip/medal-$index.webp", width: 142.w),
+                            Image.asset("assets/images/vip/medal-${item.vip}.webp", width: 142.w),
                             isLast
                                 ? const SizedBox()
                                 : Obx(() {
