@@ -138,14 +138,17 @@ class OtherTabListWidget extends StatelessWidget {
               switch (index) {
                 case 0:
                   Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_TELEGRAM);
+                  closeHomeDrawer();
                   break;
                 case 1:
                   closeHomeDrawer();
                   MainController mainController = Get.find<MainController>();
                   mainController.toVip();
+                  closeHomeDrawer();
                   break;
                 case 2:
                   Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.CUSTOMER_SERVICE);
+                  closeHomeDrawer();
                   break;
               }
             },
@@ -276,6 +279,7 @@ class ActivityWidget extends StatelessWidget {
             padding: EdgeInsets.zero,
             onPressed: () {
               Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_INVITE);
+              closeHomeDrawer();
             },
             child: SizedBox(
               width: 229.w,
@@ -291,6 +295,7 @@ class ActivityWidget extends StatelessWidget {
             padding: EdgeInsets.zero,
             onPressed: () {
               Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_REWARD_BOX);
+              closeHomeDrawer();
             },
             child: SizedBox(
               width: 229.w,
@@ -354,126 +359,6 @@ class BottomCopyWidget extends StatelessWidget {
   }
 }
 
-class ItemType2Widget extends StatelessWidget {
-  ItemType2Widget({
-    super.key,
-    required this.index,
-  });
-
-  final int index;
-  final List<String> names = [
-    "Bónus de Convite",
-    "Jackpot de desempacotar",
-    "Introdução ao nível VIP",
-    "Baixar aplicativo",
-  ];
-  final List<String> imgList = [
-    "left-activity",
-    "left-chest",
-    "left-vip",
-    "left_message",
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoButton(
-      onPressed: () {},
-      minSize: 0,
-      padding: EdgeInsets.only(left: 30.w),
-      child: SizedBox(
-        width: double.infinity,
-        height: 70.w,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              "assets/images/${imgList[index]}.webp",
-              width: 40.w,
-            ),
-            SizedBox(width: 20.w),
-            Text(
-              names[index],
-              style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w400),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ItemType1Widget extends StatelessWidget {
-  ItemType1Widget({
-    super.key,
-    required this.index,
-  });
-
-  final int index;
-
-  final List<LinearGradient> gradientList = [drawerItem1, drawerItem2, drawerItem3, drawerItem4];
-  final List<String> names = [
-    "Canal De Telegram",
-    "Primeiro depósito +20%",
-    "Recarregar Cashback +10%",
-    "Recompensa de check-in",
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoButton(
-      onPressed: () {
-        switch (index) {
-          case 0:
-            break;
-          case 1:
-            Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_FIRST_DEPOSIT);
-            break;
-          case 2:
-            Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_DEPOSIT_BONUS);
-            break;
-          case 3:
-            Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.ACTIVITY_DETAIL_CHECK_IN);
-            break;
-        }
-      },
-      minSize: 0,
-      padding: EdgeInsets.zero,
-      child: Container(
-        width: 550.w,
-        height: 72.w,
-        margin: EdgeInsets.only(top: 12.w),
-        padding: EdgeInsets.only(left: 32.w),
-        decoration: BoxDecoration(gradient: gradientList[index]),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              names[index],
-              style: TextStyle(
-                fontSize: 24.w,
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            index == 0
-                ? Padding(
-                    padding: EdgeInsets.only(right: 16.w),
-                    child: Image.asset(
-                      "assets/images/telegram-2.webp",
-                      height: 50.w,
-                    ),
-                  )
-                : const SizedBox(),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class HeaderWidget extends StatelessWidget {
   HeaderWidget({
