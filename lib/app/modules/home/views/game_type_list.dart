@@ -60,6 +60,8 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
               children: [
                 //  Image.asset("assets/images/index-title-home.webp", height: 83.w),
                 SizedBox(width: 2.w),
+              //  Image.asset("assets/images/game_title_icon$listItemIndex.png", width: 55.w),
+                SizedBox(width: 10.w),
                 Text(
                   listItemIndex == -1 ? "Minha Coleção" : "RECOMENDAÇÕES".capitalizeFirstLetterOfEachWord(),
                   style: TextStyle(fontSize: 33.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
@@ -80,14 +82,10 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-                  right: 0,
-                  top: 0,
-                  child: Level2TypeTabs(
-                    listItemIndex: listItemIndex,
-                    controller: controller,
-                  ),
-                )
+                // Level2TypeTabs(
+                //   listItemIndex: listItemIndex,
+                //   controller: controller,
+                // )
               ],
             ),
           ),

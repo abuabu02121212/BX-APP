@@ -36,17 +36,17 @@ class GameTypeTitleBar extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.only(right: 8.w),
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "More",
-                        style: TextStyle(fontSize: 24.w, color: const Color.fromRGBO(255, 255, 255, 0.6)),
-                      ),
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: Container(
+                  //     width: double.infinity,
+                  //     padding: EdgeInsets.only(right: 8.w),
+                  //     alignment: Alignment.centerRight,
+                  //     child: Text(
+                  //       "More",
+                  //       style: TextStyle(fontSize: 24.w, color: const Color.fromRGBO(255, 255, 255, 0.6)),
+                  //     ),
+                  //   ),
+                  // ),
                   // Level2TypeTabs(
                   //   listItemIndex: listItemIndex,
                   //   controller: controller,
