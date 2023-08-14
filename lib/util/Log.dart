@@ -47,7 +47,7 @@ class Log {
   static void _print(Level level, dynamic msg, {int traceDepth = 1}) {
     String traceInfo = getTraceInfo(level, traceDepth: traceDepth);
     String text = "${DateTime.now()} $traceInfo $tag$msg";
-    if(text.length > 5000){
+    if(text.length > 500){
       log(text);
       logger.log(level, text);
     }else{
