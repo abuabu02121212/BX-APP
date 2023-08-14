@@ -35,13 +35,15 @@ class CenterBankListAddView extends GetView<CenterBankListAddController> {
             Container(
               height: 94.w,
               alignment: Alignment.centerLeft,
-              child: Text(
-                'Nome completo: 0*****1 ',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 28.w,
-                ),
-              ),
+              child: Obx(() {
+                return Text(
+                  'Nome completo: ${controller.setNomeDousuarioName()}',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28.w,
+                  ),
+                );
+              }),
             ),
             Container(
               height: 72.w,
@@ -112,10 +114,10 @@ class CenterBankListAddView extends GetView<CenterBankListAddController> {
                             child: Align(
                               alignment: Alignment.centerRight,
                               child: Text(
-                                "Insira o nome do titular do cartão",
+                                "Insira o nome do titular\ndo cartão",
                                 style: TextStyle(
                                   color:
-                                      const Color.fromRGBO(255, 255, 255, 0.4),
+                                  const Color.fromRGBO(255, 255, 255, 0.4),
                                   fontSize: 28.w,
                                 ),
                               ),
@@ -136,6 +138,7 @@ class CenterBankListAddView extends GetView<CenterBankListAddController> {
                 ],
               ),
             ),
+            SizedBox(height: 34.w),
             // Container(
             //   width: double.infinity,
             //   height: 72.w,
@@ -269,6 +272,7 @@ class CenterBankListAddView extends GetView<CenterBankListAddController> {
                 ],
               ),
             ),
+            SizedBox(height: 34.w),
             Container(
               width: double.infinity,
               height: 72.w,
@@ -296,44 +300,46 @@ class CenterBankListAddView extends GetView<CenterBankListAddController> {
                   SizedBox(width: 10.w),
                   Expanded(
                       child: Stack(
-                    children: [
-                      Obx(() {
-                        return Visibility(
-                          visible: controller.pixAccountNode.text.isEmpty,
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Obx(
-                              () {
-                                return Text(
-                                  controller.waysSelectLabel.value,
-                                  style: TextStyle(
-                                      color: const Color.fromRGBO(
-                                          255, 255, 255, 0.4),
-                                      fontSize: 28.w),
-                                );
-                              },
-                            ),
-                          ),
-                        );
-                      }),
-                      Obx(() {
-                        return MyInputFiled(
-                          bgColor: Colors.transparent,
-                          width: double.infinity,
-                          keyboardType: controller.waysSelectValue.value == '2'
-                              ? TextInputType.text
-                              : TextInputType.number,
-                          textDirection: TextDirection.rtl,
-                          height: 72.w,
-                          hint: '',
-                          editNode: controller.pixAccountNode,
-                        );
-                      }),
-                    ],
-                  )),
+                        children: [
+                          Obx(() {
+                            return Visibility(
+                              visible: controller.pixAccountNode.text.isEmpty,
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: Obx(
+                                      () {
+                                    return Text(
+                                      controller.waysSelectLabel.value,
+                                      style: TextStyle(
+                                          color: const Color.fromRGBO(
+                                              255, 255, 255, 0.4),
+                                          fontSize: 28.w),
+                                    );
+                                  },
+                                ),
+                              ),
+                            );
+                          }),
+                          Obx(() {
+                            return MyInputFiled(
+                              bgColor: Colors.transparent,
+                              width: double.infinity,
+                              keyboardType: controller.waysSelectValue.value ==
+                                  '2'
+                                  ? TextInputType.text
+                                  : TextInputType.number,
+                              textDirection: TextDirection.rtl,
+                              height: 72.w,
+                              hint: '',
+                              editNode: controller.pixAccountNode,
+                            );
+                          }),
+                        ],
+                      )),
                 ],
               ),
             ),
+            SizedBox(height: 34.w),
             Container(
               height: 72.w,
               width: double.infinity,
@@ -373,6 +379,7 @@ class CenterBankListAddView extends GetView<CenterBankListAddController> {
                 ],
               ),
             ),
+            SizedBox(height: 34.w),
             AppButton(
               width: 580.w,
               height: 90.w,

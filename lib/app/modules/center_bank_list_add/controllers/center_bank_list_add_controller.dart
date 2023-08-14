@@ -10,6 +10,7 @@ import '../../../../globe_controller.dart';
 import '../../../../util/dialog.dart';
 
 class CenterBankListAddController extends GetxController {
+  final globalController = Get.find<GlobeController>();
   EditNode pixIdNode = EditNode();
   EditNode payPasswordInputNode = EditNode();
   // 用户名
@@ -39,6 +40,17 @@ class CenterBankListAddController extends GetxController {
   setWaysData(String label, String value) {
     waysSelectLabel.value = label;
     waysSelectValue.value = value;
+  }
+
+  setNomeDousuarioName() {
+    final userInfo = globalController.userInfoEntity;
+    if ((userInfo.value?.phoneVerify ?? "0") == '1') {
+      return userInfo.value?.phone ?? '';
+    }
+    if ((userInfo.value?.emailVerify ?? "0") == '1') {
+      return userInfo.value?.email ?? '';
+    }
+    return '';
   }
 
   void setBankTypeList() async {
@@ -113,7 +125,7 @@ class CenterBankListAddController extends GetxController {
     }
   }
 
-  final globalController = Get.find<GlobeController>();
+
 
 
   @override
