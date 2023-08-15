@@ -212,11 +212,10 @@ class GameItemWidget extends StatelessWidget {
             ),
             SizedBox(height: 10.w),
             Container(
-              padding: EdgeInsets.only(left: 20.w, right: 5.w),
-              alignment: Alignment.topLeft,
+              alignment: Alignment.center,
               child: Text(
                 gameEntity.brAlias,
-                textAlign: TextAlign.start,
+                textAlign: TextAlign.center,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
