@@ -415,9 +415,9 @@ class DepositView extends GetView<DepositController> {
             margin: EdgeInsets.only(bottom: 16.w, top: 36.w),
             padding: EdgeInsets.only(bottom: 10.w, left: 10.w, right: 10.w),
             child: Text(
-              "Prezado usuário, quando o valor da primeira recarga for maior que 50 reais, você receberá no máximo 20% de recompensa de recarga, e quando o valor da recarga for maior que 50 reais, você receberá no máximo 10% de recompensa de recarga! 6 vezes ao dia, quanto maior o valor da recarga, maior a proporção de presentes!!",
+              controller.depositControllerPage.depositTip.value,
               style: TextStyle(
-                color: Color(0xffF7BA17),
+                color: const Color(0xffF7BA17),
                 fontSize: 24.w,
                 height: 1.5,
               ),

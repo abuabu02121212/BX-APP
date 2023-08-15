@@ -17,6 +17,7 @@ class DepositControllerPage extends GetxController {
   final amountIndex = 0.obs;
   late DepositData pageData = DepositData();
   final payRate = 0.0.obs;
+  final depositTip = ''.obs;
 
   final depositData = <Map<String, String>>[
     {'amount': '50', 'discount': '1'},
@@ -96,6 +97,7 @@ class DepositControllerPage extends GetxController {
     if (d != null) {
       final data = DepositData.fromJson(d);
       pageData = data;
+      depositTip.value = data.c ?? '';
       // 设置下拉选项
       depositSelectData.value = pageData.d!
           .map((e) => {'label': e.showName ?? '', 'value': e.fid ?? ''})
