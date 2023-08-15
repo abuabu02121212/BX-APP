@@ -47,81 +47,87 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
         itemCount = 0;
       }
       List<String> lever2Titles = tabIndex == 0 ? titles : titles2;
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-        //  if (listItemIndex == 0) SizedBox(height: 20.w),
-          Container(
-            width: 1.sw,
-            padding: EdgeInsets.only(left: 18.w, right: 18.w, top: 32.w, bottom: 24.w),
-            child: Row(
+      return list.isEmpty
+          ? const SizedBox()
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(width: 2.w),
-                Text(
-                  listItemIndex == -1 ? "Minha Coleção" : "RECOMENDAÇÕES".capitalizeFirstLetterOfEachWord(),
-                  style: TextStyle(fontSize: 33.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
-                ),
-                SizedBox(width: 15.w),
-                Text(
-                  listItemIndex >= 0 ? lever2Titles[listItemIndex].capitalizeFirstLetterOfEachWord() : "",
-                  style: TextStyle(fontSize: 33.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
-                ),
-                tabIndex == 0 && listItemIndex == 0
-                    ? const SizedBox()
-                    : Expanded(
-                        child: Container(
-                          width: double.infinity,
-                          alignment: Alignment.centerRight,
-                          child: CupertinoButton(
-                            onPressed: () {
-                              onClickMore(listItemIndex, controller);
-                            },
-                            minSize: 0,
-                            padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.w, bottom: 10.w),
-                            child: Text(
-                              "More",
-                              style: TextStyle(fontSize: 24.w, color: const Color.fromRGBO(255, 255, 255, 0.6)),
-                            ),
-                          ),
-                        ),
+                //  if (listItemIndex == 0) SizedBox(height: 20.w),
+                Container(
+                  width: 1.sw,
+                  padding: EdgeInsets.only(left: 18.w, right: 18.w, top: 32.w, bottom: 24.w),
+                  child: Row(
+                    children: [
+                      SizedBox(width: 2.w),
+                      Text(
+                        listItemIndex == -1 ? "Minha Coleção" : "RECOMENDAÇÕES".capitalizeFirstLetterOfEachWord(),
+                        style: TextStyle(fontSize: 33.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
                       ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 10.w, right: 10.w),
-            child: itemCount != 0
-                ? Container(
-                    width: double.infinity,
-                    height: 560.w,
-                 //   color: Colors.blue,
-                    child: GridView.builder(
-                      itemCount: itemCount,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      controller: scrollController,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.4, crossAxisSpacing: 12.w),
-                      itemBuilder: (BuildContext context, int index) {
-                        bool isLoadMoreItem = list.length == index;
-                        return isLoadMoreItem
-                            ? ItemMoreWidget(controller: controller, listItemIndex: listItemIndex)
-                            : GameItemWidget(
-                                isVerticalItem: false,
-                                gameEntity: list[index],
-                                controller: controller,
-                                listItemIndex: listItemIndex,
-                              );
-                      },
-                    ),
-                  )
-                : AppEmpty(
-                    width: double.infinity,
-                    height: 400.w,
-                    alignment: Alignment.center,
+                      SizedBox(width: 15.w),
+                      Text(
+                        listItemIndex >= 0 ? lever2Titles[listItemIndex].capitalizeFirstLetterOfEachWord() : "",
+                        style: TextStyle(fontSize: 33.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
+                      ),
+                      tabIndex == 0 && listItemIndex == 0
+                          ? const SizedBox()
+                          : Expanded(
+                              child: Container(
+                                width: double.infinity,
+                                alignment: Alignment.centerRight,
+                                child: CupertinoButton(
+                                  onPressed: () {
+                                    onClickMore(listItemIndex, controller);
+                                  },
+                                  minSize: 0,
+                                  padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.w, bottom: 10.w),
+                                  child: Text(
+                                    "More",
+                                    style: TextStyle(fontSize: 24.w, color: const Color.fromRGBO(255, 255, 255, 0.6)),
+                                  ),
+                                ),
+                              ),
+                            ),
+                    ],
                   ),
-          ),
-        ],
-      );
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                  child: itemCount != 0
+                      ? Container(
+                          width: double.infinity,
+                          height: list.length > 1 ? 560.w : 280.w,
+                          //   color: Colors.blue,
+                          child: GridView.builder(
+                            itemCount: itemCount,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            controller: scrollController,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: list.length > 1 ? 2 : 1,
+                              childAspectRatio: 1.4,
+                              crossAxisSpacing: 12.w,
+                            ),
+                            itemBuilder: (BuildContext context, int index) {
+                              bool isLoadMoreItem = list.length == index;
+                              return isLoadMoreItem
+                                  ? ItemMoreWidget(controller: controller, listItemIndex: listItemIndex)
+                                  : GameItemWidget(
+                                      isVerticalItem: false,
+                                      gameEntity: list[index],
+                                      controller: controller,
+                                      listItemIndex: listItemIndex,
+                                    );
+                            },
+                          ),
+                        )
+                      : AppEmpty(
+                          width: double.infinity,
+                          height: 400.w,
+                          alignment: Alignment.center,
+                        ),
+                ),
+              ],
+            );
     });
   }
 }
@@ -182,7 +188,7 @@ class GameItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String imgUrl = getRealImageUrl(gameEntity);
-    if(gameEntity.brAlias.isEmpty){
+    if (gameEntity.brAlias.isEmpty) {
       gameEntity.brAlias = gameEntity.getPlatformName(controller.navItemList).replaceAll("Esporte ", "");
     }
     return CupertinoButton(

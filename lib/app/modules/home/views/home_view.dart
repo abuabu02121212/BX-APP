@@ -287,7 +287,6 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
   final HomeController controller;
   final AppRxList<GameEntity> list;
   final int listItemIndex;
-  final pageIndex = 1.obs;
   final AppScrollController scrollController = AppScrollController();
 
   @override
@@ -306,7 +305,7 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
           return list.isNotEmpty
               ? SizedBox(
                   width: double.infinity,
-                  height: list.length > 1 ? 560.w : 270.w,
+                  height: list.length > 1 ? 560.w : 280.w,
                   //    color: Colors.pink,
                   child: GridView.builder(
                     itemCount: isLastPage ? list.length : list.length + 1,
