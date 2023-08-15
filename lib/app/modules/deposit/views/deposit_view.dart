@@ -687,7 +687,7 @@ class DepositView extends GetView<DepositController> {
           ),
           child: Obx(() {
             return Column(
-              children: List.generate(
+              children: controller.depositControllerPage.configList.isNotEmpty ? List.generate(
                 controller.depositControllerPage.getDepositAtividade().length,
                 (index) => Padding(
                   padding: EdgeInsets.symmetric(vertical: 27.w),
@@ -719,7 +719,7 @@ class DepositView extends GetView<DepositController> {
                     ),
                   ),
                 ),
-              ),
+              ) : [],
             );
           }),
         )
@@ -781,22 +781,26 @@ class DepositView extends GetView<DepositController> {
                     );
                   }),
                 ),
-                Positioned(
-                  right: 0,
-                  top: 0,
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: 67.w,
-                    height: 22.w,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/i-label-bg.webp"),
-                        fit: BoxFit.cover,
+                Visibility(
+                  visible: controller.depositControllerPage.depositData[i]
+                          ['discount']!.isNotEmpty,
+                  child: Positioned(
+                    right: 0,
+                    top: 0,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 67.w,
+                      height: 22.w,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/i-label-bg.webp"),
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      "+${controller.depositControllerPage.depositData[i]['discount']}",
-                      style: TextStyle(color: Colors.white, fontSize: 18.w),
+                      child: Text(
+                        "+${controller.depositControllerPage.depositData[i]['discount']}",
+                        style: TextStyle(color: Colors.white, fontSize: 18.w),
+                      ),
                     ),
                   ),
                 )

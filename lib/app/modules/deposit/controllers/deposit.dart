@@ -28,7 +28,6 @@ class DepositControllerPage extends GetxController {
     {'label': 'B', 'value': '2'}
   ].obs;
 
-
   final depositSelectValue = '1'.obs;
   final depositSelectLabel = 'A'.obs;
   final depositDiscount = '0'.obs;
@@ -40,6 +39,7 @@ class DepositControllerPage extends GetxController {
   final configList = <DepositConfigData>[].obs;
 
   final depositAtividadeValue = '1'.obs;
+
   setAtividadeValue(String value) {
     depositAtividadeValue.value = value;
   }
@@ -71,8 +71,8 @@ class DepositControllerPage extends GetxController {
     getDepositDiscountValue();
   }
 
-  getDepositDiscountValue() {
-    final currentInputValue = amountNode.text.value;
+  getDepositDiscountValue({String? value}) {
+    final currentInputValue = value ?? amountNode.text.value;
     double a = 0.00;
     if (currentInputValue.isEmpty) {
       return a;
@@ -110,12 +110,26 @@ class DepositControllerPage extends GetxController {
     // 设置快捷金额列表，从d中查找fid==当前选中的fid，如果找到了，就设置amount_array给depositData
     final currentData =
         pageData.d!.firstWhere((e) => e.fid == depositSelectValue.value);
-    final kList = currentData.amountArray ?? [];
-    fmin.value = (currentData.fmin ?? '0').toString();
-    fmax.value = (currentData.fmax ?? '0').toString();
-    depositData.value = kList
-        .map((e) => {'amount': e.amount ?? '', 'discount': e.discount ?? ''})
-        .toList();
+
+    if (currentData.amountList != null) {
+      final amountList = currentData.amountList!.split(',');
+      final kList = amountList;
+      fmin.value = (currentData.fmin ?? '0').toString();
+      fmax.value = (currentData.fmax ?? '0').toString();
+      depositData.value = kList.map(
+        (e) {
+          String discount = '';
+          double depositDiscountValue = getDepositDiscountValue(value: e);
+          if (depositDiscountValue > 0) {
+            discount = depositDiscountValue.toString();
+          }
+          return {
+            'amount': e,
+            'discount': discount,
+          };
+        },
+      ).toList();
+    }
   }
 
   String getDepositInputPlaceholder() {
@@ -190,10 +204,10 @@ class DepositControllerPage extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
+    await getDepositConfig();
     super.onInit();
     initChannelData();
-    getDepositConfig();
   }
 
   @override
