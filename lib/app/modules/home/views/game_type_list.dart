@@ -95,7 +95,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                   child: itemCount != 0
                       ? Container(
                           width: double.infinity,
-                          height: list.length > 1 ? 560.w : 280.w,
+                          height: list.length > 1 ? 572.w : 286.w,
                           //   color: Colors.blue,
                           child: GridView.builder(
                             itemCount: itemCount,
@@ -201,6 +201,8 @@ class GameItemWidget extends StatelessWidget {
       padding: EdgeInsets.only(left: 6.w, right: 6.w),
       child: Container(
         decoration: BoxDecoration(color: const Color(0xff11151E), borderRadius: BorderRadius.circular(16.w)),
+        width: 200.w,
+        height: 280.w,
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -210,26 +212,29 @@ class GameItemWidget extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(16.w),
                   child: CachedNetworkImage(
-                    width: isVerticalItem ? 220.w : 180.w,
-                    height: 180.w,
+                    width: isVerticalItem ? 220.w : 200.w,
+                    height: isVerticalItem ? 230 : 210.w,
                     fit: BoxFit.cover,
                     imageUrl: imgUrl,
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 10.w),
-            Container(
-              alignment: Alignment.center,
-              child: Text(
-                gameEntity.brAlias,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 24.w,
-                  color: const Color(0xffcccccc),
-                  fontWeight: FontWeight.w400,
+            Expanded(
+              child: Container(
+                alignment: Alignment.center,
+                height: double.infinity,
+                width: double.infinity,
+                child: Text(
+                  gameEntity.brAlias,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 24.w,
+                    color: const Color.fromRGBO(255, 255, 255, 0.60),
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
             ),

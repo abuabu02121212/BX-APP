@@ -43,7 +43,7 @@ class HomeView extends GetView<HomeController> {
           },
           child: Center(
             child: Container(
-              color: Colors.black,
+              color: const Color(0xff000A1D),
               width: double.infinity,
               height: double.infinity,
               alignment: Alignment.topLeft,
@@ -305,7 +305,7 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
           return list.isNotEmpty
               ? SizedBox(
                   width: double.infinity,
-                  height: list.length > 1 ? 560.w : 280.w,
+                  height: list.length > 1 ? 572.w : 286.w,
                   //    color: Colors.pink,
                   child: GridView.builder(
                     itemCount: isLastPage ? list.length : list.length + 1,
@@ -351,58 +351,58 @@ class HomeGameTypesTabWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: const Color(0xff0F1A34),
-      padding: EdgeInsets.only(left: 18.w, top: 29.w, bottom: 20.w),
+      height: 124.w,
+      padding: EdgeInsets.only(left: 18.w, top: 20.w),
       width: double.infinity,
+      alignment: Alignment.topLeft,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            width: 628.w,
-            child: SizedBox(
-                height: 88.w,
-                child: Obx(() {
-                  return ListView.separated(
-                    itemCount: controller.gameTypes.length,
-                    physics: const BouncingScrollPhysics(),
-                    controller: controller.sc2,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Obx(() {
-                        bool isSelected = controller.selectedGameTypeIndex.value == index;
-                        return CupertinoButton(
-                          onPressed: () {
-                            if (controller.selectedGameTypeIndex.value != index) {
-                              controller.switchTabWithAddPressedRecord(index);
-                            }
-                          },
-                          minSize: 0,
-                          padding: EdgeInsets.zero,
+              width: 628.w,
+              child: Obx(() {
+                return ListView.separated(
+                  itemCount: controller.gameTypes.length,
+                  physics: const BouncingScrollPhysics(),
+                  controller: controller.sc2,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Obx(() {
+                      bool isSelected = controller.selectedGameTypeIndex.value == index;
+                      return CupertinoButton(
+                        onPressed: () {
+                          if (controller.selectedGameTypeIndex.value != index) {
+                            controller.switchTabWithAddPressedRecord(index);
+                          }
+                        },
+                        minSize: 0,
+                        padding: EdgeInsets.zero,
+                        alignment: Alignment.topLeft,
+                        child: Container(
                           alignment: Alignment.center,
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: 88.w,
-                            decoration: BoxDecoration(
-                                color: isSelected ? const Color.fromRGBO(0, 52, 166, 0.8) : const Color(0xff0F1A34), borderRadius: BorderRadius.circular(12.w)),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Image.asset("assets/images/game-tab$index.webp", width: 78.w),
-                              ],
-                            ),
+                          height: 84.w,
+                          width: 84.w,
+                          decoration: BoxDecoration(
+                              color: isSelected ? const Color.fromRGBO(0, 52, 166, 0.8) : const Color(0xff0F1A34), borderRadius: BorderRadius.circular(12.w)),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Image.asset("assets/images/game-tab$index.webp", width: 84.w),
+                            ],
                           ),
-                        );
-                      });
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return SizedBox(
-                        width: 10.w,
+                        ),
                       );
-                    },
-                  );
-                })),
-          ),
+                    });
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                      width: 15.w,
+                    );
+                  },
+                );
+              })),
           SizedBox(
             width: 10.w,
           ),
