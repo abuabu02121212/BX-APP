@@ -49,7 +49,7 @@ class HomeHeader extends StatelessWidget {
           Obx(() {
             var userInfo = globeController.balance.value;
             return userInfo == null
-                ?  Container(
+                ? Container(
                     width: 450.w,
                     alignment: Alignment.centerRight,
                     child: const LoginRegisterBtnWidget(defColorList: LoginRegisterBtnWidget.cList2),
@@ -58,32 +58,11 @@ class HomeHeader extends StatelessWidget {
                     width: 350.w,
                     height: 60.w,
                     margin: EdgeInsets.only(left: 98.w),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100.w),
-                      gradient: const LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.transparent,
-                          Color(0xFF011A51),
-                        ],
-                      ),
-                      boxShadow:  [
-                        BoxShadow(
-                          color: const Color.fromRGBO(255, 255, 255, 0.30),
-                          blurRadius: 4.w,
-                          spreadRadius: 1.w,
-                          offset: Offset(0, 1.w),
-                        ),
-                        BoxShadow(
-                          color: const Color.fromRGBO(0, 0, 0, 0.10),
-                          blurRadius: 0,
-                          spreadRadius: 0,
-                          offset: Offset(0, 1.w),
-                        ),
-                      ],
-                      // You can also set other properties like border, etc.
-                    ),
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage(
+                      "assets/images/home_balance_bg.webp",
+                    ))),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,10 +93,10 @@ class HomeHeader extends StatelessWidget {
                           ),
                         ),
                         Container(
-                       // color: Colors.red,
-                        width: 160.w,
-                        padding: EdgeInsets.only(left: 8.w),
-                        alignment: Alignment.centerLeft,
+                          // color: Colors.red,
+                          width: 160.w,
+                          padding: EdgeInsets.only(left: 8.w),
+                          alignment: Alignment.centerLeft,
                           child: Text(
                             AppUtil.amountFormat(globeController.balance.value?.brl ?? '0'),
                             style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w400),
@@ -128,6 +107,8 @@ class HomeHeader extends StatelessWidget {
                           height: 60.w,
                           radius: 30.w,
                           borderRadius: BorderRadius.horizontal(right: Radius.circular(60.w)),
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
                           text: 'Conta',
                           onClick: () {
                             MainController mainController = Get.find<MainController>();
@@ -228,8 +209,7 @@ class SearchWidget extends StatelessWidget {
         child: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100.w), border: Border.all(color: const Color.fromRGBO(4, 75, 154, 0.5), width: 1.w)),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(100.w), border: Border.all(color: const Color.fromRGBO(4, 75, 154, 0.5), width: 1.w)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
