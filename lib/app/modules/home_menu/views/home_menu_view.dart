@@ -349,6 +349,8 @@ class BottomCopyWidget extends StatelessWidget {
             radius: 56.w,
             borderRadius: BorderRadius.horizontal(right: Radius.circular(56.w)),
             text: 'Cópia',
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
             onClick: () {
               copyText(text);
             },
