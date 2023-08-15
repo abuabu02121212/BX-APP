@@ -170,6 +170,17 @@ class DepositControllerPage extends GetxController {
 
   /// 获取渲染的优惠列表
   List getDepositAtividade() {
+    // depositAtividadeValue
+    double amount = getDepositDiscountValue();
+
+    // 不参与活动
+    if (amountNode.text.isNotEmpty && amount <= 0) {
+      setAtividadeValue('2');
+      return [
+        {'label': 'não participe de atividades', 'value': '2'},
+      ];
+    }
+
     String bonus = (configList[0].bonus ?? '0').toString();
     if (isFristDeposit()) {
       return [

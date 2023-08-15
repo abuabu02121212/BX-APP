@@ -672,11 +672,6 @@ class DepositView extends GetView<DepositController> {
         Container(
           width: double.infinity,
           padding: EdgeInsets.only(left: 24.w, right: 24.w),
-          /**
-           * border-radius: 8px;
-              border: 1px solid rgba(255, 255, 255, 0.10);
-              background: linear-gradient(0deg, #011A51 0%, #011A51 100%), #2A2E3E;
-           */
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.w),
             border: Border.all(
