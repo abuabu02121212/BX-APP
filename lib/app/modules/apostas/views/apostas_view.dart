@@ -153,7 +153,6 @@ class ApostasView extends GetView<ApostasController> {
                               controller.setShowHeader(false);
                             },
                             builder: (dynamic el, int index) {
-                              controller.setShowHeader(true);
                               final item = GameRecordD.fromJson(el);
                               return _buildItem(
                                 isOdd: !index.isOdd,

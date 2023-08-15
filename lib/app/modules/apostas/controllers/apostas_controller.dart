@@ -30,7 +30,7 @@ class ApostasController extends GetxController  with GetSingleTickerProviderStat
   final flag = '1'.obs; // 1 今天 7 七天 60 六十天
   final gt = '0'.obs; // 0 全部 1 赢
 
-  final isShowHeader = false.obs;
+  final isShowHeader = true.obs;
 
   setShowHeader(bool v) {
     isShowHeader.value = v;
@@ -50,9 +50,8 @@ class ApostasController extends GetxController  with GetSingleTickerProviderStat
 
   @override
   void onInit() {
-    super.onInit();
-
     tabController = TabController(length: 2, vsync: this);
+    super.onInit();
   }
 
   @override
