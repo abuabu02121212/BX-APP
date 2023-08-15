@@ -104,7 +104,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                             controller: scrollController,
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: list.length > 1 ? 2 : 1,
-                              childAspectRatio: 1.4,
+                              childAspectRatio: 1.3,
                               crossAxisSpacing: 12.w,
                             ),
                             itemBuilder: (BuildContext context, int index) {

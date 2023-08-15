@@ -315,7 +315,7 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: list.length > 1 ? 2 : 1,
-                      childAspectRatio: 1.4,
+                      childAspectRatio: 1.3,
                       crossAxisSpacing: 12.w,
                     ),
                     itemBuilder: (BuildContext context, int index) {
@@ -408,11 +408,9 @@ class HomeGameTypesTabWidget extends StatelessWidget {
           ),
           CupertinoButton(
             minSize: 0,
-            padding: EdgeInsets.all(10.w),
-            child: Container(
-              alignment: Alignment.center,
-              child: Image.asset("assets/images/game-tab-search.webp", width: 66.w),
-            ),
+            padding: EdgeInsets.only(top: 8.w),
+            alignment: Alignment.topLeft,
+            child: Image.asset("assets/images/game-tab-search.webp", width: 66.w),
             onPressed: () {
               showSearchDialog(null);
             },
