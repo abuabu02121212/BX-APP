@@ -50,10 +50,10 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (listItemIndex == 0) SizedBox(height: 20.w),
+        //  if (listItemIndex == 0) SizedBox(height: 20.w),
           Container(
             width: 1.sw,
-            padding: EdgeInsets.only(left: 18.w, right: 18.w, top: 0.w, bottom: 6.w),
+            padding: EdgeInsets.only(left: 18.w, right: 18.w, top: 32.w, bottom: 24.w),
             child: Row(
               children: [
                 SizedBox(width: 2.w),
@@ -77,7 +77,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                               onClickMore(listItemIndex, controller);
                             },
                             minSize: 0,
-                            padding: EdgeInsets.all(10.w),
+                            padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.w, bottom: 10.w),
                             child: Text(
                               "More",
                               style: TextStyle(fontSize: 24.w, color: const Color.fromRGBO(255, 255, 255, 0.6)),
@@ -91,17 +91,16 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 10.w, right: 10.w),
             child: itemCount != 0
-                ? SizedBox(
+                ? Container(
                     width: double.infinity,
                     height: 560.w,
-                    //  decoration: BoxDecoration(gradient: headerLinearGradient),
+                 //   color: Colors.blue,
                     child: GridView.builder(
-                      padding: EdgeInsets.only(top: 20.w),
                       itemCount: itemCount,
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       controller: scrollController,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.4),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 1.4, crossAxisSpacing: 12.w),
                       itemBuilder: (BuildContext context, int index) {
                         bool isLoadMoreItem = list.length == index;
                         return isLoadMoreItem
@@ -183,6 +182,9 @@ class GameItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String imgUrl = getRealImageUrl(gameEntity);
+    if(gameEntity.brAlias.isEmpty){
+      gameEntity.brAlias = gameEntity.getPlatformName(controller.navItemList).replaceAll("Esporte ", "");
+    }
     return CupertinoButton(
       onPressed: () {
         Log.d("gameEntity:${gameEntity.toJson()}");
@@ -190,7 +192,7 @@ class GameItemWidget extends StatelessWidget {
         onGameItemClick(gameEntity);
       },
       minSize: 0,
-      padding: EdgeInsets.only(left: 6.w, right: 6.w, bottom: 11.w),
+      padding: EdgeInsets.only(left: 6.w, right: 6.w),
       child: Container(
         decoration: BoxDecoration(color: const Color(0xff11151E), borderRadius: BorderRadius.circular(16.w)),
         child: Column(

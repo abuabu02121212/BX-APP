@@ -124,7 +124,9 @@ class ActivityWidget extends StatelessWidget {
             padding: EdgeInsets.zero,
             child: Image.asset("assets/images/home_aty_2.webp", height: 119.w),
           ),
-          SizedBox(width: 20.w,),
+          SizedBox(
+            width: 20.w,
+          ),
           CupertinoButton(
             onPressed: () {
               final List<List<PromotionEntity>> listData = PromotionEntity.getLocalData();
@@ -155,7 +157,6 @@ class Tab2PageWidget extends StatelessWidget {
       return ListView.builder(
           itemCount: controller.tab2List.length,
           physics: const NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.only(top: 20.w),
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             AppRxList<GameEntity> gameRxList = controller.tab2List[index];
@@ -299,23 +300,25 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
           listItemIndex: listItemIndex,
           typeName: list.strExt ?? "",
         ),
-        // SizedBox(height: 10.w,),
         Obx(() {
           RequestResultEntity? requestResultEntity = list.other;
           bool isLastPage = requestResultEntity?.isLastPage ?? false;
           return list.isNotEmpty
               ? SizedBox(
                   width: double.infinity,
-                  height: list.length > 1 ? 540.w : 270.w,
+                  height: list.length > 1 ? 560.w : 270.w,
                   //    color: Colors.pink,
                   child: GridView.builder(
-                    padding: EdgeInsets.only(top: 20.w),
                     itemCount: isLastPage ? list.length : list.length + 1,
                     physics: const BouncingScrollPhysics(),
                     controller: scrollController,
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: list.length > 1 ? 2 : 1, childAspectRatio: 1.35),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: list.length > 1 ? 2 : 1,
+                      childAspectRatio: 1.4,
+                      crossAxisSpacing: 12.w,
+                    ),
                     itemBuilder: (BuildContext context, int index) {
                       bool isLoadMoreItem = list.length == index;
                       return isLoadMoreItem
@@ -361,7 +364,6 @@ class HomeGameTypesTabWidget extends StatelessWidget {
             child: SizedBox(
                 height: 88.w,
                 child: Obx(() {
-
                   return ListView.separated(
                     itemCount: controller.gameTypes.length,
                     physics: const BouncingScrollPhysics(),
@@ -382,9 +384,8 @@ class HomeGameTypesTabWidget extends StatelessWidget {
                           child: Container(
                             alignment: Alignment.center,
                             width: 88.w,
-                            decoration:
-                                BoxDecoration(color: isSelected ? const Color.fromRGBO(0, 52, 166, 0.8) : const Color(0xff0F1A34), borderRadius: BorderRadius
-                              .circular(12.w)),
+                            decoration: BoxDecoration(
+                                color: isSelected ? const Color.fromRGBO(0, 52, 166, 0.8) : const Color(0xff0F1A34), borderRadius: BorderRadius.circular(12.w)),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [

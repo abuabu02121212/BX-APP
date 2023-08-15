@@ -21,7 +21,7 @@ class GameTypeTitleBar extends StatelessWidget {
     return Container(
       width: double.infinity,
       //  color: Colors.blue,
-      margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: listItemIndex > 0 ? 10.w : 0.w, top: 0.w),
+      margin: EdgeInsets.only(left: 20.w, right: 20.w, top: 32.w, bottom: 24.w),
       child: Obx(() {
         int selectedIndex = controller.selectedGameTypeIndex.value;
         return selectedIndex != 0
