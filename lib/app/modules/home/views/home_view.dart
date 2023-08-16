@@ -315,8 +315,9 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: list.length > 1 ? 2 : 1,
-                      childAspectRatio: 1.3,
-                      crossAxisSpacing: 12.w,
+                        childAspectRatio: 1.39,
+                        crossAxisSpacing: 12.w,
+                        mainAxisSpacing: 12.w
                     ),
                     itemBuilder: (BuildContext context, int index) {
                       bool isLoadMoreItem = list.length == index;
@@ -408,7 +409,7 @@ class HomeGameTypesTabWidget extends StatelessWidget {
           ),
           CupertinoButton(
             minSize: 0,
-            padding: EdgeInsets.only(top: 8.w),
+            padding: EdgeInsets.only(top: 8.w, left: 8.w, right: 8.w, bottom: 8.w),
             alignment: Alignment.topLeft,
             child: Image.asset("assets/images/game-tab-search.webp", width: 66.w),
             onPressed: () {

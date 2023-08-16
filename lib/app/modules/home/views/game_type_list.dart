@@ -96,7 +96,6 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                       ? Container(
                           width: double.infinity,
                           height: list.length > 1 ? 572.w : 286.w,
-                          //   color: Colors.blue,
                           child: GridView.builder(
                             itemCount: itemCount,
                             shrinkWrap: true,
@@ -104,8 +103,9 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                             controller: scrollController,
                             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: list.length > 1 ? 2 : 1,
-                              childAspectRatio: 1.3,
+                              childAspectRatio: 1.39,
                               crossAxisSpacing: 12.w,
+                              mainAxisSpacing: 12.w
                             ),
                             itemBuilder: (BuildContext context, int index) {
                               bool isLoadMoreItem = list.length == index;
@@ -198,11 +198,11 @@ class GameItemWidget extends StatelessWidget {
         onGameItemClick(gameEntity);
       },
       minSize: 0,
-      padding: EdgeInsets.only(left: 6.w, right: 6.w),
+      padding: EdgeInsets.zero,
       child: Container(
         decoration: BoxDecoration(color: const Color(0xff11151E), borderRadius: BorderRadius.circular(16.w)),
-        width: 200.w,
-        height: 280.w,
+        width: double.infinity,
+        height: isVerticalItem ? double.infinity : 280.w,
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -212,8 +212,8 @@ class GameItemWidget extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(16.w),
                   child: CachedNetworkImage(
-                    width: isVerticalItem ? 220.w : 200.w,
-                    height: isVerticalItem ? 230 : 210.w,
+                    width: double.infinity,
+                    height: 210.w,
                     fit: BoxFit.cover,
                     imageUrl: imgUrl,
                   ),

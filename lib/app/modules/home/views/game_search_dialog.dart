@@ -99,7 +99,9 @@ class GameSearchWidget extends StatelessWidget {
     }
   }
 }
+
 int searchDialogListItemIndex = -9;
+
 class GameGridWidget extends StatelessWidget {
   GameGridWidget({
     super.key,
@@ -128,7 +130,12 @@ class GameGridWidget extends StatelessWidget {
               shrinkWrap: true,
               controller: scrollController,
               physics: const BouncingScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, childAspectRatio: 0.9),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                childAspectRatio: 0.8,
+                mainAxisSpacing: 14.w,
+                crossAxisSpacing: 14.w
+              ),
               itemBuilder: (BuildContext context, int index) {
                 bool isLoadMoreItem = searchRxList.length == index;
                 return isLoadMoreItem
