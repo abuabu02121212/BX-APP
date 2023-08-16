@@ -202,7 +202,7 @@ class GameItemWidget extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(color: const Color(0xff11151E), borderRadius: BorderRadius.circular(16.w)),
         width: double.infinity,
-        height: isVerticalItem ? double.infinity : 280.w,
+        height: double.infinity,
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
