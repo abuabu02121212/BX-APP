@@ -60,7 +60,7 @@ class Tab01HorizontalGameItemListWidget extends StatelessWidget {
                     children: [
                       SizedBox(width: 2.w),
                       Text(
-                        listItemIndex == -1 ? "Minha Coleção" : "RECOMENDAÇÕES".capitalizeFirstLetterOfEachWord(),
+                        listItemIndex == -1 ? "Minha Coleção" : "",
                         style: TextStyle(fontSize: 33.w, color: Colors.white, fontWeight: FontWeight.w700, fontStyle: FontStyle.normal),
                       ),
                       SizedBox(width: 15.w),
