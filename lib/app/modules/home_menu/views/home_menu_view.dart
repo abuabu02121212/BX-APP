@@ -57,7 +57,7 @@ class HomeDrawerWidget extends StatelessWidget {
         child: Container(
           width: 540.w,
           height: double.infinity,
-          decoration: const BoxDecoration(color: Color(0xff000A1D)),
+          decoration: const BoxDecoration(color: Color(0xff0c1a36)),
           child: SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.only(bottom: 120.w),
@@ -219,41 +219,49 @@ class GameTabListWidget extends StatelessWidget {
               },
               minSize: 0,
               padding: EdgeInsets.zero,
-              child: Container(
-                width: double.infinity,
-                height: 82.w,
-                padding: EdgeInsets.only(left: 28.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Obx(() {
-                      var selectedIndex = homeController.selectedGameTypeIndex.value;
-                      bool isSelected = selectedIndex == index;
-                      return Image.asset(
-                        "assets/images/menu_game_tab_${index}_${isSelected ? 'b' : 'a'}.webp",
-                        width: 40.w,
-                      );
-                    }),
-                    SizedBox(
-                      width: 30.w,
-                    ),
-                    Obx(() {
-                      var selectedIndex = homeController.selectedGameTypeIndex.value;
-                      bool isSelected = selectedIndex == index;
-                      return Text(
-                        entity.name.replaceAll("\n", ""),
-                        style: TextStyle(
-                          fontSize: 24.w,
-                          color: Color.fromRGBO(255, 255, 255, isSelected ? 1 : 0.4),
-                          fontWeight: isSelected ? FontWeight.w700 : FontWeight.w400,
-                        ),
-                      );
-                    })
-                  ],
-                ),
-              ),
+              child: Obx(() {
+                var selectedIndex = homeController.selectedGameTypeIndex.value;
+                bool isSelected = selectedIndex == index;
+                return Container(
+                  width: double.infinity,
+                  height: 82.w,
+                  decoration: BoxDecoration(
+                    color: isSelected ? const Color(0x8020355b) : Colors.transparent,
+                    borderRadius: BorderRadius.circular(12.w),
+                  ),
+                  padding: EdgeInsets.only(left: 28.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Obx(() {
+                        var selectedIndex = homeController.selectedGameTypeIndex.value;
+                        bool isSelected = selectedIndex == index;
+                        return Image.asset(
+                          "assets/images/menu_game_tab_${index}_${isSelected ? 'b' : 'a'}.webp",
+                          width: 40.w,
+                        );
+                      }),
+                      SizedBox(
+                        width: 30.w,
+                      ),
+                      Obx(() {
+                        var selectedIndex = homeController.selectedGameTypeIndex.value;
+                        bool isSelected = selectedIndex == index;
+                        return Text(
+                          entity.name.replaceAll("\n", ""),
+                          style: TextStyle(
+                            fontSize: 24.w,
+                            color: Color.fromRGBO(255, 255, 255, isSelected ? 1 : 0.4),
+                            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w400,
+                          ),
+                        );
+                      })
+                    ],
+                  ),
+                );
+              }),
             );
           });
     });
@@ -360,7 +368,6 @@ class BottomCopyWidget extends StatelessWidget {
     );
   }
 }
-
 
 class HeaderWidget extends StatelessWidget {
   HeaderWidget({
@@ -503,7 +510,7 @@ class LoginRegisterBtnWidget extends StatelessWidget {
   });
 
   static const List<Color> cList = [Color(0xffF5C31B), Color(0xff0F293E)];
-  static const  List<Color> cList2 = [Color(0xffF5C31B), Color.fromRGBO(15, 196, 244, 0.2)];
+  static const List<Color> cList2 = [Color(0xffF5C31B), Color.fromRGBO(15, 196, 244, 0.2)];
   final List<Color> defColorList;
 
   @override
