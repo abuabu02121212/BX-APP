@@ -34,7 +34,7 @@ class DepositView extends GetView<DepositController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(0, 10, 29, 1),
+      backgroundColor: const Color(0xff0C1A36),
       appBar: AppBar(
         backgroundColor: headerBgColor,
         titleSpacing: 0,

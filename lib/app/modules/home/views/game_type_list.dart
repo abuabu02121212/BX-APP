@@ -200,7 +200,7 @@ class GameItemWidget extends StatelessWidget {
       minSize: 0,
       padding: EdgeInsets.zero,
       child: Container(
-        decoration: BoxDecoration(color: const Color(0xff11151E), borderRadius: BorderRadius.circular(16.w)),
+        decoration: BoxDecoration(color: const Color(0x800E3075), borderRadius: BorderRadius.circular(16.w)),
         width: double.infinity,
         height: double.infinity,
         child: Column(

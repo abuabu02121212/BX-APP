@@ -43,7 +43,7 @@ class HomeView extends GetView<HomeController> {
           },
           child: Center(
             child: Container(
-              color: const Color(0xff000A1D),
+              color: const Color(0xff10192E),
               width: double.infinity,
               height: double.infinity,
               alignment: Alignment.topLeft,
@@ -106,7 +106,7 @@ class ActivityWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xff0F1A34),
+      color: const Color(0xff0c1a36),
       padding: EdgeInsets.only(left: 18.w, right: 18.w),
       width: double.infinity,
       child: Row(
