@@ -225,6 +225,7 @@ class GameItemWidget extends StatelessWidget {
                 alignment: Alignment.center,
                 height: double.infinity,
                 width: double.infinity,
+                padding: EdgeInsets.only(left: 10.w, right: 10.w),
                 child: Text(
                   gameEntity.brAlias,
                   textAlign: TextAlign.center,
