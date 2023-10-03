@@ -75,12 +75,13 @@ class ItemGenerateWidget extends StatelessWidget {
       children: [
         SizedBox(
           width: double.infinity,
-          height: 280.w,
+          height: 220.w,
           child: SwiperComponent(
             radius: 0,
           ),
         ),
-        const ActivityWidget(),
+      //  const ActivityWidget(),
+        HomeMarquee(),
         HomeGameTypesTabWidget(),
         //  SearchWidget(),
         Obx(() {

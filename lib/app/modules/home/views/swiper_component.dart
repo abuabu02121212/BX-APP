@@ -36,7 +36,8 @@ class SwiperComponent extends StatelessWidget {
               minSize: 0,
               padding: EdgeInsets.zero,
               child: CachedNetworkImage(
-                height: 280.w,
+                height: 220.w,
+                width: 1.sw,
                 fit: BoxFit.cover,
                 imageUrl: bannerImgUrl,
               ),
@@ -55,8 +56,8 @@ class SwiperComponent extends StatelessWidget {
                     bool isSelected = index == config.activeIndex;
                     Color color = isSelected ? const Color.fromRGBO(204, 204, 204, 1) : const Color.fromRGBO(204, 204, 204, 0.5);
                     return Container(
-                      width: isSelected ? 56.w : 16.w,
-                      height: 16.w,
+                      width: isSelected ? 12.w : 12.w,
+                      height: 12.w,
                       decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(8.w)),
                       margin: EdgeInsets.only(left: 4.w, right: 4.w),
                     );

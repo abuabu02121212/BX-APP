@@ -157,9 +157,9 @@ class HomeMarquee extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.only(top: 40.w, left: 20.w, right: 20.w),
+      margin: EdgeInsets.only(top: 0.w, left: 0.w, right: 0.w),
       height: 60.w,
-      decoration: BoxDecoration(color: const Color.fromRGBO(1, 26, 81, 1), borderRadius: BorderRadius.circular(30.w)),
+      decoration: const BoxDecoration(color: Color(0xff1A1C1F)),
       child: CupertinoButton(
         onPressed: () {
           requestNotice(controller.noticeListRx, controller.showingMarqueeText);
@@ -181,8 +181,8 @@ class HomeMarquee extends StatelessWidget {
                     child: Text(
                       "${controller.showingMarqueeText.value}                        ",
                       style: TextStyle(
-                        fontSize: 22.w,
-                        color: Colors.white,
+                        fontSize: 24.w,
+                        color: const Color.fromRGBO(255, 255, 255, 0.5),
                       ),
                     ));
               }),
