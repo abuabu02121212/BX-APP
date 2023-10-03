@@ -1,4 +1,9 @@
 {
   "login" : "Mag log in",
-  "register" : "Register"
+  "register" : "Register",
+  "home": "Home",
+  "promo": "Promo",
+  "support": "Support",
+  "VIP": "VIP",
+  "profile": "Profile"
 }

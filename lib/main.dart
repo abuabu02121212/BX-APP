@@ -14,6 +14,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/observers/route_observer.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
+import 'app/app_style.dart';
 import 'app/routes/app_pages.dart';
 import 'app_config.dart';
 import 'err_page.dart';
@@ -35,7 +36,7 @@ void main() {
     /// 设置android状态栏为透明的沉浸。写在组件渲染之后，是为了在渲染后进行set赋值，覆盖状态栏，写在渲染之前MaterialApp组件会覆盖掉这个值。
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      systemNavigationBarColor: Color.fromRGBO(3, 11, 29, 1),
+      systemNavigationBarColor: bottomBgColor,
     ));
   }
 }

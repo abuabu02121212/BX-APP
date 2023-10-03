@@ -90,7 +90,7 @@ class MainView extends GetView<MainController> {
                   Container(
                     width: 1.sw,
                     height: MediaQuery.of(context).padding.bottom,
-                    color: const Color.fromRGBO(3, 11, 29, 1),
+                    color: bottomBgColor,
                   )
                 ],
               ),

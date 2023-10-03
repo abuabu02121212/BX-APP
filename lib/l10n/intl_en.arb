@@ -1,4 +1,9 @@
 {
-  "login" : "Login",
-  "register" : "Register"
+  "login": "Login",
+  "register": "Register",
+  "home": "Home",
+  "promo": "Promo",
+  "support": "Support",
+  "VIP": "VIP",
+  "profile": "Profile"
 }

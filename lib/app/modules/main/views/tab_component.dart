@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../widget/horizontal_indicator_tab.dart';
+import '../../../app_style.dart';
 
 class MainHorizontalTabComponent extends StatelessWidget {
   MainHorizontalTabComponent({
@@ -17,29 +19,13 @@ class MainHorizontalTabComponent extends StatelessWidget {
   final Callback<int> onSelectChanged;
   final IndicatorTabController indicatorTabController;
 
-  static const List<String> tabNames = [
-    "Casa",
-    "Promoção",
-    "Depósito",
-    "VIP",
-    "Minha",
+  static List<String> tabNames = [
+    S.current.home,
+    S.current.promo,
+    S.current.support,
+    S.current.VIP,
+    S.current.profile,
     //  "组件测试页",
-  ];
-  static const selectedIconList = [
-    "i-index",
-    "i-promotion",
-    "blue-circle",
-    "i-vip",
-    "i-personal",
-    "i-personal"
-  ];
-  static const unselectedIconList = [
-    "i-index-gray",
-    "i-promotion-gray",
-    "blue-circle",
-    "i-vip-gray",
-    "i-personal-gray",
-    "i-personal-gray"
   ];
   static const miniScale = 1.3;
   static const maxScale = 1.6;
@@ -54,8 +40,8 @@ class MainHorizontalTabComponent extends StatelessWidget {
       itemWidthList:
           List.generate(tabNames.length, (index) => getTabItemWidth(index)),
       onSelectChanged: onSelectChanged,
-      bgColor: Colors.transparent,
-      bgImgPath: "assets/images/app-footer-bg.webp",
+      bgColor: bottomBgColor,
+    //  bgImgPath: "assets/images/app-footer-bg.webp",
       indicatorAttr: IndicatorAttr(
           color: const Color(0xffd54f7d), height: 0.w, width: 44.w),
       controller: indicatorTabController,
@@ -73,10 +59,8 @@ class MainHorizontalTabComponent extends StatelessWidget {
         ? const Color(0xff0ED1F4)
         : const Color.fromRGBO(255, 255, 255, 0.6);
     String imgPath =
-        selected ? selectedIconList[index] : unselectedIconList[index];
+        selected ?  "main_tab_${index + 1}": "main_tab_un_${index + 1}";
     imgPath = "assets/images/$imgPath.webp";
-    double offsetY = index == 2 ? -12.w : 0;
-    double scale = index == 2 ? 1.5 : 1;
     return Container(
       width: getTabItemWidth(index),
       alignment: Alignment.center,
@@ -85,37 +69,13 @@ class MainHorizontalTabComponent extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Transform.translate(
-                  offset: Offset(0, offsetY),
-                  child: Transform.scale(
-                    scale: scale,
-                    child: Image.asset(imgPath,
-                        width: 45.w, gaplessPlayback: true),
-                  )),
-              if (index == 2)
-                Obx(() {
-                  return AnimatedScale(
-                    scale: animScale.value,
-                    duration: const Duration(milliseconds: 800),
-                    onEnd: () {
-                      animScale.value =
-                          animScale.value == miniScale ? maxScale : miniScale;
-                    },
-                    child: Transform.translate(
-                      offset: Offset(0, -10.w),
-                      child: Image.asset(
-                        "assets/images/pig.webp",
-                        width: 45.w,
-                      ),
-                    ),
-                  );
-                }),
+              Image.asset(imgPath, width: 54.w, gaplessPlayback: true),
             ],
           ),
           SizedBox(height: 5.w),
           Text(
             tabNames[index],
-            style: TextStyle(color: color, fontSize: 22.w),
+            style: TextStyle(color: color, fontSize: 24.w),
           )
         ],
       ),
