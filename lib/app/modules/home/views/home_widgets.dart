@@ -47,20 +47,26 @@ class HomeHeader extends StatelessWidget {
             child: Image.asset("assets/images/i-popup-btn.webp", width: 37.w),
           ),
           Image.asset("assets/images/logo.webp", width: 105.w),
-          SizedBox(width: 136.w),
-          Obx(() {
-            var userInfo = globeController.balance.value;
-            return userInfo == null
-                ? const LoginRegisterBtnWidget()
-                : Container(
+          Expanded(child: Container(
+            alignment: Alignment.centerRight,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Obx(() {
+                  var userInfo = globeController.balance.value;
+                  return userInfo == null
+                      ? const LoginRegisterBtnWidget()
+                      : Container(
                     width: 350.w,
                     height: 60.w,
                     margin: EdgeInsets.only(left: 98.w),
                     decoration: const BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage(
-                      "assets/images/home_balance_bg.webp",
-                    ))),
+                              "assets/images/home_balance_bg.webp",
+                            ))),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,20 +122,24 @@ class HomeHeader extends StatelessWidget {
                       ],
                     ),
                   );
-          }),
-          SizedBox(width: 6.w),
-          CupertinoButton(
-            onPressed: () {
-              if (globeController.isLogin()) {
-                Get.toNamed(Routes.NOTICE_LIST);
-              } else {
-                showLoginRegisterDialog();
-              }
-            },
-            minSize: 0,
-            padding: EdgeInsets.all(16.w),
-            child: Image.asset("assets/images/home_message.webp", width: 32.5.w),
-          ),
+                }),
+                SizedBox(width: 6.w),
+                CupertinoButton(
+                  onPressed: () {
+                    if (globeController.isLogin()) {
+                      Get.toNamed(Routes.NOTICE_LIST);
+                    } else {
+                      showLoginRegisterDialog();
+                    }
+                  },
+                  minSize: 0,
+                  padding: EdgeInsets.all(16.w),
+                  child: Image.asset("assets/images/home_message.webp", width: 32.5.w),
+                ),
+                SizedBox(width: 8.w),
+              ],
+            ),
+          )),
         ],
       ),
     );
