@@ -100,11 +100,7 @@ class AppConfigurationWidget extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate
         ],
-        supportedLocales: [
-          const Locale('en'),
-          const Locale('en', 'PH'),
-          ...S.delegate.supportedLocales
-        ],
+        supportedLocales: S.delegate.supportedLocales,
       /// routes 路由配置：对象是Map<String, WidgetBuilder>
       // routes: [], 这种方式配置路由，defaultTransition 不能生效
       getPages: AppPages.routes,
