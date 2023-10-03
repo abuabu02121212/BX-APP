@@ -93,7 +93,7 @@ class AppConfigurationWidget extends StatelessWidget {
       /// 4. Theme.of方法可以获取当前的 ThemeData，MaterialDesign种有些样式不能自定义，比如导航栏高度
       theme: appThemeData,
       defaultTransition: Transition.noTransition,
-      locale: const Locale('en', ''),
+      locale: const Locale('en'),
         localizationsDelegates: const [
           S.delegate,
           GlobalMaterialLocalizations.delegate,
@@ -101,7 +101,8 @@ class AppConfigurationWidget extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate
         ],
         supportedLocales: [
-          const Locale('en', ''),
+          const Locale('en'),
+          const Locale('en', 'PH'),
           ...S.delegate.supportedLocales
         ],
       /// routes 路由配置：对象是Map<String, WidgetBuilder>
