@@ -506,12 +506,8 @@ class HeaderWidget extends StatelessWidget {
 class LoginRegisterBtnWidget extends StatelessWidget {
   const LoginRegisterBtnWidget({
     super.key,
-    this.defColorList = cList,
   });
 
-  static const List<Color> cList = [Color(0xffF5C31B), Color(0xff0F293E)];
-  static const List<Color> cList2 = [Color(0xffF5C31B), Color.fromRGBO(15, 196, 244, 0.2)];
-  final List<Color> defColorList;
 
   @override
   Widget build(BuildContext context) {
@@ -528,18 +524,18 @@ class LoginRegisterBtnWidget extends StatelessWidget {
           minSize: 0,
           padding: EdgeInsets.zero,
           child: Container(
-            width: 195.w,
             height: 60.w,
+            padding: EdgeInsets.symmetric(horizontal: 40.w),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: defColorList[0],
+              color: const Color(0xffF09B1B),
               borderRadius: BorderRadius.circular(48.w),
             ),
             child: Text(
-              "Conecte-se",
+              "Login",
               style: TextStyle(
                 fontSize: 26.w,
-                color: const Color(0xff000000),
+                color: const Color(0xffffffff),
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -556,15 +552,15 @@ class LoginRegisterBtnWidget extends StatelessWidget {
           minSize: 0,
           padding: EdgeInsets.zero,
           child: Container(
-            width: 152.w,
             height: 60.w,
+            padding: EdgeInsets.symmetric(horizontal: 40.w),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: defColorList[1],
+              color: const Color(0xff3EA1F8),
               borderRadius: BorderRadius.circular(48.w),
             ),
             child: Text(
-              "registro",
+              "Register",
               style: TextStyle(
                 fontSize: 26.w,
                 color: const Color(0xffffffff),

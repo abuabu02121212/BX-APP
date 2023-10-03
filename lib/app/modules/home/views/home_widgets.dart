@@ -11,7 +11,9 @@ import '../../../../http/comm_request.dart';
 import '../../../../util/app_util.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
+import '../../../routes/app_pages.dart';
 import '../../home_menu/views/home_menu_view.dart';
+import '../../login_register/views/login_regiseter_widget.dart';
 import '../../main/controllers/main_controller.dart';
 import '../controllers/home_controller.dart';
 import '../controllers/home_requests.dart';
@@ -41,19 +43,15 @@ class HomeHeader extends StatelessWidget {
               showHomeDrawer();
             },
             minSize: 0,
-            padding: EdgeInsets.all(16.w),
-            child: Image.asset("assets/images/i-popup-btn.webp", width: 40.w),
+            padding: EdgeInsets.only(left: 20.w, right: 25.w, top: 16.w, bottom: 16.w),
+            child: Image.asset("assets/images/i-popup-btn.webp", width: 37.w),
           ),
-          Image.asset("assets/images/logo.webp", width: 120.w),
-          SizedBox(width: 90.w),
+          Image.asset("assets/images/logo.webp", width: 105.w),
+          SizedBox(width: 136.w),
           Obx(() {
             var userInfo = globeController.balance.value;
             return userInfo == null
-                ? Container(
-                    width: 450.w,
-                    alignment: Alignment.centerRight,
-                    child: const LoginRegisterBtnWidget(defColorList: LoginRegisterBtnWidget.cList2),
-                  )
+                ? const LoginRegisterBtnWidget()
                 : Container(
                     width: 350.w,
                     height: 60.w,
@@ -119,19 +117,19 @@ class HomeHeader extends StatelessWidget {
                     ),
                   );
           }),
-          //  SizedBox(width: 26.w),
-          // CupertinoButton(
-          //   onPressed: () {
-          //     if (globeController.isLogin()) {
-          //       Get.toNamed(Routes.NOTICE_LIST);
-          //     } else {
-          //       showLoginRegisterDialog();
-          //     }
-          //   },
-          //   minSize: 0,
-          //   padding: EdgeInsets.all(10.w),
-          //   child: Image.asset("assets/images/home_message.webp", width: 60.w),
-          // ),
+          SizedBox(width: 6.w),
+          CupertinoButton(
+            onPressed: () {
+              if (globeController.isLogin()) {
+                Get.toNamed(Routes.NOTICE_LIST);
+              } else {
+                showLoginRegisterDialog();
+              }
+            },
+            minSize: 0,
+            padding: EdgeInsets.all(16.w),
+            child: Image.asset("assets/images/home_message.webp", width: 32.5.w),
+          ),
         ],
       ),
     );
