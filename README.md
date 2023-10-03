@@ -1,19 +1,9 @@
-# flutter_comm
-
-Flutter  comm framework
-
-## Getting Started
 
 This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+flutter 版本号： 3.7.12
 
 1. 使用Android studio创建好项目 
 2. 安装https://pub.dev/packages/get_cli
@@ -23,7 +13,8 @@ samples, guidance on mobile development, and a full API reference.
 
 替换启动图： /Users/cg/fvm/versions/3.7.12/bin/flutter pub run flutter_native_splash:create
 
-打包命令： /Users/henry2023/Desktop/env/flutter-3-7-12/bin/flutter build apk --release
+打包命令： flutter build apk --release
+
 项目结构：
    lib下面的app模块是本app业务相关的模块
    lib 下面除了app之外的其他模块，是所有项目的通用框架模块
@@ -35,22 +26,16 @@ samples, guidance on mobile development, and a full API reference.
    依赖关系，lib下的app模块依赖依赖其他模块，但是其他模块不能依赖app模块
    以后其他模块会作为通用项目框架，以后搭建项目只需要删除app模块，其他模块稍微配置修改下就行了。
 
-项目地址：https://github.com/frontbrazil/brazil-app
-接口文档地址：http://rap2.cyestari.com/organization/repository/editor?id=17&mod=55
+项目地址：https://github.com/vniqd/ph-app 
+接口文档地址：
 UI地址：
-https://www.figma.com/file/VQCM9LAoTTvkuqvdWgtiX9/LB88-%E7%A7%BB%E5%8A%A8%E7%AB%AF?node-id=665%3A14552&mode=dev
-https://www.figma.com/file/h4tdH4QJEOKQNyrSRei2Ag/%E5%B7%B4%E8%A5%BF?type=design&node-id=0%3A1&mode=design&t=Qc1lqoTohpHQXkyZ-1
-账号密码： 自己注册，然后找后端相关人员，添加权限。
-henry常用密码：aa123456
-测试账号： 8888-99999  henry01@163.com  aa123@163.com
-         666123456 666111111
-H5地址： https://h5.cyestari.com/
-后端配置地址： http://admin.cyestari.com/ 注意是http协议： henry1 a123456
-aa123456
-jiar： 
-http://jira.p3nu.com/browse/BXBW-120?jql=project%20%3D%20BXBW%20AND%20status%20in%20(Open%2C%20%E5%BC%80%E5%8F%91%E5%BE%85%E5%A4%84%E7%90%86%2C%20%E4%BF%AE%E5%A4%8D%E5%8D%95%E5%BE%85%E5%A4%84%E7%90%86)%20ORDER%20BY%20created%20DESC
+https://www.figma.com/file/bJX9FFTcRZJ0zmxLFzSdIb/YQ%E8%8F%B2%E5%BE%8B%E5%AE%BE%E7%AB%99?type=design&node-id=596-17422&mode=design&t=BkMPKq0ZzR6vOBDe-0
+H5地址：
+后端配置地址：
+jiar地址：
 
-// 待开发： 加载更多， 最近获奖， 底部颜色， 顶部标题栏颜色
+测试账号：
+
 
 code 码对照：
 {
