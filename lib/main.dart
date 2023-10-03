@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_comm/util/Log.dart';
 import 'package:flutter_comm/util/loading_util.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -16,6 +17,7 @@ import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'app/routes/app_pages.dart';
 import 'app_config.dart';
 import 'err_page.dart';
+import 'generated/l10n.dart';
 import 'globe_exception_catch.dart';
 import 'navigator/observer.dart';
 
@@ -91,7 +93,17 @@ class AppConfigurationWidget extends StatelessWidget {
       /// 4. Theme.of方法可以获取当前的 ThemeData，MaterialDesign种有些样式不能自定义，比如导航栏高度
       theme: appThemeData,
       defaultTransition: Transition.noTransition,
-
+      locale: const Locale('en', ''),
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate
+        ],
+        supportedLocales: [
+          const Locale('en', ''),
+          ...S.delegate.supportedLocales
+        ],
       /// routes 路由配置：对象是Map<String, WidgetBuilder>
       // routes: [], 这种方式配置路由，defaultTransition 不能生效
       getPages: AppPages.routes,

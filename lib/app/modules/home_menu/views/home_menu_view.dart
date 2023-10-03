@@ -12,6 +12,7 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 import 'package:get/get.dart';
 import '../../../../env.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../globe_controller.dart';
 import '../../../../util/Log.dart';
 import '../../../../util/app_util.dart';
@@ -532,7 +533,7 @@ class LoginRegisterBtnWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(48.w),
             ),
             child: Text(
-              "Login",
+              S.current.login,
               style: TextStyle(
                 fontSize: 26.w,
                 color: const Color(0xffffffff),
@@ -560,7 +561,7 @@ class LoginRegisterBtnWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(48.w),
             ),
             child: Text(
-              "Register",
+              S.current.register,
               style: TextStyle(
                 fontSize: 26.w,
                 color: const Color(0xffffffff),

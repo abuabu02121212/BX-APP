@@ -23,6 +23,8 @@ flutter 版本号： 3.7.12
         util 工具类模块
         widget 自定义UI组建模块
         navigator 导航相关模块
+        l10n ，flutter Intl 多语言，插件生成目录, 多语言方案参考资料地址：https://juejin.cn/post/7172442692972969992
+        generated ，flutter Intl 多语言，插件生成目录
    依赖关系，lib下的app模块依赖依赖其他模块，但是其他模块不能依赖app模块
    以后其他模块会作为通用项目框架，以后搭建项目只需要删除app模块，其他模块稍微配置修改下就行了。
 
