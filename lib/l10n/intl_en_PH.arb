@@ -5,5 +5,15 @@
   "promo": "Promo",
   "support": "Support",
   "VIP": "VIP",
-  "profile": "Profile"
+  "profile": "Profile",
+  "hot": "Hot",
+  "slot": "Slot",
+  "finishing": "Finishing",
+  "live": "Live",
+  "cards": "Cards",
+  "sports": "Sports",
+  "cockFighting": "Cockfight",
+  "recent": "Recent",
+  "favorite": "Favorite",
+  "demo": "Demo"
 }

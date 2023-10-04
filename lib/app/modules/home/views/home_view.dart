@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import '../../../../util/entity/entites.dart';
 import '../../../../util/extensions.dart';
 import '../../../../widget/back_event_interceptor.dart';
+import '../../../../widget/horizontal_indicator_tab.dart';
 import '../../../component/app_empty.dart';
 import '../../../entity/game_item.dart';
 import '../../../entity/promotion_entity.dart';
@@ -15,6 +16,7 @@ import '../../../routes/app_pages.dart';
 import '../controllers/game_list_requests.dart';
 import '../controllers/home_controller.dart';
 import 'game_search_dialog.dart';
+import 'game_type_tab_component.dart';
 import 'home_widgets.dart';
 import 'game_type_list.dart';
 import 'game_type_title_bar.dart';
@@ -82,7 +84,9 @@ class ItemGenerateWidget extends StatelessWidget {
         ),
       //  const ActivityWidget(),
         HomeMarquee(),
-        HomeGameTypesTabWidget(),
+        GameTypeTabs(onSelectChanged: (int index) {
+          controller.switchTabWithAddPressedRecord(index);
+        }, indicatorTabController: IndicatorTabController(),),
         //  SearchWidget(),
         Obx(() {
           var tabIndex = controller.selectedGameTypeIndex.value;
@@ -343,82 +347,82 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
     );
   }
 }
-
-class HomeGameTypesTabWidget extends StatelessWidget {
-  HomeGameTypesTabWidget({super.key});
-
-  final HomeController controller = Get.put(HomeController());
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xff0F1A34),
-      height: 124.w,
-      padding: EdgeInsets.only(left: 18.w, top: 20.w),
-      width: double.infinity,
-      alignment: Alignment.topLeft,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(
-              width: 628.w,
-              child: Obx(() {
-                return ListView.separated(
-                  itemCount: controller.gameTypes.length,
-                  physics: const BouncingScrollPhysics(),
-                  controller: controller.sc2,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Obx(() {
-                      bool isSelected = controller.selectedGameTypeIndex.value == index;
-                      return CupertinoButton(
-                        onPressed: () {
-                          if (controller.selectedGameTypeIndex.value != index) {
-                            controller.switchTabWithAddPressedRecord(index);
-                          }
-                        },
-                        minSize: 0,
-                        padding: EdgeInsets.zero,
-                        alignment: Alignment.topLeft,
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: 84.w,
-                          width: 84.w,
-                          decoration: BoxDecoration(
-                              color: isSelected ? const Color.fromRGBO(0, 52, 166, 0.8) : const Color(0xff0F1A34), borderRadius: BorderRadius.circular(12.w)),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.asset("assets/images/game-tab$index.webp", width: 84.w),
-                            ],
-                          ),
-                        ),
-                      );
-                    });
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return SizedBox(
-                      width: 15.w,
-                    );
-                  },
-                );
-              })),
-          SizedBox(
-            width: 10.w,
-          ),
-          CupertinoButton(
-            minSize: 0,
-            padding: EdgeInsets.only(top: 8.w, left: 8.w, right: 8.w, bottom: 8.w),
-            alignment: Alignment.topLeft,
-            child: Image.asset("assets/images/game-tab-search.webp", width: 66.w),
-            onPressed: () {
-              showSearchDialog(null);
-            },
-          )
-        ],
-      ),
-    );
-  }
-}
+//
+// class HomeGameTypesTabWidget extends StatelessWidget {
+//   HomeGameTypesTabWidget({super.key});
+//
+//  // final HomeController controller = Get.put(HomeController());
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       color: const Color(0xff0F1A34),
+//       height: 124.w,
+//       padding: EdgeInsets.only(left: 18.w, top: 20.w),
+//       width: double.infinity,
+//       alignment: Alignment.topLeft,
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.start,
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         mainAxisSize: MainAxisSize.min,
+//         children: [
+//           SizedBox(
+//               width: 628.w,
+//               child: Obx(() {
+//                 return ListView.separated(
+//                   itemCount: controller.gameTypes.length,
+//                   physics: const BouncingScrollPhysics(),
+//                   controller: controller.sc2,
+//                   scrollDirection: Axis.horizontal,
+//                   itemBuilder: (BuildContext context, int index) {
+//                     return Obx(() {
+//                       bool isSelected = controller.selectedGameTypeIndex.value == index;
+//                       return CupertinoButton(
+//                         onPressed: () {
+//                           if (controller.selectedGameTypeIndex.value != index) {
+//                             controller.switchTabWithAddPressedRecord(index);
+//                           }
+//                         },
+//                         minSize: 0,
+//                         padding: EdgeInsets.zero,
+//                         alignment: Alignment.topLeft,
+//                         child: Container(
+//                           alignment: Alignment.center,
+//                           height: 84.w,
+//                           width: 84.w,
+//                           decoration: BoxDecoration(
+//                               color: isSelected ? const Color.fromRGBO(0, 52, 166, 0.8) : const Color(0xff0F1A34), borderRadius: BorderRadius.circular(12.w)),
+//                           child: Row(
+//                             mainAxisSize: MainAxisSize.min,
+//                             children: [
+//                               Image.asset("assets/images/game-tab-un$index.webp", width: 84.w),
+//                             ],
+//                           ),
+//                         ),
+//                       );
+//                     });
+//                   },
+//                   separatorBuilder: (BuildContext context, int index) {
+//                     return SizedBox(
+//                       width: 15.w,
+//                     );
+//                   },
+//                 );
+//               })),
+//           SizedBox(
+//             width: 10.w,
+//           ),
+//           CupertinoButton(
+//             minSize: 0,
+//             padding: EdgeInsets.only(top: 8.w, left: 8.w, right: 8.w, bottom: 8.w),
+//             alignment: Alignment.topLeft,
+//             child: Image.asset("assets/images/game-tab-search.webp", width: 66.w),
+//             onPressed: () {
+//               showSearchDialog(null);
+//             },
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }

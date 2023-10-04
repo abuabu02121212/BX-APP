@@ -119,6 +119,106 @@ class S {
       args: [],
     );
   }
+
+  /// `Hot`
+  String get hot {
+    return Intl.message(
+      'Hot',
+      name: 'hot',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Slot`
+  String get slot {
+    return Intl.message(
+      'Slot',
+      name: 'slot',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Finishing`
+  String get finishing {
+    return Intl.message(
+      'Finishing',
+      name: 'finishing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Live`
+  String get live {
+    return Intl.message(
+      'Live',
+      name: 'live',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cards`
+  String get cards {
+    return Intl.message(
+      'Cards',
+      name: 'cards',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sports`
+  String get sports {
+    return Intl.message(
+      'Sports',
+      name: 'sports',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cockfight`
+  String get cockFighting {
+    return Intl.message(
+      'Cockfight',
+      name: 'cockFighting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recent`
+  String get recent {
+    return Intl.message(
+      'Recent',
+      name: 'recent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Favorite`
+  String get favorite {
+    return Intl.message(
+      'Favorite',
+      name: 'favorite',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Demo`
+  String get demo {
+    return Intl.message(
+      'Demo',
+      name: 'demo',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
