@@ -9,6 +9,7 @@ import '../../../../util/entity/entites.dart';
 import '../../../../util/extensions.dart';
 import '../../../../widget/back_event_interceptor.dart';
 import '../../../../widget/horizontal_indicator_tab.dart';
+import '../../../app_style.dart';
 import '../../../component/app_empty.dart';
 import '../../../entity/game_item.dart';
 import '../../../entity/promotion_entity.dart';
@@ -82,11 +83,47 @@ class ItemGenerateWidget extends StatelessWidget {
             radius: 0,
           ),
         ),
-      //  const ActivityWidget(),
+        //  const ActivityWidget(),
         HomeMarquee(),
-        GameTypeTabs(onSelectChanged: (int index) {
-          controller.switchTabWithAddPressedRecord(index);
-        }, indicatorTabController: IndicatorTabController(),),
+        Container(
+          color: bottomBgColor,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Obx(() {
+                var isShowing = controller.isShowGameTypeLeftArrow.value;
+                return Opacity(
+                  opacity: isShowing ? 1 : 0,
+                  child: Transform.rotate(angle: 3.14, child: Image.asset("assets/images/arrow_gray.webp", width: 12.w)),
+                );
+              }),
+              SizedBox(
+                width: 5.w,
+              ),
+              SizedBox(
+                width: 715.w,
+                child: GameTypeTabs(
+                    indicatorTabController: controller.gameTypeIndicatorTabController,
+                    onSelectChanged: (int index) {
+                      controller.switchTabWithAddPressedRecord(index);
+                    }),
+              ),
+              SizedBox(
+                width: 5.w,
+              ),
+              Obx(() {
+                var isShowing = controller.isShowGameTypeRightArrow.value;
+                return Opacity(
+                  opacity: isShowing ? 1 : 0,
+                  child: Transform.rotate(angle: 0, child: Image.asset("assets/images/arrow_gray.webp", width: 12.w)),
+                );
+              }),
+            ],
+          ),
+        ),
+
         //  SearchWidget(),
         Obx(() {
           var tabIndex = controller.selectedGameTypeIndex.value;
@@ -319,11 +356,7 @@ class Tab2PageHorizontalListItemWidget extends StatelessWidget {
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: list.length > 1 ? 2 : 1,
-                        childAspectRatio: 1.39,
-                        crossAxisSpacing: 12.w,
-                        mainAxisSpacing: 12.w
-                    ),
+                        crossAxisCount: list.length > 1 ? 2 : 1, childAspectRatio: 1.39, crossAxisSpacing: 12.w, mainAxisSpacing: 12.w),
                     itemBuilder: (BuildContext context, int index) {
                       bool isLoadMoreItem = list.length == index;
                       return isLoadMoreItem

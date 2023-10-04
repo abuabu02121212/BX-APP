@@ -59,7 +59,7 @@ class SwiperComponent extends StatelessWidget {
                       width: isSelected ? 12.w : 12.w,
                       height: 12.w,
                       decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(8.w)),
-                      margin: EdgeInsets.only(left: 4.w, right: 4.w),
+                      margin: EdgeInsets.only(left: 6.w, right: 6.w),
                     );
                   }),
                 ),

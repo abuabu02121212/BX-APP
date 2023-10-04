@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../widget/horizontal_indicator_tab.dart';
 import '../../../app_style.dart';
+import '../controllers/home_controller.dart';
 
 class GameTypeTabs extends StatelessWidget {
   GameTypeTabs({
@@ -27,7 +30,7 @@ class GameTypeTabs extends StatelessWidget {
     S.current.favorite,
     S.current.demo,
   ];
-
+  final HomeController controller = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     int size = 10;
@@ -37,7 +40,11 @@ class GameTypeTabs extends StatelessWidget {
       height: 115.w,
       itemWidthList: List.generate(size, (index) => getTabItemWidth(index)),
       onSelectChanged: onSelectChanged,
-      bgColor: bottomBgColor,
+      bgColor: Colors.transparent,
+      onScroll: (ScrollPosition scrollPosition){
+        controller.isShowGameTypeLeftArrow.value = scrollPosition.extentBefore > 10.w;
+        controller.isShowGameTypeRightArrow.value = scrollPosition.extentAfter > 10.w;
+      },
       //  bgImgPath: "assets/images/app-footer-bg.webp",
       indicatorAttr: IndicatorAttr(color: const Color(0xff3EA1F8), height: 4.w, width: 100.w),
       controller: indicatorTabController,
@@ -66,7 +73,7 @@ class GameTypeTabs extends StatelessWidget {
           ),
           Text(
             nameList[index],
-            style: TextStyle(color: color, fontSize: 24.w),
+            style: TextStyle(color: color, fontSize: 24.w, fontWeight: selected ? FontWeight.w700 : FontWeight.w400),
           )
         ],
       ),

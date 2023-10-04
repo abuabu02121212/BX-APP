@@ -11,6 +11,7 @@ import '../../../../util/double_click_exit_app.dart';
 import '../../../../util/dynamic_index_rx.dart';
 import '../../../../util/extensions.dart';
 import '../../../../util/loading_util.dart';
+import '../../../../widget/horizontal_indicator_tab.dart';
 import '../../../entity/banner.dart';
 import '../../../entity/cs.dart';
 import '../../../entity/game_item.dart';
@@ -28,9 +29,12 @@ import 'home_requests.dart';
 class HomeController extends GetxController {
   final gameTypes = RxList<GameTypeEntity>(GameTypeEntity.getList());
   final selectedGameTypeIndex = 0.obs;
-  ScrollController sc2 = ScrollController();
+ // ScrollController sc2 = ScrollController();
   final List<int> gameTypePressedRecordList = [0];
   final ScrollController scrollController = ScrollController();
+  final IndicatorTabController gameTypeIndicatorTabController = IndicatorTabController();
+  final isShowGameTypeLeftArrow = false.obs;
+  final isShowGameTypeRightArrow = true.obs;
   final showingMarqueeText = "".obs;
   final noticeListRx = RxList<NoticeEntity>();
 
@@ -52,11 +56,6 @@ class HomeController extends GetxController {
   void switchTabWithAddPressedRecord(int index) {
     selectedGameTypeIndex.value = index;
     gameTypePressedRecordList.add(index);
-    if (index >= 3) {
-      sc2.animateTo(sc2.position.maxScrollExtent, duration: const Duration(microseconds: 250), curve: Curves.ease);
-    } else {
-      sc2.animateTo(0, duration: const Duration(microseconds: 250), curve: Curves.ease);
-    }
     requestTabPageData(index);
   }
 
@@ -120,6 +119,9 @@ class HomeController extends GetxController {
         }
         selectedGameTypeIndex.value = removeLast;
         requestTabPageData(selectedGameTypeIndex.value);
+        if(selectedGameTypeIndex.value >= 0){
+          gameTypeIndicatorTabController.onItemSelectChanged(selectedGameTypeIndex.value);
+        }
         return true;
       }
     }
