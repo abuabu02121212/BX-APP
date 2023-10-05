@@ -31,13 +31,13 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leadingWidth: 0,
-        titleSpacing: 0,
-        toolbarHeight: 110.w,
-        title: HomeHeader(),
-        centerTitle: true,
-      ),
+      // appBar: AppBar(
+      //   leadingWidth: 0,
+      //   titleSpacing: 0,
+      //   toolbarHeight: 110.w,
+      //   title: HomeHeader(),
+      //   centerTitle: true,
+      // ),
       body: SafeArea(
         child: BackInterceptorWidget(
           isInterceptor: (obj) {
@@ -86,15 +86,19 @@ class NestedScrollBodyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return NestedScrollView(
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-        double collapsedHeight = 120.w;
         return [
           SliverOverlapAbsorber(
             handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
             sliver: SliverAppBar(
               forceElevated: innerBoxIsScrolled,
               // 收起的过渡颜色
-              backgroundColor: Colors.black,
-              title: const SizedBox(),
+              backgroundColor: bottomBgColor,
+              shadowColor: Colors.transparent,
+              elevation: 0.0,
+              primary: true,
+              shape: null,
+              scrolledUnderElevation: 10,
+              title: HomeHeader(),
               // 去掉主标题栏左右间距
               titleSpacing: 0,
 
@@ -102,31 +106,29 @@ class NestedScrollBodyWidget extends StatelessWidget {
               leading: null,
               pinned: true,
               floating: true,
-              bottom: const PreferredSize(preferredSize: Size(0, 0), child: SizedBox()),
-              expandedHeight: 400.w,
-              collapsedHeight: collapsedHeight,
+              bottom: PreferredSize(
+                  preferredSize: Size(1.sw, 120.w),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 120.w,
+                    child: HomeGameTabsWidget(controller: controller),
+                  )),
+              expandedHeight: 510.w,
+              collapsedHeight: 110.w,
               leadingWidth: 0,
-              //  collapsedHeight >= toolbarHeight
-              toolbarHeight: collapsedHeight,
-
+              toolbarHeight: 110.w,
               flexibleSpace: FlexibleSpaceBar(
                 titlePadding: const EdgeInsets.all(0),
                 expandedTitleScale: 1,
                 collapseMode: CollapseMode.pin,
-                title: Container(
-                  width: double.infinity,
-                  height: 120.w,
-                  color: Colors.pink,
-                  child: HomeGameTabsWidget(controller: controller),
-                ),
+                title: null,
                 background: Column(
                   children: [
+                    SizedBox(height: 110.w,),
                     SizedBox(
                       width: double.infinity,
                       height: 220.w,
-                      child: SwiperComponent(
-                        radius: 0,
-                      ),
+                      child: SwiperComponent(radius: 0),
                     ),
                     //  const ActivityWidget(),
                     HomeMarquee(),
@@ -145,7 +147,9 @@ class NestedScrollBodyWidget extends StatelessWidget {
               SliverOverlapInjector(
                 handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
               ),
-               GameListItemWidget(title: S.current.hot,),
+              GameListItemWidget(
+                title: S.current.hot,
+              ),
               SliverToBoxAdapter(child: HomeBottomWidget())
             ],
           ),
