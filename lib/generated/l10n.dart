@@ -399,6 +399,26 @@ class S {
       args: [],
     );
   }
+
+  /// `YQ Group is the most famous online casino operation company in the world, and provides exciting and funny live dealer entertainment city, chess, electronics, fishing, lottery, sports, etc. The Group is authorized and regulated by the Curacao Government, and operated according to the license (No. Antillephone) issued to 8048/JAZ. The Group has passed all compliant audits, and is legally authorized to operate all opportunity and bet games.`
+  String get home_bottom_illustrate {
+    return Intl.message(
+      'YQ Group is the most famous online casino operation company in the world, and provides exciting and funny live dealer entertainment city, chess, electronics, fishing, lottery, sports, etc. The Group is authorized and regulated by the Curacao Government, and operated according to the license (No. Antillephone) issued to 8048/JAZ. The Group has passed all compliant audits, and is legally authorized to operate all opportunity and bet games.',
+      name: 'home_bottom_illustrate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `@all rights reserved 2002-2030`
+  String get homeRights {
+    return Intl.message(
+      '@all rights reserved 2002-2030',
+      name: 'homeRights',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

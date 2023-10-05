@@ -306,6 +306,80 @@ class HomeBottomWidget extends StatelessWidget {
             margin: EdgeInsets.only(left: 30.w, right: 30.w, top: 60.w, bottom: 60.w),
             color: const Color.fromRGBO(93, 101, 111, 0.3),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: List.generate(
+              4,
+              (index) => CupertinoButton(
+                minSize: 0,
+                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                child: Image.asset(
+                  "assets/images/home_bottom_app_$index.webp",
+                  width: 68.w,
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 60.w),
+            child: Text(
+                S.current.home_bottom_illustrate,
+                style: TextStyle(
+                  fontSize: 22.w,
+                  color: const Color(0xff5D656F),
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 1.w,
+            margin: EdgeInsets.only(left: 30.w, right: 30.w, top: 45.w, bottom: 60.w),
+            color: const Color.fromRGBO(93, 101, 111, 0.3),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: List.generate(
+              5,
+                  (index) => Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 3.w),
+                    child: Image.asset(
+                      "assets/images/home_bot_game_icon_$index.webp",
+                      width: 115.w,
+                    ),
+                  ),
+            ),
+          ),
+          SizedBox(height: 60.w,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: List.generate(
+              4,
+                  (index) => Image.asset(
+                    "assets/images/home_bot_company_icon_$index.webp",
+                    width: 112.w,
+                  ),
+            ),
+          ),
+          SizedBox(height: 60.w,),
+          Center(
+            child: Text(
+                S.current.homeRights,
+                style: TextStyle(
+                  fontSize: 22.w,
+                  color: const Color(0xff5D656F),
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+          ),
+          SizedBox(height: 120.w,),
         ],
       ),
     );

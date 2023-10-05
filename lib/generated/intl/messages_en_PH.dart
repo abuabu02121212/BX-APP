@@ -48,6 +48,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "favorite": MessageLookupByLibrary.simpleMessage("Favorite"),
         "finishing": MessageLookupByLibrary.simpleMessage("Finishing"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
+        "homeRights": MessageLookupByLibrary.simpleMessage(
+            "@all rights reserved 2002-2030"),
+        "home_bottom_illustrate": MessageLookupByLibrary.simpleMessage(
+            "YQ Group is the most famous online casino operation company in the world, and provides exciting and funny live dealer entertainment city, chess, electronics, fishing, lottery, sports, etc. The Group is authorized and regulated by the Curacao Government, and operated according to the license (No. Antillephone) issued to 8048/JAZ. The Group has passed all compliant audits, and is legally authorized to operate all opportunity and bet games."),
         "hot": MessageLookupByLibrary.simpleMessage("Hot"),
         "live": MessageLookupByLibrary.simpleMessage("Live"),
         "login": MessageLookupByLibrary.simpleMessage("Mag log in"),
