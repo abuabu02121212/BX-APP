@@ -5,10 +5,10 @@ import 'package:flutter_comm/util/loading_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../util/entity/entites.dart';
 import '../../../../util/extensions.dart';
 import '../../../../widget/back_event_interceptor.dart';
-import '../../../../widget/horizontal_indicator_tab.dart';
 import '../../../app_style.dart';
 import '../../../component/app_empty.dart';
 import '../../../entity/game_item.dart';
@@ -16,12 +16,11 @@ import '../../../entity/promotion_entity.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/game_list_requests.dart';
 import '../controllers/home_controller.dart';
-import 'game_search_dialog.dart';
+import 'game_list_item_widget.dart';
 import 'game_type_tab_component.dart';
 import 'home_widgets.dart';
 import 'game_type_list.dart';
 import 'game_type_title_bar.dart';
-import 'last_win_widget.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({Key? key}) : super(key: key);
@@ -44,21 +43,164 @@ class HomeView extends GetView<HomeController> {
           isInterceptor: (obj) {
             return controller.consumePressedRecord();
           },
-          child: Center(
-            child: Container(
-              color: const Color(0xff10192E),
-              width: double.infinity,
-              height: double.infinity,
-              alignment: Alignment.topLeft,
-              child: SingleChildScrollView(
-                padding: EdgeInsets.zero,
-                controller: controller.scrollController,
-                physics: const BouncingScrollPhysics(),
-                child: ItemGenerateWidget(),
+          child: NestedScrollBodyWidget(),
+        ),
+      ),
+    );
+  }
+}
+
+class OldBodyWidget extends StatelessWidget {
+  const OldBodyWidget({
+    super.key,
+    required this.controller,
+  });
+
+  final HomeController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        color: const Color(0xff10192E),
+        width: double.infinity,
+        height: double.infinity,
+        alignment: Alignment.topLeft,
+        child: SingleChildScrollView(
+          padding: EdgeInsets.zero,
+          controller: controller.scrollController,
+          physics: const BouncingScrollPhysics(),
+          child: ItemGenerateWidget(),
+        ),
+      ),
+    );
+  }
+}
+
+class NestedScrollBodyWidget extends StatelessWidget {
+  NestedScrollBodyWidget({super.key});
+
+  final HomeController controller = Get.put(HomeController());
+
+  @override
+  Widget build(BuildContext context) {
+    return NestedScrollView(
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        double collapsedHeight = 120.w;
+        return [
+          SliverOverlapAbsorber(
+            handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+            sliver: SliverAppBar(
+              forceElevated: innerBoxIsScrolled,
+              // 收起的过渡颜色
+              backgroundColor: Colors.black,
+              title: const SizedBox(),
+              // 去掉主标题栏左右间距
+              titleSpacing: 0,
+
+              /// SliverAppBar  pinned 表示SliverAppBar/flexibleSpace的title 是否跟着一起滑动到不可见（true 钉住，不滑动到不可见）
+              leading: null,
+              pinned: true,
+              floating: true,
+              bottom: const PreferredSize(preferredSize: Size(0, 0), child: SizedBox()),
+              expandedHeight: 400.w,
+              collapsedHeight: collapsedHeight,
+              leadingWidth: 0,
+              //  collapsedHeight >= toolbarHeight
+              toolbarHeight: collapsedHeight,
+
+              flexibleSpace: FlexibleSpaceBar(
+                titlePadding: const EdgeInsets.all(0),
+                expandedTitleScale: 1,
+                collapseMode: CollapseMode.pin,
+                title: Container(
+                  width: double.infinity,
+                  height: 120.w,
+                  color: Colors.pink,
+                  child: HomeGameTabsWidget(controller: controller),
+                ),
+                background: Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      height: 220.w,
+                      child: SwiperComponent(
+                        radius: 0,
+                      ),
+                    ),
+                    //  const ActivityWidget(),
+                    HomeMarquee(),
+                  ],
+                ),
               ),
             ),
+          )
+        ];
+      },
+      body: Builder(builder: (BuildContext context) {
+        return Container(
+          color: Colors.black,
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverOverlapInjector(
+                handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+              ),
+               GameListItemWidget(title: S.current.hot,),
+              SliverToBoxAdapter(child: HomeBottomWidget())
+            ],
           ),
-        ),
+        );
+      }),
+    );
+  }
+}
+
+class HomeGameTabsWidget extends StatelessWidget {
+  const HomeGameTabsWidget({
+    super.key,
+    required this.controller,
+  });
+
+  final HomeController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: bottomBgColor,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Obx(() {
+            var isShowing = controller.isShowGameTypeLeftArrow.value;
+            return Opacity(
+              opacity: isShowing ? 1 : 0,
+              child: Transform.rotate(angle: 3.14, child: Image.asset("assets/images/arrow_gray.webp", width: 12.w)),
+            );
+          }),
+          SizedBox(
+            width: 5.w,
+          ),
+          SizedBox(
+            width: 715.w,
+            child: GameTypeTabs(
+                indicatorTabController: controller.gameTypeIndicatorTabController,
+                onSelectChanged: (int index) {
+                  controller.switchTabWithAddPressedRecord(index);
+                }),
+          ),
+          SizedBox(
+            width: 5.w,
+          ),
+          Obx(() {
+            var isShowing = controller.isShowGameTypeRightArrow.value;
+            return Opacity(
+              opacity: isShowing ? 1 : 0,
+              child: Transform.rotate(angle: 0, child: Image.asset("assets/images/arrow_gray.webp", width: 12.w)),
+            );
+          }),
+        ],
       ),
     );
   }
@@ -233,7 +375,7 @@ class RecPageWidget extends StatelessWidget {
             listItemIndex: index,
           );
         }),
-       // WinListWidget(),
+        // WinListWidget(),
         HomeBottomWidget(),
       ],
     );

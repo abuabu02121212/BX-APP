@@ -37,7 +37,7 @@ class GameTypeTabs extends StatelessWidget {
     return HorizontalIndicatorTab(
       size: size,
       itemBuilder: _buildIndicatorTabItemBuilder,
-      height: 115.w,
+      height: 120.w,
       itemWidthList: List.generate(size, (index) => getTabItemWidth(index)),
       onSelectChanged: onSelectChanged,
       bgColor: Colors.transparent,
