@@ -12,6 +12,7 @@ import '../../../../http/comm_request.dart';
 import '../../../../util/app_util.dart';
 import '../../../app_style.dart';
 import '../../../component/app_button.dart';
+import '../../../component/badge.dart';
 import '../../../routes/app_pages.dart';
 import '../../home_menu/views/home_menu_view.dart';
 import '../../login_register/views/login_regiseter_widget.dart';
@@ -25,6 +26,7 @@ class HomeHeader extends StatelessWidget {
   });
 
   final GlobeController globeController = Get.find<GlobeController>();
+  final HomeController homeController = Get.find<HomeController>();
   final angel = 0.0.obs;
   final isEnd = true.obs;
 
@@ -135,8 +137,37 @@ class HomeHeader extends StatelessWidget {
                     }
                   },
                   minSize: 0,
-                  padding: EdgeInsets.all(16.w),
-                  child: Image.asset("assets/images/home_message.webp", width: 32.5.w),
+                  //color: Colors.pink,
+                  padding: EdgeInsets.only(left: 16.w, right: 10.w, top: 10.w, bottom: 10.w),
+                  child: Transform.translate(
+                    offset: Offset(0, homeController.msgCount.value > 0 ? -7.w : 0),
+                    child: Stack(
+                      alignment: Alignment.bottomLeft,
+                      children: [
+                        Image.asset("assets/images/home_message.webp", width: 32.5.w),
+                        Visibility(
+                          visible: homeController.msgCount.value > 0,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 20.w, bottom: 16.w),
+                            child: AppBadge(
+                              height: 26.w,
+                              bgColor: const Color(0xffFF3F40),
+                              radius: 13.w,
+                              horPadding: 7.w,
+                              child: Text(
+                                homeController.msgCount.value > 99 ? "99+" : homeController.msgCount.value.toString(),
+                                style: TextStyle(
+                                  fontSize: 22.w,
+                                  color: const Color(0xffffffff),
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 SizedBox(width: 8.w),
               ],
@@ -326,13 +357,13 @@ class HomeBottomWidget extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 30.w, right: 30.w, top: 60.w),
             child: Text(
-                S.current.home_bottom_illustrate,
-                style: TextStyle(
-                  fontSize: 22.w,
-                  color: const Color(0xff5D656F),
-                  fontWeight: FontWeight.w400,
-                ),
+              S.current.home_bottom_illustrate,
+              style: TextStyle(
+                fontSize: 22.w,
+                color: const Color(0xff5D656F),
+                fontWeight: FontWeight.w400,
               ),
+            ),
           ),
           Container(
             width: double.infinity,
@@ -346,40 +377,46 @@ class HomeBottomWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: List.generate(
               5,
-                  (index) => Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 3.w),
-                    child: Image.asset(
-                      "assets/images/home_bot_game_icon_$index.webp",
-                      width: 115.w,
-                    ),
-                  ),
+              (index) => Padding(
+                padding: EdgeInsets.symmetric(horizontal: 3.w),
+                child: Image.asset(
+                  "assets/images/home_bot_game_icon_$index.webp",
+                  width: 115.w,
+                ),
+              ),
             ),
           ),
-          SizedBox(height: 60.w,),
+          SizedBox(
+            height: 60.w,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: List.generate(
               4,
-                  (index) => Image.asset(
-                    "assets/images/home_bot_company_icon_$index.webp",
-                    width: 112.w,
-                  ),
+              (index) => Image.asset(
+                "assets/images/home_bot_company_icon_$index.webp",
+                width: 112.w,
+              ),
             ),
           ),
-          SizedBox(height: 60.w,),
+          SizedBox(
+            height: 60.w,
+          ),
           Center(
             child: Text(
-                S.current.homeRights,
-                style: TextStyle(
-                  fontSize: 22.w,
-                  color: const Color(0xff5D656F),
-                  fontWeight: FontWeight.w400,
-                ),
+              S.current.homeRights,
+              style: TextStyle(
+                fontSize: 22.w,
+                color: const Color(0xff5D656F),
+                fontWeight: FontWeight.w400,
               ),
+            ),
           ),
-          SizedBox(height: 120.w,),
+          SizedBox(
+            height: 120.w,
+          ),
         ],
       ),
     );

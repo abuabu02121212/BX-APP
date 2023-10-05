@@ -14,8 +14,8 @@ class FloatServiceBtnWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DraggableFloatWidget(
-      width: 90.w,
-      height: 90.w,
+      width: 110.w,
+      height: 110.w,
       config: DraggableFloatWidgetBaseConfig(
         initPositionYInTop: false,
         initPositionYMarginBorder: 50,
@@ -29,7 +29,7 @@ class FloatServiceBtnWidget extends StatelessWidget {
           Get.toNamed(Routes.WEBVIEW, arguments: WebURLUtil.getCsLinkParam(homeController.csEntity.value!.onlinecs));
         }
       },
-      child: Image.asset("assets/images/float_service.webp", width: 90.w),
+      child: Image.asset("assets/images/float_service.webp", width: 110.w),
     );
   }
 

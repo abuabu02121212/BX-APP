@@ -39,6 +39,7 @@ class HomeController extends GetxController {
   final noticeListRx = RxList<NoticeEntity>();
 
   final List<GameNavEntity> navItemList = [];
+  final msgCount = 8.obs;
 
   final lastWinListRx = RxList<LastWinEntity>();
   final verticalListPos0ShowSize = 0.obs;
