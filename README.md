@@ -13,6 +13,9 @@ flutter 版本号： 3.7.12
 
 替换启动图： /Users/cg/fvm/versions/3.7.12/bin/flutter pub run flutter_native_splash:create
 
+app launcher图更新： https://pub.dev/packages/icons_launcher
+                   flutter pub get
+                   dart run icons_launcher:create
 打包命令： flutter build apk --release
 
 项目结构：
