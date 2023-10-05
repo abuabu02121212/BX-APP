@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:marqueer/marqueer.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../globe_controller.dart';
 import '../../../../http/comm_request.dart';
 import '../../../../util/app_util.dart';
@@ -47,7 +48,8 @@ class HomeHeader extends StatelessWidget {
             child: Image.asset("assets/images/i-popup-btn.webp", width: 37.w),
           ),
           Image.asset("assets/images/logo.webp", width: 105.w),
-          Expanded(child: Container(
+          Expanded(
+              child: Container(
             alignment: Alignment.centerRight,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -59,69 +61,69 @@ class HomeHeader extends StatelessWidget {
                   return userInfo == null
                       ? const LoginRegisterBtnWidget()
                       : Container(
-                    width: 350.w,
-                    height: 60.w,
-                    margin: EdgeInsets.only(left: 98.w),
-                    decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage(
-                              "assets/images/home_balance_bg.webp",
-                            ))),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CupertinoButton(
-                          onPressed: () {
-                            if (isEnd.value) {
-                              isEnd.value = false;
-                              angel.value += 1;
-                              requestCommBalance();
-                            }
-                          },
-                          minSize: 0,
-                          padding: EdgeInsets.zero,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 20.w, top: 10.w, bottom: 10.w, right: 0.w),
-                            child: Obx(() {
-                              return AnimatedRotation(
-                                turns: angel.value,
-                                duration: const Duration(milliseconds: 600),
-                                onEnd: () {
-                                  isEnd.value = true;
-                                },
-                                child: Image.asset("assets/images/refresher_balance.webp", width: 36.w),
-                              );
-                            }),
-                          ),
-                        ),
-                        Container(
-                          // color: Colors.red,
-                          width: 160.w,
-                          padding: EdgeInsets.only(left: 8.w),
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            AppUtil.amountFormat(globeController.balance.value?.brl ?? '0'),
-                            style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                        AppButton(
-                          width: 121.w,
+                          width: 350.w,
                           height: 60.w,
-                          radius: 30.w,
-                          borderRadius: BorderRadius.horizontal(right: Radius.circular(60.w)),
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          text: 'Conta',
-                          onClick: () {
-                            MainController mainController = Get.find<MainController>();
-                            mainController.changeSelectedTab(2);
-                          },
-                        )
-                      ],
-                    ),
-                  );
+                          margin: EdgeInsets.only(left: 98.w),
+                          decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(
+                            "assets/images/home_balance_bg.webp",
+                          ))),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CupertinoButton(
+                                onPressed: () {
+                                  if (isEnd.value) {
+                                    isEnd.value = false;
+                                    angel.value += 1;
+                                    requestCommBalance();
+                                  }
+                                },
+                                minSize: 0,
+                                padding: EdgeInsets.zero,
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 20.w, top: 10.w, bottom: 10.w, right: 0.w),
+                                  child: Obx(() {
+                                    return AnimatedRotation(
+                                      turns: angel.value,
+                                      duration: const Duration(milliseconds: 600),
+                                      onEnd: () {
+                                        isEnd.value = true;
+                                      },
+                                      child: Image.asset("assets/images/refresher_balance.webp", width: 36.w),
+                                    );
+                                  }),
+                                ),
+                              ),
+                              Container(
+                                // color: Colors.red,
+                                width: 160.w,
+                                padding: EdgeInsets.only(left: 8.w),
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  AppUtil.amountFormat(globeController.balance.value?.brl ?? '0'),
+                                  style: TextStyle(fontSize: 26.w, color: Colors.white, fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                              AppButton(
+                                width: 121.w,
+                                height: 60.w,
+                                radius: 30.w,
+                                borderRadius: BorderRadius.horizontal(right: Radius.circular(60.w)),
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                text: 'Conta',
+                                onClick: () {
+                                  MainController mainController = Get.find<MainController>();
+                                  mainController.changeSelectedTab(2);
+                                },
+                              )
+                            ],
+                          ),
+                        );
                 }),
                 SizedBox(width: 6.w),
                 CupertinoButton(
@@ -243,122 +245,115 @@ class SearchWidget extends StatelessWidget {
   }
 }
 
-class BrandListWidget extends StatelessWidget {
-  BrandListWidget({
+class HomeBottomWidget extends StatelessWidget {
+  HomeBottomWidget({
     super.key,
   });
+
+  final List<String> nameList1 = [
+    S.current.Reward,
+    S.current.Rebate,
+    S.current.VIP,
+    S.current.Agent,
+    S.current.Event,
+    S.current.Mission,
+  ];
+
+  final List<String> nameList2 = [
+    S.current.CockFighting,
+    S.current.Cards,
+    S.current.Fishing,
+    S.current.Slot,
+    S.current.Live,
+    S.current.Sports,
+    S.current.Lottery,
+  ];
+
+  final List<String> nameList3 = [
+    S.current.OnlineSupport,
+    S.current.FeedbackRewards,
+    S.current.HelpCenter,
+  ];
 
   final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 68.w, left: 20.w, right: 20.w),
+      margin: EdgeInsets.only(top: 40.w),
+      color: const Color(0xff121518),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Provedores de jogos", style: TextStyle(fontSize: 32.w, color: Colors.white, fontWeight: FontWeight.w700)),
-          SizedBox(height: 10.w),
-          Image.asset("assets/images/jobs.webp", width: 704.w),
-          SizedBox(height: 24.w),
-          Image.asset("assets/images/dot_line.webp", width: double.infinity),
-          SizedBox(height: 30.w),
-          Text("Entre em contato conosco", style: TextStyle(fontSize: 32.w, color: Colors.white, fontWeight: FontWeight.w700)),
-          SizedBox(height: 10.w),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CupertinoButton(
-                minSize: 0,
-                padding: EdgeInsets.zero,
-                onPressed: () async {
-                  if (controller.csEntity.value == null) {
-                    await requestCsData(controller.csEntity);
-                  } else {
-                    requestCsData(controller.csEntity);
-                  }
-                  var facebook = controller.csEntity.value?.facebook ?? "-";
-                  AppUtil.launch(facebook);
-                },
-                child: Image.asset("assets/images/index-b-f.webp", width: 76.w),
-              ),
-              SizedBox(width: 30.w),
-              CupertinoButton(
-                minSize: 0,
-                padding: EdgeInsets.zero,
-                onPressed: () async {
-                  if (controller.csEntity.value == null) {
-                    await requestCsData(controller.csEntity);
-                  }
-                  var telegram = controller.csEntity.value?.telegram ?? "-";
-                  AppUtil.launch(telegram);
-                },
-                child: Image.asset("assets/images/index-b-t.webp", width: 76.w),
-              ),
-            ],
-          ),
-          SizedBox(height: 24.w),
-          Image.asset("assets/images/dot_line.webp", width: double.infinity),
-          SizedBox(height: 30.w),
-          Text("Método de pagamento", style: TextStyle(fontSize: 32.w, color: Colors.white, fontWeight: FontWeight.w700)),
-          SizedBox(height: 10.w),
-          Image.asset("assets/images/index-b-p.webp", width: 139.w),
-          SizedBox(height: 30.w),
-          Image.asset("assets/images/dot_line.webp", width: double.infinity),
-          SizedBox(height: 30.w),
-          Text("Responsabilidade", style: TextStyle(fontSize: 32.w, color: Colors.white, fontWeight: FontWeight.w700)),
-          SizedBox(height: 30.w),
-          Image.asset("assets/images/index-b-r.webp", width: 92.w),
-          SizedBox(height: 30.w),
-          Text(
-            "A LUCKYKING.com opera através de Elektra Entertainment B.V., com número de registro 157256 e domicílio social em Julianaplein 36 Willemstad, Curaçao, certificada pelo governo de Curaçao através da Licença 8048/JAZ2021-105 emitida para prestação de serviço de Cassino e apostas esportivas.",
-            style: TextStyle(
-              fontSize: 26.w,
-              color: const Color.fromRGBO(255, 255, 255, 0.60),
-              fontWeight: FontWeight.w400,
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 60.w),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TitlesColumnWidget(title: S.current.Casino, names: nameList1),
+                TitlesColumnWidget(title: S.current.Games, names: nameList2),
+                TitlesColumnWidget(title: S.current.Support, names: nameList3),
+              ],
             ),
           ),
-          SizedBox(height: 30.w),
-          BottomIconsWidget(),
-          SizedBox(height: 50.w),
+          Container(
+            width: double.infinity,
+            height: 1.w,
+            margin: EdgeInsets.only(left: 30.w, right: 30.w, top: 60.w, bottom: 60.w),
+            color: const Color.fromRGBO(93, 101, 111, 0.3),
+          ),
         ],
       ),
     );
   }
 }
 
-class BottomIconsWidget extends StatelessWidget {
-  BottomIconsWidget({
+class TitlesColumnWidget extends StatelessWidget {
+  const TitlesColumnWidget({
     super.key,
+    required this.title,
+    required this.names,
   });
 
-  final List<String> names = ["Safe \npayment", "24/7 \nsupport", "Mobile \nfriends", "Highest \nodds", "Multi- \ncurrency"];
+  final String title;
+  final List<String> names;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: List.generate(
-          names.length,
-          (index) => Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    "assets/images/bottom${index + 1}.webp",
-                    width: 42.w,
-                  ),
-                  SizedBox(height: 8.w),
-                  Text(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 24.w,
+            color: Colors.white,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        SizedBox(
+          height: 11.w,
+        ),
+        ...List.generate(
+            names.length,
+            (index) => Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.w),
+                  child: Text(
                     names[index],
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 22.w, color: const Color(0xffCCCED2), fontWeight: FontWeight.w400),
+                    style: TextStyle(
+                      fontSize: 24.w,
+                      color: const Color(0xff5D656F),
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                ],
-              )),
+                )),
+      ],
     );
   }
 }

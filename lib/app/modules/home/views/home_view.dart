@@ -233,23 +233,8 @@ class RecPageWidget extends StatelessWidget {
             listItemIndex: index,
           );
         }),
-        WinListWidget(),
-        BrandListWidget(),
-        Container(
-          width: double.infinity,
-          height: 94.w,
-          decoration: const BoxDecoration(color: Color(0xff011A51)),
-          margin: EdgeInsets.only(bottom: 110.w),
-          alignment: Alignment.center,
-          child: Text(
-            "Copyright © All Rights Reserved by Luckyking",
-            style: TextStyle(
-              fontSize: 24.w,
-              color: const Color.fromRGBO(255, 255, 255, 0.60),
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ),
+       // WinListWidget(),
+        HomeBottomWidget(),
       ],
     );
   }

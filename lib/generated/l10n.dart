@@ -219,6 +219,186 @@ class S {
       args: [],
     );
   }
+
+  /// `Casino`
+  String get Casino {
+    return Intl.message(
+      'Casino',
+      name: 'Casino',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Games`
+  String get Games {
+    return Intl.message(
+      'Games',
+      name: 'Games',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Support`
+  String get Support {
+    return Intl.message(
+      'Support',
+      name: 'Support',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reward`
+  String get Reward {
+    return Intl.message(
+      'Reward',
+      name: 'Reward',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cock Fighting`
+  String get CockFighting {
+    return Intl.message(
+      'Cock Fighting',
+      name: 'CockFighting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Online Support`
+  String get OnlineSupport {
+    return Intl.message(
+      'Online Support',
+      name: 'OnlineSupport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rebate`
+  String get Rebate {
+    return Intl.message(
+      'Rebate',
+      name: 'Rebate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cards`
+  String get Cards {
+    return Intl.message(
+      'Cards',
+      name: 'Cards',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Feedback Rewards`
+  String get FeedbackRewards {
+    return Intl.message(
+      'Feedback Rewards',
+      name: 'FeedbackRewards',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fishing`
+  String get Fishing {
+    return Intl.message(
+      'Fishing',
+      name: 'Fishing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Help Center`
+  String get HelpCenter {
+    return Intl.message(
+      'Help Center',
+      name: 'HelpCenter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Agent`
+  String get Agent {
+    return Intl.message(
+      'Agent',
+      name: 'Agent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Slot`
+  String get Slot {
+    return Intl.message(
+      'Slot',
+      name: 'Slot',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Event`
+  String get Event {
+    return Intl.message(
+      'Event',
+      name: 'Event',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Live`
+  String get Live {
+    return Intl.message(
+      'Live',
+      name: 'Live',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mission`
+  String get Mission {
+    return Intl.message(
+      'Mission',
+      name: 'Mission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sports`
+  String get Sports {
+    return Intl.message(
+      'Sports',
+      name: 'Sports',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lottery`
+  String get Lottery {
+    return Intl.message(
+      'Lottery',
+      name: 'Lottery',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
