@@ -41,7 +41,12 @@
   "English": "English",
   "APPDownload": "APP Download",
   "ContactUs": "Contact Us",
-  "FAQ": "FAQ"
+  "FAQ": "FAQ",
+  "RememberMe": "Remember Me",
+  "ForgotPassword": "Forgot Password?",
+  "PlayDemo": "Play Demo",
+  "RegisterAnAccount": "Register An Account"
+
 
 
 }

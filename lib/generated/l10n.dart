@@ -479,6 +479,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Remember Me`
+  String get RememberMe {
+    return Intl.message(
+      'Remember Me',
+      name: 'RememberMe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot Password?`
+  String get ForgotPassword {
+    return Intl.message(
+      'Forgot Password?',
+      name: 'ForgotPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Play Demo`
+  String get PlayDemo {
+    return Intl.message(
+      'Play Demo',
+      name: 'PlayDemo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register An Account`
+  String get RegisterAnAccount {
+    return Intl.message(
+      'Register An Account',
+      name: 'RegisterAnAccount',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

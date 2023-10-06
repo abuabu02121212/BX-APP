@@ -24,9 +24,9 @@ class UserInfoInputField extends StatelessWidget {
     this.isConfirmsPassword = false,
     this.codeSender,
     required this.hint,
-    this.radius = 50,
+    this.radius,
     this.height,
-    this.bgColor = Colors.black,
+    this.bgColor = const Color(0xff1A1C1F),
     this.border,
     this.onTextChanged,
     this.prefixIconWidth,
@@ -56,7 +56,7 @@ class UserInfoInputField extends StatelessWidget {
   final bool isEmail;
   final bool isTelegram;
   final CodeSender? codeSender;
-  final double radius;
+  final double? radius;
   final double? height;
   final double? showErrHeight;
   final double? paddingLeft;
@@ -102,9 +102,9 @@ class UserInfoInputField extends StatelessWidget {
                   width: double.infinity,
                   height: 72.w,
                   hint: hint,
-                  border: border,
+                  border: border ?? Border.all(width: 1.w, color: const Color.fromRGBO(93, 101, 111, 0.40)),
                   bgColor: bgColor,
-                  radius: radius,
+                  radius: radius ?? 8.w,
                   editEnable: editEnable,
                   obscureText: isPassword || isConfirmsPassword ? eyeIsOPen : false,
                   inputFormatters: tarFormatterList,

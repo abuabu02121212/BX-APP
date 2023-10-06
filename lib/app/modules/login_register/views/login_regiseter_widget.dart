@@ -82,15 +82,6 @@ class LoginRegisterWidget extends StatelessWidget {
 }
 
 void showLoginRegisterDialog() {
-  String routerName = 'login-register';
-  if(appNavigatorObserver.curRouterName == routerName){
-    return;
-  }
-    Get.dialog(
-      LoginRegisterWidget(),
-      name: routerName,
-      barrierDismissible: false
-    //  barrierColor: const Color.fromRGBO(0, 0, 0, 0.7),
-  );
+  showLoginDialog();
 }
 

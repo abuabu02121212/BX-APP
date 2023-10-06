@@ -37,13 +37,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "FeedbackRewards":
             MessageLookupByLibrary.simpleMessage("Feedback Rewards"),
         "Fishing": MessageLookupByLibrary.simpleMessage("Fishing"),
+        "ForgotPassword":
+            MessageLookupByLibrary.simpleMessage("Forgot Password?"),
         "Games": MessageLookupByLibrary.simpleMessage("Games"),
         "HelpCenter": MessageLookupByLibrary.simpleMessage("Help Center"),
         "Live": MessageLookupByLibrary.simpleMessage("Live"),
         "Lottery": MessageLookupByLibrary.simpleMessage("Lottery"),
         "Mission": MessageLookupByLibrary.simpleMessage("Mission"),
         "OnlineSupport": MessageLookupByLibrary.simpleMessage("Online Support"),
+        "PlayDemo": MessageLookupByLibrary.simpleMessage("Play Demo"),
         "Rebate": MessageLookupByLibrary.simpleMessage("Rebate"),
+        "RegisterAnAccount":
+            MessageLookupByLibrary.simpleMessage("Register An Account"),
+        "RememberMe": MessageLookupByLibrary.simpleMessage("Remember Me"),
         "Reward": MessageLookupByLibrary.simpleMessage("Reward"),
         "ServerNo": m0,
         "Slot": MessageLookupByLibrary.simpleMessage("Slot"),
