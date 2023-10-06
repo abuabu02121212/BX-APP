@@ -31,6 +31,11 @@ abstract class Routes {
   static const CENTER_BANK_LIST_ADD = _Paths.CENTER_BANK_LIST_ADD;
   static const CENTER_PHONE = _Paths.CENTER_PHONE;
   static const CENTER_PAY_PASSWORD_SMS = _Paths.CENTER_PAY_PASSWORD_SMS;
+
+  static const PROMOTION_PH = _Paths.PROMOTION_PH;
+  static const MY_PH_PAGE = _Paths.MY_PH;
+  static const MAIN_WALLET_PAGE = _Paths.MAIN_WALLET;
+  static const DEPOSIT_PH = _Paths.DEPOSIT_PH;
 }
 
 abstract class _Paths {
@@ -62,4 +67,9 @@ abstract class _Paths {
   static const CENTER_BANK_LIST_ADD = '/center-bank-list-add';
   static const CENTER_PHONE = '/center-phone';
   static const CENTER_PAY_PASSWORD_SMS = '/center-pay-password-sms';
+
+  static const PROMOTION_PH = '/promotion1';
+  static const MY_PH = '/my_ph';
+  static const MAIN_WALLET = '/main_wallet';
+  static const DEPOSIT_PH = '/deposit_ph';
 }

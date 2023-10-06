@@ -66,3 +66,16 @@ LinearGradient btnLinearBg = const LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,
 );
+
+LinearGradient tabBgLinearGradientH = const LinearGradient(
+  colors: [Color(0xff1A1C1F), Color(0xff1A1C1F)],
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+);
+
+// 主题背景色（黑色）---菲
+Color blackBgColor_h = const Color(0xfff212226);
+
+TextStyle pubTextStyle(var color,var size,var fontWeight)  {
+  return TextStyle(fontSize: size, color: color, fontWeight:fontWeight);
+}

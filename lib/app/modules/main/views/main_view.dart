@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_comm/app/modules/deposit/views/deposit_view.dart';
 import 'package:flutter_comm/app/modules/home/views/home_view.dart';
 import 'package:flutter_comm/app/modules/main/views/tab_component.dart';
-import 'package:flutter_comm/app/modules/mine/views/mine_view.dart';
-import 'package:flutter_comm/app/modules/promotion/views/promotion_view.dart';
+import 'package:flutter_comm/app/modules/my_ph/my_ph_view.dart';
+import 'package:flutter_comm/app/modules/promotion_ph/promotion_ph_view.dart';
 import 'package:flutter_comm/app/modules/vip/views/vip_view.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
-import 'package:flutter_comm/util/sp_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import '../../../../globe_controller.dart';
 import '../../../../util/Log.dart';
-import '../../../../util/sp_util_key.dart';
 import '../../../../widget/keep_alive_page.dart';
 import '../../../app_style.dart';
 import '../../login_register/views/login_regiseter_widget.dart';
@@ -48,13 +45,15 @@ class MainView extends GetView<MainController> {
                       case 0:
                         return AliveWidget(child: HomeView());
                       case 1:
-                        return AliveWidget(child: PromotionView());
+                        // return AliveWidget(child: PromotionView());
+                        return const AliveWidget(child: PromotionPHPage());
                       case 2:
                         return AliveWidget(child: DepositView(isShowBack: false));
                       case 3:
                         return AliveWidget(child: VipView());
                       case 4:
-                        return const AliveWidget(child: MineView());
+                        // return const AliveWidget(child: MineView());
+                        return const AliveWidget(child: My_PHPage());
                     }
                     return const AliveWidget(child: SizedBox());
                   }),
@@ -69,13 +68,13 @@ class MainView extends GetView<MainController> {
                     onSelectChanged: (pos) {
                       Log.d("==========onSelectChanged===pos:$pos====");
                       GlobeController globeController = Get.find<GlobeController>();
-                      if (pos >= 2) {
+                      if (pos >= 9) {
                         if (!globeController.isLogin()) {
                           controller.indicatorTabController.back();
                           showLoginRegisterDialog();
                         } else {
                           Log.d("已经登陆");
-                          if (pos == 2) {
+                          if (pos == 9) {
                             controller.indicatorTabController.back();
                             Get.toNamed(Routes.DEPOSIT);
                           } else {

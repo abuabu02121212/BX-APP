@@ -1,3 +1,11 @@
+import 'package:flutter_comm/app/modules/deposit_ph/deposit_ph_binding.dart';
+import 'package:flutter_comm/app/modules/deposit_ph/deposit_ph_view.dart';
+import 'package:flutter_comm/app/modules/main_wallet/main_wallet_binding.dart';
+import 'package:flutter_comm/app/modules/main_wallet/main_wallet_view.dart';
+import 'package:flutter_comm/app/modules/my_ph/my_ph_binding.dart';
+import 'package:flutter_comm/app/modules/my_ph/my_ph_view.dart';
+import 'package:flutter_comm/app/modules/promotion_ph/promotion_ph_binding.dart';
+import 'package:flutter_comm/app/modules/promotion_ph/promotion_ph_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/apostas/bindings/apostas_binding.dart';
@@ -197,6 +205,25 @@ class AppPages {
       name: _Paths.CENTER_PAY_PASSWORD_SMS,
       page: () => const CenterPayPasswordSmsView(),
       binding: CenterPayPasswordSmsBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROMOTION_PH,
+      page: () => const PromotionPHPage(),
+      binding: PromotionPHBinding(),
+    ),
+    GetPage(
+      name: _Paths.MY_PH,
+      page: () => const My_PHPage(),
+      binding: My_PHBinding(),
+    ),
+    GetPage(
+      name: _Paths.MAIN_WALLET,
+      page: () => const Main_walletPage(),
+      binding: Main_walletBinding(),
+    ),GetPage(
+      name: _Paths.DEPOSIT_PH,
+      page: () => const Deposit_PHPage(),
+      binding: Deposit_PHBinding(),
     ),
   ];
 }
