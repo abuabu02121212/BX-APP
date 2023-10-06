@@ -50,32 +50,6 @@ class HomeView extends GetView<HomeController> {
   }
 }
 
-class OldBodyWidget extends StatelessWidget {
-  const OldBodyWidget({
-    super.key,
-    required this.controller,
-  });
-
-  final HomeController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        color: const Color(0xff10192E),
-        width: double.infinity,
-        height: double.infinity,
-        alignment: Alignment.topLeft,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.zero,
-          controller: controller.scrollController,
-          physics: const BouncingScrollPhysics(),
-          child: ItemGenerateWidget(),
-        ),
-      ),
-    );
-  }
-}
 
 class NestedScrollBodyWidget extends StatelessWidget {
   NestedScrollBodyWidget({super.key});

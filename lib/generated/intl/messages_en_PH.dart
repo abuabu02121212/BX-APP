@@ -20,14 +20,20 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en_PH';
 
+  static String m0(num) => "Server ${num}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "APPDownload": MessageLookupByLibrary.simpleMessage("APP Download"),
         "Agent": MessageLookupByLibrary.simpleMessage("Agent"),
         "BetRecords": MessageLookupByLibrary.simpleMessage("Bet Records"),
         "Cards": MessageLookupByLibrary.simpleMessage("Cards"),
         "Casino": MessageLookupByLibrary.simpleMessage("Casino"),
         "CockFighting": MessageLookupByLibrary.simpleMessage("Cock Fighting"),
+        "ContactUs": MessageLookupByLibrary.simpleMessage("Contact Us"),
+        "English": MessageLookupByLibrary.simpleMessage("English"),
         "Event": MessageLookupByLibrary.simpleMessage("Event"),
+        "FAQ": MessageLookupByLibrary.simpleMessage("FAQ"),
         "FeedbackRewards":
             MessageLookupByLibrary.simpleMessage("Feedback Rewards"),
         "Fishing": MessageLookupByLibrary.simpleMessage("Fishing"),
@@ -39,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "OnlineSupport": MessageLookupByLibrary.simpleMessage("Online Support"),
         "Rebate": MessageLookupByLibrary.simpleMessage("Rebate"),
         "Reward": MessageLookupByLibrary.simpleMessage("Reward"),
+        "ServerNo": m0,
         "Slot": MessageLookupByLibrary.simpleMessage("Slot"),
         "Sports": MessageLookupByLibrary.simpleMessage("Sports"),
         "Support": MessageLookupByLibrary.simpleMessage("Support"),

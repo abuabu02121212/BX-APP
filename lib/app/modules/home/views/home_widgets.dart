@@ -311,7 +311,7 @@ class HomeBottomWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-    //  margin: EdgeInsets.only(top: 40.w),
+      padding: EdgeInsets.only(bottom: 60.w),
       color: const Color(0xff121518),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -404,7 +404,9 @@ class HomeBottomWidget extends StatelessWidget {
           SizedBox(
             height: 60.w,
           ),
-          Center(
+          Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(bottom: 120.w),
             child: Text(
               S.current.homeRights,
               style: TextStyle(
@@ -413,9 +415,6 @@ class HomeBottomWidget extends StatelessWidget {
                 fontWeight: FontWeight.w400,
               ),
             ),
-          ),
-          SizedBox(
-            height: 120.w,
           ),
         ],
       ),

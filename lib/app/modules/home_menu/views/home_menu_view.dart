@@ -56,6 +56,7 @@ class HomeDrawerWidget extends StatelessWidget {
           height: double.infinity,
           decoration: const BoxDecoration(color: headerBgColor),
           child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Container(
               padding: EdgeInsets.only(bottom: 120.w),
               child: Column(
@@ -109,33 +110,7 @@ class HomeDrawerWidget extends StatelessWidget {
                       );
                     },
                   ),
-                  ListView.builder(
-                      itemCount: 5,
-                      physics: const BouncingScrollPhysics(),
-                      controller: ScrollController(),
-                      padding: EdgeInsets.only(left: 40.w, right: 32.w, top: 25.w),
-                      shrinkWrap: true,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          width: double.infinity,
-                          height: 80.w,
-                          child: Stack(alignment: Alignment.centerLeft,children: [
-                            Image.asset("assets/images/home_menu_bot_icon_$index.webp", width: 35.w),
-                            Positioned(
-                                right: 0.w,
-                                left: 50.w,
-                                child: Text(
-                                    "Service",
-                                    style: TextStyle(
-                                      fontSize: 26.w,
-                                      color: const Color(0xff8F9DAB),
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                              )
-                            ],),
-                        );
-                      })
+                  BottomWidgets()
                 ],
               ),
             ),
@@ -143,6 +118,81 @@ class HomeDrawerWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class BottomWidgets extends StatelessWidget {
+  BottomWidgets({
+    super.key,
+  });
+
+  final List<String> names = [
+    S.current.ServerNo("?"),
+    S.current.English,
+    S.current.APPDownload,
+    S.current.ContactUs,
+    S.current.FAQ,
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        itemCount: 5,
+        physics: const BouncingScrollPhysics(),
+        controller: ScrollController(),
+        padding: EdgeInsets.only(left: 40.w, right: 35.w, top: 25.w),
+        shrinkWrap: true,
+        itemBuilder: (BuildContext context, int index) {
+          double imgWidth = index == 0 ? 23.w : 35.w;
+          return SizedBox(
+            width: double.infinity,
+            height: 80.w,
+            child: Stack(
+              alignment: Alignment.centerLeft,
+              children: [
+                if (index == 0)
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Image.asset("assets/images/home_menu_bot_icon_$index.webp", width: imgWidth),
+                      Text(
+                        "132ms",
+                        style: TextStyle(
+                          fontSize: 14.w,
+                          color: const Color(0xff07BB65),
+                          fontWeight: FontWeight.w400,
+                        ),
+                      )
+                    ],
+                  )
+                else
+                  Image.asset("assets/images/home_menu_bot_icon_$index.webp", width: imgWidth),
+                Positioned(
+                  right: 0.w,
+                  left: 60.w,
+                  child: Text(
+                    names[index],
+                    style: TextStyle(
+                      fontSize: 26.w,
+                      color: const Color(0xff8F9DAB),
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                if (index <= 1)
+                  Positioned(
+                    right: 5.w,
+                    child: Transform.rotate(
+                      angle: 3.1415 * 0.5,
+                      child: Image.asset("assets/images/arrow_gray.webp", width: 12.w),
+                    ),
+                  ),
+              ],
+            ),
+          );
+        });
   }
 }
 
@@ -524,6 +574,7 @@ class LoginRegisterBtnWidget extends StatelessWidget {
 String tagHomeDrawer = "tagHomeDrawer";
 bool isHomeDrawerShowing = false;
 bool isHasLoaded = false;
+
 void showHomeDrawer() {
   SmartDialog.show(
     tag: tagHomeDrawer,
@@ -531,8 +582,7 @@ void showHomeDrawer() {
     alignment: Alignment.centerLeft,
     animationTime: const Duration(milliseconds: 250),
     builder: (BuildContext context) {
-      return const SafeArea(
-          child: HomeDrawerWidget());
+      return const SafeArea(child: HomeDrawerWidget());
     },
   );
   isHomeDrawerShowing = true;
