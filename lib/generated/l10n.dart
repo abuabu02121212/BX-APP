@@ -419,6 +419,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Bet Records`
+  String get BetRecords {
+    return Intl.message(
+      'Bet Records',
+      name: 'BetRecords',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

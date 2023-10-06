@@ -124,7 +124,9 @@ class NestedScrollBodyWidget extends StatelessWidget {
                 title: null,
                 background: Column(
                   children: [
-                    SizedBox(height: 110.w,),
+                    SizedBox(
+                      height: 110.w,
+                    ),
                     SizedBox(
                       width: double.infinity,
                       height: 220.w,
@@ -147,9 +149,11 @@ class NestedScrollBodyWidget extends StatelessWidget {
               SliverOverlapInjector(
                 handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
               ),
-              GameListItemWidget(
-                title: S.current.hot,
-              ),
+              ...List.generate(
+                  gameTabNameList.length,
+                  (index) => GameListItemWidget(
+                        title: gameTabNameList[index],
+                      )),
               SliverToBoxAdapter(child: HomeBottomWidget())
             ],
           ),

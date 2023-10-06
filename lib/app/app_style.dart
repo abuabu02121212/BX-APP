@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 Color bgColor = const Color(0xff020a1c);
-Color headerBgColor = const Color(0xff1A1C1F);
+const Color headerBgColor = Color(0xff1A1C1F);
 const Color bottomBgColor = Color(0xff1A1C1F);
 
 

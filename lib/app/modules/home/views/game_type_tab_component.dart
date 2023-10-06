@@ -6,6 +6,18 @@ import '../../../../generated/l10n.dart';
 import '../../../../widget/horizontal_indicator_tab.dart';
 import '../../../app_style.dart';
 import '../controllers/home_controller.dart';
+final List<String> gameTabNameList = [
+  S.current.hot,
+  S.current.slot,
+  S.current.finishing,
+  S.current.live,
+  S.current.cards,
+  S.current.support,
+  S.current.cockFighting,
+  S.current.recent,
+  S.current.favorite,
+  S.current.demo,
+];
 
 class GameTypeTabs extends StatelessWidget {
   GameTypeTabs({
@@ -18,18 +30,7 @@ class GameTypeTabs extends StatelessWidget {
   final IndicatorTabController indicatorTabController;
 
 
-  final List<String> nameList = [
-    S.current.hot,
-    S.current.slot,
-    S.current.finishing,
-    S.current.live,
-    S.current.cards,
-    S.current.support,
-    S.current.cockFighting,
-    S.current.recent,
-    S.current.favorite,
-    S.current.demo,
-  ];
+
   final HomeController controller = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
@@ -72,7 +73,7 @@ class GameTypeTabs extends StatelessWidget {
             ],
           ),
           Text(
-            nameList[index],
+            gameTabNameList[index],
             style: TextStyle(color: color, fontSize: 24.w, fontWeight: selected ? FontWeight.w700 : FontWeight.w400),
           )
         ],
