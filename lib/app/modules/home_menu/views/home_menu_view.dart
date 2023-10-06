@@ -143,56 +143,85 @@ class BottomWidgets extends StatelessWidget {
         padding: EdgeInsets.only(left: 40.w, right: 35.w, top: 25.w),
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
-          double imgWidth = index == 0 ? 23.w : 35.w;
-          return SizedBox(
-            width: double.infinity,
-            height: 80.w,
-            child: Stack(
-              alignment: Alignment.centerLeft,
-              children: [
-                if (index == 0)
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.asset("assets/images/home_menu_bot_icon_$index.webp", width: imgWidth),
-                      Text(
-                        "132ms",
-                        style: TextStyle(
-                          fontSize: 14.w,
-                          color: const Color(0xff07BB65),
-                          fontWeight: FontWeight.w400,
-                        ),
-                      )
-                    ],
-                  )
-                else
-                  Image.asset("assets/images/home_menu_bot_icon_$index.webp", width: imgWidth),
-                Positioned(
-                  right: 0.w,
-                  left: 60.w,
-                  child: Text(
-                    names[index],
+          return BotItemWidget(names: names, index: index);
+        });
+  }
+}
+
+class BotItemWidget extends StatelessWidget {
+  BotItemWidget({
+    super.key,
+    required this.names,
+    required this.index,
+  });
+
+  final List<String> names;
+  final int index;
+  final angel = (0.25).obs;
+  final isOpen = false.obs;
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoButton(
+      onPressed: () {
+        isOpen.value = !isOpen.value;
+        angel.value = isOpen.value ? 0 : 0.25;
+        Toast.show("$index");
+      },
+      minSize: 0,
+      padding: EdgeInsets.zero,
+      child: SizedBox(
+        width: double.infinity,
+        height: 80.w,
+        child: Stack(
+          alignment: Alignment.centerLeft,
+          children: [
+            if (index == 0)
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset("assets/images/home_menu_bot_icon_$index.webp", width: 23.w),
+                  Text(
+                    "132ms",
                     style: TextStyle(
-                      fontSize: 26.w,
-                      color: const Color(0xff8F9DAB),
+                      fontSize: 14.w,
+                      color: const Color(0xff07BB65),
                       fontWeight: FontWeight.w400,
                     ),
-                  ),
+                  )
+                ],
+              )
+            else
+              Image.asset("assets/images/home_menu_bot_icon_$index.webp", width: 35.w),
+            Positioned(
+              right: 0.w,
+              left: 60.w,
+              child: Text(
+                names[index],
+                style: TextStyle(
+                  fontSize: 26.w,
+                  color: const Color(0xff8F9DAB),
+                  fontWeight: FontWeight.w400,
                 ),
-                if (index <= 1)
-                  Positioned(
-                    right: 5.w,
-                    child: Transform.rotate(
-                      angle: 3.1415 * 0.5,
-                      child: Image.asset("assets/images/arrow_gray.webp", width: 12.w),
-                    ),
-                  ),
-              ],
+              ),
             ),
-          );
-        });
+            if (index <= 1)
+              Positioned(
+                right: 5.w,
+                child: Obx(() {
+                  return AnimatedRotation(
+                    turns: angel.value,
+                    duration: const Duration(milliseconds: 200),
+                    child: Image.asset("assets/images/arrow_gray.webp", width: 12.w),
+                  );
+                }),
+              ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
