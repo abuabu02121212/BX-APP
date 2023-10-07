@@ -36,6 +36,7 @@ abstract class Routes {
   static const MY_PH_PAGE = _Paths.MY_PH;
   static const MAIN_WALLET_PAGE = _Paths.MAIN_WALLET;
   static const DEPOSIT_PH = _Paths.DEPOSIT_PH;
+  static const VIP_PH = _Paths.VIP_PH;
 }
 
 abstract class _Paths {
@@ -72,4 +73,5 @@ abstract class _Paths {
   static const MY_PH = '/my_ph';
   static const MAIN_WALLET = '/main_wallet';
   static const DEPOSIT_PH = '/deposit_ph';
+  static const VIP_PH = '/vip_ph';
 }

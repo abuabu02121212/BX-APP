@@ -8,6 +8,7 @@ import 'package:flutter_comm/widget/online_deposit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../generated/l10n.dart';
 import 'deposit_ph_logic.dart';
 
 class Deposit_PHPage extends StatefulWidget {
@@ -27,12 +28,12 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
     return BaseScaffoldPH(
       backgroundColor: blackBgColor_h,
       appBar: BaseAppbarPH(
-        title: 'Deposit',
+        title: S.current.Deposit,
         actions: [
           CupertinoButton(
               padding: EdgeInsets.fromLTRB(0, 0, 20.w, 0),
               child: Text(
-                'Deposit Records',
+                S.current.DepositRecords,
                 style: pubTextStyle(
                     const Color(0xFF3EA1F8), 22.sp, FontWeight.w400),
               ),
@@ -59,7 +60,7 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                           flex: 1,
                           child: onlineDeposit(
                             isSele: true,
-                            name: 'Online Deposit',
+                            name: S.current.OnlineDeposit,
                             isHave: true,
                             nameRight: 'Free1%',
                           ),
@@ -71,7 +72,7 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                           flex: 1,
                           child: onlineDeposit(
                             isHave: false,
-                            name: 'Transfer and Deposit',
+                            name: S.current.TransferAndDeposit,
                           ),
                         )
                       ],
@@ -92,7 +93,7 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                           flex: 1,
                           child: onlineDeposit(
                             isSele: true,
-                            name: 'Gcash',
+                            name: S.current.Gcash,
                             isHave: true,
                             nameRight: 'Free0.5-1%',
                             img: 'assets/images/user/ic_gcash.webp',
@@ -104,7 +105,7 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                         Expanded(
                           flex: 1,
                           child: onlineDeposit(
-                            name: 'Maya',
+                            name: S.current.Maya,
                             isHave: true,
                             nameRight: 'Free0.5-1%',
                             img: 'assets/images/user/ic_maya.webp',
@@ -140,7 +141,7 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                             itemBuilder: (BuildContext context, int index) {
                               return onlineDeposit(
                                 isSele: index == 0 || index == 1 ? true : false,
-                                name: 'Gcash',
+                                name: S.current.Gcash,
                               );
                             }),
                       ),
@@ -155,7 +156,7 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                           children: [
                             const Expanded(child: SizedBox()),
                             Text(
-                              'Expand',
+                              S.current.Expand,
                               style: pubTextStyle(const Color(0xFF3EA1F8),
                                   24.sp, FontWeight.w400),
                             ),
@@ -188,7 +189,7 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Deposit Amount',
+                          S.current.DepositAmount,
                           style: pubTextStyle(
                               const Color(0xFFffffff), 26.sp, FontWeight.w400),
                         ),
@@ -196,7 +197,7 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                             padding: EdgeInsets.zero,
                             minSize: 0,
                             child: Text(
-                              'Additional bonus event details',
+                              S.current.Additional_bonus_event_details,
                               style: pubTextStyle(const Color(0xFF3EA1F8),
                                   24.sp, FontWeight.w400),
                             ),
@@ -251,7 +252,7 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            '₱',
+                           S.current.money_p,
                             style: TextStyle(
                               fontSize: 32.sp,
                               color: const Color(0xFFffffff),
@@ -274,7 +275,7 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                                     right: 0.w,
                                     top: -23.h,
                                     bottom: 0.h),
-                                hintText: 'Min 100, Max 50000',
+                                hintText: S.current.Min_100_Max_50000,
                                 hintStyle: pubTextStyle(const Color(0xFF5D656F),
                                     24.sp, FontWeight.w400),
                                 // suffixIcon: IconButton(
@@ -296,7 +297,7 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Tips',
+                        S.current.Tips,
                         style: pubTextStyle(
                             const Color(0xFFffffff), 22.sp, FontWeight.w400),
                         textAlign: TextAlign.left,
@@ -306,7 +307,7 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                       height: 8.h,
                     ),
                     Text(
-                      'It is the first time to use payment, please cooperate with scanning face to pay successfully, thank you!',
+                      S.current.please_cooperate_scanning_face,
                       style: pubTextStyle(
                           const Color(0xFF5D656F), 22.sp, FontWeight.w400),
                     ),
@@ -328,7 +329,7 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                   borderRadius: BorderRadius.circular(16.r),
                 ),
                 child: Text(
-                  'Deposit Now',
+                 S.current.DepositNow,
                   style: pubTextStyle(
                       const Color(0xFFffffff), 26.sp, FontWeight.w700),
                 ),

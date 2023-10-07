@@ -7,6 +7,7 @@ import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:simple_progress_indicators/simple_progress_indicators.dart';
+import '../../../generated/l10n.dart';
 import 'my_ph_logic.dart';
 
 class My_PHPage extends StatefulWidget {
@@ -122,7 +123,7 @@ class _My_PHPageState extends State<My_PHPage> {
                       ),
                       Row(
                         children: [
-                          Text('ID: 49816685',
+                          Text('${S.current.ID}49816685',
                               style: pubTextStyle(const Color(0xffffffff),
                                   24.sp, FontWeight.w400)),
                           SizedBox(
@@ -247,20 +248,20 @@ class _My_PHPageState extends State<My_PHPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _headTab(
-                    'assets/images/user/ic_main_wallet.webp', 'Main Wallet',
+                    'assets/images/user/ic_main_wallet.webp', S.current.MainWallet,
                     () {
                   Get.toNamed(Routes.MAIN_WALLET_PAGE);
                 }),
                 line(),
                 _headTab(
-                    'assets/images/user/ic_withdraw.webp', 'Withdraw', () {}),
+                    'assets/images/user/ic_withdraw.webp', S.current.Withdraw, () {}),
                 line(),
-                _headTab('assets/images/user/ic_deposit.webp', 'Deposit', () {
+                _headTab('assets/images/user/ic_deposit.webp', S.current.Deposit, () {
                   Get.toNamed(Routes.DEPOSIT_PH);
                 }),
                 line(),
                 _headTab(
-                    'assets/images/user/ic_interest.webp', 'Interest', () {}),
+                    'assets/images/user/ic_interest.webp', S.current.Interest, () {}),
               ],
             ),
           ),
@@ -346,7 +347,7 @@ class _My_PHPageState extends State<My_PHPage> {
                         top: 107.5.h,
                         width: 157.w,
                         child: Text(
-                          'VIP 1',
+                          '${S.current.VIP} 1',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: const Color(0xffffffff),
@@ -377,15 +378,15 @@ class _My_PHPageState extends State<My_PHPage> {
                       children: [
                         Text.rich(TextSpan(children: [
                           TextSpan(
-                              text: 'To achieve next level ',
+                              text: S.current.ToAchieveNextLevel,
                               style: pubTextStyle(const Color(0xff8F9DAB),
                                   22.sp, FontWeight.w400)),
                           TextSpan(
-                              text: 'VIP 1',
+                              text: '${S.current.VIP} 1',
                               style: pubTextStyle(const Color(0xff3EA1F8),
                                   22.sp, FontWeight.w700)),
                           TextSpan(
-                              text: '\nWager an Additional ',
+                              text: S.current.WagerAdditional_n,
                               style: pubTextStyle(const Color(0xff8F9DAB),
                                   22.sp, FontWeight.w400)),
                           TextSpan(
@@ -396,7 +397,7 @@ class _My_PHPageState extends State<My_PHPage> {
                         SizedBox(
                           height: 10.h,
                         ),
-                        Text('Upgrade Needs Wager',
+                        Text(S.current.UpgradeNeedsWager,
                             style: pubTextStyle(const Color(0xffffffff), 22.sp,
                                 FontWeight.w400)),
                         SizedBox(
@@ -471,18 +472,18 @@ class _My_PHPageState extends State<My_PHPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _headTab('assets/images/user/ic_statement.webp', 'Statement',
+                _headTab('assets/images/user/ic_statement.webp', S.current.Statement,
                     () {
                   Toast.show('Main Wallet');
                 }),
                 // line(),
                 _headTab('assets/images/user/ic_bet_records.webp',
-                    'Bet Records', () {}),
+                    S.current.BetRecords, () {}),
                 // line(),
-                _headTab('assets/images/user/ic_report.webp', 'Report', () {}),
+                _headTab('assets/images/user/ic_report.webp', S.current.Report, () {}),
                 // line(),
                 _headTab('assets/images/user/ic_withdrawal_settings.webp',
-                    'Withdrawal \nSettings', () {}),
+                    S.current.WithdrawalSettings, () {}),
               ],
             ),
           ),
@@ -546,7 +547,7 @@ class _My_PHPageState extends State<My_PHPage> {
                 child: SizedBox(),
               ),
               if (index == 0 || index == 4)
-                Text(index == 0 ? 'Million Monthly' : 'English',
+                Text(index == 0 ? S.current.MillionMonthly : S.current.English,
                     style: pubTextStyle(
                         index == 1
                             ? const Color(0xff3EA1F8)

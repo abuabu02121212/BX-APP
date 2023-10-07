@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Color bgColor = const Color(0xff020a1c);
 const Color headerBgColor = Color(0xff1A1C1F);
@@ -76,6 +77,15 @@ LinearGradient tabBgLinearGradientH = const LinearGradient(
 // 主题背景色（黑色）---菲
 Color blackBgColor_h = const Color(0xfff212226);
 
-TextStyle pubTextStyle(var color,var size,var fontWeight)  {
-  return TextStyle(fontSize: size, color: color, fontWeight:fontWeight);
+TextStyle pubTextStyle(var color,var size,var fontWeight ,{height,wordSpacing})  {
+  return TextStyle(fontSize: size, color: color, fontWeight:fontWeight,height: height,wordSpacing:wordSpacing );
+}
+
+BoxDecoration pubBoxDecoration() {
+  return BoxDecoration(
+    borderRadius: BorderRadius.circular(16.r),
+    color: const Color(0xff252527),
+    border: Border.all(
+        color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.w),
+  );
 }

@@ -6,6 +6,8 @@ import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../generated/l10n.dart';
+
 class promotionPHEvent extends StatelessWidget {
   promotionPHEvent({
     super.key,
@@ -14,22 +16,15 @@ class promotionPHEvent extends StatelessWidget {
     required this.itemWidget,
   });
 
-  // Event mission rebate rewards
-  static const List<String> tabNames = [
-    "Event",
-    "Mission",
-    "Rebate",
-    "Rewards"
-  ];
-
   PromotionPHLogic logic;
   int indexPase;
   Widget itemWidget;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: double.infinity,
+      // padding: EdgeInsets.only(bottom: 100.h),
       child: Column(
         children: [
           Container(
@@ -50,7 +45,7 @@ class promotionPHEvent extends StatelessWidget {
                           children: [
                             RichText(
                                 text: TextSpan(
-                                    text: 'Total Valid Bets',
+                                    text: S.current.TotalValidBets,
                                     style: TextStyle(
                                         color: const Color(0xff8F9DAB),
                                         fontSize: 24.sp,
@@ -72,7 +67,7 @@ class promotionPHEvent extends StatelessWidget {
                           children: [
                             RichText(
                                 text: TextSpan(
-                                    text: 'Rebateable',
+                                    text: S.current.Rebateable,
                                     style: TextStyle(
                                         color: const Color(0xff8F9DAB),
                                         fontSize: 24.sp,
@@ -110,7 +105,7 @@ class promotionPHEvent extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Distributed',
+                              S.current.Distributed,
                               style: TextStyle(
                                   color: const Color(0xffffffff),
                                   fontSize: 24.sp,
@@ -144,7 +139,7 @@ class promotionPHEvent extends StatelessWidget {
                             width: 1.w, color: const Color(0xff3EA1F8)),
                       ),
                       child: Text(
-                        'History',
+                        S.current.History,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: const Color(0xff3EA1F8),
@@ -170,7 +165,7 @@ class promotionPHEvent extends StatelessWidget {
                           // border: Border.all(width: 1.w,color: const Color(0xff3EA1F8)),
                           ),
                       child: Text(
-                        'Collect All',
+                        S.current.CollectAll,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: const Color(0xffffffff),
@@ -188,7 +183,7 @@ class promotionPHEvent extends StatelessWidget {
             alignment: Alignment.topCenter,
             margin: EdgeInsets.only(left: 20.w, right: 20.w),
             width: double.infinity,
-            height: 1200.h,
+            height: 850.h,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,19 +208,29 @@ class promotionPHEvent extends StatelessWidget {
                   SizedBox(
                     width: 22.w,
                   ),
-                Container(
+                SizedBox(
                   width: indexPase == 2 ? 568.w : 710.w,
                   // height: double.infinity,
                   // height: 2000.h,
-                  padding: EdgeInsets.only(bottom: 50.h),
-                  child: MediaQuery.removePadding(
+                  // padding: EdgeInsets.only(bottom: 350.h),
+                  child:
+                      // SingleChildScrollView(
+                      //   physics: NeverScrollableScrollPhysics(),
+                      //   padding: EdgeInsets.zero,
+                      //   controller: ScrollController(),
+                      //   child:
+                      MediaQuery.removePadding(
                     removeBottom: true,
                     removeTop: true,
                     context: context,
                     child: indexPase != 3
                         ? ListView.separated(
+                            physics: const ClampingScrollPhysics(),
                             itemBuilder: (BuildContext context, int index) {
-                              return itemWidget;
+                              return (indexPase == 1 &&
+                                      index == logic.list_name1.length)
+                                  ? _getIllustrate()
+                                  : itemWidget;
                             },
                             separatorBuilder:
                                 (BuildContext context, int index) {
@@ -233,16 +238,79 @@ class promotionPHEvent extends StatelessWidget {
                                 height: 15.h,
                               );
                             },
-                            itemCount: logic.list_name.length)
+                            itemCount: indexPase == 1
+                                ? logic.list_name1.length + 1
+                                : logic.list_name1.length)
                         : AppEmptyPromotion(
                             width: indexPase == 2 ? 568.w : 710.w,
                             height: 500.h,
                           ),
                   ),
-                )
+                ),
+
+                // ),
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _getIllustrate() {
+    return Container(
+      width: 710.w,
+      padding: EdgeInsets.all(30.w),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16.r),
+        color: const Color(0xff252527),
+        border: Border.all(
+            color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.w),
+      ),
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Text.rich(TextSpan(children: [
+          Text(
+              S.current.I_Taskim,
+              style: pubTextStyle(
+                  const Color(0xffffffff), 24.sp, FontWeight.w400,
+                  height: 1.5)),
+          Text(
+              S.current.Long_term_missions,
+              style: pubTextStyle(
+                  const Color(0xff8F9DAB), 24.sp, FontWeight.w400,
+                  height: 1.5)),
+          SizedBox(
+            height: 36.h,
+          ),
+          Text(
+              S.current.II_Task_conditions,
+              style: pubTextStyle(
+                  const Color(0xffffffff), 24.sp, FontWeight.w400,
+                  height: 1.5)),
+          Text(
+              S.current.Complete_the_relevant,
+              style: pubTextStyle(
+                  const Color(0xff8F9DAB), 24.sp, FontWeight.w400,
+                  height: 1.5)),
+          SizedBox(
+            height: 36.h,
+          ),
+          Text(
+              S.current.III_Content_of_task,
+              style: pubTextStyle(
+                  const Color(0xffffffff), 24.sp, FontWeight.w400,
+                  height: 1.5)),
+          Text(
+              S.current.III_Content_of_task_d,
+              style: pubTextStyle(
+                  const Color(0xff8F9DAB), 24.sp, FontWeight.w400,
+                  height: 1.5)),
+
+          // ]),
+          // ),
         ],
       ),
     );

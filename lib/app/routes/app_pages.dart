@@ -6,6 +6,8 @@ import 'package:flutter_comm/app/modules/my_ph/my_ph_binding.dart';
 import 'package:flutter_comm/app/modules/my_ph/my_ph_view.dart';
 import 'package:flutter_comm/app/modules/promotion_ph/promotion_ph_binding.dart';
 import 'package:flutter_comm/app/modules/promotion_ph/promotion_ph_view.dart';
+import 'package:flutter_comm/app/modules/vip_ph/vip_ph_binding.dart';
+import 'package:flutter_comm/app/modules/vip_ph/vip_ph_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/apostas/bindings/apostas_binding.dart';
@@ -220,10 +222,16 @@ class AppPages {
       name: _Paths.MAIN_WALLET,
       page: () => const Main_walletPage(),
       binding: Main_walletBinding(),
-    ),GetPage(
+    ),
+    GetPage(
       name: _Paths.DEPOSIT_PH,
       page: () => const Deposit_PHPage(),
       binding: Deposit_PHBinding(),
+    ),
+    GetPage(
+      name: _Paths.VIP_PH,
+      page: () => const Vip_phPage(),
+      binding: Vip_phBinding(),
     ),
   ];
 }
