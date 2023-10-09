@@ -12,6 +12,7 @@ import '../../../component/app_button.dart';
 import '../../../component/app_user_info_input_field.dart';
 import '../../forget_psw/views/forget_psw_widget.dart';
 import '../../login_register/views/login_regiseter_widget.dart';
+import '../../register/views/register_view.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -187,7 +188,7 @@ class LoginWidget extends StatelessWidget {
                     CupertinoButton(
                       onPressed: () {
                         Get.back();
-                        showForgetPswDialog();
+                        showRegisterDialog();
                       },
                       minSize: 0,
                       padding: EdgeInsets.zero,

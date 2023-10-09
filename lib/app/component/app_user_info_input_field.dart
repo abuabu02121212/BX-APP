@@ -170,7 +170,7 @@ class UserInfoInputField extends StatelessWidget {
               Obx(() {
                 return editNode.isDisplayErrHint.value
                     ? Padding(
-                        padding: EdgeInsets.only(left: 76.w, top: 6.w),
+                        padding: EdgeInsets.only(left: 3.w, top: 6.w),
                         child: Text(
                           errText,
                           style: TextStyle(

@@ -519,6 +519,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Login Now`
+  String get LoginNow {
+    return Intl.message(
+      'Login Now',
+      name: 'LoginNow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I have read and agree to the `
+  String get registerPolicy1 {
+    return Intl.message(
+      'I have read and agree to the ',
+      name: 'registerPolicy1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `terms and privacy policy`
+  String get registerPolicy2 {
+    return Intl.message(
+      'terms and privacy policy',
+      name: 'registerPolicy2',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

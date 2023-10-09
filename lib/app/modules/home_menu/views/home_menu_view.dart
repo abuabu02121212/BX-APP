@@ -11,6 +11,7 @@ import '../../../../generated/l10n.dart';
 import '../../../../globe_controller.dart';
 import '../../../app_style.dart';
 import '../../home/views/game_type_tab_component.dart';
+import '../../register/views/register_view.dart';
 import '../controllers/home_menu_controller.dart';
 
 class HomeMenuView extends GetView<HomeMenuController> {
@@ -572,8 +573,8 @@ class LoginRegisterBtnWidget extends StatelessWidget {
         ),
         CupertinoButton(
           onPressed: () {
-            closeHomeDrawer();
-            showLoginRegisterDialog();
+          //  closeHomeDrawer();
+            showRegisterDialog();
           },
           minSize: 0,
           padding: EdgeInsets.zero,

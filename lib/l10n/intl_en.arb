@@ -45,7 +45,12 @@
   "RememberMe": "Remember Me",
   "ForgotPassword": "Forgot Password?",
   "PlayDemo": "Play Demo",
-  "RegisterAnAccount": "Register An Account"
+  "RegisterAnAccount": "Register An Account",
+  "LoginNow": "Login Now",
+  "registerPolicy1": "I have read and agree to the ",
+  "registerPolicy2": "terms and privacy policy"
+
+
 
 
 

@@ -4,9 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../util/Log.dart';
-
-//RegExp usernameRegExp = RegExp(r"^[a-zA-Z][a-zA-Z0-9]{4,13}$");
 RegExp usernameRegExp = RegExp(r"^[a-zA-Z0-9!#$@%&'*+/=?^_`{|}~.-]{4,64}$");
 RegExp pswRegExp = RegExp(r"^[0-9A-Za-z]{4,12}$");
 final phoneNumExp = RegExp(r"^[0-9]{8,20}$");

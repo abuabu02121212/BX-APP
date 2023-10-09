@@ -42,6 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Games": MessageLookupByLibrary.simpleMessage("Games"),
         "HelpCenter": MessageLookupByLibrary.simpleMessage("Help Center"),
         "Live": MessageLookupByLibrary.simpleMessage("Live"),
+        "LoginNow": MessageLookupByLibrary.simpleMessage("Login Now"),
         "Lottery": MessageLookupByLibrary.simpleMessage("Lottery"),
         "Mission": MessageLookupByLibrary.simpleMessage("Mission"),
         "OnlineSupport": MessageLookupByLibrary.simpleMessage("Online Support"),
@@ -73,6 +74,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "promo": MessageLookupByLibrary.simpleMessage("Promo"),
         "recent": MessageLookupByLibrary.simpleMessage("Recent"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
+        "registerPolicy1": MessageLookupByLibrary.simpleMessage(
+            "I have read and agree to the "),
+        "registerPolicy2":
+            MessageLookupByLibrary.simpleMessage("terms and privacy policy"),
         "slot": MessageLookupByLibrary.simpleMessage("Slot"),
         "sports": MessageLookupByLibrary.simpleMessage("Sports"),
         "support": MessageLookupByLibrary.simpleMessage("Support")
