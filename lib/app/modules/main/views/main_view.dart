@@ -4,7 +4,7 @@ import 'package:flutter_comm/app/modules/home/views/home_view.dart';
 import 'package:flutter_comm/app/modules/main/views/tab_component.dart';
 import 'package:flutter_comm/app/modules/my_ph/my_ph_view.dart';
 import 'package:flutter_comm/app/modules/promotion_ph/promotion_ph_view.dart';
-import 'package:flutter_comm/app/modules/vip/views/vip_view.dart';
+import 'package:flutter_comm/app/modules/vip_ph/vip_ph_view.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -50,7 +50,9 @@ class MainView extends GetView<MainController> {
                       case 2:
                         return AliveWidget(child: DepositView(isShowBack: false));
                       case 3:
-                        return AliveWidget(child: VipView());
+                        // return AliveWidget(child: VipView());
+                        return  const AliveWidget(child: Vip_phPage());
+                        // return  Get.toNamed(Routes.VIP_PH);
                       case 4:
                         // return const AliveWidget(child: MineView());
                         return const AliveWidget(child: My_PHPage());

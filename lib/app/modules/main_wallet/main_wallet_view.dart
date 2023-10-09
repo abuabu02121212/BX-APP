@@ -7,6 +7,7 @@ import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_comm/widget/box_shadow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../generated/l10n.dart';
 import 'main_wallet_logic.dart';
 
 class Main_walletPage extends StatefulWidget {
@@ -28,7 +29,7 @@ class _Main_walletPageState extends State<Main_walletPage> {
     return BaseScaffoldPH(
       backgroundColor: blackBgColor_h,
       appBar: BaseAppbarPH(
-        title: 'Main Wallet',
+        title: S.current.MainWallet,
       ),
       body: Container(
         padding: EdgeInsets.only(bottom: 115.h),
@@ -60,7 +61,7 @@ class _Main_walletPageState extends State<Main_walletPage> {
           Row(
             children: [
               Text(
-                'Total Account Balance',
+                S.current.TotalAccountBalance,
                 style: pubTextStyle(
                     const Color(0xFFffffff), 28.sp, FontWeight.w400),
               ),
@@ -87,7 +88,7 @@ class _Main_walletPageState extends State<Main_walletPage> {
             ],
           ),
           Text(
-            'Only integer balance will be pulled back to main wallet',
+            S.current.Only_integer_balance_will_pulled,
             style:
                 pubTextStyle(const Color(0xff5D656F), 22.sp, FontWeight.w400),
           ),
@@ -102,7 +103,7 @@ class _Main_walletPageState extends State<Main_walletPage> {
                     borderRadius: BorderRadius.circular(30.r)),
                 child: Center(
                   child: Text(
-                    'One Click Transfer',
+                    S.current.OneClickTransfer,
                     style: pubTextStyle(
                         const Color(0xffffffff), 26.sp, FontWeight.w700),
                   ),
@@ -181,7 +182,7 @@ class _Main_walletPageState extends State<Main_walletPage> {
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.only(left: 24.w, right: 0.w),
-                        hintText: 'Platform Search',
+                        hintText: S.current.PlatformSearch,
                         hintStyle: pubTextStyle(
                             const Color(0xff5D656F), 26.sp, FontWeight.w400),
                         suffixIcon: IconButton(
@@ -307,7 +308,7 @@ class _Main_walletPageState extends State<Main_walletPage> {
                     height: 52.h,
                   ),
                   Text(
-                    'All',
+                    S.current.All,
                     style: pubTextStyle(
                         const Color(0xffffffff), 22.sp, FontWeight.w700),
                   ),

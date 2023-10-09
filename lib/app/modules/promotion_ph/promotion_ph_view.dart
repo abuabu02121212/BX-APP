@@ -8,6 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:simple_progress_indicators/simple_progress_indicators.dart';
 
+import '../../../generated/l10n.dart';
+
 class PromotionPHPage extends StatefulWidget {
   const PromotionPHPage({Key? key}) : super(key: key);
 
@@ -19,7 +21,7 @@ class _PromotionPHPageState extends State<PromotionPHPage> {
   final logic = Get.put(PromotionPHLogic());
   final state = Get.find<PromotionPHLogic>().state;
 
-  List<String> tabNames = ["Event", "Mission", "Rebate", "Rewards"];
+  // List<String> tabNames = ["Event", "Mission", "Rebate", "Rewards"];
 
   @override
   Widget build(BuildContext context) {
@@ -55,29 +57,29 @@ class _PromotionPHPageState extends State<PromotionPHPage> {
               onTap: (index) => {
                 logic.pageController?.jumpToPage(index),
               },
-              tabs: const [
+              tabs:  [
                 Tab(
                   child: Align(
                     alignment: Alignment.center,
-                    child: Text("Event"),
+                    child: Text(S.current.Event),
                   ),
                 ),
                 Tab(
                   child: Align(
                     alignment: Alignment.center,
-                    child: Text("Mission"),
+                    child: Text(S.current.Mission),
                   ),
                 ),
                 Tab(
                   child: Align(
                     alignment: Alignment.center,
-                    child: Text("Rebate"),
+                    child: Text(S.current.Rebateable),
                   ),
                 ),
                 Tab(
                   child: Align(
                     alignment: Alignment.center,
-                    child: Text("Rewards"),
+                    child: Text(S.current.Rewards),
                   ),
                 ),
               ],
@@ -89,7 +91,7 @@ class _PromotionPHPageState extends State<PromotionPHPage> {
               width: double.infinity,
               child: PageView(
                 onPageChanged: (int index) => {
-                  logic.tabController?.animateTo(index),
+                  logic.tabController.animateTo(index),
                 },
                 controller: logic.pageController,
                 physics: const NeverScrollableScrollPhysics(),
@@ -283,7 +285,7 @@ class _PromotionPHPageState extends State<PromotionPHPage> {
                             color: const Color(0xff3EA1F8),
                             borderRadius: BorderRadius.circular(30.h)),
                         child: Text(
-                          'Go',
+                          S.current.Go,
                           style: pubTextStyle(
                               const Color(0xffffffff), 26.sp, FontWeight.w700),
                         ),
@@ -379,7 +381,7 @@ class _PromotionPHPageState extends State<PromotionPHPage> {
                     width: 59.w,
                   ),
                   Text(
-                    'JILI',
+                    S.current.JILI,
                     style: TextStyle(
                         color: const Color(0xff5D656F),
                         fontWeight: FontWeight.w400,
@@ -392,7 +394,7 @@ class _PromotionPHPageState extends State<PromotionPHPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Valid Bets',
+                    S.current.ValidBets,
                     style: TextStyle(
                         color: const Color(0xff8F9DAB),
                         fontWeight: FontWeight.w400,
@@ -402,7 +404,7 @@ class _PromotionPHPageState extends State<PromotionPHPage> {
                     height: 11.h,
                   ),
                   Text(
-                    'Rebateable',
+                    S.current.Rebateable,
                     style: TextStyle(
                         color: const Color(0xff8F9DAB),
                         fontWeight: FontWeight.w400,
@@ -438,7 +440,7 @@ class _PromotionPHPageState extends State<PromotionPHPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Ratio',
+                    S.current.Ratio,
                     style: TextStyle(
                         color: const Color(0xff8F9DAB),
                         fontWeight: FontWeight.w400,
@@ -448,7 +450,7 @@ class _PromotionPHPageState extends State<PromotionPHPage> {
                     height: 11.h,
                   ),
                   Text(
-                    'Next Ratio',
+                    S.current.NextRatio,
                     style: TextStyle(
                         color: const Color(0xff8F9DAB),
                         fontWeight: FontWeight.w400,
@@ -519,7 +521,7 @@ class _PromotionPHPageState extends State<PromotionPHPage> {
                 width: 52.w,
               ),
               Text(
-                'Fishing',
+                S.current.finishing,
                 style: TextStyle(
                     color: const Color(0xff5D656F),
                     fontWeight: FontWeight.w400,
