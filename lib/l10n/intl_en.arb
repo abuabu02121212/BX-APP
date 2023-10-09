@@ -110,7 +110,9 @@
   "Only_integer_balance_will_pulled": "Only integer balance will be pulled back to main wallet",
   "OneClickTransfer": "One Click Transfer",
   "PlatformSearch": "Platform Search",
-  "All": "All"
+  "All": "All",
+
+  "Back": "Back"
 
 
 }

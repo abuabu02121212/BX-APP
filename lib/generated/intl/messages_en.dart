@@ -29,6 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Additional bonus event details"),
         "Agent": MessageLookupByLibrary.simpleMessage("Agent"),
         "All": MessageLookupByLibrary.simpleMessage("All"),
+        "Back": MessageLookupByLibrary.simpleMessage("Back"),
         "BetRecords": MessageLookupByLibrary.simpleMessage("Bet Records"),
         "Bonus": MessageLookupByLibrary.simpleMessage("Bonus"),
         "Cards": MessageLookupByLibrary.simpleMessage("Cards"),
