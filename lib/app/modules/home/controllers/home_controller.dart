@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_comm/app/entity/game_tag.dart';
 import 'package:flutter_comm/app/events.dart';
 import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
@@ -23,6 +24,7 @@ import '../../../routes/app_pages.dart';
 import '../../home_menu/views/home_menu_view.dart';
 import '../views/drag_float_btn.dart';
 import '../views/game_search_dialog.dart';
+import '../views/game_type_tab_component.dart';
 import 'game_list_requests.dart';
 import 'home_requests.dart';
 
@@ -32,11 +34,13 @@ class HomeController extends GetxController {
  // ScrollController sc2 = ScrollController();
   final List<int> gameTypePressedRecordList = [0];
   final ScrollController scrollController = ScrollController();
+  final ScrollController gameListScrollController = ScrollController();
   final IndicatorTabController gameTypeIndicatorTabController = IndicatorTabController();
   final isShowGameTypeLeftArrow = false.obs;
   final isShowGameTypeRightArrow = true.obs;
   final showingMarqueeText = "".obs;
   final noticeListRx = RxList<NoticeEntity>();
+  final List<GlobalKey> gameListGlobeKeyList = List.generate(gameTabNameList.length, (index) => GlobalKey());
 
   final List<GameNavEntity> navItemList = [];
   final msgCount = 8.obs;
@@ -135,6 +139,18 @@ class HomeController extends GetxController {
     eventBus.on<LoginEvent>().listen((event) {
       requestTab0GameList();
     });
+    gameListScrollController.addListener(() {
+      for (int i = 0; i < gameListGlobeKeyList.length; i++) {
+
+        // Size childSize = renderBox.size;
+        // Offset childPosition = renderBox.localToGlobal(Offset.zero);
+        // if(i == 0){
+        // //  Log.d("===$i=gameListGlobeKeyList===子widget的大小：$childSize");
+        //   Log.d("===$i=gameListGlobeKeyList===子widget的位置：$childPosition");
+        // }
+
+      }
+    });
     super.onInit();
   }
 
@@ -144,14 +160,14 @@ class HomeController extends GetxController {
     try {
       showFloatService(Get.context);
       AppLoading.show();
-      await requestMemberNav(navItemList, gameTypes);
+     // await requestMemberNav(navItemList, gameTypes);
       requestNotice(noticeListRx, showingMarqueeText);
       requestCsData(csEntity);
-      requestLastWin(lastWinListRx);
+     // requestLastWin(lastWinListRx);
 
       /// 请求banner列表
       requestBannerData(bannerList);
-      requestTab0GameList(isShowLoading: false);
+    //  requestTab0GameList(isShowLoading: false);
     } catch (e) {
       Log.e(e);
     }

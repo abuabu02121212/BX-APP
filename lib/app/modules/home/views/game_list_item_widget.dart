@@ -1,16 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import '../../../../util/Log.dart';
+import '../controllers/home_controller.dart';
 
 class GameListItemWidget extends StatelessWidget {
-  const GameListItemWidget({super.key, required this.title});
+  GameListItemWidget({super.key, required this.title, required this.index});
 
   final String title;
+  final int index;
+  final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
-      child: Padding(
+      child: Container(
+        key: controller.gameListGlobeKeyList[index],
         padding: EdgeInsets.symmetric(horizontal: 30.w),
         child: CustomScrollView(
           shrinkWrap: true,
