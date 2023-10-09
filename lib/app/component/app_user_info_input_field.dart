@@ -112,12 +112,12 @@ class UserInfoInputField extends StatelessWidget {
                   hintStyle: TextStyle(color: const Color(0xff969799), fontSize: 26.w),
                   textStyle: TextStyle(color: const Color(0xffffffff), fontSize: 26.w),
                   prefix: Padding(
-                    padding: EdgeInsets.only(left: paddingLeft ?? 20.w, right: paddingRight ?? 10.w),
+                    padding: EdgeInsets.only(left: paddingLeft ?? 10.w, right: paddingRight ?? 10.w),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         if(prefixIcon != null)
-                        Image.asset(prefixIcon!, width: prefixIconWidth ?? 28.w),
+                        Image.asset(prefixIcon!, width: prefixIconWidth ?? 36.w),
                         if (isPhone)
                           Padding(
                             padding: EdgeInsets.only(left: 20.w),

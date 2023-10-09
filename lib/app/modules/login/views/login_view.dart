@@ -90,7 +90,7 @@ class LoginWidget extends StatelessWidget {
                 width: double.infinity,
                 margin: EdgeInsets.only(top: 56.w),
                 child: UserInfoInputField(
-                  prefixIcon: 'assets/images/user-gray.webp',
+                  prefixIcon: 'assets/images/input_uname.webp',
                   editNode: controller.userNameEditNode,
                   hint: 'Por favor, insira o nome de usuário',
                   errText: 'Número de celular de 10 ou 11 dígitos',
@@ -100,7 +100,7 @@ class LoginWidget extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: UserInfoInputField(
-                  prefixIcon: 'assets/images/key-gray.webp',
+                  prefixIcon: 'assets/images/input_psw.webp',
                   editNode: controller.keyEditNode,
                   hint: 'Senha (4-12 letras e números)',
                   errText: 'Senha (4-12 letras e números)',

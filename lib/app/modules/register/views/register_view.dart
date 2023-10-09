@@ -91,7 +91,7 @@ class RegisterWidget extends StatelessWidget {
                 margin: EdgeInsets.only(top: 56.w),
                 child: UserInfoInputField(
                   height: 100.w,
-                  prefixIcon: 'assets/images/user-gray.webp',
+                  prefixIcon: 'assets/images/input_uname.webp',
                   editNode: controller.userEditNode,
                   hint: 'Por favor, insira o nome de usuário',
                   errText: 'Número de celular de 10 ou 11 dígitos',
@@ -102,7 +102,7 @@ class RegisterWidget extends StatelessWidget {
                 width: double.infinity,
                 child: UserInfoInputField(
                   height: 100.w,
-                  prefixIcon: 'assets/images/key-gray.webp',
+                  prefixIcon: 'assets/images/input_psw.webp',
                   editNode: controller.pswEditNode,
                   hint: 'Senha (4-12 letras e números)',
                   errText: 'Senha (4-12 letras e números)',
@@ -113,7 +113,7 @@ class RegisterWidget extends StatelessWidget {
                 width: double.infinity,
                 child: UserInfoInputField(
                   height: 100.w,
-                  prefixIcon: 'assets/images/key-gray.webp',
+                  prefixIcon: 'assets/images/input_psw.webp',
                   editNode: controller.rePswEditNode,
                   hint: 'Senha (4-12 letras e números)',
                   errText: 'Senha (4-12 letras e números)',
