@@ -5,7 +5,7 @@ import '../../../../widget/horizontal_indicator_tab.dart';
 class LoginRegisterTabComponent extends StatelessWidget {
   const LoginRegisterTabComponent({super.key, required this.onSelectChanged});
 
-  final Callback<int> onSelectChanged;
+  final Callback<int, bool> onSelectChanged;
 
   static const List<String> tabNames = ["Entrar", "Cadastre-se"];
 

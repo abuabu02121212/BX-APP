@@ -26,7 +26,7 @@ class GameTypeTabs extends StatelessWidget {
     required this.indicatorTabController,
   });
 
-  final Callback<int> onSelectChanged;
+  final Callback<int, bool> onSelectChanged;
   final IndicatorTabController indicatorTabController;
 
 

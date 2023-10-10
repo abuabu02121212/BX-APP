@@ -67,7 +67,7 @@ class MainView extends GetView<MainController> {
                 children: [
                   MainHorizontalTabComponent(
                     indicatorTabController: controller.indicatorTabController,
-                    onSelectChanged: (pos) {
+                    onSelectChanged: (pos, isClick) {
                       Log.d("==========onSelectChanged===pos:$pos====");
                       GlobeController globeController = Get.find<GlobeController>();
                       if (pos >= 9) {

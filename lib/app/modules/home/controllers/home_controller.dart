@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_comm/app/entity/game_tag.dart';
 import 'package:flutter_comm/app/events.dart';
 import 'package:flutter_comm/app/modules/main/controllers/main_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../app_config.dart';
@@ -31,7 +32,8 @@ import 'home_requests.dart';
 class HomeController extends GetxController {
   final gameTypes = RxList<GameTypeEntity>(GameTypeEntity.getList());
   final selectedGameTypeIndex = 0.obs;
- // ScrollController sc2 = ScrollController();
+
+  // ScrollController sc2 = ScrollController();
   final List<int> gameTypePressedRecordList = [0];
   final ScrollController scrollController = ScrollController();
   final ScrollController gameListScrollController = ScrollController();
@@ -41,7 +43,7 @@ class HomeController extends GetxController {
   final showingMarqueeText = "".obs;
   final noticeListRx = RxList<NoticeEntity>();
   final List<GlobalKey> gameListGlobeKeyList = List.generate(gameTabNameList.length, (index) => GlobalKey());
-
+  final List<double> gameItemHeightList = List.generate(gameTabNameList.length, (index) => 0.0);
   final List<GameNavEntity> navItemList = [];
   final msgCount = 8.obs;
 
@@ -58,12 +60,23 @@ class HomeController extends GetxController {
   final bannerList = RxList<BannerEntity>();
   final IndexRxMap tagTabSelectedIndexMap = IndexRxMap();
   late final globalController = Get.find<GlobeController>();
+  bool isAutoScrolling = false;
+
   void switchTabWithAddPressedRecord(int index) {
+    Log.d("switchTabWithAddPressedRecord:$index");
     selectedGameTypeIndex.value = index;
     gameTypePressedRecordList.add(index);
+    List<double> offsetList = index > 0 ? gameItemHeightList.sublist(0, index) : [0];
+    double offset = offsetList.fold(0, (previousValue, element) => previousValue + element);
+    if(offset != 0){
+      offset = offset + 280.w;
+    }
+    isAutoScrolling = true;
+    gameListScrollController.animateTo(offset, duration: const Duration(milliseconds: 200), curve: Curves.easeIn).then((value) {
+      isAutoScrolling = false;
+    });
     requestTabPageData(index);
   }
-
 
   void requestTabPageData(int tabIndex) {
     // if(navItemList.isEmpty){
@@ -93,7 +106,7 @@ class HomeController extends GetxController {
     } else if (selectedTypeIndex == 1) {
       return tab1TyName;
     }
-    if(listItemIndex == searchDialogListItemIndex){
+    if (listItemIndex == searchDialogListItemIndex) {
       return 'hot';
     }
     return '';
@@ -120,7 +133,7 @@ class HomeController extends GetxController {
         }
         selectedGameTypeIndex.value = removeLast;
         requestTabPageData(selectedGameTypeIndex.value);
-        if(selectedGameTypeIndex.value >= 0){
+        if (selectedGameTypeIndex.value >= 0) {
           gameTypeIndicatorTabController.onItemSelectChanged(selectedGameTypeIndex.value);
         }
         return true;
@@ -135,18 +148,6 @@ class HomeController extends GetxController {
     eventBus.on<LoginEvent>().listen((event) {
       requestTab0GameList();
     });
-    gameListScrollController.addListener(() {
-      for (int i = 0; i < gameListGlobeKeyList.length; i++) {
-
-        // Size childSize = renderBox.size;
-        // Offset childPosition = renderBox.localToGlobal(Offset.zero);
-        // if(i == 0){
-        // //  Log.d("===$i=gameListGlobeKeyList===子widget的大小：$childSize");
-        //   Log.d("===$i=gameListGlobeKeyList===子widget的位置：$childPosition");
-        // }
-
-      }
-    });
     super.onInit();
   }
 
@@ -156,26 +157,25 @@ class HomeController extends GetxController {
     try {
       showFloatService(Get.context);
       AppLoading.show();
-     // await requestMemberNav(navItemList, gameTypes);
+      // await requestMemberNav(navItemList, gameTypes);
       requestNotice(noticeListRx, showingMarqueeText);
       requestCsData(csEntity);
-     // requestLastWin(lastWinListRx);
+      // requestLastWin(lastWinListRx);
 
       /// 请求banner列表
       requestBannerData(bannerList);
-    //  requestTab0GameList(isShowLoading: false);
+      //  requestTab0GameList(isShowLoading: false);
     } catch (e) {
       Log.e(e);
     }
     Log.d("=====home===onReady=====finished=============");
   }
 
-
   final csEntity = Rx<CsEntity?>(null);
 
   /// tab 0
   Future<void> requestTab0GameList({bool isShowLoading = true}) async {
-    if(isShowLoading) {
+    if (isShowLoading) {
       AppLoading.show();
     }
     await requestHotGameListForRec(recList[0]);
@@ -204,9 +204,9 @@ class HomeController extends GetxController {
   /// tab 1
   Future<void> requestTab1GameList() async {
     AppLoading.show();
-    if(globalController.isLogin()){
+    if (globalController.isLogin()) {
       await requestMemberFavList2(tab1FavRxList, "");
-    }else{
+    } else {
       tab1FavRxList.clear();
       tab1FavRxList.refresh();
     }
@@ -247,7 +247,7 @@ class HomeController extends GetxController {
       tempTab2List.add(tarList);
       if (func == 0) {
         await requestGameList(tarList, getCurGameType(), platformId: item.id);
-      }else if (func == 1) {
+      } else if (func == 1) {
         await requestHotGameList(tarList, int.tryParse(getCurGameType()) ?? 0, platformId: item.id, pageSize: 20);
       } else if (func == 2) {
         await requestMemberFavList2(tarList, '', gameType: int.tryParse(getCurGameType()) ?? 0, platformId: item.id);

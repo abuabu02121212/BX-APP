@@ -12,7 +12,7 @@ class EmailAndPhoneTab extends StatelessWidget {
   });
 
   final selectedTabIndex = 0.obs;
-  final Callback<int> onTabSelectChanged;
+  final Callback<int, bool> onTabSelectChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class EmailAndPhoneTab extends StatelessWidget {
           CupertinoButton(
             onPressed: () {
               if (selectedTabIndex.value != 0) {
-                onTabSelectChanged(0);
+                onTabSelectChanged(0, false);
               }
               selectedTabIndex.value = 0;
             },
@@ -50,7 +50,7 @@ class EmailAndPhoneTab extends StatelessWidget {
           CupertinoButton(
             onPressed: () {
               if (selectedTabIndex.value != 1) {
-                onTabSelectChanged(1);
+                onTabSelectChanged(1, false);
               }
               selectedTabIndex.value = 1;
             },

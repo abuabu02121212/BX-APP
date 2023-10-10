@@ -16,7 +16,7 @@ class MainHorizontalTabComponent extends StatelessWidget {
     });
   }
 
-  final Callback<int> onSelectChanged;
+  final Callback<int, bool> onSelectChanged;
   final IndicatorTabController indicatorTabController;
 
   static List<String> tabNames = [

@@ -49,6 +49,7 @@ class NestedScrollBodyWidget extends StatelessWidget {
     return Container(
       color: Colors.black,
       child: MyNestedScrollWidget(
+        controller: controller.gameListScrollController,
         topTitle: HomeHeader(),
         collapsedHeight: 230.w,
         expandedHeight: 510.w ,
@@ -114,8 +115,11 @@ class HomeGameTabsWidget extends StatelessWidget {
             width: 715.w,
             child: GameTypeTabs(
                 indicatorTabController: controller.gameTypeIndicatorTabController,
-                onSelectChanged: (int index) {
-                  controller.switchTabWithAddPressedRecord(index);
+                onSelectChanged: (int index, bool isClick) {
+                  if(isClick){
+                    controller.switchTabWithAddPressedRecord(index);
+                  }
+
                 }),
           ),
           SizedBox(

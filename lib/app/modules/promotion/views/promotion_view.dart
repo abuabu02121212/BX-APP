@@ -42,7 +42,7 @@ class PromotionView extends GetView<PromotionController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               PromotionTabComponent(
-                onSelectChanged: (int index) {
+                onSelectChanged: (int index, isClick) {
                   controller.selectedIndex.value = index;
                 },
               ),

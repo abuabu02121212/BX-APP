@@ -12,6 +12,7 @@ class MyNestedScrollWidget extends StatefulWidget {
     this.expandedHeight = 180,
     this.collapsedHeight = 30,
     this.toolbarHeight =  60,
+    this.controller,
   }) : super(key: key);
 
   final Widget? topTitle;
@@ -21,6 +22,7 @@ class MyNestedScrollWidget extends StatefulWidget {
   final double expandedHeight;
   final double collapsedHeight;
   final double toolbarHeight;
+  final ScrollController? controller;
 
   @override
   State<StatefulWidget> createState() {
@@ -32,6 +34,7 @@ class MyState extends State<MyNestedScrollWidget> {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+      controller: widget.controller,
       slivers: [
         SliverAppBar(
           // 收起的过渡颜色

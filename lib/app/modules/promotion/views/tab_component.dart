@@ -12,7 +12,7 @@ class PromotionTabComponent extends StatelessWidget {
   });
 
   static const List<String> tabNames = ["Tudo", "Depósito", "Baixar APP", "Desconto", "Classificação", "Outros"];
-  final Callback<int> onSelectChanged;
+  final Callback<int, bool> onSelectChanged;
 
   @override
   Widget build(BuildContext context) {

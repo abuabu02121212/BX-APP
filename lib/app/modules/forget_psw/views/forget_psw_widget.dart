@@ -72,7 +72,7 @@ class ForgetPswWidget extends StatelessWidget {
                           ),
                         ),
                         EmailAndPhoneTab(
-                          onTabSelectChanged: (index) {
+                          onTabSelectChanged: (index, isClick) {
                             controller.selectedIndex.value = index;
                           },
                         ),

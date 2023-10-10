@@ -4,7 +4,7 @@ import '../util/Log.dart';
 import 'comm_anim2.dart';
 
 typedef ItemBuilder = Widget Function(BuildContext context, int index, int selectedPos);
-typedef Callback<T> = void Function(T t);
+typedef Callback<T, V> = void Function(T t, V v);
 typedef OnScroll = void Function(ScrollPosition scrollPosition);
 
 /// 基于 SingleChildScrollView 的水平tab ,适用于Tab比较少的情况.
@@ -27,7 +27,7 @@ class HorizontalIndicatorTab extends StatefulWidget {
   final ItemBuilder itemBuilder;
   final double height;
   final List<double> itemWidthList;
-  final Callback<int> onSelectChanged;
+  final Callback<int, bool> onSelectChanged;
   final Color? bgColor;
   final IndicatorAttr? indicatorAttr;
   final IndicatorTabController controller;
@@ -86,7 +86,7 @@ class MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixi
                       minSize: 0,
                       padding: const EdgeInsets.all(0),
                       pressedOpacity: 0.8,
-                      onPressed: () => onItemClick(pos),
+                      onPressed: () => onItemClick(pos, true),
                       child: _buildItem(context, pos),
                     );
                   }),
@@ -139,7 +139,7 @@ class MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixi
     return sumWidth;
   }
 
-  void onItemClick(int pos) {
+  void onItemClick(int pos, bool isClick) {
     if (widget.controller.selectedIndexNotifier.value != pos) {
       if (widget.indicatorAttr != null || widget.indicator != null) {
         anim.updateEndAndStart(getItemWidthSum(pos - 1));
@@ -148,10 +148,8 @@ class MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixi
       if (pos != widget.controller.posList.last) {
         widget.controller.posList.add(pos);
       }
-      widget.onSelectChanged(pos);
+      widget.onSelectChanged(pos, isClick);
       autoScroll(pos);
-    } else {
-      Log.d("相同位置不跳转");
     }
   }
 
@@ -179,7 +177,7 @@ class MyState extends State<HorizontalIndicatorTab> with TickerProviderStateMixi
       double canToRightScroll = offset;
       realNeedScrollDistance = canToRightScroll < itemCenter.abs() ? canToRightScroll : itemCenter;
     }
-    Log.d("realNeedScrollDistance:$realNeedScrollDistance");
+   // Log.d("realNeedScrollDistance:$realNeedScrollDistance");
     scrollController.animateTo(offset - realNeedScrollDistance, duration: const Duration(milliseconds: 200), curve: Curves.linear);
   }
 }
@@ -211,15 +209,15 @@ class IndicatorTabController {
 
   final ValueNotifier<int> selectedIndexNotifier = ValueNotifier<int>(0);
 
-  void onItemSelectChanged(int pos) {
-    myState?.onItemClick(pos);
+  void onItemSelectChanged(int pos, {isClick=false}) {
+    myState?.onItemClick(pos, isClick);
   }
 
-  void back() {
+  void back({isClick=false}) {
     Log.d("posList: $posList ");
     if (posList.length > 1) {
       posList.removeLast();
-      myState?.onItemClick(posList.last);
+      myState?.onItemClick(posList.last, isClick);
     }
   }
 }

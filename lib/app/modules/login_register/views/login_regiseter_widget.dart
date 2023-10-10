@@ -57,7 +57,7 @@ class LoginRegisterWidget extends StatelessWidget {
                       children: [
                         SizedBox(height: 20.w),
                         LoginRegisterTabComponent(
-                          onSelectChanged: (int index) {
+                          onSelectChanged: (int index, bool isClick) {
                             controller.selectedIndex.value = index;
                           },
                         ),
