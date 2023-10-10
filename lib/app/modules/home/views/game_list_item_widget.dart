@@ -7,6 +7,7 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../../util/Log.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 import 'game_type_tab_component.dart';
 
@@ -61,7 +62,9 @@ class GameListItemWidget extends StatelessWidget {
                           ),
                         ),
                         CupertinoButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.toNamed(Routes.GAME_LIST);
+                          },
                           minSize: 0,
                           padding: EdgeInsets.only(left: 10.w, top: 10.w, bottom: 10.w),
                           child: Row(
@@ -161,7 +164,8 @@ class GameListItemWidget extends StatelessWidget {
                                   SizedBox(width: 12.w),
                                   Image.asset("assets/images/load_more_down_arrow.png", width: 20.w),
                                 ],
-                              )
+                              ),
+                              SizedBox(height: 20.w,)
                             ],
                           ),
                         ),

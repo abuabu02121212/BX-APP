@@ -7,11 +7,13 @@ import '../app_style.dart';
 class AppHeader extends StatelessWidget {
   const AppHeader({
     super.key,
-    required this.title,
+    this.title,
     this.isNeedLeftBackArrow = true,
+    this.titleWidget,
   });
 
-  final String title;
+  final String? title;
+  final Widget? titleWidget;
   final bool isNeedLeftBackArrow;
 
   @override
@@ -19,9 +21,7 @@ class AppHeader extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 110.w,
-      decoration: BoxDecoration(
-        color: headerBgColor,
-      ),
+      decoration: const BoxDecoration(color: headerBgColor),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -35,13 +35,15 @@ class AppHeader extends StatelessWidget {
                     icon: Icon(Icons.arrow_back_ios, size: 45.w))
                 : const SizedBox(),
           ),
-          Text(
-            title,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 36.w,
+          if (title != null)
+            Text(
+              title!,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 36.w,
+              ),
             ),
-          )
+          if (titleWidget != null) titleWidget!,
         ],
       ),
     );

@@ -1,13 +1,3 @@
-import 'package:flutter_comm/app/modules/deposit_ph/deposit_ph_binding.dart';
-import 'package:flutter_comm/app/modules/deposit_ph/deposit_ph_view.dart';
-import 'package:flutter_comm/app/modules/main_wallet/main_wallet_binding.dart';
-import 'package:flutter_comm/app/modules/main_wallet/main_wallet_view.dart';
-import 'package:flutter_comm/app/modules/my_ph/my_ph_binding.dart';
-import 'package:flutter_comm/app/modules/my_ph/my_ph_view.dart';
-import 'package:flutter_comm/app/modules/promotion_ph/promotion_ph_binding.dart';
-import 'package:flutter_comm/app/modules/promotion_ph/promotion_ph_view.dart';
-import 'package:flutter_comm/app/modules/vip_ph/vip_ph_binding.dart';
-import 'package:flutter_comm/app/modules/vip_ph/vip_ph_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/apostas/bindings/apostas_binding.dart';
@@ -30,8 +20,12 @@ import '../modules/component_test/bindings/component_test_binding.dart';
 import '../modules/component_test/views/component_test_view.dart';
 import '../modules/deposit/bindings/deposit_binding.dart';
 import '../modules/deposit/views/deposit_view.dart';
+import '../modules/deposit_ph/deposit_ph_binding.dart';
+import '../modules/deposit_ph/deposit_ph_view.dart';
 import '../modules/forget_psw/bindings/forget_psw_binding.dart';
 import '../modules/forget_psw/views/forget_psw_view.dart';
+import '../modules/game_list/bindings/game_list_binding.dart';
+import '../modules/game_list/views/game_list_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/home_menu/bindings/home_menu_binding.dart';
@@ -42,12 +36,18 @@ import '../modules/login_register/bindings/login_register_binding.dart';
 import '../modules/login_register/views/login_register_view.dart';
 import '../modules/main/bindings/main_binding.dart';
 import '../modules/main/views/main_view.dart';
+import '../modules/main_wallet/main_wallet_binding.dart';
+import '../modules/main_wallet/main_wallet_view.dart';
 import '../modules/mine/bindings/mine_binding.dart';
 import '../modules/mine/views/mine_view.dart';
+import '../modules/my_ph/my_ph_binding.dart';
+import '../modules/my_ph/my_ph_view.dart';
 import '../modules/notice_list/bindings/notice_list_binding.dart';
 import '../modules/notice_list/views/notice_list_view.dart';
 import '../modules/promotion/bindings/promotion_binding.dart';
 import '../modules/promotion/views/promotion_view.dart';
+import '../modules/promotion_ph/promotion_ph_binding.dart';
+import '../modules/promotion_ph/promotion_ph_view.dart';
 import '../modules/recompensas/bindings/recompensas_binding.dart';
 import '../modules/recompensas/views/recompensas_view.dart';
 import '../modules/register/bindings/register_binding.dart';
@@ -60,6 +60,8 @@ import '../modules/transaction/bindings/transaction_binding.dart';
 import '../modules/transaction/views/transaction_view.dart';
 import '../modules/vip/bindings/vip_binding.dart';
 import '../modules/vip/views/vip_view.dart';
+import '../modules/vip_ph/vip_ph_binding.dart';
+import '../modules/vip_ph/vip_ph_view.dart';
 import '../modules/webview/bindings/webview_binding.dart';
 import '../modules/webview/views/webview_view.dart';
 import '../modules/withdraw/bindings/withdraw_binding.dart';
@@ -232,6 +234,11 @@ class AppPages {
       name: _Paths.VIP_PH,
       page: () => const Vip_phPage(),
       binding: Vip_phBinding(),
+    ),
+    GetPage(
+      name: _Paths.GAME_LIST,
+      page: () => const GameListView(),
+      binding: GameListBinding(),
     ),
   ];
 }
