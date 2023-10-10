@@ -64,23 +64,19 @@ class HomeController extends GetxController {
     requestTabPageData(index);
   }
 
-  final hotIsSelected = false.obs;
-  final favIsSelected = false.obs;
 
   void requestTabPageData(int tabIndex) {
-    hotIsSelected.value = false;
-    favIsSelected.value = false;
-    if(navItemList.isEmpty){
-      requestMemberNav(navItemList, gameTypes);
-    }
-    if (tabIndex == 0) {
-      requestTab0GameList();
-    } else if (tabIndex == 1) {
-      requestTab1GameList();
-    } else {
-      tagTabSelectedIndexMap.clear();
-      requestTab2GameList();
-    }
+    // if(navItemList.isEmpty){
+    //   requestMemberNav(navItemList, gameTypes);
+    // }
+    // if (tabIndex == 0) {
+    //   requestTab0GameList();
+    // } else if (tabIndex == 1) {
+    //   requestTab1GameList();
+    // } else {
+    //   tagTabSelectedIndexMap.clear();
+    //   requestTab2GameList();
+    // }
   }
 
   String getCurGameType() {
