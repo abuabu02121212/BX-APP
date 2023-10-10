@@ -1,17 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 
 import '../../../../app_config.dart';
 import '../../../../generated/l10n.dart';
-import '../../../../util/toast_util.dart';
 import '../../../component/app_button.dart';
 import '../../../component/app_user_info_input_field.dart';
 import '../../forget_psw/views/forget_psw_widget.dart';
-import '../../login_register/views/login_regiseter_widget.dart';
 import '../../register/views/register_view.dart';
 import '../controllers/login_controller.dart';
 
@@ -119,8 +116,20 @@ class LoginWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.asset("assets/images/checked_icon.webp", width: 30.w),
-                        SizedBox(width: 10.w),
+                        CupertinoButton(
+                          padding: EdgeInsets.only(top: 10.w, bottom: 10.w, right: 10.w),
+                          minSize: 0,
+                          onPressed: () {
+                            controller.isAgree.value = !controller.isAgree.value;
+                          },
+                          child: Obx(() {
+                            return Image.asset(
+                              controller.isAgree.value ? "assets/images/checked_icon.webp" : "assets/images/checked_icon_no.webp",
+                              width: 30.w,
+                            );
+                          }
+                          ),
+                        ),
                         Text(
                           S.current.RememberMe,
                           style: TextStyle(
@@ -151,7 +160,7 @@ class LoginWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 35.w),
+                padding: EdgeInsets.only(top: 25.w),
                 child: AppButton(
                   width: 540.w,
                   height: 80.w,

@@ -17,7 +17,7 @@ import '../../../events.dart';
 class LoginController extends GetxController {
   EditNode userNameEditNode = EditNode();
   EditNode keyEditNode = EditNode();
-
+  final isAgree = true.obs;
   @override
   void onInit() {
     super.onInit();

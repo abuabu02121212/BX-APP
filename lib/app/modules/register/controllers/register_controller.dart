@@ -16,6 +16,7 @@ class RegisterController extends GetxController {
   final EditNode rePswEditNode = EditNode(isNotVerifyOnErr: true);
   final isAgreed = true.obs;
   final selectedIndex = 0.obs;
+  final isAgree = true.obs;
 
   bool checkRegInput() {
     userEditNode.isDisplayErrHint.value = userEditNode.checkInput();

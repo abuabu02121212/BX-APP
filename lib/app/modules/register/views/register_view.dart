@@ -47,7 +47,7 @@ class RegisterWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(24.w),
         child: Container(
           width: 600.w,
-         // height: 736.w,
+          // height: 736.w,
           color: const Color(0xff252527),
           padding: EdgeInsets.only(left: 30.w, right: 30.w, bottom: 60.w),
           child: Column(
@@ -132,24 +132,35 @@ class RegisterWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: 5.w),
-                          child: Image.asset("assets/images/checked_icon.webp", width: 30.w),
+                        CupertinoButton(
+                          padding: EdgeInsets.only(top: 10.w, bottom: 10.w, right: 10.w),
+                          minSize: 0,
+                          onPressed: () {
+                            controller.isAgree.value = !controller.isAgree.value;
+                          },
+                          child: Obx(() {
+                              return Image.asset(
+                                controller.isAgree.value ? "assets/images/checked_icon.webp" : "assets/images/checked_icon_no.webp",
+                                width: 30.w,
+                              );
+                            }
+                          ),
                         ),
-                        SizedBox(width: 10.w),
-                        SizedBox(
-                          height: 60.w,
+                       // SizedBox(width: 10.w),
+                        Container(
+                          height: 70.w,
                           width: 490.w,
+                          padding: EdgeInsets.only(top: 5.w),
                           child: RichText(
-                            maxLines: 2,
+                              maxLines: 2,
                               text: TextSpan(children: [
-                            TextSpan(
-                                text: S.current.registerPolicy1,
-                                style: TextStyle(
-                                  fontSize: 24.w,
-                                  color: const Color(0xff8F9DAB),
-                                  fontWeight: FontWeight.w400,
-                                )),
+                                TextSpan(
+                                    text: S.current.registerPolicy1,
+                                    style: TextStyle(
+                                      fontSize: 24.w,
+                                      color: const Color(0xff8F9DAB),
+                                      fontWeight: FontWeight.w400,
+                                    )),
                                 TextSpan(
                                     text: S.current.registerPolicy2,
                                     style: TextStyle(
@@ -157,7 +168,7 @@ class RegisterWidget extends StatelessWidget {
                                       color: const Color(0xff3EA1F8),
                                       fontWeight: FontWeight.w400,
                                     )),
-                          ])),
+                              ])),
                         ),
                       ],
                     ),
