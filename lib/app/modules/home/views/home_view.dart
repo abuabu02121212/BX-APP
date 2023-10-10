@@ -47,7 +47,13 @@ class NestedScrollBodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
+      decoration: const BoxDecoration(
+        color: Color(0xff1A1C1F),
+        image: DecorationImage(
+          image: AssetImage('assets/images/promotion/bg_pattern.webp'),
+          fit: BoxFit.cover,
+        ),
+      ),
       child: MyNestedScrollWidget(
         controller: controller.gameListScrollController,
         topTitle: HomeHeader(),

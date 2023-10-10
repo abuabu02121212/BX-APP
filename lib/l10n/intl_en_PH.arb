@@ -111,5 +111,7 @@
   "OneClickTransfer": "One Click Transfer",
   "PlatformSearch": "Platform Search",
   "All": "All",
-  "Back": "Back"
+  "Back": "Back",
+  "DisplayingGameHint": "Displaying {num1} out of {num2} Cards Games.",
+  "LoadMore": "Load More"
 }

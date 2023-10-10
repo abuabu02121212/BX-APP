@@ -311,7 +311,7 @@ class HomeBottomWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(bottom: 60.w),
+      padding: EdgeInsets.only(bottom: 60.w, top: 60.w),
       color: const Color(0xff121518),
       child: Column(
         mainAxisSize: MainAxisSize.min,
