@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_comm/app/modules/game_list/views/tab_component.dart';
-import 'package:flutter_comm/widget/horizontal_indicator_tab.dart';
 import 'package:flutter_comm/widget/keep_alive_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,7 +8,6 @@ import 'package:get/get.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../../widget/vetival_tab_group.dart';
-import '../../../app_style.dart';
 import '../../../component/app_header.dart';
 import '../../../component/app_user_info_input_field.dart';
 import '../../../entity/game_item.dart';
@@ -102,7 +99,7 @@ class GameListView extends GetView<GameListController> {
                         onSelectChanged: (pos) {},
                         bgColor: Colors.transparent,
                         alignment: Alignment.center,
-                        controller: VerticalTabController(),
+                        controller: controller.verticalTabController,
                       ),
                     ),
                     Expanded(
@@ -117,7 +114,7 @@ class GameListView extends GetView<GameListController> {
                           children: [
                             GameListHorizontalTab(
                               onSelectChanged: (int t, bool v) {},
-                              indicatorTabController: controller.indicatorTabController,
+                              indicatorTabController: controller.horizontalTabController,
                             ),
                             Expanded(
                               child: Container(
@@ -150,7 +147,48 @@ class GameListView extends GetView<GameListController> {
                 decoration: const BoxDecoration(
                   color: Color(0xff1A1C1F),
                 ),
-                child: const SizedBox(),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    BotTurnPageWidget(),
+                    Obx(() {
+                      int showMaxItemSize = 5;
+                      bool isMoreMaxSize = controller.pageSize.value > showMaxItemSize;
+                      int showItemSize = isMoreMaxSize ? showMaxItemSize : controller.pageSize.value;
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: List.generate(showItemSize, (index) {
+                          if (isMoreMaxSize && index == showMaxItemSize - 2) {
+                            return Padding(
+                              padding: EdgeInsets.only(left: 15.w, right: 15.w),
+                              child: Text(
+                                "...",
+                                style: TextStyle(
+                                  fontSize: 24.w,
+                                  color: const Color(0xffffffff),
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            );
+                          }
+                          String text = (index + 1).toString();
+                          if (index == showMaxItemSize - 1) {
+                            text = (showMaxItemSize).toString();
+                          }
+                          return BotPageNumWidget(
+                            text: text,
+                            isSelected: index == controller.curSelectPageIndex,
+                          );
+                        }),
+                      );
+                    }),
+                    BotTurnPageWidget(isLeft: false, enable: false),
+                  ],
+                ),
               )
             ],
           ),
@@ -180,6 +218,80 @@ class GameListView extends GetView<GameListController> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class BotPageNumWidget extends StatelessWidget {
+  const BotPageNumWidget({
+    super.key,
+    required this.text,
+    this.isSelected = false,
+  });
+
+  final String text;
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoButton(
+      onPressed: () {},
+      minSize: 0,
+      padding: EdgeInsets.only(left: 6.w, right: 6.w, top: 10.w, bottom: 10.w),
+      child: Container(
+        width: 50.w,
+        height: 50.w,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xff3EA1F8) : Colors.transparent,
+          borderRadius: BorderRadius.circular(12.w),
+          border: Border.all(color: const Color(0xff5D656F), width: isSelected ? 0 : 1.w),
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 24.w,
+            color: const Color(0xffffffff),
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BotTurnPageWidget extends StatelessWidget {
+  const BotTurnPageWidget({
+    super.key,
+    this.isLeft = true,
+    this.enable = true,
+  });
+
+  final bool isLeft;
+  final bool enable;
+
+  @override
+  Widget build(BuildContext context) {
+    var leftIcon = Icons.arrow_back_ios_outlined;
+    var rightIcon = Icons.arrow_forward_ios_outlined;
+    return CupertinoButton(
+      onPressed: () {},
+      minSize: 0,
+      padding: EdgeInsets.only(left: 6.w, right: 6.w, top: 10.w, bottom: 10.w),
+      child: Container(
+        width: 50.w,
+        height: 50.w,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.w),
+          border: Border.all(color: const Color(0xff5D656F), width: 1.w),
+        ),
+        child: Icon(
+          isLeft ? leftIcon : rightIcon,
+          color: enable ? Colors.white : Color(0xff555557),
+          size: 20.w,
+        ),
       ),
     );
   }

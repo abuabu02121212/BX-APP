@@ -32,11 +32,11 @@ class VerticalTabGroup extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _MyState();
+    return MyState();
   }
 }
 
-class _MyState extends State<VerticalTabGroup> with TickerProviderStateMixin {
+class MyState extends State<VerticalTabGroup> with TickerProviderStateMixin {
   final GlobalKey rootKey = GlobalKey();
   final ScrollController scrollController = ScrollController();
   late CommonTweenAnim<double> anim = CommonTweenAnim<double>()
@@ -44,6 +44,11 @@ class _MyState extends State<VerticalTabGroup> with TickerProviderStateMixin {
     ..addListener(onUpdate);
   final ValueNotifier<double> leftNotifier = ValueNotifier<double>(0.0);
 
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.attach(this);
+  }
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -85,10 +90,12 @@ class _MyState extends State<VerticalTabGroup> with TickerProviderStateMixin {
 
   }
 
-  void onItemSelectChanged(int pos) {
+  void onItemSelectChanged(int pos, {isTrigCallback = true}) {
     if (widget.controller.selectedIndexNotifier.value != pos) {
       widget.controller.selectedIndexNotifier.value = pos;
-      widget.onSelectChanged(pos);
+      if(isTrigCallback){
+        widget.onSelectChanged(pos);
+      }
       autoScroll(pos);
     }
   }
@@ -122,13 +129,18 @@ class _MyState extends State<VerticalTabGroup> with TickerProviderStateMixin {
 }
 
 class VerticalTabController {
+  MyState? state;
+
+  void attach(MyState state){
+    this.state = state;
+  }
   VerticalTabController({int defSelectPos = 0}) {
     selectedIndexNotifier.value = defSelectPos;
   }
 
   final ValueNotifier<int> selectedIndexNotifier = ValueNotifier<int>(0);
 
-  void onItemSelectChanged(int pos) {
-    selectedIndexNotifier.value = pos;
+  void onItemSelectChanged(int pos, {isTrigCallback = true}) {
+    state?.onItemSelectChanged(pos, isTrigCallback: isTrigCallback);
   }
 }
