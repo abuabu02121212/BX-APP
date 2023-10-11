@@ -13,6 +13,8 @@ import '../../../../widget/vetival_tab_group.dart';
 import '../../../app_style.dart';
 import '../../../component/app_header.dart';
 import '../../../component/app_user_info_input_field.dart';
+import '../../../entity/game_item.dart';
+import '../../home/views/game_type_list.dart';
 import '../controllers/game_list_controller.dart';
 
 class GameListView extends GetView<GameListController> {
@@ -107,7 +109,7 @@ class GameListView extends GetView<GameListController> {
                       child: Container(
                         height: double.infinity,
                         padding: EdgeInsets.only(left: 0.w, right: 0.w, top: 0.w, bottom: 0.w),
-                        decoration: const BoxDecoration(color: Color(0x88ffcccc)),
+                        //  decoration: const BoxDecoration(color: Color(0x88ffcccc)),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           mainAxisSize: MainAxisSize.min,
@@ -117,12 +119,38 @@ class GameListView extends GetView<GameListController> {
                               onSelectChanged: (int t, bool v) {},
                               indicatorTabController: controller.indicatorTabController,
                             ),
+                            Expanded(
+                              child: Container(
+                                padding: EdgeInsets.only(right: 20.w),
+                                child: GridView.builder(
+                                    itemCount: 22,
+                                    physics: const BouncingScrollPhysics(),
+                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      mainAxisSpacing: 22.w,
+                                      crossAxisSpacing: 22.h,
+                                      childAspectRatio: 182 / 232.0,
+                                    ),
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return GameItemWidget(gameEntity: GameEntity.fromJson({}));
+                                    }),
+                              ),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ],
                 ),
+              ),
+              Container(
+                width: double.infinity,
+                height: 100.w,
+                padding: EdgeInsets.only(left: 0.w, right: 0.w, top: 0.w, bottom: 0.w),
+                decoration: const BoxDecoration(
+                  color: Color(0xff1A1C1F),
+                ),
+                child: const SizedBox(),
               )
             ],
           ),
@@ -133,7 +161,7 @@ class GameListView extends GetView<GameListController> {
 
   Widget _buildIndicatorTabItemBuilder2(BuildContext context, int index, int selectedPos) {
     bool selected = index == selectedPos;
-    Color color = selected ? Colors.white : Colors.black;
+    Color color = selected ? Colors.white : const Color(0xff5D656F);
     Color bgColor = selected ? const Color(0xff3EA1F8) : const Color(0xff1A1C1F);
     return AliveWidget(
       child: Column(

@@ -141,10 +141,9 @@ class GameGridWidget extends StatelessWidget {
                 return isLoadMoreItem
                     ? ItemMoreWidget(controller: controller, listItemIndex: 0)
                     : GameItemWidget(
-                        isVerticalItem: true,
                         gameEntity: searchRxList[index],
-                        controller: controller,
-                        listItemIndex: searchDialogListItemIndex,
+                     //   controller: controller,
+                      //  listItemIndex: searchDialogListItemIndex,
                       );
               },
             )

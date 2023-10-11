@@ -25,7 +25,7 @@ class GameListHorizontalTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.only(left: 5.w),
+     // padding: EdgeInsets.only(left: 5.w),
       child: HorizontalIndicatorTab(
         size: tabNames.length,
         itemBuilder: _buildIndicatorTabItemBuilder,
@@ -47,7 +47,7 @@ class GameListHorizontalTab extends StatelessWidget {
     Color bgColor = selected ? const Color(0xff3EA1F8) : const Color(0xff1A1C1F);
     return Center(
       child: Padding(
-        padding: EdgeInsets.only(left: 5.w, right: 5.w),
+        padding: EdgeInsets.only(right: 10.w),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(25.w),
           child: Container(

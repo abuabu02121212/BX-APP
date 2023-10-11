@@ -160,7 +160,7 @@ class HomeController extends GetxController {
       // await requestMemberNav(navItemList, gameTypes);
       requestNotice(noticeListRx, showingMarqueeText);
       requestCsData(csEntity);
-      // requestLastWin(lastWinListRx);
+      requestTab0FavGameList();
 
       /// 请求banner列表
       requestBannerData(bannerList);
@@ -191,11 +191,6 @@ class HomeController extends GetxController {
   Future<void> requestTab0FavGameList() async {
     AppLoading.show();
     await requestMemberFavList2(recList[0], tab0TyList[0], gameType: 0);
-    await requestMemberFavList2(recList[1], tab0TyList[1], gameType: 0);
-    for (int i = 2; i < recList.length; i++) {
-      AppRxList<GameEntity> item = recList[i];
-      await requestMemberFavList2(item, tab0TyList[i], gameType: gameTypeList[i - 2]);
-    }
     AppLoading.close();
   }
 
