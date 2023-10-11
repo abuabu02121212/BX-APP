@@ -100,7 +100,7 @@ class UserInfoInputField extends StatelessWidget {
                 var eyeIsOPen = !editNode.eyeIsOPen.value;
                 return MyInputFiled(
                   width: double.infinity,
-                  height: 72.w,
+                  height: showHeight < 72.w ? showHeight : 72.w,
                   hint: hint,
                   border: border ?? Border.all(width: 1.w, color: const Color.fromRGBO(93, 101, 111, 0.40)),
                   bgColor: bgColor,

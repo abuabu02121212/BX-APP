@@ -1,9 +1,13 @@
 import 'package:get/get.dart';
 
-class GameListController extends GetxController {
-  //TODO: Implement GameListController
+import '../../../../widget/horizontal_indicator_tab.dart';
+import '../../../../widget/input_field.dart';
 
-  final count = 0.obs;
+class GameListController extends GetxController {
+
+  final EditNode editNode = EditNode();
+  IndicatorTabController indicatorTabController = IndicatorTabController();
+  int gameTypeSize = 13;
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +23,5 @@ class GameListController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+
 }
