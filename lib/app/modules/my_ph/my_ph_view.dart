@@ -27,12 +27,17 @@ class _My_PHPageState extends State<My_PHPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseScaffoldPH(
+    return
+      BaseScaffoldPH(
       backgroundColor: blackBgColor_h,
-      body: SingleChildScrollView(
+      body:
+      SingleChildScrollView(
         physics: const ClampingScrollPhysics(),
         child: Container(
-          color: Colors.black,
+          decoration: const BoxDecoration(
+            image: DecorationImage( image: AssetImage('assets/images/promotion/bg_pattern.webp'),
+              fit: BoxFit.cover,),
+          ),
           child: Column(
             children: [
               Stack(
@@ -46,6 +51,7 @@ class _My_PHPageState extends State<My_PHPage> {
                         _personalInformation(),
                         _userLevel(),
                         _userFunctions(context),
+                        SizedBox(height: 30.h,)
                       ],
                     ),
                   ),
@@ -254,7 +260,9 @@ class _My_PHPageState extends State<My_PHPage> {
                 }),
                 line(),
                 _headTab(
-                    'assets/images/user/ic_withdraw.webp', S.current.Withdraw, () {}),
+                    'assets/images/user/ic_withdraw.webp', S.current.Withdraw, () {
+                  Get.toNamed(Routes.WITHDRAW_PH);
+                }),
                 line(),
                 _headTab('assets/images/user/ic_deposit.webp', S.current.Deposit, () {
                   Get.toNamed(Routes.DEPOSIT_PH);
@@ -344,8 +352,9 @@ class _My_PHPageState extends State<My_PHPage> {
                         height: 140.h,
                       ),
                       Positioned(
-                        top: 107.5.h,
-                        width: 157.w,
+                        left: 0,
+                        right: 0,
+                        bottom: 15.h,
                         child: Text(
                           '${S.current.VIP} 1',
                           textAlign: TextAlign.center,
@@ -495,9 +504,9 @@ class _My_PHPageState extends State<My_PHPage> {
   ///用户功能
   Widget _userFunctions(BuildContext context) {
     return Container(
-      width: 690.w,
-      height: 799.h,
-      margin: EdgeInsets.only(left: 30.w, right: 30.w, bottom: 30.h),
+      width: double.infinity,
+      height: 800.h,
+      margin: EdgeInsets.only(left: 30.w, right: 30.w, bottom: 150.h),
       padding: EdgeInsets.only(left: 25.w, right: 25.w),
       decoration: BoxDecoration(
         color: const Color(0xff1A1C1F),
@@ -508,6 +517,7 @@ class _My_PHPageState extends State<My_PHPage> {
       child: MediaQuery.removePadding(
         context: context,
         removeTop: true,
+        removeBottom: true,
         child: ListView.separated(
           separatorBuilder: (BuildContext context, int index) {
             return Divider(

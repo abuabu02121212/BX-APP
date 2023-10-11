@@ -37,6 +37,8 @@ abstract class Routes {
   static const MAIN_WALLET_PAGE = _Paths.MAIN_WALLET;
   static const DEPOSIT_PH = _Paths.DEPOSIT_PH;
   static const VIP_PH = _Paths.VIP_PH;
+  static const WITHDRAW_PH = _Paths.WITHDRAW_PH;
+  static const WITHDRAW_PIN = _Paths.WITHDRAW_PIN;
   static const GAME_LIST = _Paths.GAME_LIST;
 }
 
@@ -75,5 +77,7 @@ abstract class _Paths {
   static const MAIN_WALLET = '/main_wallet';
   static const DEPOSIT_PH = '/deposit_ph';
   static const VIP_PH = '/vip_ph';
+  static const WITHDRAW_PH = '/withdraw_ph';
+  static const WITHDRAW_PIN = '/withdraw_pin';
   static const GAME_LIST = '/game-list';
 }

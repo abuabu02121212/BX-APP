@@ -5,6 +5,7 @@ import 'package:flutter_comm/util/base_appbar_ph.dart';
 import 'package:flutter_comm/util/base_scaffold_ph.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_comm/widget/online_deposit.dart';
+import 'package:flutter_comm/widget/pub_bot.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -21,7 +22,7 @@ class Deposit_PHPage extends StatefulWidget {
 class _Deposit_PHPageState extends State<Deposit_PHPage> {
   final logic = Get.put(Deposit_PHLogic());
   final state = Get.find<Deposit_PHLogic>().state;
-  var list = [0, 1, 2, 3, 4, 5];
+  var list = [0, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 4, 5];
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
               // physics: const ClampingScrollPhysics(),
               physics: const ClampingScrollPhysics(),
               child: Container(
-                margin: EdgeInsets.fromLTRB(20.w, 13.h, 20.w, 0),
+                padding: EdgeInsets.fromLTRB(20.w, 13.h, 20.w, 0),
                 width: double.infinity,
                 child: Column(
                   children: [
@@ -63,6 +64,9 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                             name: S.current.OnlineDeposit,
                             isHave: true,
                             nameRight: 'Free1%',
+                            click: (name)=>{
+
+                            },
                           ),
                         ),
                         SizedBox(
@@ -73,6 +77,9 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                           child: onlineDeposit(
                             isHave: false,
                             name: S.current.TransferAndDeposit,
+                            click: (name)=>{
+
+                            },
                           ),
                         )
                       ],
@@ -80,10 +87,7 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                     SizedBox(
                       height: 30.h,
                     ),
-                    Divider(
-                      color: const Color.fromRGBO(93, 101, 111, 0.40),
-                      height: 1.h,
-                    ),
+                    pubLin(),
                     SizedBox(
                       height: 16.h,
                     ),
@@ -97,6 +101,9 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                             isHave: true,
                             nameRight: 'Free0.5-1%',
                             img: 'assets/images/user/ic_gcash.webp',
+                            click: (name)=>{
+
+                            },
                           ),
                         ),
                         SizedBox(
@@ -109,6 +116,9 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                             isHave: true,
                             nameRight: 'Free0.5-1%',
                             img: 'assets/images/user/ic_maya.webp',
+                            click: (name)=>{
+
+                            },
                           ),
                         )
                       ],
@@ -116,15 +126,12 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                     SizedBox(
                       height: 30.h,
                     ),
-                    Divider(
-                      color: const Color.fromRGBO(93, 101, 111, 0.40),
-                      height: 1.h,
-                    ),
+                    pubLin(),
                     SizedBox(
                       height: 17.h,
                     ),
                     SizedBox(
-                      height: 245.h,
+                      height: (list.length / 3 * 103).h,
                       child: MediaQuery.removePadding(
                         removeTop: true,
                         removeBottom: true,
@@ -137,17 +144,17 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                                     crossAxisCount: 3,
                                     mainAxisSpacing: 7.w,
                                     crossAxisSpacing: 14.h,
-                                    childAspectRatio: 223 / 115),
+                                    childAspectRatio: 223 / 103),
                             itemBuilder: (BuildContext context, int index) {
                               return onlineDeposit(
                                 isSele: index == 0 || index == 1 ? true : false,
                                 name: S.current.Gcash,
+                                click: (name)=>{
+
+                                },
                               );
                             }),
                       ),
-                    ),
-                    SizedBox(
-                      height: 30.h,
                     ),
                     CupertinoButton(
                         padding: EdgeInsets.zero,
@@ -178,10 +185,7 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                     SizedBox(
                       height: 23.h,
                     ),
-                    Divider(
-                      color: const Color.fromRGBO(93, 101, 111, 0.40),
-                      height: 1.h,
-                    ),
+                    pubLin(),
                     SizedBox(
                       height: 25.h,
                     ),
@@ -207,10 +211,10 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                       ],
                     ),
                     SizedBox(
-                      height: 10.h,
+                      height: 15.h,
                     ),
                     SizedBox(
-                      height: 245.h,
+                      height: (list.length / 4 * 110).h,
                       child: MediaQuery.removePadding(
                         removeTop: true,
                         removeBottom: true,
@@ -223,12 +227,15 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                                     crossAxisCount: 4,
                                     mainAxisSpacing: 7.w,
                                     crossAxisSpacing: 14.h,
-                                    childAspectRatio: 162 / 115),
+                                    childAspectRatio: 162 / 103),
                             itemBuilder: (BuildContext context, int index) {
                               return onlineDeposit(
                                 isHave: index == 0 || index == 1 ? true : false,
                                 name: '1000',
                                 nameRight: '0.5%+10',
+                                click: (name)=>{
+
+                                },
                               );
                             }),
                       ),
@@ -248,23 +255,22 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                             width: 1.w),
                       ),
                       child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                           S.current.money_p,
+                            S.current.money_p,
                             style: TextStyle(
                               fontSize: 32.sp,
                               color: const Color(0xFFffffff),
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          // SizedBox(width: 24.px,),
                           Expanded(
                             flex: 1,
                             child: TextField(
                               controller: TextEditingController(),
                               maxLines: 1,
+                              cursorColor: const Color(0xffffffff),
                               style: pubTextStyle(const Color(0xFFffffff),
                                   24.sp, FontWeight.w400),
                               onChanged: (text) async {},
@@ -273,18 +279,11 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                                 contentPadding: EdgeInsets.only(
                                     left: 24.w,
                                     right: 0.w,
-                                    top: -23.h,
-                                    bottom: 0.h),
+                                    top: 0.h,
+                                    bottom: 7.h),
                                 hintText: S.current.Min_100_Max_50000,
                                 hintStyle: pubTextStyle(const Color(0xFF5D656F),
                                     24.sp, FontWeight.w400),
-                                // suffixIcon: IconButton(
-                                //     onPressed: () => {
-                                //       Toast.show('msg'),
-                                //     },
-                                //     icon: Image(
-                                //       image: AssetImage(
-                                //           'assets/images/user/vector2.webp'),width: 28.px,))
                               ),
                             ),
                           ),
@@ -311,37 +310,19 @@ class _Deposit_PHPageState extends State<Deposit_PHPage> {
                       style: pubTextStyle(
                           const Color(0xFF5D656F), 22.sp, FontWeight.w400),
                     ),
+                    SizedBox(
+                      height: 133.h,
+                    ),
                   ],
                 ),
               ),
             ),
           ),
-          CupertinoButton(
-              padding: EdgeInsets.zero,
-              minSize: 0,
-              child: Container(
-                height: 104.h,
-                width: 710.w,
-                margin: EdgeInsets.only(bottom: 26.h, top: 24.h),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF3EA1F8),
-                  borderRadius: BorderRadius.circular(16.r),
-                ),
-                child: Text(
-                 S.current.DepositNow,
-                  style: pubTextStyle(
-                      const Color(0xFFffffff), 26.sp, FontWeight.w700),
-                ),
-              ),
-              onPressed: () => {
-                    Toast.show('msg'),
-                  }),
-          SizedBox(
-            height: 26.h,
+          PubBot(
+            name: S.current.DepositNow,
+            click: () => {Toast.show('fdafa')},
           ),
         ],
-        // ),
       ),
     );
   }

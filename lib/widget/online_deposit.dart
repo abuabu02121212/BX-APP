@@ -5,12 +5,14 @@ import 'package:flutter_comm/app/app_style.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+///deposit 通用选项组件
 class onlineDeposit extends StatelessWidget {
   var isSele = false;
   var name = '';
   var isHave = false;
   var nameRight = '';
   var img = '';
+  Function? click;
 
   onlineDeposit(
       {Key? key,
@@ -18,6 +20,7 @@ class onlineDeposit extends StatelessWidget {
       this.name = 'false',
       this.isHave = false,
       this.nameRight = '',
+      this.click,
       this.img = ''})
       : super(key: key);
 
@@ -31,19 +34,17 @@ class onlineDeposit extends StatelessWidget {
           children: [
             Container(
               padding: EdgeInsets.only(left: 10.w, right: 10.w),
-              height: 103.h,
+              height: 75.h,
               margin: EdgeInsets.only(top: 13.h, right: 6.w),
               decoration: BoxDecoration(
                 border: Border.all(
                     color: isSele
-                        ? Color(0xFF3EA1F8)
-                        : Color.fromRGBO(93, 101, 111, 0.40),
+                        ? const Color(0xFF3EA1F8)
+                        : const Color.fromRGBO(93, 101, 111, 0.40),
                     width: 1.w),
                 borderRadius: BorderRadius.circular(16.r),
-                color: Color(0xFF1A1C1F),
-                // color: Colors.red
+                color: const Color(0xFF1A1C1F),
               ),
-              // crossAxisAlignment: CrossAxisAlignment.center,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,32 +54,37 @@ class onlineDeposit extends StatelessWidget {
                       image: AssetImage(img),
                       width: 70.w,
                     ),
-                  Expanded(
-                    child: SizedBox(),
+                  const Expanded(
                     flex: 1,
+                    child: SizedBox(),
                   ),
                   Center(
                     child: Text(
                       name,
+                      textAlign: TextAlign.center,
                       style: pubTextStyle(
-                          isSele ? Color(0xFF3EA1F8) : Color(0xFF8F9DAB),
+                          isSele
+                              ? const Color(0xFF3EA1F8)
+                              : const Color(0xFF8F9DAB),
                           24.sp,
                           isSele ? FontWeight.w700 : FontWeight.w400),
                     ),
                   ),
-                  Expanded(
-                    child: SizedBox(),
+                  const Expanded(
                     flex: 1,
+                    child: SizedBox(),
                   ),
                 ],
               ),
             ),
             if (isSele)
               Positioned(
-                top: 79.h,
+                // top: 60.h,
                 right: 6.w,
+                bottom: -3.h,
                 child: Image(
-                  image: AssetImage('assets/images/user/ic_check_mark.webp'),
+                  image:
+                      const AssetImage('assets/images/user/ic_check_mark.webp'),
                   width: 36.w,
                   height: 36.h,
                 ),
@@ -88,7 +94,7 @@ class onlineDeposit extends StatelessWidget {
                 right: 0.w,
                 child: Container(
                   padding: EdgeInsets.fromLTRB(12.w, 3.h, 12.w, 12.h),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage(
                               'assets/images/user/ic_tip_bubble.webp'),
@@ -96,7 +102,7 @@ class onlineDeposit extends StatelessWidget {
                   child: Text(
                     nameRight,
                     style:
-                        pubTextStyle(Color(0xFFffffff), 22.sp, FontWeight.w400),
+                        pubTextStyle(const Color(0xFFffffff), 22.sp, FontWeight.w400),
                   ),
                 ),
               ),
@@ -105,6 +111,7 @@ class onlineDeposit extends StatelessWidget {
         // ),
         onPressed: () => {
               Toast.show('msg'),
+              click!(name),
             });
   }
 }

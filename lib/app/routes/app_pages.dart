@@ -1,3 +1,17 @@
+import 'package:flutter_comm/app/modules/deposit_ph/deposit_ph_binding.dart';
+import 'package:flutter_comm/app/modules/deposit_ph/deposit_ph_view.dart';
+import 'package:flutter_comm/app/modules/main_wallet/main_wallet_binding.dart';
+import 'package:flutter_comm/app/modules/main_wallet/main_wallet_view.dart';
+import 'package:flutter_comm/app/modules/my_ph/my_ph_binding.dart';
+import 'package:flutter_comm/app/modules/my_ph/my_ph_view.dart';
+import 'package:flutter_comm/app/modules/promotion_ph/promotion_ph_binding.dart';
+import 'package:flutter_comm/app/modules/promotion_ph/promotion_ph_view.dart';
+import 'package:flutter_comm/app/modules/vip_ph/vip_ph_binding.dart';
+import 'package:flutter_comm/app/modules/vip_ph/vip_ph_view.dart';
+import 'package:flutter_comm/app/modules/withdraw_ph/withdraw_ph_binding.dart';
+import 'package:flutter_comm/app/modules/withdraw_ph/withdraw_ph_view.dart';
+import 'package:flutter_comm/app/modules/withdraw_pin/withdraw_pin_binding.dart';
+import 'package:flutter_comm/app/modules/withdraw_pin/withdraw_pin_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/apostas/bindings/apostas_binding.dart';
@@ -234,6 +248,16 @@ class AppPages {
       name: _Paths.VIP_PH,
       page: () => const Vip_phPage(),
       binding: Vip_phBinding(),
+    ),
+    GetPage(
+      name: _Paths.WITHDRAW_PH,
+      page: () => const Withdraw_phPage(),
+      binding: Withdraw_phBinding(),
+    ),
+    GetPage(
+      name: _Paths.WITHDRAW_PIN,
+      page: () => const Withdraw_pinPage(),
+      binding: Withdraw_pinBinding(),
     ),
     GetPage(
       name: _Paths.GAME_LIST,

@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Color bgColor = const Color(0xff020a1c);
 const Color headerBgColor = Color(0xff1A1C1F);
 const Color bottomBgColor = Color(0xff1A1C1F);
-
 
 LinearGradient headerLinearGradient = const LinearGradient(
   colors: [Color(0xff044B9A), Color(0xff011A51)],
@@ -77,15 +77,42 @@ LinearGradient tabBgLinearGradientH = const LinearGradient(
 // 主题背景色（黑色）---菲
 Color blackBgColor_h = const Color(0xfff212226);
 
-TextStyle pubTextStyle(var color,var size,var fontWeight ,{height,wordSpacing})  {
-  return TextStyle(fontSize: size, color: color, fontWeight:fontWeight,height: height,wordSpacing:wordSpacing );
+TextStyle pubTextStyle(var color, var size, var fontWeight,
+    {height, wordSpacing}) {
+  return TextStyle(
+      fontSize: size,
+      color: color,
+      fontWeight: fontWeight,
+      height: height,
+      wordSpacing: wordSpacing);
 }
 
-BoxDecoration pubBoxDecoration() {
+BoxDecoration pubBoxDecoration({Color? color, double? rs}) {
   return BoxDecoration(
-    borderRadius: BorderRadius.circular(16.r),
-    color: const Color(0xff252527),
-    border: Border.all(
-        color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.w),
+    borderRadius: BorderRadius.circular(rs ?? 16.r),
+    color: color ?? const Color(0xff252527),
+    border:
+        Border.all(color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.w),
+  );
+}
+
+Divider pubLin() {
+  return Divider(
+    color: const Color.fromRGBO(93, 101, 111, 0.40),
+    height: 1.h,
+  );
+}
+
+BoxDecoration pubBotY({Color? color, double? rs}) {
+  return BoxDecoration(
+    borderRadius: BorderRadius.circular(rs ?? 16.r),
+    color: color ?? const Color(0xFF3EA1F8),
+  );
+}
+
+BoxDecoration pubBotN({Color? color, double? rs}) {
+  return BoxDecoration(
+    borderRadius: BorderRadius.circular(rs ?? 16.r),
+    color: color ?? const Color(0xff8F9DAB),
   );
 }

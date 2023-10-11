@@ -21,7 +21,7 @@ class _Main_walletPageState extends State<Main_walletPage> {
   final logic = Get.put(Main_walletLogic());
   final state = Get.find<Main_walletLogic>().state;
 
-  var list_name = [0, 1, 2, 3, 4, 5, 6];
+  var list_name = [0, 1, 2, 3, 4, 5];
   var list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
   @override
@@ -32,7 +32,7 @@ class _Main_walletPageState extends State<Main_walletPage> {
         title: S.current.MainWallet,
       ),
       body: Container(
-        padding: EdgeInsets.only(bottom: 115.h),
+        // padding: EdgeInsets.only(bottom: 150.h),
         height: double.infinity,
         child: Column(
           children: [
@@ -119,14 +119,15 @@ class _Main_walletPageState extends State<Main_walletPage> {
 
   Widget _gameList(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 0),
+      padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 100.w,
-            height: 1000.h,
+            width: 120.w,
+            height: (6 * 116).h,
             child: ListView.separated(
+                physics: const NeverScrollableScrollPhysics(),
                 separatorBuilder: (BuildContext contet, int index) {
                   return SizedBox(
                     height: 16.h,
@@ -146,7 +147,7 @@ class _Main_walletPageState extends State<Main_walletPage> {
               children: [
                 Container(
                   padding: EdgeInsets.zero,
-                  alignment: Alignment.topLeft,
+                  // alignment: Alignment.center,
                   height: 60.h,
                   width: 590.w,
                   decoration: BoxDecoration(
@@ -171,23 +172,23 @@ class _Main_walletPageState extends State<Main_walletPage> {
                   child: TextField(
                     controller: TextEditingController(),
                     maxLines: 1,
+                    cursorColor: const Color(0xffffffff),
                     style: pubTextStyle(
-                        const Color(0xffffffff), 26.sp, FontWeight.w400),
-                    onChanged: (text) async {
-                      // Toast.show('msg');
-                      // _searchResults = await EmojiPickerUtils()
-                      //     .searchEmoji(text, defaultEmojiSet);
-                      // setState(() {});
-                    },
+                      const Color(0xffffffff),
+                      26.sp,
+                      FontWeight.w400,
+                    ),
+                    onChanged: (text) async {},
                     decoration: InputDecoration(
                         border: InputBorder.none,
-                        contentPadding: EdgeInsets.only(left: 24.w, right: 0.w),
+                        contentPadding: EdgeInsets.only(
+                            left: 24.w, right: 0.w, top: 7.h, bottom: 0.h),
                         hintText: S.current.PlatformSearch,
                         hintStyle: pubTextStyle(
                             const Color(0xff5D656F), 26.sp, FontWeight.w400),
                         suffixIcon: IconButton(
                             onPressed: () => {
-                                  Toast.show('msg'),
+                                  Toast.show('msg00'),
                                 },
                             icon: Image(
                               image: const AssetImage(
@@ -198,18 +199,19 @@ class _Main_walletPageState extends State<Main_walletPage> {
                 ),
                 Container(
                   width: 590.w,
-                  height: 1000.h,
+                  height: 800.h,
                   margin: EdgeInsets.only(top: 24.w),
-                  child: GridView(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 18.w,
-                        crossAxisSpacing: 16.h,
-                        // double itemRatio = itemW / (imgItemH + textH);
-                        childAspectRatio: 285 / 140),
-                    children: list.map((e) => _getGridItem(e)).toList(),
-                    // children: list.map((e) =>Text('data')).toList(),
-                  ),
+                  child: GridView.builder(
+                      itemCount: list.length,
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 18.w,
+                          crossAxisSpacing: 16.h,
+                          childAspectRatio: 285 / 140),
+                      itemBuilder: (BuildContext context, int index) {
+                        return _getGridItem(index);
+                      }),
                 ),
               ],
             ),
@@ -261,9 +263,6 @@ class _Main_walletPageState extends State<Main_walletPage> {
 
   BoxDecoration getBoxDecoration() {
     return BoxDecoration(
-      // color: indexs ==index? : ,
-      // gradient: LinearGradient(
-      //     colors: [Color(0xffDEEEFB), Color(0xffBEDCEF)], begin: Alignment.topCenter, end: Alignment.bottomCenter),
       gradient: const LinearGradient(colors: [
         Color(0xff61CEFF),
         Color(0xff1B75F0),
@@ -290,7 +289,6 @@ class _Main_walletPageState extends State<Main_walletPage> {
 
   Widget _gameName(int index) {
     return Obx(() => Container(
-          width: 100.w,
           height: 100.h,
           decoration: logic.indexs.value == index
               ? getBoxDecoration()
@@ -303,12 +301,12 @@ class _Main_walletPageState extends State<Main_walletPage> {
                     height: 10.h,
                   ),
                   Image(
-                    image: const AssetImage('assets/images/user/ic_all2.webp'),
+                    image: AssetImage(
+                        "assets/images/${logic.indexs.value == index ? "game-tab${logic.imgListY[index]}" : "game-tab-un${logic.imgListY[index]}"}.webp"),
                     width: 52.w,
-                    height: 52.h,
                   ),
                   Text(
-                    S.current.All,
+                    logic.nameList[index],
                     style: pubTextStyle(
                         const Color(0xffffffff), 22.sp, FontWeight.w700),
                   ),
@@ -317,7 +315,7 @@ class _Main_walletPageState extends State<Main_walletPage> {
               onPressed: () => {
                     Toast.show('msg'),
                     logic.indexs.value = index,
-                    // Update(),
+                    logic.indexs.refresh(),
                   }),
         ));
   }
