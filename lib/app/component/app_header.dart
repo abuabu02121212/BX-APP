@@ -10,17 +10,21 @@ class AppHeader extends StatelessWidget {
     this.title,
     this.isNeedLeftBackArrow = true,
     this.titleWidget,
+    this.bottomWidget,
+    this.height,
   });
 
   final String? title;
   final Widget? titleWidget;
+  final Widget? bottomWidget;
   final bool isNeedLeftBackArrow;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 110.w,
+      height: height ?? 110.w,
       decoration: const BoxDecoration(color: headerBgColor),
       child: Stack(
         alignment: Alignment.center,
@@ -44,6 +48,11 @@ class AppHeader extends StatelessWidget {
               ),
             ),
           if (titleWidget != null) titleWidget!,
+          if (bottomWidget != null)
+            Positioned(
+              right: 0.w,
+              child: bottomWidget!,
+            ),
         ],
       ),
     );
