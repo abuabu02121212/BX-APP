@@ -44,7 +44,8 @@ class GameListController extends GetxController {
     Log.d("curSelectPageIndex:${curSelectPageIndex.value}");
   }
 
-  /// 页码从1开始
+  final int moreMark = -9;
+  /// 页码从1开始: 返回的List长度最小为5 最大为7
   List<int> getShowPageNumList(int curPageIndex, int maxPageIndex) {
     if (maxPageIndex == 1) {
       return [1];
@@ -57,18 +58,23 @@ class GameListController extends GetxController {
       curPageIndex + 2,
     ];
     arr.removeWhere((el) => el < 1 || el > maxPageIndex);
-
+    if (curPageIndex == 1) {
+      arr.insert(2, 3);
+    }
+    if (curPageIndex == maxPageIndex) {
+      arr.insert(arr.length - 2, maxPageIndex - 2);
+    }
     if (arr[0] > 1) {
       arr[0] = 1;
     }
     if (arr[1] - arr.first > 1) {
-      arr.insert(1, -9);
+      arr.insert(1, moreMark);
     }
     if (arr.last < maxPageIndex) {
       arr[arr.length - 1] = maxPageIndex;
     }
     if (arr.last - arr[arr.length - 2] > 1) {
-      arr.insert(arr.length - 1, -9);
+      arr.insert(arr.length - 1, moreMark);
     }
     return arr;
   }

@@ -24,7 +24,6 @@ import '../../../entity/notice.dart';
 import '../../../routes/app_pages.dart';
 import '../../home_menu/views/home_menu_view.dart';
 import '../views/drag_float_btn.dart';
-import '../views/game_search_dialog.dart';
 import '../views/game_type_tab_component.dart';
 import 'game_list_requests.dart';
 import 'home_requests.dart';
@@ -105,9 +104,6 @@ class HomeController extends GetxController {
       return tab0TyList[listItemIndex];
     } else if (selectedTypeIndex == 1) {
       return tab1TyName;
-    }
-    if (listItemIndex == searchDialogListItemIndex) {
-      return 'hot';
     }
     return '';
   }

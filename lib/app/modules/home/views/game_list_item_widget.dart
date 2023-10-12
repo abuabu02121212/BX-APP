@@ -7,8 +7,10 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../../util/Log.dart';
+import '../../../entity/game_item.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/home_controller.dart';
+import 'game_item_widget.dart';
 import 'game_type_tab_component.dart';
 
 class GameListItemWidget extends StatelessWidget {
@@ -95,38 +97,13 @@ class GameListItemWidget extends StatelessWidget {
                 SliverGrid.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      crossAxisSpacing: 12.w,
-                      childAspectRatio: 0.703,
+                      crossAxisSpacing: 24.w,
+                      mainAxisSpacing: 22.w,
+                      childAspectRatio: 214 / 270,
                     ),
                     itemCount: 11,
                     itemBuilder: (BuildContext context, int index) {
-                      return Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            height: 214.w,
-                            padding: EdgeInsets.only(left: 0.w, right: 0.w, top: 0.w, bottom: 0.w),
-                            decoration: BoxDecoration(
-                              color: const Color(0xffcccccc),
-                              borderRadius: BorderRadius.circular(12.w),
-                              border: Border.all(color: const Color(0xff000000), width: 1.w),
-                            ),
-                            child: const SizedBox(),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(16.w),
-                            child: Text(
-                              "Game Name",
-                              style: TextStyle(
-                                fontSize: 24.w,
-                                color: const Color(0xffffffff),
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          )
-                        ],
-                      );
+                      return GameItemWidget(imgHeight:  214.w,gameEntity: GameEntity.fromJson({}));
                     }),
                 SliverToBoxAdapter(
                   child: Obx(() {

@@ -10,7 +10,7 @@ import '../../../../globe_controller.dart';
 import '../../../entity/game_item.dart';
 import '../../login_register/views/login_regiseter_widget.dart';
 import '../controllers/game_list_requests.dart';
-import 'game_type_list.dart';
+import 'game_item_widget.dart';
 
 class GameEntranceWidget extends StatelessWidget {
    GameEntranceWidget({

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_comm/app/modules/home/views/game_search_dialog.dart';
 import 'package:flutter_comm/app/modules/home/views/swiper_component_notice.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -227,54 +226,6 @@ class HomeMarquee extends StatelessWidget {
   }
 }
 
-class SearchWidget extends StatelessWidget {
-  SearchWidget({
-    super.key,
-  });
-
-  final HomeController controller = Get.put(HomeController());
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.only(top: 30.w, left: 20.w, right: 20.w),
-      height: 72.w,
-      decoration: BoxDecoration(color: const Color.fromRGBO(1, 26, 81, 0), borderRadius: BorderRadius.circular(30.w)),
-      child: CupertinoButton(
-        onPressed: () {
-          showSearchDialog(null);
-        },
-        minSize: 0,
-        padding: EdgeInsets.zero,
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(100.w), border: Border.all(color: const Color.fromRGBO(4, 75, 154, 0.5), width: 1.w)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 20.w, right: 12.w),
-                child: Image.asset("assets/images/search-1.webp", width: 27.w),
-              ),
-              Text(
-                "To search for",
-                style: TextStyle(
-                  fontSize: 26.w,
-                  color: const Color(0xff969799),
-                  fontWeight: FontWeight.w400,
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class HomeBottomWidget extends StatelessWidget {
   HomeBottomWidget({

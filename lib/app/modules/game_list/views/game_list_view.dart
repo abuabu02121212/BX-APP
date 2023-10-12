@@ -11,7 +11,7 @@ import '../../../../widget/vetival_tab_group.dart';
 import '../../../component/app_header.dart';
 import '../../../component/app_user_info_input_field.dart';
 import '../../../entity/game_item.dart';
-import '../../home/views/game_type_list.dart';
+import '../../home/views/game_item_widget.dart';
 import '../controllers/game_list_controller.dart';
 
 class GameListView extends GetView<GameListController> {
@@ -213,7 +213,7 @@ class BottomPageIndexWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: List.generate(showPageNumList.length, (index) {
                 var pageNum = showPageNumList[index];
-                if (pageNum == -9) {
+                if (pageNum == controller.moreMark) {
                   return Padding(
                     padding: EdgeInsets.only(left: 15.w, right: 15.w),
                     child: Text(

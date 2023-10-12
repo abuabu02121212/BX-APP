@@ -54,23 +54,15 @@ class GameItemWidget extends StatelessWidget {
     this.imgHeight,
   });
 
-//  final HomeController controller;
-
   final GameEntity gameEntity;
   final double? imgHeight;
-
-  // final int listItemIndex;
 
   @override
   Widget build(BuildContext context) {
     String imgUrl = getRealImageUrl(gameEntity);
-    // if (gameEntity.brAlias.isEmpty) {
-    //   gameEntity.brAlias = gameEntity.getPlatformName(controller.navItemList).replaceAll("Esporte ", "");
-    // }
     return CupertinoButton(
       onPressed: () {
         Log.d("gameEntity:${gameEntity.toJson()}");
-        // gameEntity.listItemIndex = listItemIndex;
         onGameItemClick(gameEntity);
       },
       minSize: 0,
@@ -96,7 +88,7 @@ class GameItemWidget extends StatelessWidget {
                 alignment: Alignment.center,
                 padding: EdgeInsets.only(left: 10.w, right: 10.w),
                 child: Text(
-                  gameEntity.brAlias,
+                  "Game Name",
                   textAlign: TextAlign.center,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
