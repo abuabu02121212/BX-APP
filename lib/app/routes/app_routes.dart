@@ -42,6 +42,7 @@ abstract class Routes {
   static const GAME_LIST = _Paths.GAME_LIST;
   static const INTEREST = _Paths.INTEREST;
   static const PERSONAL_INFORMATION = _Paths.PERSONAL_INFORMATION;
+  static const AGENT = _Paths.AGENT;
 }
 
 abstract class _Paths {
@@ -84,4 +85,5 @@ abstract class _Paths {
   static const GAME_LIST = '/game-list';
   static const INTEREST = '/interest';
   static const PERSONAL_INFORMATION = '/personal_information';
+  static const AGENT = '/agent';
 }

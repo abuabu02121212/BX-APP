@@ -598,9 +598,14 @@ class _My_PHPageState extends State<My_PHPage> {
             ],
           ),
         ),
-        onPressed: () => {
-              Toast.show('msg'),
-            });
+        onPressed: () {
+          if(index == 0){
+            Get.toNamed(Routes.AGENT);
+          }else{
+            Toast.show('index:$index');
+          }
+
+        });
   }
 
   @override
