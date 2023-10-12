@@ -1,9 +1,13 @@
 import 'package:flutter_comm/app/modules/deposit_ph/deposit_ph_binding.dart';
 import 'package:flutter_comm/app/modules/deposit_ph/deposit_ph_view.dart';
+import 'package:flutter_comm/app/modules/interest/interest_binding.dart';
+import 'package:flutter_comm/app/modules/interest/interest_view.dart';
 import 'package:flutter_comm/app/modules/main_wallet/main_wallet_binding.dart';
 import 'package:flutter_comm/app/modules/main_wallet/main_wallet_view.dart';
 import 'package:flutter_comm/app/modules/my_ph/my_ph_binding.dart';
 import 'package:flutter_comm/app/modules/my_ph/my_ph_view.dart';
+import 'package:flutter_comm/app/modules/personal_information/personal_information_binding.dart';
+import 'package:flutter_comm/app/modules/personal_information/personal_information_view.dart';
 import 'package:flutter_comm/app/modules/promotion_ph/promotion_ph_binding.dart';
 import 'package:flutter_comm/app/modules/promotion_ph/promotion_ph_view.dart';
 import 'package:flutter_comm/app/modules/vip_ph/vip_ph_binding.dart';
@@ -263,6 +267,16 @@ class AppPages {
       name: _Paths.GAME_LIST,
       page: () => const GameListView(),
       binding: GameListBinding(),
+    ),
+    GetPage(
+      name: _Paths.INTEREST,
+      page: () => const InterestPage(),
+      binding: InterestBinding(),
+    ),
+    GetPage(
+      name: _Paths.PERSONAL_INFORMATION,
+      page: () => const Personal_informationPage(),
+      binding: Personal_informationBinding(),
     ),
   ];
 }

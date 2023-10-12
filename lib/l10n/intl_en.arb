@@ -130,9 +130,21 @@
   "LoadMore": "Load More",
   "NewWithdrawalPassword": "New Withdrawal Password",
   "Tips_D": "The withdrawal password is very important. make sure to remember it other than save it. Do not disclose it to anybody else, or in case of loss, the funds will not be recovered.",
+  "SearchGames": "Search Games",
   "Set_Up_Withdrawal_PIN": "Set Up Withdrawal PIN",
-  "SearchGames": "Search Games"
-
+  "Earnings_available": "(Earnings available each hour)",
+  "SavingBalance": "Saving Balance",
+  "APR": "APR(%)",
+  "CurrentIncome": "Current Income",
+  "TotalIncome": "Total Income",
+  "Collect": "Collect",
+  "IncomeStatement": "Income\nStatement",
+  "InterestStatement": "Interest\nStatement",
+  "InterestRules": "Interest Rules",
+  "Amount_of_earnings": "Amount of earnings",
+  "Type": "Type",
+  "Today": "Today",
+  "Time": "Time"
 }
 
 

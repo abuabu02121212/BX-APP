@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/util/size.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Color bgColor = const Color(0xff020a1c);
@@ -87,32 +88,66 @@ TextStyle pubTextStyle(var color, var size, var fontWeight,
       wordSpacing: wordSpacing);
 }
 
+///type 2：绿 1 ：白 3:黄 4:5D656F
+TextStyle pubTextStyle_default(
+    {Color? color,
+    double? size,
+    FontWeight? fontWeight,
+    height,
+    wordSpacing,
+    int? type}) {
+  return TextStyle(
+      fontSize: size ?? 24.sp,
+      color: color ??
+          (type == 4
+              ? const Color(0xff5D656F)
+              :type == 3
+              ? const Color(0xffF09B1B)
+              :type == 2
+              ? const Color(0xff3EA1F8)
+              : type == 1
+                  ? const Color(0xffffffff)
+                  : const Color(0xff8F9DAB)),
+      fontWeight: FontWeight.w400,
+      height: height,
+      wordSpacing: wordSpacing);
+}
+
 BoxDecoration pubBoxDecoration({Color? color, double? rs}) {
   return BoxDecoration(
-    borderRadius: BorderRadius.circular(rs ?? 16.r),
+    borderRadius: BorderRadius.circular(rs ?? 16.px),
     color: color ?? const Color(0xff252527),
     border:
-        Border.all(color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.w),
+        Border.all(color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.px),
+  );
+}
+
+BoxDecoration pubBoxDecoration_r({Color? color, double? rs,Color? colorBorder,}) {
+  return BoxDecoration(
+    borderRadius: BorderRadius.circular(rs ?? 16.px),
+    color: color ?? const Color(0xff8F9DAB),
+    border:
+    Border.all(color: colorBorder ??  Colors.transparent, width: 1.px),
   );
 }
 
 Divider pubLin() {
   return Divider(
     color: const Color.fromRGBO(93, 101, 111, 0.40),
-    height: 1.h,
+    height: 1.px,
   );
 }
 
 BoxDecoration pubBotY({Color? color, double? rs}) {
   return BoxDecoration(
-    borderRadius: BorderRadius.circular(rs ?? 16.r),
+    borderRadius: BorderRadius.circular(rs ?? 16.px),
     color: color ?? const Color(0xFF3EA1F8),
   );
 }
 
 BoxDecoration pubBotN({Color? color, double? rs}) {
   return BoxDecoration(
-    borderRadius: BorderRadius.circular(rs ?? 16.r),
+    borderRadius: BorderRadius.circular(rs ?? 16.px),
     color: color ?? const Color(0xff8F9DAB),
   );
 }

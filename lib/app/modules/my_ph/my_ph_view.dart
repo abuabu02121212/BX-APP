@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/app_style.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_comm/util/base_scaffold_ph.dart';
+import 'package:flutter_comm/util/size.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -27,16 +28,16 @@ class _My_PHPageState extends State<My_PHPage> {
 
   @override
   Widget build(BuildContext context) {
-    return
-      BaseScaffoldPH(
+    return BaseScaffoldPH(
       backgroundColor: blackBgColor_h,
-      body:
-      SingleChildScrollView(
+      body: SingleChildScrollView(
         physics: const ClampingScrollPhysics(),
         child: Container(
           decoration: const BoxDecoration(
-            image: DecorationImage( image: AssetImage('assets/images/promotion/bg_pattern.webp'),
-              fit: BoxFit.cover,),
+            image: DecorationImage(
+              image: AssetImage('assets/images/promotion/bg_pattern.webp'),
+              fit: BoxFit.cover,
+            ),
           ),
           child: Column(
             children: [
@@ -51,7 +52,9 @@ class _My_PHPageState extends State<My_PHPage> {
                         _personalInformation(),
                         _userLevel(),
                         _userFunctions(context),
-                        SizedBox(height: 30.h,)
+                        SizedBox(
+                          height: 30.px,
+                        )
                       ],
                     ),
                   ),
@@ -67,11 +70,11 @@ class _My_PHPageState extends State<My_PHPage> {
   ///头部信息
   Widget _personalInformation() {
     return Container(
-      margin: EdgeInsets.fromLTRB(30.w, 10.h, 30.w, 0),
+      margin: EdgeInsets.fromLTRB(30.px, 10.px, 30.px, 0),
       child: Column(
         children: [
           SizedBox(
-            height: 160.h,
+            height: 160.px,
             child: Row(
               children: [
                 Column(
@@ -79,22 +82,23 @@ class _My_PHPageState extends State<My_PHPage> {
                     CupertinoButton(
                         padding: EdgeInsets.zero,
                         child: Image(
-                            height: 160.h,
-                            width: 160.w,
+                            height: 160.px,
+                            width: 160.px,
                             image: const AssetImage(
                                 'assets/images/user/ic_profile_picture.webp')),
                         onPressed: () => {
-                              Toast.show('msg'),
+                              Get.toNamed(Routes.PERSONAL_INFORMATION),
                             }),
                   ],
                 ),
                 SizedBox(
-                  width: 30.w,
+                  width: 30.px,
                 ),
                 Container(
-                  height: 160.h,
-                  padding: EdgeInsets.fromLTRB(0, 10.h, 0, 5.h),
-                  child: Column(
+                  height: 160.px,
+                  padding: EdgeInsets.fromLTRB(0, 10.px, 0, 5.px),
+                  child:
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -106,7 +110,7 @@ class _My_PHPageState extends State<My_PHPage> {
                                 FontWeight.w700),
                           ),
                           SizedBox(
-                            width: 10.w,
+                            width: 10.px,
                           ),
                           CupertinoButton(
                               padding: EdgeInsets.zero,
@@ -116,7 +120,7 @@ class _My_PHPageState extends State<My_PHPage> {
                                 child: Image(
                                   image: const AssetImage(
                                       'assets/images/user/ic_cooy_w.webp'),
-                                  width: 24.w,
+                                  width: 24.px,
                                 ),
                               ),
                               onPressed: () => {
@@ -124,16 +128,16 @@ class _My_PHPageState extends State<My_PHPage> {
                                   }),
                         ],
                       ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
+                      // SizedBox(
+                      //   height: 10.px,
+                      // ),
                       Row(
                         children: [
                           Text('${S.current.ID}49816685',
                               style: pubTextStyle(const Color(0xffffffff),
                                   24.sp, FontWeight.w400)),
                           SizedBox(
-                            width: 10.w,
+                            width: 10.px,
                           ),
                           CupertinoButton(
                               padding: EdgeInsets.zero,
@@ -141,7 +145,7 @@ class _My_PHPageState extends State<My_PHPage> {
                               child: Image(
                                 image: const AssetImage(
                                     'assets/images/user/ic_cooy_w.webp'),
-                                width: 24.w,
+                                width: 24.px,
                               ),
                               onPressed: () => {Toast.show('msg')}),
                           // Expanded(flex: 1, child: SizedBox()),
@@ -152,11 +156,11 @@ class _My_PHPageState extends State<My_PHPage> {
                           Image(
                             image: const AssetImage(
                                 'assets/images/user/ic_money_f.webp'),
-                            width: 40.w,
-                            height: 40.h,
+                            width: 40.px,
+                            height: 40.px,
                           ),
                           SizedBox(
-                            width: 10.w,
+                            width: 10.px,
                           ),
                           Text(
                             '0.20',
@@ -164,7 +168,7 @@ class _My_PHPageState extends State<My_PHPage> {
                                 FontWeight.w700),
                           ),
                           SizedBox(
-                            width: 16.w,
+                            width: 16.px,
                           ),
                           CupertinoButton(
                               // child: Container(
@@ -173,7 +177,7 @@ class _My_PHPageState extends State<My_PHPage> {
                               child: Image(
                                 image: const AssetImage(
                                     'assets/images/user/ic_refreshed_w.webp'),
-                                width: 36.w,
+                                width: 36.px,
                               ),
                               onPressed: () => {Toast.show('msg')}),
                         ],
@@ -183,7 +187,7 @@ class _My_PHPageState extends State<My_PHPage> {
                 ),
                 const Expanded(flex: 1, child: SizedBox()),
                 Container(
-                  padding: EdgeInsets.only(bottom: 25.h),
+                  padding: EdgeInsets.only(bottom: 25.px),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -193,29 +197,29 @@ class _My_PHPageState extends State<My_PHPage> {
                           child: Stack(
                             children: [
                               Container(
-                                padding: EdgeInsets.fromLTRB(0, 13.h, 13.h, 0),
+                                padding: EdgeInsets.fromLTRB(0, 13.px, 13.px, 0),
                                 child: Image(
                                   image: const AssetImage(
                                       'assets/images/user/bg_msg.webp'),
-                                  width: 50.w,
+                                  width: 50.px,
                                 ),
                               ),
                               Container(
-                                padding: EdgeInsets.fromLTRB(8.5.w, 26.h, 0, 0),
+                                padding: EdgeInsets.fromLTRB(8.5.px, 26.px, 0, 0),
                                 child: Image(
                                   image: const AssetImage(
                                       'assets/images/user/ic_msg.webp'),
-                                  width: 33.w,
-                                  height: 26.h,
+                                  width: 33.px,
+                                  height: 26.px,
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(left: 37.w),
-                                width: 26.w,
-                                height: 26.h,
+                                margin: EdgeInsets.only(left: 37.px),
+                                width: 26.px,
+                                height: 26.px,
                                 decoration: BoxDecoration(
                                   color: const Color(0xffFF3F40),
-                                  borderRadius: BorderRadius.circular(90.r),
+                                  borderRadius: BorderRadius.circular(90.px),
                                 ),
                                 child: Center(
                                   child: Text('5',
@@ -231,17 +235,16 @@ class _My_PHPageState extends State<My_PHPage> {
                                 Toast.show("fafds"),
                               }),
                       CupertinoButton(
-                          padding: EdgeInsets.all(5.w),
+                          padding: EdgeInsets.all(5.px),
                           minSize: 0,
                           child: Image(
                             image: const AssetImage(
                                 'assets/images/user/ic_arrow_left_w.webp'),
-                            width: 11.5.w,
-                            height: 20.h,
+                            width: 11.5.px,
+                            height: 20.px,
                           ),
-                          onPressed: () => {
-                                Toast.show('msg'),
-                              }),
+                          onPressed: () =>
+                              {Get.toNamed(Routes.PERSONAL_INFORMATION)}),
                     ],
                   ),
                 ),
@@ -249,27 +252,32 @@ class _My_PHPageState extends State<My_PHPage> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 36.w),
+            margin: EdgeInsets.only(top: 36.px),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _headTab(
-                    'assets/images/user/ic_main_wallet.webp', S.current.MainWallet,
-                    () {
+                _headTab('assets/images/user/ic_main_wallet.webp',
+                    S.current.MainWallet, () {
                   Get.toNamed(Routes.MAIN_WALLET_PAGE);
                 }),
                 line(),
                 _headTab(
-                    'assets/images/user/ic_withdraw.webp', S.current.Withdraw, () {
+                    'assets/images/user/ic_withdraw.webp', S.current.Withdraw,
+                    () {
                   Get.toNamed(Routes.WITHDRAW_PH);
                 }),
                 line(),
-                _headTab('assets/images/user/ic_deposit.webp', S.current.Deposit, () {
+                _headTab(
+                    'assets/images/user/ic_deposit.webp', S.current.Deposit,
+                    () {
                   Get.toNamed(Routes.DEPOSIT_PH);
                 }),
                 line(),
                 _headTab(
-                    'assets/images/user/ic_interest.webp', S.current.Interest, () {}),
+                    'assets/images/user/ic_interest.webp', S.current.Interest,
+                    () {
+                  Get.toNamed(Routes.INTEREST);
+                }),
               ],
             ),
           ),
@@ -282,8 +290,8 @@ class _My_PHPageState extends State<My_PHPage> {
   Widget line() {
     return Center(
         child: Container(
-      width: 1.w,
-      height: 80.h,
+      width: 1.px,
+      height: 80.px,
       color: const Color.fromRGBO(255, 255, 255, 0.30),
     ));
   }
@@ -292,19 +300,19 @@ class _My_PHPageState extends State<My_PHPage> {
   Widget _headTab(var img, var name, Function callback) {
     return CupertinoButton(
         padding: EdgeInsets.zero,
-        minSize: 0.w,
+        minSize: 0.px,
         child: Container(
-          margin: EdgeInsets.only(top: logic.isc(name) ? 25.h : 0.h),
+          margin: EdgeInsets.only(top: logic.isc(name) ? 25.px : 0.px),
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Image(
                 image: AssetImage(img),
-                height: 80.h,
-                width: 80.w,
+                height: 80.px,
+                width: 80.px,
               ),
               SizedBox(
-                height: 8.h,
+                height: 8.px,
               ),
               Text(name,
                   textAlign: TextAlign.center,
@@ -328,33 +336,33 @@ class _My_PHPageState extends State<My_PHPage> {
   ///用户等级
   Widget _userLevel() {
     return Container(
-      height: 406.h,
-      width: 690.w,
-      margin: EdgeInsets.fromLTRB(30.w, 30.h, 30.w, 24.h),
+      height: 406.px,
+      width: 690.px,
+      margin: EdgeInsets.fromLTRB(30.px, 30.px, 30.px, 24.px),
       decoration: BoxDecoration(
           color: const Color(0xff252527),
           border: Border.all(
-              color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.w),
-          borderRadius: BorderRadius.circular(16.r)),
+              color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.px),
+          borderRadius: BorderRadius.circular(16.px)),
       child: Column(
         children: [
           Row(
             children: [
               Container(
-                  margin: EdgeInsets.fromLTRB(34.w, 32.h, 0, 0),
-                  height: 140.h,
-                  width: 157.w,
+                  margin: EdgeInsets.fromLTRB(34.px, 32.px, 0, 0),
+                  height: 140.px,
+                  width: 157.px,
                   child: Stack(
                     children: [
                       Image(
                         image:
                             const AssetImage('assets/images/user/bg_vip.webp'),
-                        height: 140.h,
+                        height: 140.px,
                       ),
                       Positioned(
                         left: 0,
                         right: 0,
-                        bottom: 15.h,
+                        bottom: 4.px,
                         child: Text(
                           '${S.current.VIP} 1',
                           textAlign: TextAlign.center,
@@ -365,8 +373,8 @@ class _My_PHPageState extends State<My_PHPage> {
                               shadows: [
                                 Shadow(
                                   color: const Color.fromRGBO(0, 0, 0, 0.25),
-                                  offset: Offset(0.w, 3.w),
-                                  blurRadius: 6.r,
+                                  offset: Offset(0.px, 3.px),
+                                  blurRadius: 6.px,
                                 )
                               ]),
                         ),
@@ -374,15 +382,16 @@ class _My_PHPageState extends State<My_PHPage> {
                     ],
                   )),
               SizedBox(
-                width: 30.w,
+                width: 30.px,
               ),
               Container(
-                margin: EdgeInsets.only(top: 30.h),
-                padding: EdgeInsets.only(top: 15.h),
-                height: 140.h,
+                margin: EdgeInsets.only(top: 30.px),
+                padding: EdgeInsets.only(top: 15.px),
+                height: 140.px,
                 child: Stack(
                   children: [
                     Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text.rich(TextSpan(children: [
@@ -403,28 +412,28 @@ class _My_PHPageState extends State<My_PHPage> {
                               style: pubTextStyle(const Color(0xffffffff),
                                   22.sp, FontWeight.w700)),
                         ])),
-                        SizedBox(
-                          height: 10.h,
-                        ),
+                        // SizedBox(
+                        //   height: 10.px,
+                        // ),
                         Text(S.current.UpgradeNeedsWager,
                             style: pubTextStyle(const Color(0xffffffff), 22.sp,
                                 FontWeight.w400)),
-                        SizedBox(
-                          height: 15.h,
-                        ),
+                        // SizedBox(
+                        //   height: 15.px,
+                        // ),
                         Container(
-                          width: 435.w,
-                          height: 23.h,
+                          width: 435.px,
+                          height: 23.px,
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: const Color(0xff3EA1F8), width: 1.w),
-                            borderRadius: BorderRadius.circular(15.r),
+                                color: const Color(0xff3EA1F8), width: 1.px),
+                            borderRadius: BorderRadius.circular(15.px),
                           ),
                           child: Stack(
                             children: [
                               ProgressBar(
-                                width: 435.w,
-                                height: 25.h,
+                                width: 435.px,
+                                height: 25.px,
                                 value: 0.9,
                                 gradient: const LinearGradient(
                                   begin: Alignment.topLeft,
@@ -447,9 +456,9 @@ class _My_PHPageState extends State<My_PHPage> {
                       ],
                     ),
                     Positioned(
-                      right: 0.w,
-                      top: 0.h,
-                      bottom: 0.h,
+                      right: 0.px,
+                      top: 0.px,
+                      bottom: 0.px,
                       child: Container(
                         alignment: Alignment.centerRight,
                         child: CupertinoButton(
@@ -459,8 +468,8 @@ class _My_PHPageState extends State<My_PHPage> {
                           child: Image(
                             image: const AssetImage(
                                 'assets/images/user/ic_arrow_ash.webp'),
-                            width: 11.5.w,
-                            height: 20.h,
+                            width: 11.5.px,
+                            height: 20.px,
                           ),
                         ),
                       ),
@@ -471,17 +480,18 @@ class _My_PHPageState extends State<My_PHPage> {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(top: 30.w),
-            width: 689.w,
-            height: 1.h,
+            margin: EdgeInsets.only(top: 30.px),
+            width: 689.px,
+            height: 1.px,
             color: const Color.fromRGBO(93, 101, 111, 0.40),
           ),
           Container(
-            margin: EdgeInsets.only(top: 10.w),
+            margin: EdgeInsets.only(top: 10.px),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _headTab('assets/images/user/ic_statement.webp', S.current.Statement,
+                _headTab(
+                    'assets/images/user/ic_statement.webp', S.current.Statement,
                     () {
                   Toast.show('Main Wallet');
                 }),
@@ -489,7 +499,8 @@ class _My_PHPageState extends State<My_PHPage> {
                 _headTab('assets/images/user/ic_bet_records.webp',
                     S.current.BetRecords, () {}),
                 // line(),
-                _headTab('assets/images/user/ic_report.webp', S.current.Report, () {}),
+                _headTab('assets/images/user/ic_report.webp', S.current.Report,
+                    () {}),
                 // line(),
                 _headTab('assets/images/user/ic_withdrawal_settings.webp',
                     S.current.WithdrawalSettings, () {}),
@@ -505,14 +516,14 @@ class _My_PHPageState extends State<My_PHPage> {
   Widget _userFunctions(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 800.h,
-      margin: EdgeInsets.only(left: 30.w, right: 30.w, bottom: 150.h),
-      padding: EdgeInsets.only(left: 25.w, right: 25.w),
+      height: 800.px,
+      margin: EdgeInsets.only(left: 30.px, right: 30.px, bottom: 150.px),
+      padding: EdgeInsets.only(left: 25.px, right: 25.px),
       decoration: BoxDecoration(
         color: const Color(0xff1A1C1F),
         border: Border.all(
-            color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.w),
-        borderRadius: BorderRadius.circular(16.r),
+            color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.px),
+        borderRadius: BorderRadius.circular(16.px),
       ),
       child: MediaQuery.removePadding(
         context: context,
@@ -522,7 +533,7 @@ class _My_PHPageState extends State<My_PHPage> {
           separatorBuilder: (BuildContext context, int index) {
             return Divider(
               color: const Color.fromRGBO(93, 101, 111, 0.40),
-              height: 1.h,
+              height: 1.px,
             );
           },
           physics: const NeverScrollableScrollPhysics(),
@@ -539,15 +550,15 @@ class _My_PHPageState extends State<My_PHPage> {
     return CupertinoButton(
         padding: EdgeInsets.zero,
         child: SizedBox(
-          height: 99.h,
+          height: 99.px,
           child: Row(
             children: [
               Image(
                 image: logic.getItemImg(index),
-                width: 48.w,
+                width: 48.px,
               ),
               SizedBox(
-                width: 30.w,
+                width: 30.px,
               ),
               Text(logic.getItemName(index),
                   style: pubTextStyle(
@@ -576,13 +587,13 @@ class _My_PHPageState extends State<My_PHPage> {
                           const Color(0xff07BB65), 24.sp, FontWeight.w400)),
                 ])),
               SizedBox(
-                width: 30.w,
+                width: 30.px,
               ),
               Image(
                 image: const AssetImage('assets/images/user/'
                     'ic_arrow_ash_deep.webp'),
-                width: 11.5.w,
-                height: 20.h,
+                width: 11.5.px,
+                height: 20.px,
               ),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/util/size.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../generated/l10n.dart';
@@ -29,7 +30,7 @@ class _Withdraw_pinPageState extends State<Withdraw_pinPage> {
         title: S.current.WithdrawPIN,
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(20.w, 26.h, 20.w, 26.h),
+        padding: EdgeInsets.fromLTRB(20.px, 26.px, 20.px, 26.px),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -39,7 +40,7 @@ class _Withdraw_pinPageState extends State<Withdraw_pinPage> {
                   pubTextStyle(const Color(0xffffffff), 26.sp, FontWeight.w700),
             ),
             SizedBox(
-              height: 30.h,
+              height: 30.px,
             ),
             Obx(
               () => PinCodeText(
@@ -60,7 +61,7 @@ class _Withdraw_pinPageState extends State<Withdraw_pinPage> {
               ),
             ),
             SizedBox(
-              height: 30.h,
+              height: 30.px,
             ),
             Obx(
               () => PinCodeText(
@@ -81,7 +82,7 @@ class _Withdraw_pinPageState extends State<Withdraw_pinPage> {
               ),
             ),
             SizedBox(
-              height: 30.h,
+              height: 30.px,
             ),
             Text(
               S.current.Tips,
@@ -89,7 +90,7 @@ class _Withdraw_pinPageState extends State<Withdraw_pinPage> {
                   pubTextStyle(const Color(0xffD94F39), 22.sp, FontWeight.w400),
             ),
             SizedBox(
-              height: 10.h,
+              height: 10.px,
             ),
             Text(
               S.current.Tips_D,

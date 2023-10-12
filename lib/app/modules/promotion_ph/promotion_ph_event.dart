@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_comm/app/app_style.dart';
 import 'package:flutter_comm/app/component/app_empty_promotion.dart';
 import 'package:flutter_comm/app/modules/promotion_ph/promotion_ph_logic.dart';
+import 'package:flutter_comm/util/size.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -24,19 +25,20 @@ class promotionPHEvent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
+      // height: double.infinity,
       // padding: EdgeInsets.only(bottom: 100.h),
       child: Column(
         children: [
           Container(
-            height: 120.h,
-            padding: EdgeInsets.only(left: 20.w, right: 20.w),
+            height: 120.px,
+            padding: EdgeInsets.only(left: 20.px, right: 20.px),
             child: Row(
               children: [
                 Visibility(
                   visible: indexPase == 2 ? true : false,
                   child: Container(
                     alignment: Alignment.centerLeft,
-                    width: 250.w,
+                    width: 250.px,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -60,7 +62,7 @@ class promotionPHEvent extends StatelessWidget {
                           ],
                         ),
                         SizedBox(
-                          height: 8.h,
+                          height: 8.px,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,14 +93,14 @@ class promotionPHEvent extends StatelessWidget {
                       padding: EdgeInsets.zero,
                       minSize: 0,
                       child: Container(
-                        width: 250.w,
-                        height: 60.h,
-                        padding: EdgeInsets.fromLTRB(30.w, 0.h, 30.w, 0.h),
+                        width: 250.px,
+                        height: 60.px,
+                        padding: EdgeInsets.fromLTRB(30.px, 0.px, 30.px, 0.px),
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: const Color.fromRGBO(93, 101, 111, 0.40),
-                              width: 1.w),
-                          borderRadius: BorderRadius.circular(35.r),
+                              width: 1.px),
+                          borderRadius: BorderRadius.circular(35.px),
                           color: const Color(0xff1A1C1F),
                         ),
                         child: Row(
@@ -114,7 +116,7 @@ class promotionPHEvent extends StatelessWidget {
                             Image(
                               image: const AssetImage(
                                   'assets/images/promotion/ic_arrow_down_gray.webp'),
-                              height: 12.h,
+                              height: 12.px,
                             ),
                           ],
                         ),
@@ -131,12 +133,12 @@ class promotionPHEvent extends StatelessWidget {
                     padding: EdgeInsets.zero,
                     child: Container(
                       alignment: Alignment.center,
-                      width: 180.w,
-                      height: 60.h,
+                      width: 180.px,
+                      height: 60.px,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40.r),
+                        borderRadius: BorderRadius.circular(40.px),
                         border: Border.all(
-                            width: 1.w, color: const Color(0xff3EA1F8)),
+                            width: 1.px, color: const Color(0xff3EA1F8)),
                       ),
                       child: Text(
                         S.current.History,
@@ -151,16 +153,16 @@ class promotionPHEvent extends StatelessWidget {
                           Toast.show('msg'),
                         }),
                 SizedBox(
-                  width: 15.w,
+                  width: 15.px,
                 ),
                 CupertinoButton(
                     padding: EdgeInsets.zero,
                     child: Container(
                       alignment: Alignment.center,
-                      width: 180.w,
-                      height: 60.h,
+                      width: 180.px,
+                      height: 60.px,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40.r),
+                          borderRadius: BorderRadius.circular(40.px),
                           color: const Color(0xff8F9DAB)
                           // border: Border.all(width: 1.w,color: const Color(0xff3EA1F8)),
                           ),
@@ -181,9 +183,9 @@ class promotionPHEvent extends StatelessWidget {
           ),
           Container(
             alignment: Alignment.topCenter,
-            margin: EdgeInsets.only(left: 20.w, right: 20.w),
+            margin: EdgeInsets.only(left: 20.px, right: 20.px),
             width: double.infinity,
-            height: 850.h,
+            height: 1080.px,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,24 +194,24 @@ class promotionPHEvent extends StatelessWidget {
                   SizedBox(
                     height: double.infinity,
                     // padding: EdgeInsets.only(bottom: 50.h),
-                    width: 120.w,
+                    width: 100.px,
                     child: ListView.separated(
                         itemBuilder: (BuildContext context, int index) {
                           return _gameName(index);
                         },
                         separatorBuilder: (BuildContext context, int index) {
                           return SizedBox(
-                            height: 24.h,
+                            height: 24.px,
                           );
                         },
                         itemCount: logic.list_name1.length),
                   ),
                 if (indexPase == 2)
                   SizedBox(
-                    width: 22.w,
+                    width: 22.px,
                   ),
                 SizedBox(
-                  width: indexPase == 2 ? 568.w : 710.w,
+                  width: indexPase == 2 ? 568.px : 710.px,
                   // height: double.infinity,
                   // height: 2000.h,
                   // padding: EdgeInsets.only(bottom: 350.h),
@@ -235,15 +237,15 @@ class promotionPHEvent extends StatelessWidget {
                             separatorBuilder:
                                 (BuildContext context, int index) {
                               return SizedBox(
-                                height: 15.h,
+                                height: 15.px,
                               );
                             },
                             itemCount: indexPase == 1
                                 ? logic.list_name1.length + 1
                                 : logic.list_name1.length)
                         : AppEmptyPromotion(
-                            width: indexPase == 2 ? 568.w : 710.w,
-                            height: 500.h,
+                            width: indexPase == 2 ? 568.px : 710.px,
+                            height: 500.px,
                           ),
                   ),
                 ),
@@ -259,52 +261,46 @@ class promotionPHEvent extends StatelessWidget {
 
   Widget _getIllustrate() {
     return Container(
-      width: 710.w,
-      padding: EdgeInsets.all(30.w),
+      width: 710.px,
+      padding: EdgeInsets.all(30.px),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16.r),
+        borderRadius: BorderRadius.circular(16.px),
         color: const Color(0xff252527),
         border: Border.all(
-            color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.w),
+            color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.px),
       ),
       child: Column(
         // mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Text.rich(TextSpan(children: [
-          Text(
-              S.current.I_Taskim,
+          Text(S.current.I_Taskim,
               style: pubTextStyle(
                   const Color(0xffffffff), 24.sp, FontWeight.w400,
                   height: 1.5)),
-          Text(
-              S.current.Long_term_missions,
+          Text(S.current.Long_term_missions,
               style: pubTextStyle(
                   const Color(0xff8F9DAB), 24.sp, FontWeight.w400,
                   height: 1.5)),
           SizedBox(
-            height: 36.h,
+            height: 36.px,
           ),
-          Text(
-              S.current.II_Task_conditions,
+          Text(S.current.II_Task_conditions,
               style: pubTextStyle(
                   const Color(0xffffffff), 24.sp, FontWeight.w400,
                   height: 1.5)),
-          Text(
-              S.current.Complete_the_relevant,
+          Text(S.current.Complete_the_relevant,
               style: pubTextStyle(
                   const Color(0xff8F9DAB), 24.sp, FontWeight.w400,
                   height: 1.5)),
           SizedBox(
-            height: 36.h,
+            height: 36.px,
           ),
-          Text(
-              S.current.III_Content_of_task,
+          Text(S.current.III_Content_of_task,
               style: pubTextStyle(
                   const Color(0xffffffff), 24.sp, FontWeight.w400,
                   height: 1.5)),
-          Text(
-              S.current.III_Content_of_task_d,
+          Text(S.current.III_Content_of_task_d,
               style: pubTextStyle(
                   const Color(0xff8F9DAB), 24.sp, FontWeight.w400,
                   height: 1.5)),
@@ -318,8 +314,8 @@ class promotionPHEvent extends StatelessWidget {
 
   Widget _gameName(int index) {
     return Obx(() => Container(
-          width: 100.w,
-          height: 100.h,
+          width: 100.px,
+          height: 100.px,
           decoration: logic.index3.value == index
               ? getBoxDecoration()
               : getBoxDecoration2(),
@@ -328,18 +324,18 @@ class promotionPHEvent extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 10.h,
+                    height: 10.px,
                   ),
                   Image(
                     image: AssetImage(
                         "assets/images/${logic.index3.value == index ? "game-tab${logic.imgListY[index]}" : "game-tab-un${logic.imgListY[index]}"}.webp"),
-                    width: 52.w,
-                    height: 52.h,
+                    width: 52.px,
+                    height: 52.px,
                   ),
                   Text(
                     logic.nameList[index],
                     style: pubTextStyle(
-                        const Color(0xffffffff), 22.sp, FontWeight.w700),
+                        const Color(0xffffffff), 20.sp, FontWeight.w700),
                   ),
                 ],
               ),
@@ -361,8 +357,8 @@ class promotionPHEvent extends StatelessWidget {
         Color(0xff1B75F0),
       ], begin: Alignment.bottomCenter, end: Alignment.topCenter),
       border: Border.all(
-          color: const Color.fromRGBO(121, 121, 121, 0.30), width: 1.w),
-      borderRadius: BorderRadius.circular(24.r),
+          color: const Color.fromRGBO(121, 121, 121, 0.30), width: 1.px),
+      borderRadius: BorderRadius.circular(24.px),
     );
   }
 
@@ -376,7 +372,7 @@ class promotionPHEvent extends StatelessWidget {
           spreadRadius: 2,
         ),
       ],
-      borderRadius: BorderRadius.circular(24.r),
+      borderRadius: BorderRadius.circular(24.px),
     );
   }
 }

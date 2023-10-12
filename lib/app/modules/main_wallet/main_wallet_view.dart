@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/app_style.dart';
 import 'package:flutter_comm/util/base_appbar_ph.dart';
 import 'package:flutter_comm/util/base_scaffold_ph.dart';
+import 'package:flutter_comm/util/size.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_comm/widget/box_shadow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +32,7 @@ class _Main_walletPageState extends State<Main_walletPage> {
       appBar: BaseAppbarPH(
         title: S.current.MainWallet,
       ),
-      body: Container(
+      body: SizedBox(
         // padding: EdgeInsets.only(bottom: 150.h),
         height: double.infinity,
         child: Column(
@@ -46,14 +47,14 @@ class _Main_walletPageState extends State<Main_walletPage> {
 
   Widget _totalAccountBalance() {
     return Container(
-      height: 210.h,
-      margin: EdgeInsets.fromLTRB(20.w, 26.h, 20.w, 0),
-      padding: EdgeInsets.all(30.h),
+      height: 210.px,
+      margin: EdgeInsets.fromLTRB(20.px, 26.px, 20.px, 0),
+      padding: EdgeInsets.all(30.px),
       decoration: BoxDecoration(
         color: const Color(0xFF252527),
         border: Border.all(
-            color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.w),
-        borderRadius: BorderRadius.circular(16.r),
+            color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.px),
+        borderRadius: BorderRadius.circular(16.px),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -72,7 +73,7 @@ class _Main_walletPageState extends State<Main_walletPage> {
                     const Color(0xFFF09B1B), 28.sp, FontWeight.w700),
               ),
               SizedBox(
-                width: 13.w,
+                width: 13.px,
               ),
               CupertinoButton(
                   padding: EdgeInsets.zero,
@@ -80,7 +81,7 @@ class _Main_walletPageState extends State<Main_walletPage> {
                   child: Image(
                     image: const AssetImage(
                         'assets/images/user/ic_refreshed_w.webp'),
-                    width: 26.w,
+                    width: 26.px,
                   ),
                   onPressed: () => {
                         Toast.show('msg'),
@@ -96,11 +97,11 @@ class _Main_walletPageState extends State<Main_walletPage> {
               padding: EdgeInsets.zero,
               minSize: 0,
               child: Container(
-                width: 280.w,
-                height: 60.h,
+                width: 280.px,
+                height: 60.px,
                 decoration: BoxDecoration(
                     color: const Color(0xff3EA1F8),
-                    borderRadius: BorderRadius.circular(30.r)),
+                    borderRadius: BorderRadius.circular(30.px)),
                 child: Center(
                   child: Text(
                     S.current.OneClickTransfer,
@@ -119,18 +120,18 @@ class _Main_walletPageState extends State<Main_walletPage> {
 
   Widget _gameList(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 0),
+      padding: EdgeInsets.fromLTRB(20.px, 24.px, 20.px, 0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 120.w,
-            height: (6 * 116).h,
+            width: 100.px,
+            height: (6 * 116).px,
             child: ListView.separated(
                 physics: const NeverScrollableScrollPhysics(),
                 separatorBuilder: (BuildContext contet, int index) {
                   return SizedBox(
-                    height: 16.h,
+                    height: 16.px,
                   );
                 },
                 itemCount: list_name.length,
@@ -139,7 +140,7 @@ class _Main_walletPageState extends State<Main_walletPage> {
                 }),
           ),
           SizedBox(
-            width: 22.w,
+            width: 22.px,
           ),
           Expanded(
             flex: 1,
@@ -148,12 +149,12 @@ class _Main_walletPageState extends State<Main_walletPage> {
                 Container(
                   padding: EdgeInsets.zero,
                   // alignment: Alignment.center,
-                  height: 60.h,
-                  width: 590.w,
+                  height: 60.px,
+                  width: 590.px,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30.r),
+                    borderRadius: BorderRadius.circular(30.px),
                     border:
-                        Border.all(color: const Color(0xff5D656F), width: 1.w),
+                        Border.all(color: const Color(0xff5D656F), width: 1.px),
                     // boxShadow: BoxShadow(color: ['#212227'.color,'#212227'.color],) ,
                     boxShadow: const [
                       BoxShadows(
@@ -182,7 +183,7 @@ class _Main_walletPageState extends State<Main_walletPage> {
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.only(
-                            left: 24.w, right: 0.w, top: 7.h, bottom: 0.h),
+                            left: 24.px, right: 0.px, top: 7.px, bottom: 0.px),
                         hintText: S.current.PlatformSearch,
                         hintStyle: pubTextStyle(
                             const Color(0xff5D656F), 26.sp, FontWeight.w400),
@@ -193,21 +194,22 @@ class _Main_walletPageState extends State<Main_walletPage> {
                             icon: Image(
                               image: const AssetImage(
                                   'assets/images/user/ic_vector.webp'),
-                              width: 28.w,
+                              width: 28.px,
                             ))),
                   ),
                 ),
                 Container(
-                  width: 590.w,
-                  height: 800.h,
-                  margin: EdgeInsets.only(top: 24.w),
+                  width: 590.px,
+                  height: 1020.px,
+                  // height: double.infinity,
+                  margin: EdgeInsets.only(top: 24.px),
                   child: GridView.builder(
                       itemCount: list.length,
                       shrinkWrap: true,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          mainAxisSpacing: 18.w,
-                          crossAxisSpacing: 16.h,
+                          mainAxisSpacing: 18.px,
+                          crossAxisSpacing: 16.px,
                           childAspectRatio: 285 / 140),
                       itemBuilder: (BuildContext context, int index) {
                         return _getGridItem(index);
@@ -225,13 +227,13 @@ class _Main_walletPageState extends State<Main_walletPage> {
     return CupertinoButton(
         padding: EdgeInsets.zero,
         child: Container(
-          width: 285.w,
-          height: 140.h,
+          width: 285.px,
+          height: 140.px,
           decoration: BoxDecoration(
             color: const Color(0xff1A1C1F),
-            borderRadius: BorderRadius.circular(16.r),
+            borderRadius: BorderRadius.circular(16.px),
             border: Border.all(
-                color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.w),
+                color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.px),
           ),
           child: Column(
             children: [
@@ -245,7 +247,7 @@ class _Main_walletPageState extends State<Main_walletPage> {
               )),
               Divider(
                 color: const Color.fromRGBO(93, 101, 111, 0.40),
-                height: 1.h,
+                height: 1.px,
               ),
               Expanded(
                   child: Center(
@@ -268,8 +270,8 @@ class _Main_walletPageState extends State<Main_walletPage> {
         Color(0xff1B75F0),
       ], begin: Alignment.bottomCenter, end: Alignment.topCenter),
       border: Border.all(
-          color: const Color.fromRGBO(121, 121, 121, 0.30), width: 1.w),
-      borderRadius: BorderRadius.circular(24.r),
+          color: const Color.fromRGBO(121, 121, 121, 0.30), width: 1.px),
+      borderRadius: BorderRadius.circular(24.px),
     );
   }
 
@@ -283,13 +285,13 @@ class _Main_walletPageState extends State<Main_walletPage> {
           spreadRadius: 2,
         ),
       ],
-      borderRadius: BorderRadius.circular(24.r),
+      borderRadius: BorderRadius.circular(24.px),
     );
   }
 
   Widget _gameName(int index) {
     return Obx(() => Container(
-          height: 100.h,
+          height: 100.px,
           decoration: logic.indexs.value == index
               ? getBoxDecoration()
               : getBoxDecoration2(),
@@ -298,17 +300,17 @@ class _Main_walletPageState extends State<Main_walletPage> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 10.h,
+                    height: 10.px,
                   ),
                   Image(
                     image: AssetImage(
                         "assets/images/${logic.indexs.value == index ? "game-tab${logic.imgListY[index]}" : "game-tab-un${logic.imgListY[index]}"}.webp"),
-                    width: 52.w,
+                    width: 52.px,
                   ),
                   Text(
                     logic.nameList[index],
                     style: pubTextStyle(
-                        const Color(0xffffffff), 22.sp, FontWeight.w700),
+                        const Color(0xffffffff), 20.sp, FontWeight.w700),
                   ),
                 ],
               ),

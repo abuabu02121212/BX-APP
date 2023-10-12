@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_comm/util/size.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -25,7 +26,7 @@ class BaseAppbarPH extends AppBar {
           title: Text(
             title,
             style: TextStyle(
-                fontSize: fontSize ?? 32.w,
+                fontSize: fontSize ?? 32.px,
                 color: const Color(0xFFFFFFFF),
                 fontWeight: FontWeight.w400),
             maxLines: 2,
@@ -36,7 +37,7 @@ class BaseAppbarPH extends AppBar {
           titleSpacing: titleSpacing,
           bottom: bottom,
           elevation: 0,
-          toolbarHeight: 100.w,
+          toolbarHeight: 100.px,
           flexibleSpace: Container(
             decoration: const BoxDecoration(color: Color(0xFF1A1C1F)),
           ),
@@ -67,22 +68,22 @@ class BaseAppbarPH extends AppBar {
                   }
                   Get.back(result: result);
                 },
-          child: Container(
-            height: 85.w,
-            width: 85.w,
+          child: SizedBox(
+            height: 80.px,
+            width: 80.px,
             child: Row(
               children: [
                 Image.asset(
                   "assets/images/ic_arrow_left_gray.webp",
-                  width: deleteWidget is Container ? 31.w : 34.w,
-                  height: deleteWidget is Container ? 31.w : 34.w,
+                  width: deleteWidget is Container ? 16.px : 28.px,
+                  height: deleteWidget is Container ? 16.px : 28.px,
                   color: const Color(0xFFFFFFFF),
                 ),
                 showLeadingText
                     ? Text(
                         'Trở Về',
                         style: TextStyle(
-                            fontSize: 24.w, color: const Color(0xFFFFFFFF)),
+                            fontSize: 24.px, color: const Color(0xFFFFFFFF)),
                       )
                     : Container(),
               ],

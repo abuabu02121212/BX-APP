@@ -40,6 +40,8 @@ abstract class Routes {
   static const WITHDRAW_PH = _Paths.WITHDRAW_PH;
   static const WITHDRAW_PIN = _Paths.WITHDRAW_PIN;
   static const GAME_LIST = _Paths.GAME_LIST;
+  static const INTEREST = _Paths.INTEREST;
+  static const PERSONAL_INFORMATION = _Paths.PERSONAL_INFORMATION;
 }
 
 abstract class _Paths {
@@ -80,4 +82,6 @@ abstract class _Paths {
   static const WITHDRAW_PH = '/withdraw_ph';
   static const WITHDRAW_PIN = '/withdraw_pin';
   static const GAME_LIST = '/game-list';
+  static const INTEREST = '/interest';
+  static const PERSONAL_INFORMATION = '/personal_information';
 }
