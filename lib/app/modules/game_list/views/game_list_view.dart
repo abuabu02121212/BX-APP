@@ -35,6 +35,7 @@ class GameListView extends GetView<GameListController> {
         centerTitle: true,
         titleSpacing: 0,
         leadingWidth: 0,
+        toolbarHeight: 90.w,
       ),
       body: SafeArea(
         child: Container(
@@ -140,56 +141,7 @@ class GameListView extends GetView<GameListController> {
                   ],
                 ),
               ),
-              Container(
-                width: double.infinity,
-                height: 100.w,
-                padding: EdgeInsets.only(left: 0.w, right: 0.w, top: 0.w, bottom: 0.w),
-                decoration: const BoxDecoration(
-                  color: Color(0xff1A1C1F),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    BotTurnPageWidget(),
-                    Obx(() {
-                      int showMaxItemSize = 5;
-                      bool isMoreMaxSize = controller.pageSize.value > showMaxItemSize;
-                      int showItemSize = isMoreMaxSize ? showMaxItemSize : controller.pageSize.value;
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: List.generate(showItemSize, (index) {
-                          if (isMoreMaxSize && index == showMaxItemSize - 2) {
-                            return Padding(
-                              padding: EdgeInsets.only(left: 15.w, right: 15.w),
-                              child: Text(
-                                "...",
-                                style: TextStyle(
-                                  fontSize: 24.w,
-                                  color: const Color(0xffffffff),
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            );
-                          }
-                          String text = (index + 1).toString();
-                          if (index == showMaxItemSize - 1) {
-                            text = (showMaxItemSize).toString();
-                          }
-                          return BotPageNumWidget(
-                            text: text,
-                            isSelected: index == controller.curSelectPageIndex,
-                          );
-                        }),
-                      );
-                    }),
-                    BotTurnPageWidget(isLeft: false, enable: false),
-                  ],
-                ),
-              )
+              BottomPageIndexWidget(controller: controller)
             ],
           ),
         ),
@@ -223,20 +175,98 @@ class GameListView extends GetView<GameListController> {
   }
 }
 
+class BottomPageIndexWidget extends StatelessWidget {
+  const BottomPageIndexWidget({
+    super.key,
+    required this.controller,
+  });
+
+  final GameListController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: 100.w,
+      padding: EdgeInsets.only(left: 0.w, right: 0.w, top: 0.w, bottom: 0.w),
+      decoration: const BoxDecoration(
+        color: Color(0xff1A1C1F),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Obx(() {
+            return BotTurnPageWidget(
+              enable: controller.curSelectPageIndex.value > 1,
+              onPressed: () {
+                controller.jumPrePage();
+              },
+            );
+          }),
+          Obx(() {
+            List<int> showPageNumList = controller.getShowPageNumList(controller.curSelectPageIndex.value, controller.pageSize.value - 1);
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: List.generate(showPageNumList.length, (index) {
+                var pageNum = showPageNumList[index];
+                if (pageNum == -9) {
+                  return Padding(
+                    padding: EdgeInsets.only(left: 15.w, right: 15.w),
+                    child: Text(
+                      "...",
+                      style: TextStyle(
+                        fontSize: 24.w,
+                        color: const Color(0xffffffff),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  );
+                }
+                return BotPageNumWidget(
+                  pageNumber: pageNum,
+                  isSelected: pageNum == controller.curSelectPageIndex.value,
+                  controller: controller,
+                );
+              }),
+            );
+          }),
+          Obx(() {
+            return BotTurnPageWidget(
+              isLeft: false,
+              enable: controller.curSelectPageIndex.value < controller.pageSize.value - 1,
+              onPressed: () {
+                controller.jumNextPage();
+              },
+            );
+          }),
+        ],
+      ),
+    );
+  }
+}
+
 class BotPageNumWidget extends StatelessWidget {
   const BotPageNumWidget({
     super.key,
-    required this.text,
+    required this.pageNumber,
     this.isSelected = false,
+    required this.controller,
   });
 
-  final String text;
+  final int pageNumber;
   final bool isSelected;
+  final GameListController controller;
 
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
-      onPressed: () {},
+      onPressed: () {
+        controller.curSelectPageIndex.value = pageNumber;
+      },
       minSize: 0,
       padding: EdgeInsets.only(left: 6.w, right: 6.w, top: 10.w, bottom: 10.w),
       child: Container(
@@ -249,7 +279,7 @@ class BotPageNumWidget extends StatelessWidget {
           border: Border.all(color: const Color(0xff5D656F), width: isSelected ? 0 : 1.w),
         ),
         child: Text(
-          text,
+          pageNumber.toString(),
           style: TextStyle(
             fontSize: 24.w,
             color: const Color(0xffffffff),
@@ -266,17 +296,19 @@ class BotTurnPageWidget extends StatelessWidget {
     super.key,
     this.isLeft = true,
     this.enable = true,
+    this.onPressed,
   });
 
   final bool isLeft;
   final bool enable;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
     var leftIcon = Icons.arrow_back_ios_outlined;
     var rightIcon = Icons.arrow_forward_ios_outlined;
     return CupertinoButton(
-      onPressed: () {},
+      onPressed: enable ? onPressed : null,
       minSize: 0,
       padding: EdgeInsets.only(left: 6.w, right: 6.w, top: 10.w, bottom: 10.w),
       child: Container(

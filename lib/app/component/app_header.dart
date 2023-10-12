@@ -26,13 +26,13 @@ class AppHeader extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           Positioned(
-            left: 20.w,
+            left: 10.w,
             child: isNeedLeftBackArrow
                 ? IconButton(
                     onPressed: () {
                       Get.back();
                     },
-                    icon: Icon(Icons.arrow_back_ios, size: 45.w))
+                    icon: Icon(Icons.arrow_back_ios, size: 35.w))
                 : const SizedBox(),
           ),
           if (title != null)
