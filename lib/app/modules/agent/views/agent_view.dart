@@ -1,3 +1,4 @@
+import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/modules/agent/views/tab_component.dart';
@@ -55,9 +56,11 @@ class NestedScrollBodyWidget extends StatelessWidget {
         toolbarHeight: toolbarHeight,
         bottomTitle: CollapseFloatWidget(bottomFloatWidgetHeight: collapseFloatWidgetHeight),
         background: Column(
-          children: [SizedBox(height: toolbarHeight), AgentUserWidget(collapsedHeight: collapsedHeight)],
+          children: [SizedBox(height: toolbarHeight), AgentUserInfoWidget(collapsedHeight: collapsedHeight)],
         ),
         sliverWidgetList: [
+          const Box1Widget(),
+          const Box2Widget(),
           SliverList(
             delegate: SliverChildBuilderDelegate(
                 (context, listIndex) => Container(
@@ -70,7 +73,7 @@ class NestedScrollBodyWidget extends StatelessWidget {
                         style: const TextStyle(color: Colors.black, fontSize: 10),
                       ),
                     ),
-                childCount: 20),
+                childCount: 3),
           ),
         ],
       ),
@@ -107,8 +110,202 @@ class NestedScrollBodyWidget extends StatelessWidget {
   }
 }
 
-class AgentUserWidget extends StatelessWidget {
-  const AgentUserWidget({
+class Box1Widget extends StatelessWidget {
+  const Box1Widget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Container(
+        width: 710.w,
+        height: 170.w,
+        margin: EdgeInsets.only(top: 30.w, left: 20.w, right: 20.w, bottom: 20.w),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16.w),
+            color: const Color(0xff252527),
+            border: Border.all(
+              color: const Color.fromRGBO(93, 101, 111, 0.40),
+              width: 1.w,
+            )),
+        padding: EdgeInsets.only(left: 20.px),
+        child: Row(
+          children: [
+            Image.asset("assets/images/agent_header_1.webp", width: 120.w),
+            SizedBox(
+              width: 20.w,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                EasyRichText(
+                  S.current.C3_is_powerful(" 22/100"),
+                  defaultStyle: TextStyle(fontSize: 22.w, color: const Color(0xff8F9DAB)),
+                  patternList: [
+                    EasyRichTextPattern(
+                      targetString: '22/100',
+                      style: const TextStyle(color: Color(0xffF0A11B)),
+                    ),
+                  ],
+                ),
+                EasyRichText(
+                  S.current.agent_total_info("33", "242", "343"),
+                  defaultStyle: TextStyle(fontSize: 22.w, color: const Color(0xffffffff)),
+                  patternList: [
+                    EasyRichTextPattern(
+                      targetString: '33',
+                      style: const TextStyle(color: Color(0xffF0A11B)),
+                    ),
+                    EasyRichTextPattern(
+                      targetString: '242',
+                      style: const TextStyle(color: Color(0xffF0A11B)),
+                    ),
+                    EasyRichTextPattern(
+                      targetString: '343',
+                      style: const TextStyle(color: Color(0xffF0A11B)),
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Box2Widget extends StatelessWidget {
+  const Box2Widget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Container(
+        margin: EdgeInsets.only(top: 30.w, left: 30.w, right: 30.w, bottom: 150.w),
+     //   color: Colors.red,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Transform.rotate(
+              angle: -3.14 * 0.168,
+              child: Stack(children: [
+                Transform.translate(
+                  offset: Offset(0, -10.w),
+                  child: Transform.rotate(
+                    angle: 3.14 * 0.168,
+                    child: Image.asset("assets/images/agent_arrow_2.png", width: 250.w),
+                  ),
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 24.w,),
+                    EasyRichText(
+                      S.current.Contribution_by_B1(" 888"),
+                      defaultStyle: TextStyle(fontSize: 22.w, color: const Color(0xffffffff)),
+                      patternList: [
+                        EasyRichTextPattern(
+                          targetString: '888',
+                          style: const TextStyle(color: Color(0xffF0A11B)),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30.w,),
+                    EasyRichText(
+                      S.current.OtherC1_and_C2(" 888"),
+                      defaultStyle: TextStyle(fontSize: 22.w, color: const Color(0xffffffff)),
+                      patternList: [
+                        EasyRichTextPattern(
+                          targetString: '888',
+                          style: const TextStyle(color: Color(0xffF0A11B)),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+
+              ]),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset("assets/images/agent_arrow_1.png", width: 40.w),
+                EasyRichText(
+                  S.current.ContributeToA(" 888"),
+                  defaultStyle: TextStyle(fontSize: 22.w, color: const Color(0xffffffff)),
+                  textAlign: TextAlign.center,
+                  patternList: [
+                    EasyRichTextPattern(
+                      targetString: '888',
+                      style: const TextStyle(color: Color(0xffF0A11B)),
+                    ),
+                  ],
+                )
+              ],
+            ),
+            Transform.rotate(
+              angle: 3.14 * 0.168,
+              child: Stack(children: [
+                Transform.translate(
+                  offset: Offset(0, -10.w),
+                  child: Transform.rotate(
+                    angle: -3.14 * 0.168,
+                    child: Image.asset("assets/images/agent_arrow_3.png", width: 250.w),
+                  ),
+                ),
+                Container(
+                //  color: Colors.blue,
+                  padding: EdgeInsets.only(left: 20.w),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 24.w,),
+                      EasyRichText(
+                        S.current.B3Contribution(" 888"),
+                        defaultStyle: TextStyle(fontSize: 22.w, color: const Color(0xffffffff)),
+                        patternList: [
+                          EasyRichTextPattern(
+                            targetString: '888',
+                            style: const TextStyle(color: Color(0xffF0A11B)),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 30.w,),
+                      EasyRichText(
+                        S.current.OtherC3Contribute(" 1"),
+                        defaultStyle: TextStyle(fontSize: 22.w, color: const Color(0xffffffff)),
+                        patternList: [
+                          EasyRichTextPattern(
+                            targetString: '1',
+                            style: const TextStyle(color: Color(0xffF0A11B)),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+
+              ]),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AgentUserInfoWidget extends StatelessWidget {
+  const AgentUserInfoWidget({
     super.key,
     required this.collapsedHeight,
   });

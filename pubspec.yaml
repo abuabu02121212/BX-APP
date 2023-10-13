@@ -90,6 +90,7 @@ dependencies:
   visibility_detector: ^0.4.0+2
   measure_size: ^4.0.0
   pin_code_text_field: ^1.8.0
+  easy_rich_text: ^2.0.0
 
 
 dev_dependencies:

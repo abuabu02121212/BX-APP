@@ -170,7 +170,15 @@
   "SubordinatesStats": "Subordinates' Stats",
   "SubordinatesClaims": "Subordinates' Claims",
   "AgentBonusRate": "Agent Bonus Rates",
-  "RegisterSubagents": "Register Subagents"
+  "RegisterSubagents": "Register Subagents",
+  "C3_is_powerful": "C3 is powerful and enjoys {value}",
+  "agent_total_info": "Total Performance 3.31M, Total Agent Bonus {v1} \nSubagent Performance 180K, Contribute {v2} \nOther Performance 3.13M, Contribute {v3}",
+  "Contribution_by_B1": "Contribution by B1 {v1}",
+  "OtherC1_and_C2": "Other C1 and C2 \nContribute {v1}",
+  "ContributeToA": "Contribute to A: \n{v1}",
+  "B3Contribution": "B3 contribution {v1}",
+  "OtherC3Contribute": "Other C3 Contribute {v1}"
+
 
 }
 
