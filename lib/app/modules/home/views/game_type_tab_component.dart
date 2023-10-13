@@ -47,7 +47,7 @@ class GameTypeTabs extends StatelessWidget {
         controller.isShowGameTypeRightArrow.value = scrollPosition.extentAfter > 10.w;
       },
       //  bgImgPath: "assets/images/app-footer-bg.webp",
-      indicatorAttr: IndicatorAttr(color: const Color(0xff3EA1F8), height: 4.w, width: 100.w),
+      indicatorAttr: IndicatorAttr(color: const Color(0xff3EA1F8), height: 4.w),
       controller: indicatorTabController,
     );
   }

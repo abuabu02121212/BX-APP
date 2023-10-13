@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/app/modules/agent/views/tab_component.dart';
+import 'package:flutter_comm/util/size.dart';
 import 'package:flutter_comm/util/toast_util.dart';
+import 'package:flutter_comm/widget/horizontal_indicator_tab.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -9,7 +12,6 @@ import '../../../../generated/l10n.dart';
 import '../../../app_style.dart';
 import '../../../component/app_header.dart';
 import '../../../component/nested_scroll_widget.dart';
-import '../../home/views/home_view.dart';
 import '../controllers/agent_controller.dart';
 
 class AgentView extends GetView<AgentController> {
@@ -53,28 +55,7 @@ class NestedScrollBodyWidget extends StatelessWidget {
         toolbarHeight: toolbarHeight,
         bottomTitle: CollapseFloatWidget(bottomFloatWidgetHeight: collapseFloatWidgetHeight),
         background: Column(
-          children: [
-            SizedBox(height: toolbarHeight),
-            Container(
-              width: double.infinity,
-              height: collapsedHeight,
-              padding: EdgeInsets.only(left: 0.w, right: 0.w, top: 0.w, bottom: 0.w),
-              decoration: BoxDecoration(
-                color: headerBgColor,
-              ),
-              alignment: Alignment.center,
-              child: Container(
-                width: 710.w,
-                height: 170.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16.w),
-                    border: Border.all(
-                  color: const Color.fromRGBO(93, 101, 111, 0.40),
-                  width: 1.w,
-                )),
-              ),
-            )
-          ],
+          children: [SizedBox(height: toolbarHeight), AgentUserWidget(collapsedHeight: collapsedHeight)],
         ),
         sliverWidgetList: [
           SliverList(
@@ -126,6 +107,81 @@ class NestedScrollBodyWidget extends StatelessWidget {
   }
 }
 
+class AgentUserWidget extends StatelessWidget {
+  const AgentUserWidget({
+    super.key,
+    required this.collapsedHeight,
+  });
+
+  final double collapsedHeight;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: collapsedHeight,
+      padding: EdgeInsets.only(left: 0.w, right: 0.w, top: 0.w, bottom: 0.w),
+      decoration: const BoxDecoration(color: headerBgColor),
+      alignment: Alignment.center,
+      child: Container(
+        width: 710.w,
+        height: 170.w,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16.w),
+            color: const Color(0xff252527),
+            border: Border.all(
+              color: const Color.fromRGBO(93, 101, 111, 0.40),
+              width: 1.w,
+            )),
+        padding: EdgeInsets.fromLTRB(20.px, 0.px, 20.px, 0.px),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Stack(
+              children: [
+                Image(
+                  image: const AssetImage('assets/images/user/bg_vip.webp'),
+                  width: 135.px,
+                ),
+                Positioned(
+                  bottom: 2.px,
+                  right: 0.px,
+                  left: 0.px,
+                  child: Text(
+                    '${S.current.VIP}1',
+                    textAlign: TextAlign.center,
+                    style: pubTextStyle(const Color(0xffffffff), 21.sp, FontWeight.w700),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 36.px,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text.rich(TextSpan(children: [
+                  TextSpan(text: "Player ID:  ", style: pubTextStyle(const Color(0xff8F9DAB), 24.w, FontWeight.w400)),
+                  TextSpan(text: 'dfsdfsfs124', style: pubTextStyle(const Color(0xffffffff), 24.w, FontWeight.w700)),
+                ])),
+                SizedBox(
+                  height: 10.px,
+                ),
+                Text.rich(TextSpan(children: [
+                  TextSpan(text: "Upline ID:  ", style: pubTextStyle(const Color(0xff8F9DAB), 24.w, FontWeight.w400)),
+                  TextSpan(text: 'dssdfsdfdsds', style: pubTextStyle(const Color(0xffffffff), 24.w, FontWeight.w700)),
+                ])),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class CollapseFloatWidget extends StatelessWidget {
   const CollapseFloatWidget({
     super.key,
@@ -141,12 +197,10 @@ class CollapseFloatWidget extends StatelessWidget {
       height: bottomFloatWidgetHeight,
       child: Container(
         padding: EdgeInsets.only(left: 0.w, right: 0.w, top: 0.w, bottom: 0.w),
-        decoration: BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.circular(12.w),
-          border: Border.all(color: const Color(0xff000000), width: 1.w),
+        child: AgentHorizontalTab(
+          onSelectChanged: (int t, bool v) {},
+          indicatorTabController: IndicatorTabController(),
         ),
-        child: const SizedBox(),
       ),
     );
   }

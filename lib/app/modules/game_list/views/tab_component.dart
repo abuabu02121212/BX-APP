@@ -34,7 +34,7 @@ class GameListHorizontalTab extends StatelessWidget {
         onSelectChanged: onSelectChanged,
         // bgColor: Colors.yellow,
         //  bgImgPath: "assets/images/app-footer-bg.webp",
-        indicatorAttr: IndicatorAttr(color: const Color(0xffcccccc), height: 0.w, width: 44.w),
+        indicatorAttr: IndicatorAttr(color: const Color(0xffcccccc), height: 0.w),
         controller: indicatorTabController,
       ),
     );

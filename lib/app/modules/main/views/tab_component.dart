@@ -43,7 +43,7 @@ class MainHorizontalTabComponent extends StatelessWidget {
       bgColor: bottomBgColor,
     //  bgImgPath: "assets/images/app-footer-bg.webp",
       indicatorAttr: IndicatorAttr(
-          color: const Color(0xffd54f7d), height: 0.w, width: 44.w),
+          color: const Color(0xffd54f7d), height: 0.w),
       controller: indicatorTabController,
     );
   }

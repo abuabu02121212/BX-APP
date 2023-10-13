@@ -160,7 +160,18 @@
   "go_to_bind": "Go to Bind",
   "Male": "Male",
   "Female": "Female",
-  "ChangeProfile": "Change Profile"
+  "ChangeProfile": "Change Profile",
+  "PromotionTutorial": "Promotion Tutorial",
+  "MyReferral": "My Referral",
+  "MyPerformance": "My Performance",
+  "AllData": "All Data",
+  "SubordinatesFinance": "Subordinates' Finance",
+  "SubordinatesWagers": "Subordinate’s Wagers",
+  "SubordinatesStats": "Subordinates' Stats",
+  "SubordinatesClaims": "Subordinates' Claims",
+  "AgentBonusRate": "Agent Bonus Rates",
+  "RegisterSubagents": "Register Subagents"
+
 }
 
 
