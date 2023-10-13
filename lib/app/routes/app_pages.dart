@@ -1,4 +1,26 @@
 import 'package:get/get.dart';
+import 'package:flutter_comm/app/modules/change_profile/change_profile_binding.dart';
+import 'package:flutter_comm/app/modules/change_profile/change_profile_view.dart';
+import 'package:flutter_comm/app/modules/deposit_ph/deposit_ph_binding.dart';
+import 'package:flutter_comm/app/modules/deposit_ph/deposit_ph_view.dart';
+import 'package:flutter_comm/app/modules/interest/interest_binding.dart';
+import 'package:flutter_comm/app/modules/interest/interest_view.dart';
+import 'package:flutter_comm/app/modules/main_wallet/main_wallet_binding.dart';
+import 'package:flutter_comm/app/modules/main_wallet/main_wallet_view.dart';
+import 'package:flutter_comm/app/modules/message_center/message_center_binding.dart';
+import 'package:flutter_comm/app/modules/message_center/message_center_view.dart';
+import 'package:flutter_comm/app/modules/my_ph/my_ph_binding.dart';
+import 'package:flutter_comm/app/modules/my_ph/my_ph_view.dart';
+import 'package:flutter_comm/app/modules/personal_information/personal_information_binding.dart';
+import 'package:flutter_comm/app/modules/personal_information/personal_information_view.dart';
+import 'package:flutter_comm/app/modules/promotion_ph/promotion_ph_binding.dart';
+import 'package:flutter_comm/app/modules/promotion_ph/promotion_ph_view.dart';
+import 'package:flutter_comm/app/modules/vip_ph/vip_ph_binding.dart';
+import 'package:flutter_comm/app/modules/vip_ph/vip_ph_view.dart';
+import 'package:flutter_comm/app/modules/withdraw_ph/withdraw_ph_binding.dart';
+import 'package:flutter_comm/app/modules/withdraw_ph/withdraw_ph_view.dart';
+import 'package:flutter_comm/app/modules/withdraw_pin/withdraw_pin_binding.dart';
+import 'package:flutter_comm/app/modules/withdraw_pin/withdraw_pin_view.dart';
 
 import '../modules/agent/bindings/agent_binding.dart';
 import '../modules/agent/views/agent_view.dart';
@@ -284,6 +306,15 @@ class AppPages {
       name: _Paths.AGENT,
       page: () => const AgentView(),
       binding: AgentBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHANGE_PROFILE,
+      page: () => const Change_profilePage(),
+      binding: Change_profileBinding(),
+    ), GetPage(
+      name: _Paths.MESSAGE_CENTER,
+      page: () => const Message_centerPage(),
+      binding: Message_centerBinding(),
     ),
   ];
 }

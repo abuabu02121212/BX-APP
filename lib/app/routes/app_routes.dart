@@ -43,6 +43,8 @@ abstract class Routes {
   static const INTEREST = _Paths.INTEREST;
   static const PERSONAL_INFORMATION = _Paths.PERSONAL_INFORMATION;
   static const AGENT = _Paths.AGENT;
+  static const CHANGE_PROFILE = _Paths.CHANGE_PROFILE;
+  static const MESSAGE_CENTER = _Paths.MESSAGE_CENTER;
 }
 
 abstract class _Paths {
@@ -86,4 +88,6 @@ abstract class _Paths {
   static const INTEREST = '/interest';
   static const PERSONAL_INFORMATION = '/personal_information';
   static const AGENT = '/agent';
+  static const CHANGE_PROFILE = '/change_profile';
+  static const MESSAGE_CENTER = '/message_center';
 }

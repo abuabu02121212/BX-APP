@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_comm/util/size.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +10,7 @@ import '../../../generated/l10n.dart';
 import '../../../util/base_appbar_ph.dart';
 import '../../../util/base_scaffold_ph.dart';
 import '../../app_style.dart';
+import '../change_profile/change_profile_view.dart';
 import 'personal_information_logic.dart';
 
 class Personal_informationPage extends StatefulWidget {
@@ -28,7 +30,7 @@ class _Personal_informationPageState extends State<Personal_informationPage> {
     return BaseScaffoldPH(
       backgroundColor: blackBgColor_h,
       appBar: BaseAppbarPH(
-        title: 'Personal Information',
+        title: S.current.PersonalInformation,
       ),
       body: Column(
         children: [
@@ -86,13 +88,14 @@ class _Personal_informationPageState extends State<Personal_informationPage> {
                           rs: 30.px, color: const Color(0xff3EA1F8)),
                       margin: EdgeInsets.only(top: 24.px),
                       child: Text(
-                        'Modify avatar',
+                        S.current.Modify_avatar,
                         style: pubTextStyle_default(
                             type: 1, fontWeight: FontWeight.w700, size: 26.sp),
                       ),
                     ),
                     onPressed: () => {
-                          Toast.show('msg'),
+                          // Get.toNamed(Routes.CHANGE_PROFILE),
+                          showLoginRegisterDialog(),
                         }),
                 SizedBox(
                   height: 30.px,
@@ -100,19 +103,25 @@ class _Personal_informationPageState extends State<Personal_informationPage> {
                 _getInformationV(index: 0, name: 'Yumikocclemo', hiname: ''),
                 _getInformationV(index: 1, name: '498916685', hiname: ''),
                 _getInformationV(
-                    index: 2, name: '', hiname: 'Please enter your Whatsapp'),
+                    index: 2,
+                    name: '',
+                    hiname: S.current.please_enter + S.current.Whatsapp),
                 _getInformationV(
-                    index: 3, name: '', hiname: 'Please enter your Facebook'),
+                    index: 3,
+                    name: '',
+                    hiname: S.current.please_enter + S.current.Facebook),
                 _getInformationV(
-                    index: 4, name: '', hiname: 'Please enter your Telegram'),
+                    index: 4,
+                    name: '',
+                    hiname: S.current.please_enter + S.current.Telegram),
                 _getInformationV(
                     index: 5,
                     name: '',
-                    hiname: 'Please first bind the cashout account'),
+                    hiname: S.current.please_first_bind_cashout_account),
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Date Of Birth',
+                    S.current.Date_Of_Birth,
                     style: pubTextStyle_default(type: 1, size: 26.sp),
                   ),
                 ),
@@ -123,11 +132,14 @@ class _Personal_informationPageState extends State<Personal_informationPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       _getDateV(
-                          name: 'Day', Function: () => {Toast.show('msg')}),
+                          name: S.current.Day,
+                          Function: () => {Toast.show('msg')}),
                       _getDateV(
-                          name: 'Month', Function: () => {Toast.show('msg')}),
+                          name: S.current.Month,
+                          Function: () => {Toast.show('msg')}),
                       _getDateV(
-                          name: 'Year', Function: () => {Toast.show('msg')}),
+                          name: S.current.Year,
+                          Function: () => {Toast.show('msg')}),
                     ],
                   ),
                 ),
@@ -152,7 +164,7 @@ class _Personal_informationPageState extends State<Personal_informationPage> {
                   ),
                   child: TextButton(
                     onPressed: () => {
-                      Toast.show('msg'),
+                      Get.back(),
                     },
                     child: Text(
                       S.current.Back,
@@ -179,7 +191,7 @@ class _Personal_informationPageState extends State<Personal_informationPage> {
                       Toast.show('msg'),
                     },
                     child: Text(
-                      'Save',
+                      S.current.Save,
                       style: pubTextStyle(
                           const Color(0xffffffff), 26.sp, FontWeight.w700),
                     ),
@@ -273,7 +285,7 @@ class _Personal_informationPageState extends State<Personal_informationPage> {
             CupertinoButton(
                 padding: EdgeInsets.zero,
                 child: Text(
-                  'Go to Bind',
+                  S.current.go_to_bind,
                   style: pubTextStyle_default(type: 2),
                 ),
                 onPressed: () => {
@@ -285,9 +297,17 @@ class _Personal_informationPageState extends State<Personal_informationPage> {
     );
   }
 
+  // CupertinoPopupSurface _getp(){
+  //
+  // }
+
   @override
   void dispose() {
     Get.delete<Personal_informationLogic>();
     super.dispose();
   }
+}
+
+void showLoginRegisterDialog() {
+  showLoginDialog();
 }

@@ -28,7 +28,7 @@ class _InterestPageState extends State<InterestPage> {
     return BaseScaffoldPH(
       backgroundColor: blackBgColor_h,
       appBar: BaseAppbarPH(
-          title: S.current.Interest,
+        title: S.current.Interest,
         // ),
       ),
       body: Column(children: [

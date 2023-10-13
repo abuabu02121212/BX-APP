@@ -141,5 +141,21 @@
   "Amount_of_earnings": "Amount of earnings",
   "Type": "Type",
   "Today": "Today",
-  "Time": "Time"
+  "Time": "Time",
+  "PersonalInformation": "Personal Information",
+  "Modify_avatar": "Modify avatar",
+  "please_enter": "Please enter your ",
+  "Whatsapp": "Whatsapp",
+  "Facebook": "Facebook",
+  "Telegram": "Telegram",
+  "please_first_bind_cashout_account": "Please first bind the cashout account",
+  "Date_Of_Birth": "Date Of Birth",
+  "Day": "Day",
+  "Month": "Month",
+  "Year": "Year",
+  "Save": "Save",
+  "go_to_bind": "Go to Bind",
+  "Male": "Male",
+  "Female": "Female",
+  "ChangeProfile": "Change Profile"
 }

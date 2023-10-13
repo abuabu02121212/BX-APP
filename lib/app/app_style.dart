@@ -108,7 +108,7 @@ TextStyle pubTextStyle_default(
               : type == 1
                   ? const Color(0xffffffff)
                   : const Color(0xff8F9DAB)),
-      fontWeight: FontWeight.w400,
+      fontWeight: fontWeight ?? FontWeight.w400,
       height: height,
       wordSpacing: wordSpacing);
 }
@@ -122,12 +122,12 @@ BoxDecoration pubBoxDecoration({Color? color, double? rs}) {
   );
 }
 
-BoxDecoration pubBoxDecoration_r({Color? color, double? rs,Color? colorBorder,}) {
+BoxDecoration pubBoxDecoration_r({Color? color, double? rs,Color? colorBorder, double? withs}) {
   return BoxDecoration(
     borderRadius: BorderRadius.circular(rs ?? 16.px),
     color: color ?? const Color(0xff8F9DAB),
     border:
-    Border.all(color: colorBorder ??  Colors.transparent, width: 1.px),
+    Border.all(color: colorBorder ??  Colors.transparent, width: withs??1.px),
   );
 }
 

@@ -97,8 +97,7 @@ class _My_PHPageState extends State<My_PHPage> {
                 Container(
                   height: 160.px,
                   padding: EdgeInsets.fromLTRB(0, 10.px, 0, 5.px),
-                  child:
-                  Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -197,7 +196,8 @@ class _My_PHPageState extends State<My_PHPage> {
                           child: Stack(
                             children: [
                               Container(
-                                padding: EdgeInsets.fromLTRB(0, 13.px, 13.px, 0),
+                                padding:
+                                    EdgeInsets.fromLTRB(0, 13.px, 13.px, 0),
                                 child: Image(
                                   image: const AssetImage(
                                       'assets/images/user/bg_msg.webp'),
@@ -205,7 +205,8 @@ class _My_PHPageState extends State<My_PHPage> {
                                 ),
                               ),
                               Container(
-                                padding: EdgeInsets.fromLTRB(8.5.px, 26.px, 0, 0),
+                                padding:
+                                    EdgeInsets.fromLTRB(8.5.px, 26.px, 0, 0),
                                 child: Image(
                                   image: const AssetImage(
                                       'assets/images/user/ic_msg.webp'),
@@ -232,7 +233,8 @@ class _My_PHPageState extends State<My_PHPage> {
                             ],
                           ),
                           onPressed: () => {
-                                Toast.show("fafds"),
+                            Get.toNamed(Routes.MESSAGE_CENTER),
+                                // Toast.show("fafds"),
                               }),
                       CupertinoButton(
                           padding: EdgeInsets.all(5.px),
@@ -346,139 +348,148 @@ class _My_PHPageState extends State<My_PHPage> {
           borderRadius: BorderRadius.circular(16.px)),
       child: Column(
         children: [
-          Row(
-            children: [
-              Container(
-                  margin: EdgeInsets.fromLTRB(34.px, 32.px, 0, 0),
-                  height: 140.px,
-                  width: 157.px,
-                  child: Stack(
-                    children: [
-                      Image(
-                        image:
-                            const AssetImage('assets/images/user/bg_vip.webp'),
-                        height: 140.px,
-                      ),
-                      Positioned(
-                        left: 0,
-                        right: 0,
-                        bottom: 4.px,
-                        child: Text(
-                          '${S.current.VIP} 1',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: const Color(0xffffffff),
-                              fontSize: 24.sp,
-                              fontWeight: FontWeight.w700,
-                              shadows: [
-                                Shadow(
-                                  color: const Color.fromRGBO(0, 0, 0, 0.25),
-                                  offset: Offset(0.px, 3.px),
-                                  blurRadius: 6.px,
-                                )
-                              ]),
-                        ),
-                      ),
-                    ],
-                  )),
-              SizedBox(
-                width: 30.px,
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 30.px),
-                padding: EdgeInsets.only(top: 15.px),
-                height: 140.px,
-                child: Stack(
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text.rich(TextSpan(children: [
-                          TextSpan(
-                              text: S.current.ToAchieveNextLevel,
-                              style: pubTextStyle(const Color(0xff8F9DAB),
-                                  22.sp, FontWeight.w400)),
-                          TextSpan(
-                              text: '${S.current.VIP} 1',
-                              style: pubTextStyle(const Color(0xff3EA1F8),
-                                  22.sp, FontWeight.w700)),
-                          TextSpan(
-                              text: S.current.WagerAdditional_n,
-                              style: pubTextStyle(const Color(0xff8F9DAB),
-                                  22.sp, FontWeight.w400)),
-                          TextSpan(
-                              text: '1000.00',
-                              style: pubTextStyle(const Color(0xffffffff),
-                                  22.sp, FontWeight.w700)),
-                        ])),
-                        // SizedBox(
-                        //   height: 10.px,
-                        // ),
-                        Text(S.current.UpgradeNeedsWager,
-                            style: pubTextStyle(const Color(0xffffffff), 22.sp,
-                                FontWeight.w400)),
-                        // SizedBox(
-                        //   height: 15.px,
-                        // ),
-                        Container(
-                          width: 435.px,
-                          height: 23.px,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: const Color(0xff3EA1F8), width: 1.px),
-                            borderRadius: BorderRadius.circular(15.px),
+          CupertinoButton(
+              padding: EdgeInsets.zero,
+              child: Row(
+                children: [
+                  Container(
+                      margin: EdgeInsets.fromLTRB(34.px, 32.px, 0, 0),
+                      height: 140.px,
+                      width: 157.px,
+                      child: Stack(
+                        children: [
+                          Image(
+                            image: const AssetImage(
+                                'assets/images/user/bg_vip.webp'),
+                            height: 140.px,
                           ),
-                          child: Stack(
-                            children: [
-                              ProgressBar(
-                                width: 435.px,
-                                height: 25.px,
-                                value: 0.9,
-                                gradient: const LinearGradient(
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                  colors: [
-                                    Color(0xff3EA1F8),
-                                    Color(0xff3EA1F8)
-                                  ],
-                                ),
+                          Positioned(
+                            left: 0,
+                            right: 0,
+                            bottom: 4.px,
+                            child: Text(
+                              '${S.current.VIP} 1',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: const Color(0xffffffff),
+                                  fontSize: 24.sp,
+                                  fontWeight: FontWeight.w700,
+                                  shadows: [
+                                    Shadow(
+                                      color:
+                                          const Color.fromRGBO(0, 0, 0, 0.25),
+                                      offset: Offset(0.px, 3.px),
+                                      blurRadius: 6.px,
+                                    )
+                                  ]),
+                            ),
+                          ),
+                        ],
+                      )),
+                  SizedBox(
+                    width: 30.px,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 30.px),
+                    padding: EdgeInsets.only(top: 15.px),
+                    height: 140.px,
+                    child: Stack(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text.rich(TextSpan(children: [
+                              TextSpan(
+                                  text: S.current.ToAchieveNextLevel,
+                                  style: pubTextStyle(const Color(0xff8F9DAB),
+                                      22.sp, FontWeight.w400)),
+                              TextSpan(
+                                  text: '${S.current.VIP} 1',
+                                  style: pubTextStyle(const Color(0xff3EA1F8),
+                                      22.sp, FontWeight.w700)),
+                              TextSpan(
+                                  text: S.current.WagerAdditional_n,
+                                  style: pubTextStyle(const Color(0xff8F9DAB),
+                                      22.sp, FontWeight.w400)),
+                              TextSpan(
+                                  text: '1000.00',
+                                  style: pubTextStyle(const Color(0xffffffff),
+                                      22.sp, FontWeight.w700)),
+                            ])),
+                            // SizedBox(
+                            //   height: 10.px,
+                            // ),
+                            Text(S.current.UpgradeNeedsWager,
+                                style: pubTextStyle(const Color(0xffffffff),
+                                    22.sp, FontWeight.w400)),
+                            // SizedBox(
+                            //   height: 15.px,
+                            // ),
+                            Container(
+                              width: 435.px,
+                              height: 23.px,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: const Color(0xff3EA1F8),
+                                    width: 1.px),
+                                borderRadius: BorderRadius.circular(15.px),
                               ),
-                              Center(
-                                child: Text('700.00/1000.00',
-                                    textAlign: TextAlign.center,
-                                    style: pubTextStyle(const Color(0xffffffff),
-                                        20.sp, FontWeight.w400)),
+                              child: Stack(
+                                children: [
+                                  ProgressBar(
+                                    width: 435.px,
+                                    height: 25.px,
+                                    value: 0.9,
+                                    gradient: const LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                      colors: [
+                                        Color(0xff3EA1F8),
+                                        Color(0xff3EA1F8)
+                                      ],
+                                    ),
+                                  ),
+                                  Center(
+                                    child: Text('700.00/1000.00',
+                                        textAlign: TextAlign.center,
+                                        style: pubTextStyle(
+                                            const Color(0xffffffff),
+                                            20.sp,
+                                            FontWeight.w400)),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
+                          ],
+                        ),
+                        Positioned(
+                          right: 0.px,
+                          top: 0.px,
+                          bottom: 0.px,
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            // child: CupertinoButton(
+                            //   padding: EdgeInsets.zero,
+                            //   minSize: 0,
+                            //   onPressed: () => {Toast.show('msg')},
+                            child: Image(
+                              image: const AssetImage(
+                                  'assets/images/user/ic_arrow_ash.webp'),
+                              width: 11.5.px,
+                              height: 20.px,
+                              // ),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    Positioned(
-                      right: 0.px,
-                      top: 0.px,
-                      bottom: 0.px,
-                      child: Container(
-                        alignment: Alignment.centerRight,
-                        child: CupertinoButton(
-                          padding: EdgeInsets.zero,
-                          minSize: 0,
-                          onPressed: () => {Toast.show('msg')},
-                          child: Image(
-                            image: const AssetImage(
-                                'assets/images/user/ic_arrow_ash.webp'),
-                            width: 11.5.px,
-                            height: 20.px,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+              onPressed: () => {
+                    Get.toNamed(Routes.VIP_PH),
+                  }),
           Container(
             margin: EdgeInsets.only(top: 30.px),
             width: 689.px,
@@ -539,14 +550,27 @@ class _My_PHPageState extends State<My_PHPage> {
           physics: const NeverScrollableScrollPhysics(),
           itemCount: leftList.length,
           itemBuilder: (BuildContext context, int index) {
-            return _item(context, index);
+            return _item(context, index, function: (index) {
+              switch (index) {
+                case 0: Get.toNamed(Routes.AGENT);;break;
+                // case 1:Get.toNamed(Routes.PERSONAL_INFORMATION);break;
+                case 2:
+                  Get.toNamed(Routes.PERSONAL_INFORMATION);
+                  break;
+                // case 3:Get.toNamed(Routes.PERSONAL_INFORMATION);break;
+                // case 4:Get.toNamed(Routes.PERSONAL_INFORMATION);break;
+                case 5:Get.toNamed(Routes.MESSAGE_CENTER);break;
+                case 6:Get.toNamed(Routes.MESSAGE_CENTER);break;
+                // case 7:Get.toNamed(Routes.PERSONAL_INFORMATION);break;
+              }
+            });
           },
         ),
       ),
     );
   }
 
-  Widget _item(BuildContext context, int index) {
+  Widget _item(BuildContext context, int index, {var function}) {
     return CupertinoButton(
         padding: EdgeInsets.zero,
         child: SizedBox(
@@ -598,14 +622,18 @@ class _My_PHPageState extends State<My_PHPage> {
             ],
           ),
         ),
-        onPressed: () {
-          if(index == 0){
-            Get.toNamed(Routes.AGENT);
-          }else{
-            Toast.show('index:$index');
-          }
-
-        });
+        // onPressed: () {
+        //   if(index == 0){
+        //     Get.toNamed(Routes.AGENT);
+        //   }else{
+        //     Toast.show('index:$index');
+        //   }
+        //
+        // });
+        onPressed: () => {
+              function(index),
+              Toast.show('msg'),
+            });
   }
 
   @override
