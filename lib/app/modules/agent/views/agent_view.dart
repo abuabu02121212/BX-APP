@@ -61,6 +61,7 @@ class NestedScrollBodyWidget extends StatelessWidget {
         sliverWidgetList: [
           const Box1Widget(),
           const Box2Widget(),
+          const Box3Widget(),
           SliverList(
             delegate: SliverChildBuilderDelegate(
                 (context, listIndex) => Container(
@@ -132,7 +133,10 @@ class Box1Widget extends StatelessWidget {
         padding: EdgeInsets.only(left: 20.px),
         child: Row(
           children: [
-            Image.asset("assets/images/agent_header_1.webp", width: 120.w),
+            const HeaderWidget(
+              textBgColor: Color(0xff3EA1F8),
+              text: 'A',
+            ),
             SizedBox(
               width: 20.w,
             ),
@@ -178,6 +182,48 @@ class Box1Widget extends StatelessWidget {
   }
 }
 
+class HeaderWidget extends StatelessWidget {
+  const HeaderWidget({
+    super.key,
+    required this.textBgColor,
+    required this.text,
+  });
+
+  final Color textBgColor;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Image.asset("assets/images/agent_header_1.webp", width: 120.w),
+        Positioned(
+          bottom: 0.w,
+          right: 0.w,
+          child: Container(
+            width: 40.w,
+            height: 40.w,
+            padding: EdgeInsets.only(left: 0.w, right: 0.w, top: 0.w, bottom: 0.w),
+            decoration: BoxDecoration(
+              color: textBgColor,
+              borderRadius: BorderRadius.circular(20.w),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 24.w,
+                color: const Color(0xffffffff),
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}
+
 class Box2Widget extends StatelessWidget {
   const Box2Widget({
     super.key,
@@ -187,8 +233,8 @@ class Box2Widget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Container(
-        margin: EdgeInsets.only(top: 30.w, left: 30.w, right: 30.w, bottom: 150.w),
-     //   color: Colors.red,
+        margin: EdgeInsets.only(top: 30.w, left: 30.w, right: 30.w, bottom: 80.w),
+        //   color: Colors.red,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -206,7 +252,9 @@ class Box2Widget extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 24.w,),
+                    SizedBox(
+                      height: 24.w,
+                    ),
                     EasyRichText(
                       S.current.Contribution_by_B1(" 888"),
                       defaultStyle: TextStyle(fontSize: 22.w, color: const Color(0xffffffff)),
@@ -217,7 +265,9 @@ class Box2Widget extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 30.w,),
+                    SizedBox(
+                      height: 30.w,
+                    ),
                     EasyRichText(
                       S.current.OtherC1_and_C2(" 888"),
                       defaultStyle: TextStyle(fontSize: 22.w, color: const Color(0xffffffff)),
@@ -230,7 +280,6 @@ class Box2Widget extends StatelessWidget {
                     )
                   ],
                 ),
-
               ]),
             ),
             Column(
@@ -263,13 +312,15 @@ class Box2Widget extends StatelessWidget {
                   ),
                 ),
                 Container(
-                //  color: Colors.blue,
+                  //  color: Colors.blue,
                   padding: EdgeInsets.only(left: 20.w),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 24.w,),
+                      SizedBox(
+                        height: 24.w,
+                      ),
                       EasyRichText(
                         S.current.B3Contribution(" 888"),
                         defaultStyle: TextStyle(fontSize: 22.w, color: const Color(0xffffffff)),
@@ -280,7 +331,9 @@ class Box2Widget extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 30.w,),
+                      SizedBox(
+                        height: 30.w,
+                      ),
                       EasyRichText(
                         S.current.OtherC3Contribute(" 1"),
                         defaultStyle: TextStyle(fontSize: 22.w, color: const Color(0xffffffff)),
@@ -294,12 +347,104 @@ class Box2Widget extends StatelessWidget {
                     ],
                   ),
                 ),
-
               ]),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class Box3Widget extends StatelessWidget {
+  const Box3Widget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 20.w, left: 20.w, right: 20.w),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            HeaderCardItemWidget(),
+            HeaderCardItemWidget(),
+            HeaderCardItemWidget()
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class HeaderCardItemWidget extends StatelessWidget {
+  const HeaderCardItemWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.topCenter,
+      children: [
+        Container(
+          width: 220.w,
+          height: 266.w,
+          margin: EdgeInsets.only(top: 60.w),
+          padding: EdgeInsets.only(left: 0.w, right: 0.w, top: 0.w, bottom: 0.w),
+          decoration: BoxDecoration(
+            color: const Color(0xff1A1C1F),
+            borderRadius: BorderRadius.circular(16.w),
+            border: Border.all(color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.w),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 70.w,
+              ),
+              SizedBox(
+                height: 140.w,
+                child: Text(
+                  "B2 has no subordinates, and therefore has no profits",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 22.w,
+                    color: const Color(0xff8F9DAB),
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                height: 1.w,
+                decoration: const BoxDecoration(color: Color.fromRGBO(93, 101, 111, 0.40)),
+              ),
+              Expanded(
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                      "Valid Bets 40K",
+                      style: TextStyle(
+                        fontSize: 22.w,
+                        color: const Color(0xffffffff),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                ),
+              )
+            ],
+          ),
+        ),
+        const HeaderWidget(
+          textBgColor: Color(0xff3EA1F8),
+          text: 'A',
+        ),
+      ],
     );
   }
 }
