@@ -62,6 +62,8 @@ class NestedScrollBodyWidget extends StatelessWidget {
           const Box1Widget(),
           const Box2Widget(),
           const Box3Widget(),
+          const Box4Widget(),
+          const Box3Widget(),
           SliverList(
             delegate: SliverChildBuilderDelegate(
                 (context, listIndex) => Container(
@@ -368,12 +370,77 @@ class Box3Widget extends StatelessWidget {
         padding: EdgeInsets.only(bottom: 20.w, left: 20.w, right: 20.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            HeaderCardItemWidget(),
-            HeaderCardItemWidget(),
-            HeaderCardItemWidget()
+          children: const [HeaderCardItemWidget(), HeaderCardItemWidget(), HeaderCardItemWidget()],
+        ),
+      ),
+    );
+  }
+}
+
+class Box4Widget extends StatelessWidget {
+  const Box4Widget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 20.w, left: 20.w, right: 20.w),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: const [
+            ArrowRelationItemWidget(),
+            ArrowRelationItemWidget(arrImgType: 2),
+            ArrowRelationItemWidget(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ArrowRelationItemWidget extends StatelessWidget {
+  const ArrowRelationItemWidget({
+    super.key,
+    this.arrImgType = 1,
+  });
+
+  final int arrImgType;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 220.w,
+      padding: EdgeInsets.only(left: 0.w, right: 0.w, top: 10.w, bottom: 0.w),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (arrImgType == 1)
+            Image.asset("assets/images/agent_arrow_4.png", height: 60.w)
+          else
+            Transform.translate(offset: Offset(-90.w, 0), child: Image.asset("assets/images/agent_arrow_5.png", height: 60.w)),
+          SizedBox(
+            height: 20.w,
+          ),
+          EasyRichText(
+            "Contribution to A: \n350 \nContribute to B1: \n350",
+            textAlign: TextAlign.center,
+            defaultStyle: TextStyle(
+              fontSize: 24.w,
+              color: const Color(0xffcccccc),
+              fontWeight: FontWeight.w400,
+            ),
+            patternList: [
+              EasyRichTextPattern(
+                targetString: '\n350',
+                style: const TextStyle(color: Color(0xffF0A11B)),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }
@@ -407,16 +474,32 @@ class HeaderCardItemWidget extends StatelessWidget {
               SizedBox(
                 height: 70.w,
               ),
-              SizedBox(
+              Container(
                 height: 140.w,
-                child: Text(
-                  "B2 has no subordinates, and therefore has no profits",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 22.w,
-                    color: const Color(0xff8F9DAB),
-                    fontWeight: FontWeight.w400,
-                  ),
+                padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Sub agent generally, earning",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 22.w,
+                        color: const Color(0xff8F9DAB),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    Text(
+                      "35/10K",
+                      style: TextStyle(
+                        fontSize: 22.w,
+                        color: const Color(0xffF09C1B),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    )
+                  ],
                 ),
               ),
               Container(
@@ -428,13 +511,13 @@ class HeaderCardItemWidget extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.center,
                   child: Text(
-                      "Valid Bets 40K",
-                      style: TextStyle(
-                        fontSize: 22.w,
-                        color: const Color(0xffffffff),
-                        fontWeight: FontWeight.w400,
-                      ),
+                    "Valid Bets 40K",
+                    style: TextStyle(
+                      fontSize: 22.w,
+                      color: const Color(0xffffffff),
+                      fontWeight: FontWeight.w400,
                     ),
+                  ),
                 ),
               )
             ],
