@@ -8,11 +8,13 @@ class AppEmptyPromotion extends StatelessWidget {
     this.width,
     this.height,
     this.alignment,
+    this.name,
   });
 
   final double? height;
   final double? width;
   final AlignmentGeometry? alignment;
+  final String? name;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class AppEmptyPromotion extends StatelessWidget {
             height: 30.h,
           ),
           Center(
-            child: Text('No Records',
+            child: Text(name!,
                 style: TextStyle(
                     color: const Color(0xff5D656F),
                     fontSize: 24.w,

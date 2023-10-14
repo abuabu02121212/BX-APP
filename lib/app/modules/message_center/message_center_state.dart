@@ -1,5 +1,7 @@
+import 'package:get/get.dart';
+
 class Message_centerState {
-  Message_centerState() {
-    ///Initialize variables
-  }
+  var isCREATE= true.obs;
+
+  Message_centerState();
 }

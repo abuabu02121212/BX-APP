@@ -244,6 +244,7 @@ class promotionPHEvent extends StatelessWidget {
                                 ? logic.list_name1.length + 1
                                 : logic.list_name1.length)
                         : AppEmptyPromotion(
+                            name: S.current.NoRecords,
                             width: indexPase == 2 ? 568.px : 710.px,
                             height: 500.px,
                           ),

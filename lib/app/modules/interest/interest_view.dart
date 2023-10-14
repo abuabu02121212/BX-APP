@@ -327,6 +327,7 @@ class _InterestPageState extends State<InterestPage> {
         Container(
           padding: EdgeInsets.only(top: 15.px),
           child: AppEmptyPromotion(
+            name: S.current.NoRecords,
             width: 500.px,
             height: 500.px,
           ),
