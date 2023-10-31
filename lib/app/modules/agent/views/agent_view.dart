@@ -2,14 +2,17 @@ import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/modules/agent/views/tab_component.dart';
+import 'package:flutter_comm/app/modules/agent/views/text_infos.dart';
 import 'package:flutter_comm/util/size.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_comm/widget/horizontal_indicator_tab.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 import 'package:get/get.dart';
 
 import '../../../../generated/l10n.dart';
+import '../../../../util/Log.dart';
 import '../../../app_style.dart';
 import '../../../component/app_header.dart';
 import '../../../component/nested_scroll_widget.dart';
@@ -64,6 +67,7 @@ class NestedScrollBodyWidget extends StatelessWidget {
           const Box3Widget(),
           const Box4Widget(),
           const Box3Widget(),
+          const IllustrateWidget(),
           SliverList(
             delegate: SliverChildBuilderDelegate(
                 (context, listIndex) => Container(
@@ -400,6 +404,59 @@ class Box4Widget extends StatelessWidget {
   }
 }
 
+class IllustrateWidget extends StatelessWidget {
+  const IllustrateWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 20.w, left: 20.w, right: 20.w, top: 10.w),
+        child: Container(
+          padding: EdgeInsets.all(30.w),
+          decoration: BoxDecoration(
+            color: const Color(0xff252527),
+            borderRadius: BorderRadius.circular(16.w),
+            border: Border.all(color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.w),
+          ),
+          child: HtmlWidget(
+            getIllustrateEnglish(),
+            textStyle: TextStyle(fontSize: 22.w, color: const Color(0xff8F9DAB)),
+          ),
+          // child: EasyRichText(
+          //   getIllustrateEnglish(),
+          //   defaultStyle: TextStyle(fontSize: 22.w, color: const Color(0xff8F9DAB)),
+          //   patternList: [
+          //     EasyRichTextPattern(
+          //       targetString: forExample,
+          //       style: const TextStyle(color: Color(0xffFFFfff)),
+          //     ),
+          //     ...List.generate(
+          //         whiteBoldArr.length,
+          //         (index) => EasyRichTextPattern(
+          //               targetString: whiteBoldArr[index],
+          //               matchLeftWordBoundary: false,
+          //               style: const TextStyle(color: Color(0xffFFFfff), fontWeight: FontWeight.w700),
+          //             )),
+          //     ...List.generate(
+          //         yellowList.length,
+          //         (index) => EasyRichTextPattern(
+          //               targetString: yellowList[index],
+          //               stringBeforeTarget: '=',
+          //               stringAfterTarget: '.',
+          //               matchWordBoundaries: false,
+          //               style: const TextStyle(color: Color(0xffF09B1B), fontWeight: FontWeight.w400),
+          //             )),
+          //   ],
+          // ),
+        ),
+      ),
+    );
+  }
+}
+
 class ArrowRelationItemWidget extends StatelessWidget {
   const ArrowRelationItemWidget({
     super.key,
@@ -430,7 +487,7 @@ class ArrowRelationItemWidget extends StatelessWidget {
             textAlign: TextAlign.center,
             defaultStyle: TextStyle(
               fontSize: 24.w,
-              color: const Color(0xffcccccc),
+              color: const Color(0xffffffff),
               fontWeight: FontWeight.w400,
             ),
             patternList: [

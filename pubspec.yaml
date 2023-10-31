@@ -91,6 +91,7 @@ dependencies:
   measure_size: ^4.0.0
   pin_code_text_field: ^1.8.0
   easy_rich_text: ^2.0.0
+  flutter_widget_from_html: ^0.14.6
 
 
 dev_dependencies:
