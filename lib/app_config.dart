@@ -9,13 +9,13 @@ AppNavigatorObserver appNavigatorObserver = AppNavigatorObserver();
 /// ============== Theme 配置 ===============
 ThemeData appThemeData = ThemeData(
   /// primarySwatch 用于导航栏和floatActionButton的背景色等
-  primarySwatch: Colors.purple,
+  // primarySwatch: Colors.purple,
 
   /// brightness 应用程序亮色或者暗色, 会调整导航栏和页面的背景色(如果不显示设置)
   brightness: Brightness.light,
-
+  scaffoldBackgroundColor:  const Color(0xff1A1C1F),
   /// 配置主背景色
-  primaryColor: Colors.pink,
+  // primaryColor: Colors.pink,
 
   /// 设置 appBarTheme， 颜色如果没有指定取 primarySwatch
   appBarTheme: appBarTheme,

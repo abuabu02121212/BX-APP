@@ -163,6 +163,7 @@ class _Message_centerPageState extends State<Message_centerPage> {
 
   Widget _getMyFeedBackL() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
@@ -317,8 +318,8 @@ class _Message_centerPageState extends State<Message_centerPage> {
                     )
                   ],
                 ),
-                SizedBox(
-                  height: 49.px,
+                Container(
+                  margin: EdgeInsets.only(top: 49.px),
                   child: state.isCREATE.value
                       ? _getMyFeedBackL()
                       : _getMyFeedBackR(),

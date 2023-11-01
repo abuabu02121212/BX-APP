@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_comm/util/Log.dart';
 import 'package:flutter_comm/util/loading_util.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,7 +23,7 @@ import 'generated/l10n.dart';
 import 'globe_exception_catch.dart';
 import 'navigator/observer.dart';
 
-void main() {
+void main() async{
   // WidgetsFlutterBinding.ensureInitialized(); // 保证 WidgetsBindingObserver使用时候，已经初始化
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
@@ -32,12 +33,20 @@ void main() {
         ),
       ));
   //FlutterChain.capture(() => runApp(buildScreenUtilInit(child: getRootWidget())));
+  // if (Platform.isAndroid) {
+  //   /// 设置android状态栏为透明的沉浸。写在组件渲染之后，是为了在渲染后进行set赋值，覆盖状态栏，写在渲染之前MaterialApp组件会覆盖掉这个值。
+  //   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  //     // statusBarColor: headerBgColor,
+  //     statusBarColor: Colors.transparent,
+  //     systemNavigationBarColor: bottomBgColor,
+  //   ));
+  // }
+
+  /// 安卓的工具栏背景色透明
   if (Platform.isAndroid) {
-    /// 设置android状态栏为透明的沉浸。写在组件渲染之后，是为了在渲染后进行set赋值，覆盖状态栏，写在渲染之前MaterialApp组件会覆盖掉这个值。
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: headerBgColor,
-      systemNavigationBarColor: bottomBgColor,
-    ));
+    SystemUiOverlayStyle systemUiOverlayStyle = const SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+    await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   }
 }
 

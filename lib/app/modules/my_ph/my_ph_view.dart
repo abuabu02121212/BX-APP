@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/app_style.dart';
+import 'package:flutter_comm/app/component/app_empty.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_comm/util/base_scaffold_ph.dart';
 import 'package:flutter_comm/util/size.dart';
@@ -25,7 +26,7 @@ class _My_PHPageState extends State<My_PHPage> {
   List<int> leftList = [0, 1, 2, 3, 4, 5, 6, 7];
 
   ScrollController controller = ScrollController();
-
+  // height: MediaQuery.of(context).padding.top, //状态栏高度
   @override
   Widget build(BuildContext context) {
     return BaseScaffoldPH(
@@ -45,18 +46,17 @@ class _My_PHPageState extends State<My_PHPage> {
                 children: [
                   const Image(
                       image: AssetImage('assets/images/user/bg_my.webp')),
-                  Container(
-                    padding: EdgeInsets.only(top: paddingSizeTop(context)),
-                    child: Column(
-                      children: [
-                        _personalInformation(),
-                        _userLevel(),
-                        _userFunctions(context),
-                        SizedBox(
-                          height: 30.px,
-                        )
-                      ],
-                    ),
+                  Column(
+                    children: [
+                      // SizedBox(height: MediaQuery.of(context).padding.top,),
+                      SizedBox(height: 100.px,),
+                      _personalInformation(),
+                      _userLevel(),
+                      _userFunctions(context),
+                      SizedBox(
+                        height: 30.px,
+                      )
+                    ],
                   ),
                 ],
               ),
@@ -641,4 +641,17 @@ class _My_PHPageState extends State<My_PHPage> {
     Get.delete<My_PHLogic>();
     super.dispose();
   }
+}
+
+class EmptyApp extends StatelessWidget implements PreferredSizeWidget{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container();
+  }
+
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => const Size(0.0,0.0);
+  
 }

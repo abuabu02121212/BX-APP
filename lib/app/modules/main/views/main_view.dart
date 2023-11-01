@@ -22,81 +22,94 @@ class MainView extends GetView<MainController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: headerBgColor,
-        titleSpacing: 0,
-        leadingWidth: 0,
-        elevation: 0,
-        toolbarHeight: 0.w
-      ),
+    primary: false,
+    appBar: EmptyApp(),
+      // appBar: AppBar(
+      //   backgroundColor: headerBgColor,
+      //   titleSpacing: 0,
+      //   leadingWidth: 0,
+      //   elevation: 0,
+      //   toolbarHeight: 0.w
+      // ),
       body: SafeArea(
         bottom: false,
-        child: Stack(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              height: double.infinity,
-              child: PageView.builder(
-                  itemCount: 5,
-                  physics: const NeverScrollableScrollPhysics(),
-                  controller: controller.pageController,
-                  itemBuilder: (BuildContext context, int index) {
-                    switch (index) {
-                      case 0:
-                        return AliveWidget(child: HomeView());
-                      case 1:
-                        // return AliveWidget(child: PromotionView());
-                        return const AliveWidget(child: PromotionPHPage());
-                      case 2:
-                        return AliveWidget(child: DepositView(isShowBack: false));
-                      case 3:
-                        // return AliveWidget(child: VipView());
-                        return  const AliveWidget(child: Vip_phPage());
+        child:
+            Obx(() => Stack(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(top: controller.index.value==4?0:MediaQuery.of(context).padding.top,),
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: PageView.builder(
+                      itemCount: 5,
+                      physics: const NeverScrollableScrollPhysics(),
+                      controller: controller.pageController,
+                      itemBuilder: (BuildContext context, int index) {
+                        switch (index) {
+                          case 0:
+                            return AliveWidget(child: HomeView());
+                          case 1:
+                          // return AliveWidget(child: PromotionView());
+                            return const AliveWidget(child: PromotionPHPage());
+                          case 2:
+                            return AliveWidget(child: DepositView(isShowBack: false));
+                          case 3:
+                          // return AliveWidget(child: VipView());
+                            return  const AliveWidget(child: Vip_phPage());
                         // return  Get.toNamed(Routes.VIP_PH);
-                      case 4:
-                        // return const AliveWidget(child: MineView());
-                        return const AliveWidget(child: My_PHPage());
-                    }
-                    return const AliveWidget(child: SizedBox());
-                  }),
-            ),
-            Positioned(
-              left: 0.w,
-              bottom: 0.w,
-              child: Column(
-                children: [
-                  MainHorizontalTabComponent(
-                    indicatorTabController: controller.indicatorTabController,
-                    onSelectChanged: (pos, isClick) {
-                      Log.d("==========onSelectChanged===pos:$pos====");
-                      GlobeController globeController = Get.find<GlobeController>();
-                      if (pos >= 9) {
-                        if (!globeController.isLogin()) {
-                          controller.indicatorTabController.back();
-                          showLoginRegisterDialog();
-                        } else {
-                          Log.d("已经登陆");
-                          if (pos == 9) {
-                            controller.indicatorTabController.back();
-                            Get.toNamed(Routes.DEPOSIT);
+                          case 4:
+                          // return const AliveWidget(child: MineView());
+                            return const AliveWidget(child: My_PHPage());
+                        }
+                        return const AliveWidget(child: SizedBox());
+                      }),
+                ),
+                Positioned(
+                  left: 0.w,
+                  bottom: 0.w,
+                  child: Column(
+                    children: [
+                      MainHorizontalTabComponent(
+                        indicatorTabController: controller.indicatorTabController,
+                        onSelectChanged: (pos, isClick) {
+                          controller.index.value = pos;
+                          Log.d("==========onSelectChanged===pos:$pos====");
+                          GlobeController globeController = Get.find<GlobeController>();
+                          if (pos >= 2) {
+                            // if (pos >= 9) { ///调试用
+                              if (!globeController.isLogin()) {
+                                controller.indicatorTabController.back();
+                                showLoginRegisterDialog();
+                              } else {
+                            Log.d("已经登陆");
+                            if (pos == 2) {
+                              // if (pos == 2) {///调试用
+                              controller.indicatorTabController.back();
+                              Get.toNamed(Routes.DEPOSIT);
+                            } else if (pos == 3) {
+                              controller.indicatorTabController.back();
+                              Get.toNamed(Routes.VIP_PH);
+                            }else {
+                              controller.pageController.jumpToPage(pos);
+                            }
+                            }
                           } else {
                             controller.pageController.jumpToPage(pos);
                           }
-                        }
-                      } else {
-                        controller.pageController.jumpToPage(pos);
-                      }
-                    },
+                        },
+                      ),
+                      Container(
+                        width: 1.sw,
+                        height: MediaQuery.of(context).padding.bottom,
+                        color: bottomBgColor,
+                      )
+                    ],
                   ),
-                  Container(
-                    width: 1.sw,
-                    height: MediaQuery.of(context).padding.bottom,
-                    color: bottomBgColor,
-                  )
-                ],
-              ),
-            ),
+                ),
+            //   ],
+            // ),
           ],
+        ),
         ),
       ),
     );

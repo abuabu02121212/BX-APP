@@ -15,6 +15,8 @@ class MainController extends GetxController {
   PageController pageController = PageController();
   IndicatorTabController indicatorTabController = IndicatorTabController();
 
+  final index = 0.obs;
+
   void changeSelectedTab(int selectedIndex){
     indicatorTabController.onItemSelectChanged(selectedIndex);
   }

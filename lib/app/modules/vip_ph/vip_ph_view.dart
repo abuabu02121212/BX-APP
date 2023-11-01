@@ -44,7 +44,7 @@ class _Vip_phPageState extends State<Vip_phPage> {
       ),
       body: Container(
         height: double.infinity,
-        margin: EdgeInsets.only(bottom: 180.px),
+        // margin: EdgeInsets.only(bottom: 180.px),
         child: Column(
           children: [
             Expanded(
@@ -71,8 +71,8 @@ class _Vip_phPageState extends State<Vip_phPage> {
                         ),
                       ),
                       Container(
-                        margin:
-                            EdgeInsets.only(top: 23.px, left: 20.px, right: 20.px),
+                        margin: EdgeInsets.only(
+                            top: 23.px, left: 20.px, right: 20.px),
                         height: 170.px,
                         width: double.infinity,
                         decoration: pubBoxDecoration(),
@@ -144,8 +144,8 @@ class _Vip_phPageState extends State<Vip_phPage> {
                         ),
                       ),
                       Container(
-                        margin:
-                            EdgeInsets.only(top: 30.px, left: 20.px, right: 20.px),
+                        margin: EdgeInsets.only(
+                            top: 30.px, left: 20.px, right: 20.px),
                         child: Text(
                           S.current.VIPLevelList,
                           style: pubTextStyle(
@@ -217,9 +217,11 @@ class _Vip_phPageState extends State<Vip_phPage> {
                       //   child:
                       Container(
                         height: ((8 * 80) + 30).px,
-
                         padding: EdgeInsets.only(
-                            top: 30.px, left: 20.px, right: 20.px, bottom: 0.px),
+                            top: 30.px,
+                            left: 20.px,
+                            right: 20.px,
+                            bottom: 0.px),
                         // width: double.infinity,
                         color: const Color(0xff252527),
                         // color:  Colors.tealAccent,
@@ -232,6 +234,7 @@ class _Vip_phPageState extends State<Vip_phPage> {
                           children: [
                             MediaQuery.removePadding(
                               removeBottom: true,
+                              removeTop: true,
                               context: context,
                               child: SizedBox(
                                 height: 8 * 80,
@@ -253,12 +256,9 @@ class _Vip_phPageState extends State<Vip_phPage> {
                                                       color: const Color(
                                                           0xff1A1C1F),
                                                       border: Border.all(
-                                                          color:
-                                                              const Color.fromRGBO(
-                                                                  93,
-                                                                  101,
-                                                                  111,
-                                                                  0.40),
+                                                          color: const Color
+                                                                  .fromRGBO(
+                                                              93, 101, 111, 0.40),
                                                           width: 1.px),
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -435,8 +435,9 @@ class _Vip_phPageState extends State<Vip_phPage> {
             ),
             Container(
               // width: double.infinity,
-              height: 128.px,
-              padding: EdgeInsets.fromLTRB(18.px, 24.px, 18.px, 24.px),
+              height: 120.px,
+              // margin: EdgeInsets.only(bottom: 20.px),
+              padding: EdgeInsets.fromLTRB(18.px, 24.px, 18.px, 15.px),
               child: Row(
                 children: [
                   Expanded(
@@ -451,7 +452,7 @@ class _Vip_phPageState extends State<Vip_phPage> {
                     ),
                     child: TextButton(
                       onPressed: () => {
-                        Toast.show('msg'),
+                        Get.back(),
                       },
                       child: Text(
                         S.current.Back,
@@ -488,6 +489,11 @@ class _Vip_phPageState extends State<Vip_phPage> {
                 ],
               ),
             ),
+            Container(
+              width: 1.sw,
+              height: MediaQuery.of(context).padding.bottom,
+              color: bottomBgColor,
+            )
           ],
         ),
       ),
