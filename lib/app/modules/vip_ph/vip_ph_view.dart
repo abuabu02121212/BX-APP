@@ -441,19 +441,20 @@ class _Vip_phPageState extends State<Vip_phPage> {
               child: Row(
                 children: [
                   Expanded(
-                      child: Container(
-                    height: 80.px,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16.px),
-                      border: Border.all(
-                          color: const Color(0xff3EA1F8), width: 1.px),
-                    ),
-                    child: TextButton(
-                      onPressed: () => {
-                        Get.back(),
-                      },
+                      child: CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () => {
+                      Get.back(),
+                    },
+                    child: Container(
+                      height: 80.px,
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.px),
+                        border: Border.all(
+                            color: const Color(0xff3EA1F8), width: 1.px),
+                      ),
                       child: Text(
                         S.current.Back,
                         style: pubTextStyle(
@@ -465,20 +466,21 @@ class _Vip_phPageState extends State<Vip_phPage> {
                     width: 17.px,
                   ),
                   Expanded(
-                      child: Container(
-                    height: 80.px,
-                    width: double.infinity,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16.px),
-                        color: const Color(0xff3EA1F8)
-                        // border: Border.all(
-                        //     color: const Color(0xff3EA1F8), width: 1.w),
-                        ),
-                    child: TextButton(
-                      onPressed: () => {
-                        Toast.show('msg'),
-                      },
+                      child: CupertinoButton(
+                    padding: EdgeInsets.zero,
+                    onPressed: () => {
+                      Toast.show('msg'),
+                    },
+                    child: Container(
+                      height: 80.px,
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16.px),
+                          color: const Color(0xff3EA1F8)
+                          // border: Border.all(
+                          //     color: const Color(0xff3EA1F8), width: 1.w),
+                          ),
                       child: Text(
                         S.current.CollectAll,
                         style: pubTextStyle(

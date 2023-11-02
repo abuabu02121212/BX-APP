@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_comm/util/size.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -154,18 +153,19 @@ class _Personal_informationPageState extends State<Personal_informationPage> {
             child: Row(
               children: [
                 Expanded(
-                    child: Container(
-                  height: 80.px,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16.px),
-                    border:
-                        Border.all(color: const Color(0xff3EA1F8), width: 1.w),
-                  ),
-                  child: TextButton(
-                    onPressed: () => {
-                      Get.back(),
-                    },
+                    child: CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () => {
+                    Get.back(),
+                  },
+                  child: Container(
+                    height: 80.px,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16.px),
+                      border: Border.all(
+                          color: const Color(0xff3EA1F8), width: 1.w),
+                    ),
                     child: Text(
                       S.current.Back,
                       style: pubTextStyle(
@@ -177,19 +177,20 @@ class _Personal_informationPageState extends State<Personal_informationPage> {
                   width: 17.px,
                 ),
                 Expanded(
-                    child: Container(
-                  height: 80.px,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16.px),
-                      color: const Color(0xff3EA1F8)
-                      // border: Border.all(
-                      //     color: const Color(0xff3EA1F8), width: 1.w),
-                      ),
-                  child: TextButton(
-                    onPressed: () => {
-                      Toast.show('msg'),
-                    },
+                    child: CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  onPressed: () => {
+                    Toast.show('msg'),
+                  },
+                  child: Container(
+                    height: 80.px,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16.px),
+                        color: const Color(0xff3EA1F8)
+                        // border: Border.all(
+                        //     color: const Color(0xff3EA1F8), width: 1.w),
+                        ),
                     child: Text(
                       S.current.Save,
                       style: pubTextStyle(
@@ -200,8 +201,9 @@ class _Personal_informationPageState extends State<Personal_informationPage> {
               ],
             ),
           ),
-          SizedBox(
-            height: 26.px,
+          Container(
+            height: MediaQuery.of(context).padding.bottom,
+            color: const Color(0xff1A1C1F),
           )
         ],
       ),

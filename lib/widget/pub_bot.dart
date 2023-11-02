@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_comm/app/app_style.dart';
+import 'package:flutter_comm/util/size.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 
@@ -30,9 +31,9 @@ class PubBot extends StatelessWidget {
             padding: EdgeInsets.zero,
             minSize: 0,
             child: Container(
-              height: 80.h,
+              height: 80.px,
               width: 710.w,
-              margin: EdgeInsets.only(bottom: 26.h, top: 24.h),
+              padding: EdgeInsets.only(bottom: 20.px, top: 20.px),
               alignment: Alignment.center,
               decoration: isSele ? pubBotY() : pubBotN(),
               child: Text(

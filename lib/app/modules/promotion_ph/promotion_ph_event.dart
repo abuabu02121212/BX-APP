@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_comm/app/app_style.dart';
 import 'package:flutter_comm/app/component/app_empty_promotion.dart';
@@ -185,7 +187,7 @@ class promotionPHEvent extends StatelessWidget {
             alignment: Alignment.topCenter,
             margin: EdgeInsets.only(left: 20.px, right: 20.px),
             width: double.infinity,
-            height: 1080.px,
+            height: Platform.isAndroid ? 1130.px:1080.px,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -113,6 +113,7 @@ class _Withdraw_phPageState extends State<Withdraw_phPage> {
               ),
             ),
           ),
+          SizedBox(height: MediaQuery.of(context).padding.bottom,)
         ],
       ),
     );

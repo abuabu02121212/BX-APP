@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_comm/http/api.dart';
 import 'package:flutter_comm/util/size.dart';
 import 'package:flutter_comm/util/toast_util.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,6 +34,7 @@ class _Message_centerPageState extends State<Message_centerPage> {
       appBar: BaseAppbarPH(
         title: S.current.MessageCenter,
       ),
+      resize: false,
       body: Column(
         children: [
           Container(
@@ -52,6 +54,7 @@ class _Message_centerPageState extends State<Message_centerPage> {
               labelStyle:
                   const TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
               onTap: (index) => {
+                logic.searchFocusNode.unfocus(),
                 logic.pageController.jumpToPage(index),
               },
               tabs: [
@@ -144,6 +147,7 @@ class _Message_centerPageState extends State<Message_centerPage> {
               ),
             ),
           ),
+          Container(height: MediaQuery.of(context).padding.bottom,color: const Color(0xff1A1C1F),)
         ],
       ),
     );
@@ -185,10 +189,12 @@ class _Message_centerPageState extends State<Message_centerPage> {
           height: 220.px,
           alignment: Alignment.centerLeft,
           decoration: pubBoxDecoration(color: const Color(0xff1A1C1F)),
-          padding: EdgeInsets.all(22.px),
+          // padding: EdgeInsets.all(22.px),
+          padding: EdgeInsets.fromLTRB(22.px,0.px,22.px,22.px),
           child: TextField(
             controller: TextEditingController(),
             maxLines: 5,
+            focusNode: logic.searchFocusNode,
             cursorColor: const Color(0xffffffff),
             style:
                 pubTextStyle(const Color(0xFFffffff), 24.sp, FontWeight.w400),
@@ -330,7 +336,7 @@ class _Message_centerPageState extends State<Message_centerPage> {
           const Expanded(child: SizedBox()),
           Container(
             width: double.infinity,
-            color: const Color(0xff1A1C1F),
+            // color: const Color(0xff1A1C1F),
             child: state.isCREATE.value
                 ? PubBot(
                     name: S.current.SubmitFeedback,
@@ -348,7 +354,7 @@ class _Message_centerPageState extends State<Message_centerPage> {
 
   Widget _getMarquee() {
     return Container(
-      padding: EdgeInsets.only(top: 24.px, left: 20.px, right: 20.px),
+      padding: EdgeInsets.only(top: 24.px, left: 20.px, right: 20.px,bottom: 0.px),
       child: ListView.separated(
           separatorBuilder: (BuildContext context, int index) {
             return SizedBox(
@@ -410,7 +416,7 @@ class _Message_centerPageState extends State<Message_centerPage> {
 
   Widget _getNews() {
     return Container(
-      padding: EdgeInsets.only(top: 24.px, left: 20.px, right: 20.px),
+      padding: EdgeInsets.only(top: 24.px, left: 20.px, right: 20.px,bottom: 0.px),
       child: ListView.separated(
           separatorBuilder: (BuildContext context, int index) {
             return SizedBox(
@@ -517,7 +523,7 @@ class _Message_centerPageState extends State<Message_centerPage> {
 
   Widget _getSupport() {
     return Container(
-      padding: EdgeInsets.only(top: 24.px, left: 20.px, right: 20.px),
+      padding: EdgeInsets.only(top: 24.px, left: 20.px, right: 20.px,bottom: 0.px),
       child: ListView.separated(
           separatorBuilder: (BuildContext context, int index) {
             return SizedBox(
@@ -543,14 +549,17 @@ class _Message_centerPageState extends State<Message_centerPage> {
                   ),
                   Expanded(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           '7X24 Online Support',
                           style: pubTextStyle_default(type: 1, size: 28.sp),
                         ),
+                        SizedBox(height: 10.px,),
                         Text(
-                          'Full-time customer service isonline for translation,solvingproblems considerately',
+                          'Full-time customer service isonline for ',
                           style: pubTextStyle_default(type: 4, size: 22.sp),
                         ),
                       ],

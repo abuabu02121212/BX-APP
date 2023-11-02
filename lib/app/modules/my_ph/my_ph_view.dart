@@ -53,13 +53,14 @@ class _My_PHPageState extends State<My_PHPage> {
                       _personalInformation(),
                       _userLevel(),
                       _userFunctions(context),
-                      SizedBox(
-                        height: 30.px,
-                      )
                     ],
                   ),
                 ],
               ),
+              SizedBox(
+                width: 1.sw,
+                height: MediaQuery.of(context).padding.bottom,
+              )
             ],
           ),
         ),
