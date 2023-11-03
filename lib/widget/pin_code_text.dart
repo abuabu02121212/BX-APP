@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_comm/app/app_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 
 ///密码框
-class PinCodeText extends StatelessWidget {
+class PinCodeText extends StatefulWidget {
   var textEditingController = TextEditingController(text: "");
   Function? changed;
   Function? onDone;
   Function? canDisplayed;
   var isNum = true;
+  final isNuma = true.obs;
   var name = '';
 
   PinCodeText({
@@ -24,9 +26,20 @@ class PinCodeText extends StatelessWidget {
     this.name = '',
   }) : super(key: key);
 
+  // const PinCodeTextPage({Key? key}) : super(key: key);
+
+  @override
+  State<PinCodeText> createState() => _PinCodeTextPageState();
+}
+
+class _PinCodeTextPageState extends State<PinCodeText> {
+  // final logic = Get.find<PinCodeTextLogic>();
+  // final state = Get.find<PinCodeTextLogic>().state;
+
+  String namess='';
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Column(
       children: [
         Container(
@@ -35,7 +48,7 @@ class PinCodeText extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                name,
+                widget.name,
                 style: pubTextStyle(
                     const Color(0xffffffff), 26.sp, FontWeight.w400),
               ),
@@ -43,7 +56,20 @@ class PinCodeText extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 minSize: 0,
                 onPressed: () => {
-                  canDisplayed!(),
+                  // widget.canDisplayed!(),
+                  widget.isNuma.value = !widget.isNuma.value,
+
+                  // widget.textEditingController.text = widget.textEditingController.text,
+                  widget.textEditingController.text = '',
+                  widget.textEditingController.selection=TextSelection.fromPosition(TextPosition(offset: widget.textEditingController.text.length)),
+                  // setState(() {}),
+
+                  // widget.textEditingController.text = namess,
+                  // widget.textEditingController.selection=TextSelection.fromPosition(TextPosition(offset: widget.textEditingController.text.length)),
+                  // widget.isNuma.value = !widget.isNuma.value,
+                  // widget.canDisplayed!(),
+                  // 刷新状态
+                setState(() {}),
                 },
                 child: Image(
                   image: const AssetImage(
@@ -57,10 +83,12 @@ class PinCodeText extends StatelessWidget {
         SizedBox(
           height: 16.h,
         ),
-        PinCodeTextField(
+        Obx(() =>
+            PinCodeTextField(
           autofocus: false,
-          controller: textEditingController,
-          hideCharacter: isNum,
+          controller: widget.textEditingController,
+          hideCharacter: widget.isNuma.value,
+          // hideCharacter: widget.isNum,
           highlight: false,
           highlightColor: const Color(0xff1A1C1F),
           defaultBorderColor: const Color.fromRGBO(93, 101, 111, 0.40),
@@ -73,10 +101,33 @@ class PinCodeText extends StatelessWidget {
           pinBoxBorderWidth: 1.w,
           maskCharacter: "*",
           onTextChanged: (text) {
-            changed!(text);
+            widget.changed!(text);
+            // setState(() {});
+
+            // if(namess.isNotEmpty) {
+            //   if(widget.textEditingController.text.length!=namess.length) {
+            //     if(text.isNotEmpty){
+            //       namess +=text;
+            //       // setStype();
+            //     }else{
+            //       if(namess.isNotEmpty) {
+            //         if(namess.length>1) {
+            //           namess.substring(0,namess.length-2);
+            //           // setStype();
+            //         } else {
+            //           namess= '';
+            //         }
+            //       }
+            //     }
+            //     // setStype();
+            //   }
+            // }
+
+            namess = widget.textEditingController.text;
+            setState(() {});
           },
           onDone: (text) {
-            onDone!(text);
+            widget.onDone!(text);
           },
           pinBoxWidth: 105.w,
           pinBoxHeight: 100.h,
@@ -94,7 +145,14 @@ class PinCodeText extends StatelessWidget {
           highlightAnimationEndColor: const Color(0xff1A1C1F),
           keyboardType: TextInputType.number,
         ),
+        ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    // Get.delete<PinCodeTextLogic>();
+    super.dispose();
   }
 }
