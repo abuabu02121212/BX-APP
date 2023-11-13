@@ -199,7 +199,11 @@
   "NoMessages": "No Messages",
   "Read": "Read",
   "Unread": "Unread",
-  "Enter": "Enter"
+  "Enter": "Enter",
+  "NetworkStatus": "Network Status",
+  "SecurityCenter": "Security Center",
+  "Language": "Language",
+  "LogOut": "Log Out"
 }
 
 

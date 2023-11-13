@@ -76,8 +76,8 @@ class MainView extends GetView<MainController> {
                           Log.d("==========onSelectChanged===pos:$pos====");
                           GlobeController globeController = Get.find<GlobeController>();
                           if (pos >= 2) {
-                            // if (pos >= 9) { ///调试用
-                              if (!globeController.isLogin()) {
+                            if (pos >= 9) { ///调试用
+                              // if (!globeController.isLogin()) {
                                 controller.indicatorTabController.back();
                                 showLoginRegisterDialog();
                               } else {

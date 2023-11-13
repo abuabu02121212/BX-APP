@@ -189,6 +189,10 @@
   "SubordinatesStats": "Subordinates' Stats",
   "SubordinatesClaims": "Subordinates' Claims",
   "AgentBonusRate": "Agent Bonus Rates",
-  "RegisterSubagents": "Register Subagents"
+  "RegisterSubagents": "Register Subagents",
+  "NetworkStatus": "Network Status",
+  "SecurityCenter": "Security Center",
+  "Language": "Language",
+  "LogOut": "Log Out"
 
 }

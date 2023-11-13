@@ -53,7 +53,7 @@ class _PromotionPHPageState extends State<PromotionPHPage> {
               labelStyle:
                   const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               onTap: (index) => {
-                logic.pageController?.jumpToPage(index),
+                logic.pageController.jumpToPage(index),
               },
               tabs: [
                 Tab(

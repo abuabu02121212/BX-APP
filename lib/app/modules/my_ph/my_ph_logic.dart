@@ -1,10 +1,29 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_comm/app/modules/my_ph/my_ph_view.dart';
 import 'package:get/get.dart';
 
+import '../../../generated/l10n.dart';
 import 'my_ph_state.dart';
 
 class My_PHLogic extends GetxController {
   final My_PHState state = My_PHState();
+
+  late List<ItemBean> leftList ;
+
+  @override
+  void onInit() {
+    leftList = [
+      ItemBean(img: 'assets/images/user/ic_agent.webp', name: S.current.Agent, nameR: 'Million Monthly', nameR1: '', type: '2', isBack: true),
+      ItemBean(img: 'assets/images/user/ic_network_status.webp', name: S.current.NetworkStatus, nameR: '83MS', nameR1: 'Server 21 ', type: '3', isBack: true),
+      ItemBean(img: 'assets/images/user/ic_personal_information.webp', name: S.current.PersonalInformation, nameR: '', nameR1: '', type: '2', isBack: true),
+      ItemBean(img: 'assets/images/user/ic_security_center.webp', name: S.current.SecurityCenter, nameR: '', nameR1: '', type: '2', isBack: true),
+      ItemBean(img: 'assets/images/user/ic_language.webp', name: S.current.Language, nameR: S.current.English, nameR1: '', type: '1', isBack: true),
+      ItemBean(img: 'assets/images/user/ic_faq.webp', name: S.current.FAQ, nameR: '', nameR1: '', type: '2', isBack: true),
+      ItemBean(img: 'assets/images/user/ic_feedback_rewards.webp', name: S.current.FeedbackContent, nameR: '', nameR1: '', type: '2', isBack: true),
+      ItemBean(img: 'assets/images/user/ic_log_out.webp', name: S.current.LogOut, nameR: '', nameR1: '', type: '2', isBack: true),
+    ];
+    super.onInit();
+  }
 
   @override
   void onReady() {
@@ -23,34 +42,6 @@ class My_PHLogic extends GetxController {
     if (name.contains('\n')) {
       isk = true;
     }
-
     return isk;
-  }
-
-  String getItemName(int index){
-    switch(index){
-      case 0 : return'Agent';
-      case 1 : return'Network Status';
-      case 2 : return'Personal Information';
-      case 3 : return'Security Center';
-      case 4 : return'Language';
-      case 5 : return'FAQ';
-      case 6 : return'Feedback Rewards';
-      case 7 : return'Log Out';
-    }
-    return '';
-  }
-
-  AssetImage getItemImg(int index){
-    switch(index){
-      case 0 : return AssetImage('assets/images/user/ic_agent.webp');
-      case 1 : return AssetImage('assets/images/user/ic_network_status.webp');
-      case 2 : return AssetImage('assets/images/user/ic_personal_information.webp');
-      case 4 : return AssetImage('assets/images/user/ic_language.webp');
-      case 5 : return AssetImage('assets/images/user/ic_faq.webp');
-      case 6 : return AssetImage('assets/images/user/ic_feedback_rewards.webp');
-      case 7 : return AssetImage('assets/images/user/ic_log_out.webp');
-    }
-    return AssetImage('assets/images/user/ic_agent.webp');
   }
 }

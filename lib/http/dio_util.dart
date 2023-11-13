@@ -63,6 +63,7 @@ class DioUtil {
       Response response;
      // print('get发送数据: $param');
       setLoginToken();
+      // AppLoading.show();
       response = await dio.get(path,
           queryParameters: param,
           options: Options(
@@ -70,7 +71,7 @@ class DioUtil {
             contentType: 'application/x-www-form-urlencoded',
             headers: {'d': 35, 't': loginToken},
           ));
-
+      // AppLoading.close();
       // 将字节数组转换为 ArrayBuffer
       Uint8List byteData = response.data;
       final responseData = cbor.decode(byteData);
@@ -122,6 +123,7 @@ class DioUtil {
       String base64Str = base64Encode(cborBuffer);
       Log.d('\n${'-' * 200}\n \n发送数据: cborBuffer:$cborBuffer base64Str:$base64Str');
       setLoginToken();
+      // AppLoading.show();
       response = await dio.post(
         path,
         data: base64Str,
@@ -132,6 +134,7 @@ class DioUtil {
         ),
       );
 
+      // AppLoading.close();
       // 如果状态码不是200，抛出异常
       if (response.statusCode != 200) {
         // throw Exception('statusCode=${response.statusCode}');

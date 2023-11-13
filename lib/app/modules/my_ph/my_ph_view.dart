@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/app_style.dart';
 import 'package:flutter_comm/app/component/app_empty.dart';
+import 'package:flutter_comm/app/modules/my_ph/item_v.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_comm/util/base_scaffold_ph.dart';
 import 'package:flutter_comm/util/size.dart';
@@ -23,9 +24,8 @@ class _My_PHPageState extends State<My_PHPage> {
   final logic = Get.put(My_PHLogic());
   final state = Get.find<My_PHLogic>().state;
 
-  List<int> leftList = [0, 1, 2, 3, 4, 5, 6, 7];
-
   ScrollController controller = ScrollController();
+
   // height: MediaQuery.of(context).padding.top, //状态栏高度
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,9 @@ class _My_PHPageState extends State<My_PHPage> {
                   Column(
                     children: [
                       // SizedBox(height: MediaQuery.of(context).padding.top,),
-                      SizedBox(height: 100.px,),
+                      SizedBox(
+                        height: 100.px,
+                      ),
                       _personalInformation(),
                       _userLevel(),
                       _userFunctions(context),
@@ -234,7 +236,7 @@ class _My_PHPageState extends State<My_PHPage> {
                             ],
                           ),
                           onPressed: () => {
-                            Get.toNamed(Routes.MESSAGE_CENTER),
+                                Get.toNamed(Routes.MESSAGE_CENTER),
                                 // Toast.show("fafds"),
                               }),
                       CupertinoButton(
@@ -549,92 +551,53 @@ class _My_PHPageState extends State<My_PHPage> {
             );
           },
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: leftList.length,
+          itemCount: logic.leftList.length,
           itemBuilder: (BuildContext context, int index) {
-            return _item(context, index, function: (index) {
-              switch (index) {
-                case 0: Get.toNamed(Routes.AGENT);;break;
-                // case 1:Get.toNamed(Routes.PERSONAL_INFORMATION);break;
-                case 2:
-                  Get.toNamed(Routes.PERSONAL_INFORMATION);
-                  break;
-                // case 3:Get.toNamed(Routes.PERSONAL_INFORMATION);break;
-                // case 4:Get.toNamed(Routes.PERSONAL_INFORMATION);break;
-                case 5:Get.toNamed(Routes.MESSAGE_CENTER);break;
-                case 6:Get.toNamed(Routes.MESSAGE_CENTER);break;
-                // case 7:Get.toNamed(Routes.PERSONAL_INFORMATION);break;
-              }
-            });
+            return ItemView(
+                itemBean: logic.leftList[index],
+                click: () => {
+                      if (logic.leftList[index].name == S.current.Agent)
+                        {
+                          Get.toNamed(Routes.AGENT),
+                        }
+                      else if (logic.leftList[index].name ==
+                          S.current.NetworkStatus)
+                        {
+                          // Get.toNamed(Routes.PERSONAL_INFORMATION),
+                        }
+                      else if (logic.leftList[index].name ==
+                          S.current.PersonalInformation)
+                        {
+                          Get.toNamed(Routes.PERSONAL_INFORMATION),
+                        }
+                      else if (logic.leftList[index].name ==
+                          S.current.SecurityCenter)
+                        {
+                          // Get.toNamed(Routes.PERSONAL_INFORMATION),
+                        }
+                      else if (logic.leftList[index].name == S.current.Language)
+                        {
+                          // Get.toNamed(Routes.PERSONAL_INFORMATION),
+                        }
+                      else if (logic.leftList[index].name == S.current.FAQ)
+                        {
+                          Get.toNamed(Routes.MESSAGE_CENTER),
+                        }
+                      else if (logic.leftList[index].name ==
+                          S.current.FeedbackContent)
+                        {
+                          Get.toNamed(Routes.MESSAGE_CENTER),
+                        }
+                      else if (logic.leftList[index].name ==
+                          S.current.FeedbackContent)
+                        {
+                          // Get.toNamed(Routes.PERSONAL_INFORMATION),
+                        }
+                    });
           },
         ),
       ),
     );
-  }
-
-  Widget _item(BuildContext context, int index, {var function}) {
-    return CupertinoButton(
-        padding: EdgeInsets.zero,
-        child: SizedBox(
-          height: 99.px,
-          child: Row(
-            children: [
-              Image(
-                image: logic.getItemImg(index),
-                width: 48.px,
-              ),
-              SizedBox(
-                width: 30.px,
-              ),
-              Text(logic.getItemName(index),
-                  style: pubTextStyle(
-                      const Color(0xffffffff), 24.sp, FontWeight.w400)),
-              const Expanded(
-                flex: 1,
-                child: SizedBox(),
-              ),
-              if (index == 0 || index == 4)
-                Text(index == 0 ? S.current.MillionMonthly : S.current.English,
-                    style: pubTextStyle(
-                        index == 1
-                            ? const Color(0xff3EA1F8)
-                            : const Color(0xff8F9DAB),
-                        24.sp,
-                        FontWeight.w400)),
-              if (index == 1)
-                Text.rich(TextSpan(children: [
-                  TextSpan(
-                      text: 'Server 21 ',
-                      style: pubTextStyle(
-                          const Color(0xffffffff), 24.sp, FontWeight.w400)),
-                  TextSpan(
-                      text: '83MS',
-                      style: pubTextStyle(
-                          const Color(0xff07BB65), 24.sp, FontWeight.w400)),
-                ])),
-              SizedBox(
-                width: 30.px,
-              ),
-              Image(
-                image: const AssetImage('assets/images/user/'
-                    'ic_arrow_ash_deep.webp'),
-                width: 11.5.px,
-                height: 20.px,
-              ),
-            ],
-          ),
-        ),
-        // onPressed: () {
-        //   if(index == 0){
-        //     Get.toNamed(Routes.AGENT);
-        //   }else{
-        //     Toast.show('index:$index');
-        //   }
-        //
-        // });
-        onPressed: () => {
-              function(index),
-              Toast.show('msg'),
-            });
   }
 
   @override
@@ -644,7 +607,7 @@ class _My_PHPageState extends State<My_PHPage> {
   }
 }
 
-class EmptyApp extends StatelessWidget implements PreferredSizeWidget{
+class EmptyApp extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -653,6 +616,22 @@ class EmptyApp extends StatelessWidget implements PreferredSizeWidget{
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => const Size(0.0,0.0);
-  
+  Size get preferredSize => const Size(0.0, 0.0);
+}
+
+class ItemBean {
+  String img;
+  String name;
+  String nameR;
+  String nameR1;
+  String type;
+  bool isBack;
+
+  ItemBean(
+      {required this.img,
+      required this.name,
+      required this.nameR,
+      required this.nameR1,
+      required this.type,
+      required this.isBack});
 }
