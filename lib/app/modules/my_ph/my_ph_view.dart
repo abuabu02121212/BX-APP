@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_comm/app/app_style.dart';
-import 'package:flutter_comm/app/component/app_empty.dart';
-import 'package:flutter_comm/app/modules/my_ph/item_v.dart';
+import 'package:flutter_comm/app/modules/my_ph/user_list_w.dart';
 import 'package:flutter_comm/app/routes/app_pages.dart';
 import 'package:flutter_comm/util/base_scaffold_ph.dart';
 import 'package:flutter_comm/util/size.dart';
@@ -26,7 +25,6 @@ class _My_PHPageState extends State<My_PHPage> {
 
   ScrollController controller = ScrollController();
 
-  // height: MediaQuery.of(context).padding.top, //状态栏高度
   @override
   Widget build(BuildContext context) {
     return BaseScaffoldPH(
@@ -48,13 +46,14 @@ class _My_PHPageState extends State<My_PHPage> {
                       image: AssetImage('assets/images/user/bg_my.webp')),
                   Column(
                     children: [
-                      // SizedBox(height: MediaQuery.of(context).padding.top,),
                       SizedBox(
                         height: 100.px,
                       ),
                       _personalInformation(),
                       _userLevel(),
-                      _userFunctions(context),
+                      UserListW(
+                        list: logic.leftList,
+                      )
                     ],
                   ),
                 ],
@@ -130,9 +129,6 @@ class _My_PHPageState extends State<My_PHPage> {
                                   }),
                         ],
                       ),
-                      // SizedBox(
-                      //   height: 10.px,
-                      // ),
                       Row(
                         children: [
                           Text('${S.current.ID}49816685',
@@ -150,7 +146,6 @@ class _My_PHPageState extends State<My_PHPage> {
                                 width: 24.px,
                               ),
                               onPressed: () => {Toast.show('msg')}),
-                          // Expanded(flex: 1, child: SizedBox()),
                         ],
                       ),
                       Row(
@@ -173,7 +168,6 @@ class _My_PHPageState extends State<My_PHPage> {
                             width: 16.px,
                           ),
                           CupertinoButton(
-                              // child: Container(
                               padding: EdgeInsets.zero,
                               minSize: 0,
                               child: Image(
@@ -237,7 +231,6 @@ class _My_PHPageState extends State<My_PHPage> {
                           ),
                           onPressed: () => {
                                 Get.toNamed(Routes.MESSAGE_CENTER),
-                                // Toast.show("fafds"),
                               }),
                       CupertinoButton(
                           padding: EdgeInsets.all(5.px),
@@ -420,15 +413,9 @@ class _My_PHPageState extends State<My_PHPage> {
                                   style: pubTextStyle(const Color(0xffffffff),
                                       22.sp, FontWeight.w700)),
                             ])),
-                            // SizedBox(
-                            //   height: 10.px,
-                            // ),
                             Text(S.current.UpgradeNeedsWager,
                                 style: pubTextStyle(const Color(0xffffffff),
                                     22.sp, FontWeight.w400)),
-                            // SizedBox(
-                            //   height: 15.px,
-                            // ),
                             Container(
                               width: 435.px,
                               height: 23.px,
@@ -472,10 +459,6 @@ class _My_PHPageState extends State<My_PHPage> {
                           bottom: 0.px,
                           child: Container(
                             alignment: Alignment.centerRight,
-                            // child: CupertinoButton(
-                            //   padding: EdgeInsets.zero,
-                            //   minSize: 0,
-                            //   onPressed: () => {Toast.show('msg')},
                             child: Image(
                               image: const AssetImage(
                                   'assets/images/user/ic_arrow_ash.webp'),
@@ -509,93 +492,16 @@ class _My_PHPageState extends State<My_PHPage> {
                     () {
                   Toast.show('Main Wallet');
                 }),
-                // line(),
                 _headTab('assets/images/user/ic_bet_records.webp',
                     S.current.BetRecords, () {}),
-                // line(),
                 _headTab('assets/images/user/ic_report.webp', S.current.Report,
                     () {}),
-                // line(),
                 _headTab('assets/images/user/ic_withdrawal_settings.webp',
                     S.current.WithdrawalSettings, () {}),
               ],
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  ///用户功能
-  Widget _userFunctions(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 800.px,
-      margin: EdgeInsets.only(left: 30.px, right: 30.px, bottom: 150.px),
-      padding: EdgeInsets.only(left: 25.px, right: 25.px),
-      decoration: BoxDecoration(
-        color: const Color(0xff1A1C1F),
-        border: Border.all(
-            color: const Color.fromRGBO(93, 101, 111, 0.40), width: 1.px),
-        borderRadius: BorderRadius.circular(16.px),
-      ),
-      child: MediaQuery.removePadding(
-        context: context,
-        removeTop: true,
-        removeBottom: true,
-        child: ListView.separated(
-          separatorBuilder: (BuildContext context, int index) {
-            return Divider(
-              color: const Color.fromRGBO(93, 101, 111, 0.40),
-              height: 1.px,
-            );
-          },
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: logic.leftList.length,
-          itemBuilder: (BuildContext context, int index) {
-            return ItemView(
-                itemBean: logic.leftList[index],
-                click: () => {
-                      if (logic.leftList[index].name == S.current.Agent)
-                        {
-                          Get.toNamed(Routes.AGENT),
-                        }
-                      else if (logic.leftList[index].name ==
-                          S.current.NetworkStatus)
-                        {
-                          // Get.toNamed(Routes.PERSONAL_INFORMATION),
-                        }
-                      else if (logic.leftList[index].name ==
-                          S.current.PersonalInformation)
-                        {
-                          Get.toNamed(Routes.PERSONAL_INFORMATION),
-                        }
-                      else if (logic.leftList[index].name ==
-                          S.current.SecurityCenter)
-                        {
-                          // Get.toNamed(Routes.PERSONAL_INFORMATION),
-                        }
-                      else if (logic.leftList[index].name == S.current.Language)
-                        {
-                          // Get.toNamed(Routes.PERSONAL_INFORMATION),
-                        }
-                      else if (logic.leftList[index].name == S.current.FAQ)
-                        {
-                          Get.toNamed(Routes.MESSAGE_CENTER),
-                        }
-                      else if (logic.leftList[index].name ==
-                          S.current.FeedbackContent)
-                        {
-                          Get.toNamed(Routes.MESSAGE_CENTER),
-                        }
-                      else if (logic.leftList[index].name ==
-                          S.current.FeedbackContent)
-                        {
-                          // Get.toNamed(Routes.PERSONAL_INFORMATION),
-                        }
-                    });
-          },
-        ),
       ),
     );
   }
@@ -617,21 +523,4 @@ class EmptyApp extends StatelessWidget implements PreferredSizeWidget {
   @override
   // TODO: implement preferredSize
   Size get preferredSize => const Size(0.0, 0.0);
-}
-
-class ItemBean {
-  String img;
-  String name;
-  String nameR;
-  String nameR1;
-  String type;
-  bool isBack;
-
-  ItemBean(
-      {required this.img,
-      required this.name,
-      required this.nameR,
-      required this.nameR1,
-      required this.type,
-      required this.isBack});
 }

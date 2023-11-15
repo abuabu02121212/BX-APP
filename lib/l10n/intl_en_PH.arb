@@ -193,6 +193,15 @@
   "NetworkStatus": "Network Status",
   "SecurityCenter": "Security Center",
   "Language": "Language",
-  "LogOut": "Log Out"
+  "LogOut": "Log Out",
+
+  "PlayerID": "Player ID",
+  "MobilePhone": "Mobile Phone",
+  "EmailAddress": "Email Address",
+  "GoogleAuthenticator": "Google Authenticator",
+  "LoginPassword": "Login Password",
+  "WithdrawPIN": "Withdraw PIN",
+  "SecurityQuestion": "Security Question",
+  "ThirdPartyBinding": "Third Party Binding"
 
 }

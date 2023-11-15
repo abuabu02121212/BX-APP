@@ -1,3 +1,4 @@
+import 'package:flutter_comm/app/modules/security_center_ph/security_center_ph_binding.dart';
 import 'package:get/get.dart';
 import 'package:flutter_comm/app/modules/change_profile/change_profile_binding.dart';
 import 'package:flutter_comm/app/modules/change_profile/change_profile_view.dart';
@@ -90,6 +91,7 @@ import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
 import '../modules/security_center/bindings/security_center_binding.dart';
 import '../modules/security_center/views/security_center_view.dart';
+import '../modules/security_center_ph/security_center_ph_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/transaction/bindings/transaction_binding.dart';
@@ -315,6 +317,10 @@ class AppPages {
       name: _Paths.MESSAGE_CENTER,
       page: () => const Message_centerPage(),
       binding: Message_centerBinding(),
+    ), GetPage(
+      name: _Paths.SECURITY_CENTER_PH,
+      page: () => const Security_center_phPage(),
+      binding: Security_center_phBinding(),
     ),
   ];
 }

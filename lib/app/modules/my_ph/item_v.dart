@@ -3,19 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_comm/util/size.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
+import '../../../generated/l10n.dart';
 import '../../../util/toast_util.dart';
 import '../../app_style.dart';
-import 'my_ph_view.dart';
+import '../../routes/app_pages.dart';
+import 'item_bean.dart';
 
 /// 个人中心item 组件
 class ItemView extends StatelessWidget {
-  Function? click;
   ItemBean? itemBean;
 
   ItemView({
     Key? key,
-    this.click,
     this.itemBean,
   }) : super(key: key);
 
@@ -74,8 +75,72 @@ class ItemView extends StatelessWidget {
           ),
         ),
         onPressed: () => {
-              click!(),
-              Toast.show('msg'),
+              // click!(),
+              Toast.show(
+                itemBean!.name,
+              ),
+
+              if (itemBean!.name == S.current.Agent)
+                {
+                  Get.toNamed(Routes.AGENT),
+                }
+              else if (itemBean!.name == S.current.NetworkStatus)
+                {
+                  Get.toNamed(Routes.PERSONAL_INFORMATION),
+                }
+              else if (itemBean!.name == S.current.PersonalInformation)
+                {
+                  Get.toNamed(Routes.PERSONAL_INFORMATION),
+                }
+              else if (itemBean!.name == S.current.SecurityCenter)
+                {
+                  Get.toNamed(Routes.SECURITY_CENTER_PH),
+                }
+              else if (itemBean!.name == S.current.Language)
+                {
+                  // Get.toNamed(Routes.PERSONAL_INFORMATION),
+                }
+              else if (itemBean!.name == S.current.FAQ)
+                {
+                  Get.toNamed(Routes.MESSAGE_CENTER),
+                }
+              else if (itemBean!.name == S.current.FeedbackContent)
+                {
+                  Get.toNamed(Routes.MESSAGE_CENTER),
+                }
+              else if (itemBean!.name == S.current.PlayerID)
+                {
+                  // Get.toNamed(Routes.PERSONAL_INFORMATION),
+                }
+              else if (itemBean!.name == S.current.MobilePhone)
+                {
+                  // Get.toNamed(Routes.PERSONAL_INFORMATION),
+                }
+              else if (itemBean!.name == S.current.EmailAddress)
+                {
+                  // Get.toNamed(Routes.PERSONAL_INFORMATION),
+                }
+              else if (itemBean!.name == S.current.GoogleAuthenticator)
+                {
+                  // Get.toNamed(Routes.PERSONAL_INFORMATION),
+                }
+              else if (itemBean!.name == S.current.LoginPassword)
+                {
+                  // Get.toNamed(Routes.PERSONAL_INFORMATION),
+                }
+              else if (itemBean!.name == S.current.WithdrawPIN)
+                {
+                  // Get.toNamed(Routes.PERSONAL_INFORMATION),
+                }
+              else if (itemBean!.name == S.current.SecurityQuestion)
+                {
+                  // Get.toNamed(Routes.PERSONAL_INFORMATION),
+                }
+              else if (itemBean!.name == S.current.ThirdPartyBinding)
+                {
+                  // Get.toNamed(Routes.PERSONAL_INFORMATION),
+                }
+              // }
             });
   }
 }

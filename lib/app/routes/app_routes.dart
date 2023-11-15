@@ -45,6 +45,7 @@ abstract class Routes {
   static const AGENT = _Paths.AGENT;
   static const CHANGE_PROFILE = _Paths.CHANGE_PROFILE;
   static const MESSAGE_CENTER = _Paths.MESSAGE_CENTER;
+  static const SECURITY_CENTER_PH = _Paths.SECURITY_CENTER_PH;
 }
 
 abstract class _Paths {
@@ -90,4 +91,5 @@ abstract class _Paths {
   static const AGENT = '/agent';
   static const CHANGE_PROFILE = '/change_profile';
   static const MESSAGE_CENTER = '/message_center';
+  static const SECURITY_CENTER_PH = '/security_center_ph';
 }
